@@ -1,0 +1,3418 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>/home/bluetot/Files/GitHub/ObsidianVault/CS126/CS126 Revision Notes.md</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false
+                    })
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+            });
+
+            
+        </script>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+              body {
+                  background-color: var(--bg);
+                  color: var(--fg);
+                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.8;
+                  padding: 2rem;
+                  max-width: 850px;
+                  margin: auto;
+              }
+
+              h1 {
+                  color: var(--red);
+                  font-size: 2.5rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+              }
+
+              h2 {
+                  color: var(--orange);
+                  font-size: 2rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+              }
+
+              h3 {
+                  color: var(--yellow);
+                  font-size: 1.75rem;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  font-weight: 600;
+              }
+
+              h4 {
+                  color: var(--green);
+                  font-size: 1.5rem;
+                  margin-top: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h5 {
+                  color: var(--blue);
+                  font-size: 1.25rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h6 {
+                  color: var(--purple);
+                  font-size: 1.1rem;
+                  margin-top: 0.75rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              a {
+                  color: var(--accent);
+                  text-decoration: underline;
+              }
+
+              code, pre {
+                  font-family: 'Fira Code', monospace;
+                  background-color: var(--surface);
+                  color: var(--fg);
+                  padding: 0.3rem 0.5rem;
+                  border-radius: 6px;
+                  overflow-x: auto;
+              }
+
+              blockquote {
+                  border-left: 4px solid var(--gray);
+                  padding-left: 1rem;
+                  color: var(--gray);
+                  font-style: italic;
+                  background-color: #2b2d51;
+                  margin: 1rem 0;
+              }
+
+              img {
+                  max-width: 100%;
+                  border-radius: 6px;
+                  margin: 1rem 0;
+              }
+
+              figcaption {
+                  font-size: 0.9em;
+                  color: var(--gray);
+                  text-align: center;
+                  margin-top: 0.25rem;
+              }
+
+              .footnote-definition > p {
+                  display: inline;
+              }
+
+              .footnote-definition-label {
+                  font-weight: bold;
+              }
+
+              table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1rem 0;
+              }
+
+              th, td {
+                  border: 1px solid var(--gray);
+                  padding: 0.5rem;
+                  text-align: left;
+              }
+
+              th {
+                  background-color: var(--surface);
+                  color: var(--fg);
+              }
+        </style>
+
+    </head>
+
+    <body><h2>1. Introduction</h2>
+<p><strong>Motivation</strong></p>
+<ul>
+<li>At the heart of Computer Science there are two sometimes conflicting goals:
+<ol>
+<li>To design an algorithm that is easy to understand, code, debug - concern of <em><strong>Software Engineering</strong></em></li>
+<li>To design an algorithm that makes efficient use of the computer’s resources - concern of <em><strong>Data Structures and Algorithm Analysis</strong></em></li>
+</ol>
+</li>
+<li>More powerful computers encourage us to attempt more complex problems</li>
+<li>More complex problems demand more calculations</li>
+</ul>
+<p><strong>Efficiency</strong></p>
+<ul>
+<li>A solution is <strong>efficient</strong> if it solves the problem with required <em>space</em> and <em>time</em> constraints</li>
+<li><em><strong>Cost</strong></em> is the amount of resources the solution consumes, often measured in terms of <strong>time</strong></li>
+</ul>
+<p><strong>Data Structure Philosophy</strong></p>
+<ul>
+<li>Each data structure has costs and benefits, rarely is one data structure better than another in all situations</li>
+<li>Requires:
+<ul>
+<li><em>space</em> for each data item it stores</li>
+<li><em>time</em> to perform each basic operation</li>
+<li><em>programming effort</em></li>
+</ul>
+</li>
+</ul>
+<p><strong>Abstract Data Types</strong></p>
+<ul>
+<li>A <em>type</em> is a collection of values</li>
+<li>A <em>data type</em>is a <strong>type</strong> together with a collection of <strong>operations</strong> to manipulate the type</li>
+<li>An <strong>Abstract Data Type</strong> (ADT) is:
+<ul>
+<li>a set of values</li>
+<li>and a set of operations on the data type</li>
+</ul>
+</li>
+<li><em><strong>An ADT does not specify how the data type is implemented</strong></em></li>
+<li>After implementing an ADT in a program, we think exclusively of the ADT and not on the details of its implementation.</li>
+</ul>
+<p><strong>Data Structure</strong></p>
+<ul>
+<li>A <em>data structure</em> is the implementation of an ADT
+<ul>
+<li>Each operation associated with ADT is implemented by one or more subroutines in the implementation</li>
+</ul>
+</li>
+<li>While designing the parts of the program that use an ADT, we should think in terms of operations on the data type, and not its implementation</li>
+</ul>
+<p><strong>Problem</strong></p>
+<ul>
+<li>A <em>problem</em> is a task to be performed</li>
+<li>Some problems can be viewed as functions in the mathematical sense</li>
+</ul>
+<p><strong>Algorithms</strong></p>
+<ul>
+<li>An <em>algorithm</em> is a method to solve a problem
+Takes the input to the problem and transforms it to the output</li>
+<li>A problem can have many algorithms, but a given algorithm solves only one problem</li>
+<li>A <em>program</em> is an instance of an algorithm in a specific programming language</li>
+</ul>
+<p><strong>Properties of Algorithms</strong></p>
+<ul>
+<li>It must be correct</li>
+<li>It must be composed of series of concrete steps</li>
+<li>It must be composed of a finite number of steps</li>
+<li>It must terminate</li>
+</ul>
+<p><strong>Analysis of Algorithms</strong></p>
+<ul>
+<li>Efficiency: Exactness, time (resources), space (resources)</li>
+<li>Is there a better algorithm (lower/upper bound)</li>
+</ul>
+<h2>2. Asymptotic Analysis</h2>
+<h4>Introduction</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>The running time of an algorithm typically grows with the input size</li>
+<li>Average case time is often difficult to determine</li>
+<li>The <strong>worst-case</strong> running time is often easier to analyse</li>
+</ul>
+<p><strong>Experimental Approach</strong></p>
+<ul>
+<li>Write a program implementing the algorithm</li>
+<li>Run the program with varying input sizes and note the time needed, and plot a graph</li>
+<li>Limitations:
+<ul>
+<li>It is necessary to implement the algorithm, which may be difficult</li>
+<li>In order to compare algorithms, the same hardware and software environments must be used</li>
+</ul>
+</li>
+</ul>
+<p><strong>Theoretical</strong></p>
+<ul>
+<li>Uses high-level description of the algorithm - <em>pseudocode</em>
+<ul>
+<li>More structured than English prose, but less detailed than a program</li>
+<li>Preferred notation for describing algorithms</li>
+<li>Hides program design issues</li>
+</ul>
+</li>
+<li><span class="math math-inline">T(n)</span> is the running time as a function of input size <span class="math math-inline">n</span></li>
+<li>Allows us to evaluate the speed of an algorithm independent of the hardware/software environment</li>
+</ul>
+<h4>Complexity Analysis</h4>
+<p><strong>Random-Access Machine Model</strong></p>
+<ul>
+<li>A <em>RAM</em> consists of a CPU and potentially unbounded bank of <em>memory</em> cells, each of which can hold a value</li>
+<li><em><strong>Memory cells are numbered and accessing any cell in memory takes unit time</strong></em></li>
+</ul>
+<p><strong>Running Time</strong></p>
+<ul>
+<li><span class="math math-inline">T(n)</span> is the number of basic/primitive operations performed by the algorithm</li>
+<li>Running time is <span class="math math-inline">T(n)</span> where <span class="math math-inline">n</span> is the input size</li>
+</ul>
+<p><strong>Example</strong></p>
+<pre><code class="language-pseudocode">s = 0
+for i = 1 to n
+	s = s + 1
+</code></pre>
+<ul>
+<li>We can argue that <span class="math math-inline">T(n) = 1 + 3n</span>, as variable initialisation takes 1 step, and the loop consists of <span class="math math-inline">n</span> lots of 3 operations, namely incrementing <span class="math math-inline">i</span>, incrementing <span class="math math-inline">s</span> and checking <span class="math math-inline">i &lt; n</span> on each iteration of the loop</li>
+</ul>
+<h4>Asymptotic Analysis</h4>
+<p><strong>Asymptotic Analysis</strong></p>
+<ul>
+<li>The <em>asymptotic analysis</em> of an algorithm determines the running time in:
+<ul>
+<li>Big O notation - <span class="math math-inline">O</span></li>
+<li>Big Omega notation - <span class="math math-inline">\Omega</span></li>
+<li>Big Theta notation - <span class="math math-inline">\Theta</span></li>
+<li>Little O notation - <span class="math math-inline">o</span></li>
+<li>Little Omega notation - <span class="math math-inline">\omega</span></li>
+</ul>
+</li>
+<li>We find the <strong>worst-case</strong> number of primitive operations executed as a function of the input size</li>
+<li><em><strong>Constant Factors and Lower-Order Terms</strong></em> are dropped, so we can disregard them when counting primitive operations</li>
+</ul>
+<p><strong>Big-O Notation</strong></p>
+<ul>
+<li><span class="math math-inline">f(n) = O(g(n))</span>
+<span class="math math-display">O(g(n)) = \{f(n) : \exists c &gt; 0, n_0 \ge 0 ,\text{ s.t.} f(n) \le cg(n), \forall n \ge n_0\}</span></li>
+<li>This means there is a point <span class="math math-inline">n_0</span> where beyond it,  <span class="math math-inline">g(n)</span> is greater than <span class="math math-inline">f(n)</span> subject to a constant</li>
+<li>We can say <span class="math math-inline">f(n)</span> is bounded <em>from above</em> by <span class="math math-inline">g(n)</span></li>
+</ul>
+<p>![[Pasted image 20250508161405.png]]</p>
+<p><strong>Big-Omega Notation</strong>
+<span class="math math-display">f(n) = \Omega(g(n)) \space \text{iff} \space \exists c, n_0 &gt; 0 {s.t.} \forall n \ge n_0, 0 \le cg(n) \le f(n)</span></p>
+<ul>
+<li>We can say <span class="math math-inline">f(n)</span> is bounded <em>from below</em> by <span class="math math-inline">g(n)</span></li>
+</ul>
+<p>![[Pasted image 20250508161351.png]]</p>
+<p><strong>Big-Theta Notation</strong>
+<span class="math math-display">f(n) = \Theta(g(n)) \space \text{iff} \space \exists c_1, c_2, n_0 &gt; 0 \space \text{s.t.} \space 0 \le c_1g(n) \le f(n) \le c_2g(n), \forall n \ge n_0</span></p>
+<ul>
+<li><span class="math math-inline">f(n)</span> and <span class="math math-inline">g(n)</span> have the same asymptotic growth rate</li>
+<li>This is when we have that <span class="math math-inline">f(n) = O(g(n))</span> and <span class="math math-inline">f(n) = \Omega(g(n))</span></li>
+</ul>
+<p>![[Pasted image 20250508165524.png]]</p>
+<p><strong>Example</strong></p>
+<ul>
+<li>Let <span class="math math-inline">f(n) = 3n^2 + 17</span></li>
+<li><span class="math math-inline">1</span>, <span class="math math-inline">n\log{n}</span>, <span class="math math-inline">n</span> are all lower-bound functions</li>
+<li><span class="math math-inline">2^n, n^3</span> are all upper bound functions</li>
+<li><span class="math math-inline">n^2</span> is an exact bound (i.e. <span class="math math-inline">f(n) = \Theta(n^2)</span>)</li>
+</ul>
+<p><strong>Small O and Omega</strong></p>
+<ul>
+<li>These are strict bounds:
+<ul>
+<li><span class="math math-inline">f(n) = o(g(n))</span> means that <span class="math math-inline">g(n)</span> is strictly greater than <span class="math math-inline">f(n)</span>, so <span class="math math-inline">f(n)</span> and <span class="math math-inline">g(n)</span> cannot have the same asymptotic growth rate</li>
+<li>Similar for small omega <span class="math math-inline">\omega</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>Sum and Product Rule</strong>
+<span class="math math-display">O(f + g) = \max\{O(f), O(g)\}</span>
+<span class="math math-display">O(f \times g) = O(f) \times O(g)</span></p>
+<ul>
+<li><strong>NOTE</strong>: These rules only apply for a constant number of additions or multiplications.</li>
+<li>The following statements are wrong:
+<ul>
+<li><span class="math math-inline">O(1+...+n) = \max\{O(1),...,O(n)\} = O(n)</span>
+<ul>
+<li>The correct answer is <span class="math math-inline">O(n^2)</span> as the sum length varies</li>
+</ul>
+</li>
+<li><span class="math math-inline">O(1*...*n) = O(1)*...*O(n) = O(n)</span>
+<ul>
+<li>The correct answer is <span class="math math-inline">O(n!)</span> as the product length varies</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Typical Growth Rates</strong></p>
+<p>![[Pasted image 20250508162520.png]]</p>
+<h4>Proof, Relative Growth Rates, Complexity Classes</h4>
+<p>**Prove that <span class="math math-inline">2n+1 = O(n)</span></p>
+<ul>
+<li>We have to find a constant <span class="math math-inline">c &gt; 0</span> and an integer <span class="math math-inline">n_0</span> such that <span class="math math-inline">\forall n \ge n_0, 2n+1 \le cn</span></li>
+<li>In other words, <span class="math math-inline">(c-2)n \ge 1</span></li>
+<li>Or <span class="math math-inline">n \ge \frac{1}{c-2}</span></li>
+<li>So we can choose <span class="math math-inline">c = 3</span> and <span class="math math-inline">n_0 = 1</span></li>
+</ul>
+<p><strong>Determining Growth Rates</strong></p>
+<ul>
+<li>
+<p>Method 1: Compute this limit:
+<span class="math math-display">\lim_{n\to\infty}(\frac{f(n)}{g(n)})</span></p>
+<ul>
+<li>This limit has 4 possible values:
+<ul>
+<li><span class="math math-inline">0</span> - <span class="math math-inline">f(n) = O(g(n))</span></li>
+<li><span class="math math-inline">c &gt; 0</span> - <span class="math math-inline">f(n) = \Theta(g(n))</span></li>
+<li><span class="math math-inline">\infty</span> - <span class="math math-inline">f(n) = \Omega(g(n))</span></li>
+<li>Limit oscillates - there is no relation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Method 2: Compare the <strong>logarithm</strong> of <span class="math math-inline">f(n)</span> and <span class="math math-inline">g(n)</span></p>
+</li>
+</ul>
+<p><strong>Binary Search</strong></p>
+<ul>
+<li>The most basic binary search is given here:</li>
+</ul>
+<pre><code class="language-pseudocode">
+left = 0
+right = length - 1
+
+while (left &lt;= right):
+	mid = (left + right) // 2
+	if (target == mid):
+		we found it!
+	else if (target &lt; mid):
+		right = mid - 1
+	else:
+		left = mid + 1
+</code></pre>
+<ul>
+<li>This code has time complexity <span class="math math-inline">\Theta(\log n)</span> where <span class="math math-inline">\log</span> always means base 2 logarithm</li>
+</ul>
+<p><strong>Complexity Classes</strong></p>
+<ul>
+<li>The <strong>Big-O</strong> notation gives an upper bound on the growth rate of a function</li>
+<li><span class="math math-inline">f(n) = O(g(n))</span> means the growth rate of <span class="math math-inline">f(n)</span> is no more than the growth rate of <span class="math math-inline">g(n)</span></li>
+</ul>
+<p>![[Pasted image 20250508163427.png]]</p>
+<h2>3. Arrays</h2>
+<h4>Introduction</h4>
+<p><strong>Definition</strong></p>
+<ul>
+<li>An <em><strong>array</strong></em> is a sequenced collection of variables of the same type</li>
+<li>Each <em><strong>cell</strong></em> has an <em><strong>index</strong></em> which uniquely refers to the value stored in the cell.</li>
+<li>An <em><strong>element</strong></em> of an array is a value stored in the array</li>
+<li>Indices start from <span class="math math-inline">0</span> and go to <span class="math math-inline">N-1</span> where <span class="math math-inline">N</span> is the size of the array</li>
+</ul>
+<p><strong>Access</strong></p>
+<ul>
+<li><code>A[k]</code> denotes the item in array <code>A</code> at index <code>k</code></li>
+<li>Accessing an element in an array takes <span class="math math-inline">O(1)</span> time</li>
+<li>We <strong>cannot change</strong> the <em>length</em> of an array</li>
+</ul>
+<p><strong>Insertion</strong></p>
+<ul>
+<li>To add an entry <span class="math math-inline">e</span> into array <span class="math math-inline">A</span> at index <span class="math math-inline">i</span>, we need to make room for it by shifting forward the <span class="math math-inline">n-i</span> entries <code>A[i]</code>, …, <code>A[n-1]</code></li>
+<li>Cost of insertion of a single element: <span class="math math-inline">T(n) = O(n-i)</span></li>
+</ul>
+<p>![[Pasted image 20250508163923.png]]</p>
+<p><strong>Deletion</strong></p>
+<ul>
+<li>To remove an entry <span class="math math-inline">e</span> from array <span class="math math-inline">A</span> at index <span class="math math-inline">i</span>, we need to fill the hole left by <span class="math math-inline">e</span> by shifting backward the <span class="math math-inline">n-i-1</span> entries <code>A[i+1]</code>, …, <code>A[n-1]</code></li>
+<li>Shifting is <strong>necessary</strong> to prevent unusable space in the array from building up</li>
+<li>Cost of deletion of a single element: <span class="math math-inline">T(n) = O(n-i-1)</span></li>
+</ul>
+<h4>Example - Insertion Sort</h4>
+<p><strong>Insertion Sort</strong></p>
+<ul>
+<li>A simple sorting algorithm that follows the following steps:
+<ul>
+<li>Start at the <em>2nd</em> element, and compare with first. If not, swap them</li>
+<li>Now go to <em>3rd</em> element and swap with <em>2nd</em> if necessary, going all the way down to <em>1st</em> unless we find that two adjacent elements are sorted before we get there</li>
+<li>We continue this until we reach the end of the array</li>
+</ul>
+</li>
+<li>Example:</li>
+</ul>
+<table><thead><tr><th style="text-align: left">Step</th><th>State</th><th>Starting From</th></tr></thead><tbody>
+<tr><td style="text-align: left"><span class="math math-inline">0</span></td><td><span class="math math-inline">4, 15, 7, 22, 3</span></td><td>N/A</td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">1</span></td><td><span class="math math-inline">4, 15, 7, 22, 3</span></td><td><span class="math math-inline">1</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">2</span></td><td><span class="math math-inline">4, 7, 15, 22, 3</span></td><td><span class="math math-inline">2</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">4, 7, 15, 22, 3</span></td><td><span class="math math-inline">3</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">4</span></td><td><span class="math math-inline">4, 7, 15, 3, 22</span></td><td><span class="math math-inline">4</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">5</span></td><td><span class="math math-inline">4, 7, 3, 15, 22</span></td><td><span class="math math-inline">4</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">6</span></td><td><span class="math math-inline">4, 3, 7, 15, 22</span></td><td><span class="math math-inline">4</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">7</span></td><td><span class="math math-inline">3, 4, 7, 15, 22</span></td><td><span class="math math-inline">4</span></td></tr>
+</tbody></table>
+<ul>
+<li>Below is the <strong>pseudocode</strong> for Insertion Sort in <em>Ascending Order</em></li>
+</ul>
+<pre><code class="language-pseudocode">i = 1
+while (i &lt; length(A)):
+	j = i
+	while j &gt; 0 and A[j-1] &gt; A[j]:
+		swap A[j], A[j-1]
+		j--
+	i++
+</code></pre>
+<p><strong>Complexity Analysis</strong></p>
+<ul>
+<li>Worst Case: <span class="math math-inline">\Theta(n^2)</span></li>
+<li>Best Case: <span class="math math-inline">\Theta(n)</span></li>
+<li>Running Time: <span class="math math-inline">O(n^2)</span></li>
+</ul>
+<h4>Example - Prefix Average</h4>
+<ul>
+<li>
+<p>The <span class="math math-inline">i</span>th prefix average of an array <span class="math math-inline">X</span> is:
+<span class="math math-display">A[i] = \frac{X[0] + X[1] + ... + X[i]}{i+1}</span></p>
+</li>
+<li>
+<p>A simple algorithm would be to iterate through indices <span class="math math-inline">0</span> to <span class="math math-inline">i</span> as <span class="math math-inline">i</span> ranges from <span class="math math-inline">0</span> to <span class="math math-inline">n-1</span> and sum them up in the inner loop</p>
+<ul>
+<li>This has time complexity <span class="math math-inline">O(n^2)</span>
+![[Pasted image 20250508165323.png]]</li>
+</ul>
+</li>
+<li>
+<p>A better algorithm would be to calculate a prefix sum during one iteration of the loop, and set <span class="math math-inline">A[j] = \text{prefix total} / (j+1)</span></p>
+<ul>
+<li>This has time complexity <span class="math math-inline">O(n)</span>
+![[Pasted image 20250508165429.png]]</li>
+</ul>
+</li>
+</ul>
+<h2>4. Lists</h2>
+<h4>List ADT</h4>
+<p><strong>List Interface</strong></p>
+<ul>
+<li><code>size()</code> - returns no. of elements in list</li>
+<li><code>isEmpty()</code> - size is 0?</li>
+<li><code>get(i)</code> - gets element at index <span class="math math-inline">i</span>, errors if <span class="math math-inline">i</span> is not in range <span class="math math-inline">[0,\text{size()}-1]</span></li>
+<li><code>set(i, e)</code> - replaces element at index <span class="math math-inline">i</span> with <span class="math math-inline">e</span> and returns old element that was replaced. Errors if <span class="math math-inline">i</span> is not in range <span class="math math-inline">[0,\text{size()}-1]</span></li>
+<li><code>add(i, e)</code> - Inserts <span class="math math-inline">e</span> into list so it has index <span class="math math-inline">i</span>, moving all subsequent elements one index later. Errors if <span class="math math-inline">i</span> is not in range <span class="math math-inline">[0, \text{size()}]</span></li>
+<li><code>remove(i)</code> - Removes and returns element at index <span class="math math-inline">i</span>, moving all subsequent elements one index earlier. Errors if <span class="math math-inline">i</span> is not in range <span class="math math-inline">[0, \text{size()}-1]</span></li>
+</ul>
+<h3>List Operations</h3>
+<p><strong>Array Implementation</strong></p>
+<ul>
+<li>We can use an array <span class="math math-inline">A</span> to implement the list ADT, where <span class="math math-inline">A[i]</span> stores the element with index <span class="math math-inline">i</span></li>
+<li><code>get(i)</code> and <code>set(i, e)</code> are easy to implement by accessing <span class="math math-inline">A[i]</span></li>
+</ul>
+<p><strong>Addition</strong></p>
+<ul>
+<li>Shift forward the <span class="math math-inline">n-i</span> elements <span class="math math-inline">A[i], ..., A[n-1]</span></li>
+<li>In the worst case, this takes <span class="math math-inline">O(n)</span> time</li>
+</ul>
+<p>![[Pasted image 20250508170620.png]]</p>
+<p><strong>Removal</strong></p>
+<ul>
+<li>Fill the hole left by shifting backward the <span class="math math-inline">n-i-1</span> elements <span class="math math-inline">A[i+1], ..., A[n-1]</span></li>
+<li>In the worst case, this takes <span class="math math-inline">O(n)</span> time</li>
+</ul>
+<p>![[Pasted image 20250508170656.png]]</p>
+<p><strong>Space Performance</strong></p>
+<ul>
+<li>The list uses <span class="math math-inline">O(N)</span> space where the size is <span class="math math-inline">N</span> and there are <span class="math math-inline">n</span> elements</li>
+</ul>
+<h4>Growable Arrays</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>When the array is full, the <code>add</code> operation throws an exception. We can deal with this case by replacing the array with a larger one</li>
+<li><strong>Growing Strategies:</strong>
+<ul>
+<li><em>Incremental strategy</em> - increase the size by a constant <span class="math math-inline">c</span></li>
+<li><em>Doubling strategy</em> - double the size</li>
+</ul>
+</li>
+<li>Let <code>push(e)</code> be the operation that adds element <span class="math math-inline">e</span> at the end of the list</li>
+</ul>
+<p><strong>Amortized Time</strong></p>
+<ul>
+<li>The <em><strong>amortized time</strong></em> of an operation is the average time taken by that operation over the series of multiple occurrences</li>
+<li>In the case of <code>push</code>, if <span class="math math-inline">T(n)</span> is the total time to push <code>n</code> times, the amortized time is <span class="math math-inline">T(n)/n</span></li>
+</ul>
+<p><strong>Incremental Strategy</strong></p>
+<ul>
+<li>Over <span class="math math-inline">n</span> push operations, we replace the array <span class="math math-inline">k = n/c</span> times, where <span class="math math-inline">c</span> is a constant. Note that <span class="math math-inline">k = O(n)</span></li>
+<li>The total time T(n) of a series of <span class="math math-inline">n</span> operations is proportional to:
+<span class="math math-display">1 + (1+c) + (1+2c) + ... + (1+kc) = n + c\frac{k(k+1)}{2}</span></li>
+<li>Since <span class="math math-inline">c</span> is a constant, <span class="math math-inline">T(n) = O(n^2)</span>, so the amortized time is <span class="math math-inline">O(n)</span></li>
+</ul>
+<p><strong>Doubling Strategy</strong></p>
+<ul>
+<li>We replace the array <span class="math math-inline">k = \log_2{n}</span> times</li>
+<li>The total time <span class="math math-inline">T(n)</span> is proportional to:
+<span class="math math-display">n + 1 + 2 + 4 + ... + 2^k = n + 2^{k+1}-1 = n + 2(2^{\log{n}})-1 = 3n - 1</span></li>
+<li>Hence <span class="math math-inline">T(n)</span> is <span class="math math-inline">O(n)</span>, so the amortized time is <span class="math math-inline">O(1)</span></li>
+</ul>
+<h2>5. Sets and Multimaps</h2>
+<h4>Set ADT</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <em>set</em> is a collection of <em><strong>distinct</strong></em> elements</li>
+<li>A <em>multiset</em> is a set where the same element appears more than once</li>
+<li>A <em>multimap</em> is where the same key can be mapped to multiple values</li>
+</ul>
+<p><strong>Operations</strong></p>
+<p>![[Pasted image 20250508171627.png]]</p>
+<p><strong>Storing a Set</strong></p>
+<ul>
+<li>A <em>set</em> can be stored in an array or in a list.</li>
+<li>Elements are stored <strong>sorted</strong> according to some canonical ordering.</li>
+<li>The space used is <span class="math math-inline">O(n)</span></li>
+<li>This type of set is called an <strong>Ordered Set</strong> as items are stored in order</li>
+</ul>
+<h4>Generic Merging</h4>
+<p><strong>Generic Merging</strong></p>
+<ul>
+<li>An algorithm to merge two sorted lists <span class="math math-inline">A</span> and <span class="math math-inline">B</span></li>
+</ul>
+<pre><code class="language-pseudocode">function genericMerge(A, B):
+	S = []
+	while (not A.isEmpty() and not B.isEmpty())
+		a = first element of A
+		b = first element of B
+		if (a &lt; b):
+			aIsLess(a, S)
+			A.remove(a)
+		else if (b &lt; a):
+			bIsLess(b, S)
+			B.remove(b)
+		else:
+			bothAreEqual(a, b, S)
+			S.remove(b)
+	while (not A.isEmpty()):
+		a = first element of A
+		aIsLess(a, S)
+		A.remove(a)
+	while (not B.isEmpty()):
+		b = first element of B
+		bIsLess(b, S)
+		B.remove(b)
+	return S
+</code></pre>
+<p><strong>Performance</strong></p>
+<ul>
+<li>Any of the set operations can be implemented using a generic merge</li>
+<li>For example:
+<ul>
+<li><strong>Intersection</strong> - only copy elements that are duplicated in both lists</li>
+<li><strong>Union</strong> - copy every element from both lists except for the duplkicates</li>
+<li><strong>Subtraction</strong> - only copy element that are not in list <span class="math math-inline">B</span></li>
+</ul>
+</li>
+<li>All methods run in <span class="math math-inline">O(n_A + n_B)</span> time</li>
+</ul>
+<p><strong>Example - Union</strong></p>
+<ul>
+<li><span class="math math-inline">A = [3,5,6], B = [2,5,10,15]</span></li>
+<li><span class="math math-inline">a</span>, <span class="math math-inline">b</span> are pointers</li>
+</ul>
+<table><thead><tr><th style="text-align: left"><span class="math math-inline">a</span></th><th><span class="math math-inline">b</span></th><th><span class="math math-inline">A \cup B</span></th></tr></thead><tbody>
+<tr><td style="text-align: left"><span class="math math-inline">0</span></td><td><span class="math math-inline">0</span></td><td><span class="math math-inline">[]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">0</span></td><td><span class="math math-inline">1</span></td><td><span class="math math-inline">[2]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">1</span></td><td><span class="math math-inline">1</span></td><td><span class="math math-inline">[2,3]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">2</span></td><td><span class="math math-inline">2</span></td><td><span class="math math-inline">[2,3,5]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">2</span></td><td><span class="math math-inline">[2,3,5,6]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">3</span></td><td><span class="math math-inline">[2,3,5,6,10]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">4</span></td><td><span class="math math-inline">[2,3,5,6,10,15]</span></td></tr>
+</tbody></table>
+<p><strong>Example - Subtraction</strong></p>
+<ul>
+<li><span class="math math-inline">A = [3,5,6], B = [2,5,10,15]</span></li>
+<li><span class="math math-inline">a</span>, <span class="math math-inline">b</span> are pointers</li>
+</ul>
+<table><thead><tr><th style="text-align: left"><span class="math math-inline">a</span></th><th><span class="math math-inline">b</span></th><th><span class="math math-inline">A\setminus B</span></th></tr></thead><tbody>
+<tr><td style="text-align: left"><span class="math math-inline">0</span></td><td><span class="math math-inline">0</span></td><td><span class="math math-inline">[]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">0</span></td><td><span class="math math-inline">1</span></td><td><span class="math math-inline">[]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">1</span></td><td><span class="math math-inline">1</span></td><td><span class="math math-inline">[3]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">2</span></td><td><span class="math math-inline">2</span></td><td><span class="math math-inline">[3]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">2</span></td><td><span class="math math-inline">[3,6]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">3</span></td><td><span class="math math-inline">[3,6]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">4</span></td><td><span class="math math-inline">[3,6]</span></td></tr>
+</tbody></table>
+<h4>Multimaps</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <strong>multimap</strong> is similar to a map, except that it can store multiple entries with the same key</li>
+<li>We can implemnt a multimap <span class="math math-inline">M</span> by means of a map <span class="math math-inline">M&#39;</span>
+<ul>
+<li>For every key <span class="math math-inline">k \in M</span>, let <span class="math math-inline">E(k)</span> be the list of entries of <span class="math math-inline">m</span> with key <span class="math math-inline">k</span></li>
+<li>The entries of <span class="math math-inline">M&#39;</span> are the pairs <span class="math math-inline">(k, E(k))</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>Operations</strong></p>
+<p>![[Pasted image 20250508173041.png]]</p>
+<h2>6. Linked Lists</h2>
+<h4>Singly Linked Lists</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A singly <strong>linked list</strong> is a concrete data structure consisting of a sequence of nodes, starting from a <strong>head</strong> pointer</li>
+<li>Each node stores:
+<ul>
+<li>An element</li>
+<li>A link to the next node</li>
+</ul>
+</li>
+</ul>
+<p><strong>Insertion</strong></p>
+<ul>
+<li>
+<p>More than one possible solutions exist:</p>
+<ul>
+<li><em>Beginning</em></li>
+<li><em>End</em></li>
+<li><em>Elsewhere?</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Beginning of List</strong></p>
+<ul>
+<li>Make an new node, and point to the old head. Then set the head to the new node</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250508173359.png]]</p>
+<ul>
+<li><strong>End of List</strong>
+<ul>
+<li>We will need to store the <strong>tail</strong> pointer for efficiency</li>
+<li>Make a new node, make the old tail pointer point to it. Then make the new tail the new node</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250508173446.png]]</p>
+<ul>
+<li>Time complexity: <span class="math math-inline">O(1)</span> for both insertion at beginning and end of list</li>
+</ul>
+<p><strong>Deletion</strong></p>
+<ul>
+<li>
+<p>More than one possible solutions exist:</p>
+<ul>
+<li><em>First node</em></li>
+<li><em>Last node</em></li>
+<li><em>Search for an element and delete node</em></li>
+</ul>
+</li>
+<li>
+<p><strong>General Case:</strong></p>
+<ul>
+<li>Maintain a <strong>temp</strong> pointer and a <strong>next</strong> pointer.</li>
+<li>If <strong>next</strong> pointer points to the value you want, you skip over the element by doing <code>temp.next = temp.next.next</code></li>
+<li>Make sure to update <strong>temp</strong> and <strong>next</strong> on each iteration</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250508173658.png]]</p>
+<ul>
+<li>Time Complexity: <span class="math math-inline">O(n)</span>, even for the last element. This is because we do not have access to the link <strong>to</strong> the last element, so we have to traverse the whole linked list</li>
+</ul>
+<h4>Doubly Linked Lists</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A doubly linked list can be traversed forward and backward</li>
+<li>Nodes store:
+<ul>
+<li><em>element</em></li>
+<li><em>link to previous node</em></li>
+<li><em>link to next node</em></li>
+</ul>
+</li>
+<li>There are <strong>special trailer and header nodes</strong></li>
+</ul>
+<p>![[Pasted image 20250508173911.png]]</p>
+<p><strong>Insertion between <span class="math math-inline">p</span> and its successor</strong></p>
+<ul>
+<li>Assuming we have access to node <em>p</em>:
+<ul>
+<li>Store <code>tmp = p.next</code> somewhere</li>
+<li>Make a new node <span class="math math-inline">q</span> , and set <code>p.next</code> to this new node. Make sure to set <code>q.prev</code> to <span class="math math-inline">p</span>.</li>
+<li>Then set <code>q.next</code> to <code>tmp</code>, and do <code>tmp.prev = q</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Deletion</strong></p>
+<ul>
+<li>Use the same strategy for deletion in linked list, but make sure to update the <strong>previous</strong> pointer as well</li>
+</ul>
+<h2>7. Recursion</h2>
+<h4>Recursion</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Recursion consists of:
+<ul>
+<li><em><strong>Base cases</strong></em>
+<ul>
+<li><strong>Base case</strong> - values of the input variables for which we perform no recursive calls</li>
+<li>Every possible chain of recursive calls <strong>must</strong> reach a base case</li>
+<li>There should be at least one base case</li>
+</ul>
+</li>
+<li><em><strong>Recursive calls</strong></em>
+<ul>
+<li>Calls to the current method</li>
+<li>Each recursive call should be defined so it makes progress towards a base case</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example - Factorial</strong>
+<span class="math math-display">f(n) = \begin{cases}1 &amp; \text{if} \space n=0 \\ n\cdot f(n-1) &amp; \text{else}\end{cases}</span></p>
+<ul>
+<li>We can define this using <strong>linear recursion</strong> where we return <span class="math math-inline">1</span> if <span class="math math-inline">n = 0</span>, and return <code>n * f(n-1)</code> otherwise</li>
+</ul>
+<h4>English Ruler</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Print the ticks and numbers like an English Rule</li>
+<li><code>drawInternal(length)</code> takes the length of a <em>tick</em> and draws a ruler with tick of given length in middle and smaller rulers on either side</li>
+</ul>
+<pre><code class="language-pseudocode">function drawInterval(length):
+	if (length &gt; 0) then
+		drawInterval(length - 1)
+		draw line of given length
+		drawInterval(length - 1)
+</code></pre>
+<p>![[Pasted image 20250508175216.png]]</p>
+<p>![[Pasted image 20250508175229.png]]</p>
+<h4>Binary Search - Recursive</h4>
+<ul>
+<li>Search for an integer in an ordered list</li>
+<li>Each recursive call divides the search region in half</li>
+<li>We consider three cases:
+<ul>
+<li><code>target == data[mid]</code>, we have found the target</li>
+<li><code>target &lt; data[mid]</code>, we recur on the first half of the sequence</li>
+<li><code>target &gt; data[mid]</code>, we recur on the second half of the sequence</li>
+</ul>
+</li>
+<li>The time complexity is <span class="math math-inline">O(\log{n})</span> from Lecture 3</li>
+</ul>
+<p>![[Pasted image 20250508175340.png]]</p>
+<h4>Reversing an Array</h4>
+<ul>
+<li><code>reverseArray(A, i, j)</code> takes an array <span class="math math-inline">A</span> and non-negative integer indices <span class="math math-inline">i</span>, <span class="math math-inline">j</span>, and returns the reversal of the elements in <span class="math math-inline">A</span> starting at index <span class="math math-inline">i</span> and ending at <span class="math math-inline">j</span></li>
+<li>Use an extra index <span class="math math-inline">j</span> to facilitate the recursion</li>
+<li>Time complexity: <span class="math math-inline">\Theta(n)</span></li>
+</ul>
+<pre><code class="language-pseudocode">function reverseArray(A, i, j):
+		if (i &lt; j) then
+			swap A[i], A[j]
+			reverseArray(A, i+1, j-1)
+		return
+</code></pre>
+<h4>Tail Recursion</h4>
+<ul>
+<li><em><strong>Tail recursion</strong></em> occurs when a linearly recursive method makes its recursive call as its last step</li>
+<li>This can be easily converted to an <strong>iterative</strong> solution</li>
+</ul>
+<pre><code class="language-pseudocode">function iterativeReverseArray(A, i, j):
+	while (i &lt; j) do
+		swap A[i], A[j]
+		i++
+		j--
+	return
+</code></pre>
+<h4>Computing Powers</h4>
+<p><strong>Method 1</strong></p>
+<ul>
+<li>The power function, <span class="math math-inline">p(x, n) = x^n</span> can be defined using linear recursion:
+<span class="math math-display">p(x, n) = \begin{cases} 1 &amp; \text{if} \space n=0 \\ x \times p(x,n -1) &amp; \text{else}\end{cases}</span></li>
+<li>This leads to a power function that runs in <span class="math math-inline">O(n)</span> time</li>
+</ul>
+<p><strong>Method 2</strong></p>
+<ul>
+<li>We can derive a more efficient linearly recursive algorithm using repeated squaring
+<span class="math math-display">p(x, n) = \begin{cases}1 &amp; \text{if} \space n = 0 \\ x \cdot p(x, \frac{n-1}{2})^2 &amp; \text{if} \space n &gt; 0 \space \text{is odd} \\ p(x, \frac{n}{2})^2 &amp; \text{if} \space n &gt; 0 \space \text{is even}\end{cases}</span></li>
+</ul>
+<pre><code class="language-pseudocode">function Power(x, n)
+	if n == 0 then
+		return 1
+	if n is odd then
+		y = Power(x, (n - 1) / 2)
+		return x * y * y
+	else
+		y = Power(x, n / 2)
+		return y * y
+</code></pre>
+<ul>
+<li>The running time of this algorithm is <span class="math math-inline">O(\log n)</span></li>
+</ul>
+<h4>Binary Recursion - Fibonacci Numbers</h4>
+<p><strong>Recursive Algorithm</strong></p>
+<ul>
+<li>Fibonacci numbers are defined recursively:
+<ul>
+<li><span class="math math-inline">F_0 = 0</span></li>
+<li><span class="math math-inline">F_1 = 1</span></li>
+<li><span class="math math-inline">F_i = F_{i-1} + F_{i-2}</span> for <span class="math math-inline">i &gt; 1</span></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-pseudocode">function BinaryFib(k):
+	if k == 1 then
+		return k
+	else
+		return BinaryFib(k-1) + BinaryFib(k-2)
+</code></pre>
+<ul>
+<li>This results in a tree of recursive calls, which is exponential runtime <span class="math math-inline">O(2^n)</span></li>
+</ul>
+<p>![[Pasted image 20250508200211.png]]</p>
+<p><strong>Linear Algorithm</strong></p>
+<ul>
+<li>Linear recursion can be used instead, which makes <span class="math math-inline">n-1</span> recursive calls</li>
+</ul>
+<pre><code class="language-pseudocode">function LinearFibonacci(n):
+	if n == 1 then
+		return (n, 0)
+	else
+		(i, j) = LinearFibonacci(n-1)
+		return (i+j, i)
+</code></pre>
+<ul>
+<li>This has linear time complexity <span class="math math-inline">O(n)</span></li>
+</ul>
+<h4>Towers of Hanoi</h4>
+<ul>
+<li><strong>Aim:</strong> Move <span class="math math-inline">n</span> disks from tower A to B, using tower C as intermediate</li>
+<li>If <span class="math math-inline">n &gt; 1</span>, split the original problem into subproblems and solve them sequentially
+<ol>
+<li>Move <span class="math math-inline">n-1</span> disks from <span class="math math-inline">A</span> to <span class="math math-inline">C</span> (with assistance of <span class="math math-inline">B</span>)</li>
+<li>Move disk <span class="math math-inline">n</span> from <span class="math math-inline">A</span> to <span class="math math-inline">B</span></li>
+<li>Move <span class="math math-inline">n-1</span> disks from <span class="math math-inline">C</span> to <span class="math math-inline">B</span></li>
+</ol>
+</li>
+<li>The running time is exponential <span class="math math-inline">O(2^n)</span></li>
+</ul>
+<h4>Fractals</h4>
+<ul>
+<li>A fractal is a geometric figure that can be divided into parts, each of which is a reduced-size copy of the whole</li>
+<li>Common fractals:
+<ul>
+<li>Mandelbrot Set</li>
+<li>Sierpinsky triangle</li>
+<li>Koch snowflake</li>
+</ul>
+</li>
+</ul>
+<h2>8. Stacks</h2>
+<h4>Stack ADT</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>The <strong>Stack ADT</strong> stores arbitrary objects, <em>Insertions</em> and <em>Deletions</em> follow the LIFO (last in first out) scheme</li>
+<li>Stack Operations:
+<ul>
+<li><code>push(object)</code> - inserts an element</li>
+<li><code>object pop()</code> - removes and returns the last inserted element</li>
+<li><code>object top()</code> - returns the last inserted element without removing it</li>
+<li><code>integer size()</code> - returns the number of elements stored</li>
+<li><code>boolean isEmpty()</code> - indicates whether no elements are stored</li>
+</ul>
+</li>
+<li>In our <strong>Stack ADT</strong>, <em>null</em> is returned when the stack is empty. In <code>java</code>, <code>pop</code> and <code>peek</code> throw a custom <code>EmptyStackException</code> when the stack is empty</li>
+</ul>
+<h4>Array-based Stack</h4>
+<p><strong>Operation</strong></p>
+<ul>
+<li>Add elements from left to right</li>
+<li>A <strong>top pointer</strong> keeps track of the index of the top element</li>
+</ul>
+<p>![[Pasted image 20250508201008.png]]</p>
+<p><strong>Limitation</strong></p>
+<ul>
+<li>The array storing the stack elements may become full</li>
+<li>A <code>push</code> operation will then throw a <code>FullStackException</code>, not intrinsic to the Stack ADT</li>
+</ul>
+<p><strong>Performance</strong></p>
+<ul>
+<li>The space used is <span class="math math-inline">O(N)</span> where <span class="math math-inline">N</span> is the size of the stack and <span class="math math-inline">n</span> is the number of elements on the stack.</li>
+<li>Each operation runs in time <span class="math math-inline">O(1)</span></li>
+</ul>
+<h4>Linked List Stack</h4>
+<p><strong>Operation</strong></p>
+<ul>
+<li>A Stack can be implemented using a Singly-Linked list</li>
+<li>There are two ways of doing this:
+<ul>
+<li>Placing <code>top</code> at the tail of the stack
+<ul>
+<li>Difficult as <code>pop</code> requires moving tail to the previous node, would be <span class="math math-inline">O(n)</span> pop.</li>
+</ul>
+</li>
+<li>Placing <code>top</code> at the head of the stack
+<ul>
+<li>Suitable as we can move the <em>head</em> pointer very easily to <code>pop</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Performance</strong></p>
+<ul>
+<li>No capacity limit</li>
+<li>Space used is <span class="math math-inline">O(n)</span></li>
+<li>Each operation runs in <span class="math math-inline">O(1)</span></li>
+</ul>
+<p><strong>Limitations</strong></p>
+<ul>
+<li>For each element, we need extra space to store a reference to the next node</li>
+</ul>
+<h4>Applications of Stacks</h4>
+<p><strong>Applications of Stacks</strong></p>
+<ul>
+<li>Page-visited history in a web browser</li>
+<li>Undo sequence in a text editor</li>
+<li>Chain of method calls in the Java Virtual Machine</li>
+<li>Auxiliary data structure for algorithms</li>
+<li>Parentheses matching using a stack</li>
+<li>HTML tags matching using a stack</li>
+<li>Evaluating arithmetic expressions</li>
+</ul>
+<p><strong>Function Stack in the JVM</strong></p>
+<ul>
+<li>When a method is called, the JVM pushes on a stack frame containing:
+<ul>
+<li>Local variables and return value</li>
+<li>Program counter, keeping track of the statement being executed</li>
+</ul>
+</li>
+<li>When a method ends, its frame is popped from the stack and control is passed to the method on top of the stack</li>
+<li>Allows for <strong>recursion</strong></li>
+</ul>
+<p>![[Pasted image 20250508201851.png]]</p>
+<p><strong>Evaluating Arithmetic Expressions</strong></p>
+<ul>
+<li>Push each operator on the stack, but first pop and perform higher and equal precedence operations</li>
+<li>Two stacks are required:
+<ul>
+<li>One for the operators, one for the values</li>
+<li>Use # as a end of input token with lowest precedence</li>
+</ul>
+</li>
+<li>For example, evaluate <span class="math math-inline">12 - 3 * 5 + 2</span></li>
+</ul>
+<table><thead><tr><th style="text-align: left">Token</th><th>Operand Stack</th><th>Operator Stack</th></tr></thead><tbody>
+<tr><td style="text-align: left">N/A</td><td><span class="math math-inline">[]</span></td><td><span class="math math-inline">[]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">12</span></td><td><span class="math math-inline">[12]</span></td><td><span class="math math-inline">[]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">-</span></td><td><span class="math math-inline">[12]</span></td><td><span class="math math-inline">[-]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">3</span></td><td><span class="math math-inline">[12, 3]</span></td><td><span class="math math-inline">[-]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">*</span></td><td><span class="math math-inline">[12,3]</span></td><td><span class="math math-inline">[-,*]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">5</span></td><td><span class="math math-inline">[12,3,5</span>]</td><td><span class="math math-inline">[-,*]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">+</span></td><td><span class="math math-inline">[12,15]</span></td><td><span class="math math-inline">[-]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">+</span></td><td><span class="math math-inline">[-3]</span></td><td><span class="math math-inline">[+]</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">2</span></td><td><span class="math math-inline">[-1]</span></td><td><span class="math math-inline">[]</span></td></tr>
+</tbody></table>
+<h2>9. Queues</h2>
+<h4>Queue ADT</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>The <em>queue</em> ADT stores arbitrary objects, insertions and deletions follow the FIFO scheme (first in first out)</li>
+<li>Insertions are at the rear of the queue and removals are at the front of the queue</li>
+<li><strong>Queue operations:</strong>
+<ul>
+<li><code>enqueue(object)</code> - inserts an element at the end of the queue</li>
+<li><code>object dequeue()</code> - removes and returns the element at the front of the queue</li>
+<li><code>object first()</code> - returns the element at the front without removing it</li>
+<li><code>integer size()</code> - returns the number of elements stored</li>
+<li><code>boolean isEmpty()</code> - indicates whether no elements are stored</li>
+</ul>
+</li>
+<li><strong>Boundary Cases</strong>
+<ul>
+<li>Attempting the execution of dequeue or first on an empty queue returns <code>null</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Applications of Queues</strong></p>
+<ul>
+<li>Direct applications
+<ul>
+<li>Waiting in line</li>
+<li>Access to shared resources (e.g. printer)</li>
+</ul>
+</li>
+<li>Indirect applications
+<ul>
+<li>Auxiliary data structure for algorithms</li>
+<li>Component of other data structures</li>
+</ul>
+</li>
+</ul>
+<p><strong>Queue Interface in Java</strong></p>
+<ul>
+<li>When a queue is empty, the <code>remove()</code> and <code>element()</code> methods throw a <code>NoSuchElementException</code>, while the corresponding methods <code>poll()</code> and <code>peek()</code> return null</li>
+<li>For implementations with a bounded capacity, the <code>add()</code> method will throw an <code>IlleaglStateException</code> when full</li>
+</ul>
+<p>![[Pasted image 20250508204608.png]]</p>
+<h4>Array-Based Queue</h4>
+<p><strong>Removing an Element</strong></p>
+<ul>
+<li><strong>Method 1:</strong>
+<ul>
+<li>From front of queue, by shifting all remaining elements forward</li>
+<li>Time complexity - <span class="math math-inline">O(n)</span> where the array has size <span class="math math-inline">N</span> and contains <span class="math math-inline">n</span> elements</li>
+</ul>
+</li>
+<li><strong>Method 2:</strong>
+<ul>
+<li>Increment front</li>
+<li>Time complexity - <span class="math math-inline">O(1)</span></li>
+<li><em><strong>Limitation</strong></em> - <em>there will be no more space at the end of the array, but a lot of available space at the beginning of the array</em></li>
+<li>Solution - <strong>Use a circular array</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>Circular Queue</strong></p>
+<ul>
+<li>Can be done using the modulo operator</li>
+<li><code>rear = (rear + 1) % N</code> where <span class="math math-inline">N</span> is the size of the array</li>
+<li>Note that <span class="math math-inline">f</span> and <code>rear</code> move to the right
+![[Pasted image 20250508205149.png]]</li>
+<li>Same logic applies when calling <code>dequeue()</code>
+<ul>
+<li><code>f = (f + 1) % N</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Rear Index</strong></p>
+<ul>
+<li>Rear index is actually unnecessary, because we have the method <code>size()</code> which returns the number of elements in the queue</li>
+<li>Insertion takes place at position <code>pos = (f + sz) % N</code> where <code>sz</code> is the size of the queue</li>
+</ul>
+<p>![[Pasted image 20250508205307.png]]</p>
+<p><strong>Performance</strong></p>
+<ul>
+<li>Cost of all basic operations is <span class="math math-inline">O(1)</span> assuming we use Method 2 for an array-based implementation</li>
+<li>Cost remains constant when implementing a queue using a Linked-List
+<ul>
+<li><em><strong>Advantage:</strong></em> no limit on capacity of queue</li>
+<li><em><strong>Drawback:</strong></em> cost of creating a new node and pointer is higher than performing a modular arithmetic operation</li>
+</ul>
+</li>
+</ul>
+<h4>Linked-List Queue</h4>
+<ul>
+<li>Use a Singly-Linked list to implement, all queue operations are done at the front and end of the queue</li>
+<li>Method 1: <code>tail</code> is at the head of the linked list
+<ul>
+<li>Inefficient as <code>dequeue</code> from the front now requires <span class="math math-inline">O(n)</span> time as we need to access the item before the front node
+![[Pasted image 20250508205807.png]]</li>
+</ul>
+</li>
+<li>Method 2: <code>tail</code> is the last node of the linked list
+<ul>
+<li>Efficient as <code>front</code> is at the head of the queue, so dequeuing is trivial.</li>
+<li>Time complexity: <span class="math math-inline">O(1)</span>
+![[Pasted image 20250508205758.png]]</li>
+</ul>
+</li>
+<li>Hence, if using Method 2, the cost of all basic operations is <span class="math math-inline">O(1)</span></li>
+</ul>
+<h2>10. Sorting</h2>
+<h4>Insertion Sort</h4>
+<ul>
+<li>Described earlier in Lecture 4</li>
+<li>Sorting <span class="math math-inline">n</span> elements requires:
+<ul>
+<li><span class="math math-inline">\Theta(n)</span> in the best-case scenario</li>
+<li><span class="math math-inline">\Theta(n^2)</span> in the worst-case scenario</li>
+</ul>
+</li>
+</ul>
+<h4>Selection Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Given a list of <span class="math math-inline">n</span> elements, find the smallest one and swap it with the first of the array</li>
+<li>Then find the second smallest and so on and so forth</li>
+</ul>
+<p><strong>Example - Sort <span class="math math-inline">4, 15, 7, 22, 3</span></strong></p>
+<p>![[Pasted image 20250508211938.png]]</p>
+<ul>
+<li>Note: after iteration <span class="math math-inline">k</span>, the first <span class="math math-inline">k</span> elements are sorted</li>
+<li>Worst-case time complexity: <span class="math math-inline">O(n^2)</span></li>
+</ul>
+<h4>Sorting Algorithms - Lower Bounds</h4>
+<p><strong>Theorem 1</strong> - Any sorting algorithm that exchanges adjacent elements requires <span class="math math-inline">\Omega(n^2)</span> average time</p>
+<p><strong>Theorem 2</strong> - No sorting algorithm based on key comparisons can possibly be faster than <span class="math math-inline">\Omega(n\log n)</span></p>
+<h4>Divide and Conquer</h4>
+<ul>
+<li><em><strong>Divide and Conquer</strong></em> is a general algorithm design paradigm:
+<ul>
+<li><strong>Divide</strong> - Divide the input data <span class="math math-inline">S</span> into two independent subproblems <span class="math math-inline">S_1</span>, <span class="math math-inline">S_2</span>.</li>
+<li><strong>Recursive</strong> - solve the subproblems <span class="math math-inline">S_1</span> and <span class="math math-inline">S_2</span></li>
+<li><strong>Conquer</strong> - combine the solutions for <span class="math math-inline">S_1</span> and <span class="math math-inline">S_2</span> into a solution for <span class="math math-inline">S</span></li>
+</ul>
+</li>
+<li>Base case for recursion are subproblems of size 0 or 1</li>
+</ul>
+<h4>Merge Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Merge sort consists of three steps:
+<ol>
+<li>Partition <span class="math math-inline">S</span> into two sequences <span class="math math-inline">S_1</span> and <span class="math math-inline">S_2</span> of about <span class="math math-inline">\frac{n}{2}</span> elements each</li>
+<li>Recursively sort <span class="math math-inline">S_1</span> and <span class="math math-inline">S_2</span></li>
+<li>Merge <span class="math math-inline">S_1</span> and <span class="math math-inline">S_2</span> into a unique sorted sequence</li>
+</ol>
+</li>
+<li><strong>Conquer</strong> step consists of merging two sorted sequences <span class="math math-inline">A</span>, <span class="math math-inline">B</span> into a sorted sequence <span class="math math-inline">S</span> containing the union of the elements of <span class="math math-inline">A</span> and <span class="math math-inline">B</span>.</li>
+<li>When <span class="math math-inline">A</span>, <span class="math math-inline">B</span> each contain <span class="math math-inline">\frac{n}{2}</span> elements, this can be done in <span class="math math-inline">O(n)</span> time.</li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<pre><code class="language-pseudocode">function mergeSort(S):
+	if S.size() &gt; 1:
+		(S1, S2) = partition(S, n/2)
+		mergeSort(S1)
+		mergeSort(S2)
+		S = merge(S1, S2)
+	return S
+
+ function merge(A, B):
+	 S = []
+	 while (not A.isEmpty() and not B.isEmpty()):
+		if (A.first().element() &lt; B.first().element()):
+			 S.addLast(A.remove(A.first()))
+		else:
+			S.addLast(B.remove(B.first()))
+	while (not A.isEmpty()):
+		S.addLast(A.remove(A.first()))
+	while (not B.isEmpty()):
+		S.addlast(B.remove(B.first()))
+	return S
+</code></pre>
+<p>![[Pasted image 20250508212951.png]]
+![[Pasted image 20250508213000.png]]</p>
+<p><strong>Running Time</strong></p>
+<ul>
+<li>The height <span class="math math-inline">h</span> of the merge-sort tree is <span class="math math-inline">O(\log n)</span>, as at each recursive call, we divide the sequence in 2</li>
+<li>The overall amount of work at the nodes of depth <span class="math math-inline">i</span> is <span class="math math-inline">O(n)</span>
+<ul>
+<li>We partition and merge <span class="math math-inline">2^i</span> sequences of size <span class="math math-inline">\frac{n}{2^i}</span></li>
+<li>we make <span class="math math-inline">2^{i+1}</span> recursive calls</li>
+</ul>
+</li>
+<li>Overall running time is <span class="math math-inline">O(n \log n)</span></li>
+</ul>
+<h4>Recurrence Equation Analysis</h4>
+<p><strong>Recurrence Equation Analysis - Merge Sort</strong></p>
+<ul>
+<li>
+<p>The running time <span class="math math-inline">T(n)</span> is equal to twice the running time of two subproblems of size <span class="math math-inline">n/2</span>, where merging them takes linear time
+<span class="math math-display">T(n) = \begin{cases} b &amp; \text{if} \space n &lt; 2 \\ 2T(n/2) + bn &amp; \text{if} \space n \ge 2\end{cases}</span></p>
+</li>
+<li>
+<p>Using the iterative substitution technique we can try to find a pattern</p>
+<p>![[Pasted image 20250508213448.png]]</p>
+</li>
+<li>
+<p>Note that <span class="math math-inline">2^i = n</span>, so <span class="math math-inline">i = \log n</span></p>
+</li>
+<li>
+<p>Hence <span class="math math-inline">T(n) = bn + bn\log n = O(n \log n )</span></p>
+</li>
+</ul>
+<p><strong>Master Method</strong></p>
+<ul>
+<li>
+<p>Many divide-and-conquer recurrence equations have the form:
+<span class="math math-display">T(n) = \begin{cases} c &amp; \text{if} \space n &lt; d \\ aT(n/b) + f(n) &amp; \text{if} \space n \ge d\end{cases}</span></p>
+</li>
+<li>
+<p><span class="math math-inline">c</span> is the base case, <span class="math math-inline">aT(n/b)</span> is the recursion, and <span class="math math-inline">f(n)</span> is the conquer</p>
+</li>
+<li>
+<p><strong>Master Theorem</strong></p>
+<ol>
+<li>If <span class="math math-inline">f(n) = O(n^{\log_b{a-\epsilon}})</span>, then <span class="math math-inline">T(n) = \Theta(n^{\log_b{a}})</span></li>
+<li>If <span class="math math-inline">f(n) = \Theta(n^{\log_b{a}}\log^k n)</span>, then <span class="math math-inline">T(n) = \Theta(n^{\log_b a}\log^{k+1} n)</span></li>
+<li>If <span class="math math-inline">f(n) = \Omega(n^{\log_b{a+\epsilon}})</span>, then $T(n) = <span class="math math-inline">\Theta(f(n))</span> provided <span class="math math-inline">af(n/b) \le \delta f(n)</span> for some <span class="math math-inline">\delta &lt; 1</span></li>
+</ol>
+</li>
+</ul>
+<h4>Quick Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A sorting algorithm that uses a divide-and-conquer strategy:
+<ul>
+<li>Given an array <span class="math math-inline">A</span>, we:</li>
+</ul>
+<ol>
+<li><strong>Divide</strong> <span class="math math-inline">A</span> into two subarrays <span class="math math-inline">L</span> and <span class="math math-inline">R</span> around an element <span class="math math-inline">q</span> called the <em><strong>pivot</strong></em>, where each element in <span class="math math-inline">L</span> is less than or equal to <span class="math math-inline">q</span>, and each element in <span class="math math-inline">R</span> is greater than <span class="math math-inline">q</span></li>
+<li><strong>Conquer</strong> the problem by recursively sorting the <span class="math math-inline">L</span> and <span class="math math-inline">R</span> subarrays</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-pseudocode">function QUICKSORT(A, start, end):
+	if (start &lt; end):
+		positionPivot = PARTITION(A, start, end)
+		QUICKSORT(A, start, positionPivot - 1)
+		QUICKSORT(A, positionPivot + 1, end)
+</code></pre>
+<p><strong>Pivot Selection Strategies</strong></p>
+<ol>
+<li><em><strong>Pick the first element in <span class="math math-inline">A</span></strong></em> - may lead to the worst-case scenario</li>
+<li><em><strong>Randomly select the pivot</strong></em> - generating a random number is a costly operation</li>
+<li><em><strong>Median-of-three strategy</strong></em> - median of first, last and middle value of <span class="math math-inline">A</span></li>
+</ol>
+<p><strong>Partitioning Algorithm</strong></p>
+<ol>
+<li>Swap the pivot with the last element in the array</li>
+<li>Initialise pointers <span class="math math-inline">i = 0</span> and <span class="math math-inline">j = n - 1</span></li>
+<li>Whilst the pointers do not cross, move <span class="math math-inline">i</span> until <span class="math math-inline">A[i] \ge p</span>, and move <span class="math math-inline">j</span> until <span class="math math-inline">A[j] \le p</span>. If <span class="math math-inline">i &lt; j</span>, then we swap values at pointers <span class="math math-inline">i</span>, <span class="math math-inline">j</span>. Continue until pointers meet.</li>
+<li>Swap back the pivot with the left pointer <span class="math math-inline">i</span></li>
+</ol>
+<pre><code class="language-pseudocode">function PARTITION():
+
+	pi, p = PIVOT(A, start, end)
+	i = start, j = end - 1
+
+	// swap pivot to the end
+	SWAP(A, pi, end)
+	
+	while i &lt;= j:
+		while i &lt;= j and A[i] &lt; p:
+			i++
+		while i &lt;= j and A[j] &gt; p:
+			j--
+		if (i &gt;= j) break
+		SWAP(A, i, j)
+		i++
+		j--
+
+	// swap pivot back
+	SWAP(A, left, end)
+	return i
+</code></pre>
+<p><strong>Example - Partitioning Algorithm</strong></p>
+<p>![[Pasted image 20250509093806.png]]
+![[Pasted image 20250509093813.png]]
+![[Pasted image 20250509093825.png]]
+![[Pasted image 20250509093834.png]]
+![[Pasted image 20250509093843.png]]
+![[Pasted image 20250509093850.png]]
+![[Pasted image 20250509093859.png]]
+![[Pasted image 20250509093908.png]]
+![[Pasted image 20250509093915.png]]
+![[Pasted image 20250509093923.png]]
+![[Pasted image 20250509093932.png]]
+![[Pasted image 20250509093938.png]]
+![[Pasted image 20250509093946.png]]
+![[Pasted image 20250509094000.png]]
+![[Pasted image 20250509094008.png]]
+![[Pasted image 20250509094015.png]]
+![[Pasted image 20250509094025.png]]
+![[Pasted image 20250509094033.png]]
+![[Pasted image 20250509094042.png]]
+![[Pasted image 20250509094050.png]]
+![[Pasted image 20250509094057.png]]</p>
+<p><strong>Running Time Analysis</strong></p>
+<ul>
+<li>
+<p><strong>Best Case:</strong></p>
+<ul>
+<li>The <code>Partition</code> routine divides each array into two subarrays of equal size</li>
+<li>Since <code>Partition</code> takes linear time, we get:
+<span class="math math-display">T(n) = 2T(\frac{n}{2}) + cn</span></li>
+<li>By the <strong>Master’s Theorem</strong>, we get <span class="math math-inline">T(n) = \Theta(n\log n)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Worst Case:</strong></p>
+<ul>
+<li>The <code>Partition</code> routine divides each array of size <span class="math math-inline">n</span> into a subarray of size <span class="math math-inline">n-1</span> and another one with <span class="math math-inline">0</span> elements</li>
+<li>In this case, we get:
+<span class="math math-display">T(n) = T(n-1) + cn</span></li>
+<li>Hence <span class="math math-inline">T(n) = \Theta(n^2)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Average Case</strong>:</p>
+<ul>
+<li>We assume that each of the subarrays’ sizes are equally likely with probability <span class="math math-inline">\frac{1}{n}</span>
+<span class="math math-display">T(n) = \frac{1}{n}\sum_{i=0}^{n-1}[T(i) + T(n-1-i)] + cn</span>
+<span class="math math-display">T(n) = \frac{2}{n}\sum_{i=0}^{n-1}[T(i)] + cn
+</span>
+<span class="math math-display">T(n) = \Theta(n \log n)</span></li>
+</ul>
+</li>
+<li>
+<p><strong>Java Implementation</strong></p>
+</li>
+</ul>
+<pre><code class="language-java">public class QuickSort {
+
+    private static int medianOfThree(int[] arr, int i, int j, int k) {
+        int a = arr[i];
+        int b = arr[j];
+        int c = arr[k];
+        if ((a &lt;= b &amp;&amp; b &lt;= c) || (c &lt;= b &amp;&amp; b &lt;= a)) {
+            return j;
+        } else if ((b &lt;= a &amp;&amp; a &lt;= c) || (c &lt;= a &amp;&amp; a &lt;= b)) {
+            return i;
+        } else {
+            return k;
+        }
+    }
+
+    private static int pivot(int[] arr, int start, int end) {
+        int mid = start + (end - start) / 2;
+        return medianOfThree(arr, start, end, mid);
+    }
+
+    private static void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    private static int partition(int arr[], int start, int end) {
+
+        int pivotIndex = pivot(arr, start, end);
+        int pivot = arr[pivotIndex];
+        swap(arr, pivotIndex, end);
+        int i = start;
+        int j = end - 1;
+
+
+        while (i &lt;= j) {
+            while (i &lt;= j &amp;&amp; arr[i] &lt; pivot) i++;
+            while (i &lt;= j &amp;&amp; arr[j] &gt; pivot) j--;
+
+            if (i &gt;= j) break;
+
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
+
+        swap(arr, i, end);
+        return i;
+    }
+
+    private static void quickSort(int arr[], int start, int end) {
+        if (start &lt; end) {
+            int positionPivot = partition(arr, start, end);
+            quickSort(arr, start, positionPivot - 1);
+            quickSort(arr, positionPivot + 1, end);
+        }
+    }
+}
+
+</code></pre>
+<h4>Summary of Sorting Algorithms</h4>
+<p>![[Pasted image 20250509094555.png]]</p>
+<h4>Bucket Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>When we have a set <span class="math math-inline">S</span> of <span class="math math-inline">n</span> entries to sort, according to their keys</li>
+<li>An array <span class="math math-inline">B</span> (buckets) of size <span class="math math-inline">m</span></li>
+<li>An entry of key <span class="math math-inline">k</span> is placed in bucket <span class="math math-inline">k</span></li>
+<li>This is a non-comparison based algorithm - <em><strong>LINEAR TIME</strong></em></li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<pre><code class="language-pseudocode">function bucketSort(S)
+	for each entry e in S whose key is k:
+		remove e and insert it at the end of bucket B[k]
+	for i = 0 to m-1:
+		for each entry e in B[i]:
+			remove(e) and insert it at the end of S
+</code></pre>
+<ul>
+<li>NOTE: We manipulate entries following a FIFO order</li>
+</ul>
+<p><strong>Running Time</strong></p>
+<ul>
+<li>The running time is <span class="math math-inline">O(n+m)</span> where <span class="math math-inline">n</span> is the number of items, <span class="math math-inline">m</span> is the number of buckets</li>
+</ul>
+<h4>Stable Sorting</h4>
+<p><strong>Stable Sorting</strong></p>
+<ul>
+<li><em><strong>Stable Sorting</strong></em> preserves the order of key-value pairs (i.e. entries) we wish to sort</li>
+<li>Let <span class="math math-inline">(k_i, v_i)</span> and <span class="math math-inline">(k_j, v_j)</span> be two elements of <span class="math math-inline">S</span> where:
+<ul>
+<li><span class="math math-inline">i &lt; j</span> and <span class="math math-inline">k_i = k_j</span></li>
+</ul>
+</li>
+<li>A stable algorithm will output <span class="math math-inline">(k_i, v_i)</span> before <span class="math math-inline">(k_j, v_j)</span></li>
+</ul>
+<p><strong>Common Stable Sorting Algorithms</strong></p>
+<ul>
+<li><em>Bubble sort</em></li>
+<li><em>Insertion sort</em></li>
+<li><em>Merge sort</em></li>
+<li><em>Counting sort</em></li>
+<li><em>Radix sort</em></li>
+</ul>
+<p>**Common Unstable Sorting Algorithms</p>
+<ul>
+<li><em>Selection Sort</em></li>
+<li><em>Quick Sort</em></li>
+<li><em>Heap Sort</em></li>
+</ul>
+<h4>Radix Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li><strong>Stable Sorting</strong> allows the bucket-sort approach to be applied to more general contexts such as <em>integers</em> and <em>words</em> in lexicographical order</li>
+<li><strong>Radix</strong> sort sorts a sequence of entries with <strong>keys</strong> by applying a <em><strong>Stable Bucket-Sort Approach</strong></em></li>
+<li><strong>LSD (Least Significant Digit)</strong> radix sort processes integer representations from least significant digit</li>
+</ul>
+<p><strong>Example</strong></p>
+<ul>
+<li>Keys are in the range <span class="math math-inline">0</span> to <span class="math math-inline">99</span>, there are <span class="math math-inline">10</span> buckets, and <span class="math math-inline">12</span> records</li>
+<li>Start by assigning records to bins based on <em>right most digit</em> of key</li>
+<li>Then we reassign these records to the bins on the basis of their <em>leftmost digit</em></li>
+</ul>
+<p>![[Pasted image 20250509172918.png]]</p>
+<p><strong>Running Time</strong></p>
+<ul>
+<li>depends on the number of digits of the keys</li>
+<li><span class="math math-inline">T(n) = O(d \times n)</span></li>
+</ul>
+<h2>11. Priority Queues</h2>
+<h4>Priority Queue ADT</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <em>priority queue</em> stores a collection of entries</li>
+<li>Each <em>entry</em> is a pair <code>(key, value)</code>
+<ul>
+<li>The <strong>key</strong> is the priority associated to a value</li>
+<li>We assume the highest priority for an element is <span class="math math-inline">1</span></li>
+</ul>
+</li>
+<li><strong>Interface:</strong>
+<ul>
+<li><code>insert(k, v)</code> - inserts an entry with key <span class="math math-inline">k</span> and value <span class="math math-inline">v</span></li>
+<li><code>removeMin()</code> - removes and returns the entry with smallest key, or null if the priority queue is empty</li>
+<li><code>min()</code> - returns but does not remove the entry with the smallest key, or null if the priority queue is empty</li>
+<li><code>size()</code> - returns the number of entries in the priority queue</li>
+<li><code>isEmpty()</code> - returns true if the priority queue is empty</li>
+</ul>
+</li>
+<li><em><strong>We assume that an element’s key remains fixed once it is added to the priority queue</strong></em></li>
+</ul>
+<h4>Comparator ADT</h4>
+<p><strong>Total Order Relation</strong></p>
+<ul>
+<li>A comparison rule must define a <em>total order relation</em> <span class="math math-inline">\le</span>
+<ul>
+<li>Comparability: either <span class="math math-inline">x \le y</span> or <span class="math math-inline">y \le x</span></li>
+<li>Antisymmetric: <span class="math math-inline">x \le y \land y \le x \implies x = y</span></li>
+<li>Transitive: <span class="math math-inline">x \le y \land y \le z \implies x \le z</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>Comparator ADT</strong></p>
+<ul>
+<li>A <em>generic</em> priority queue uses an auxiliary comparator, which encapsulates the action of comparing two objects according to a total order relation</li>
+<li>Java supports two means for defining comparators:
+<ul>
+<li><code>java.lang.Comparable</code> - defines the natural ordering</li>
+<li><code>java.util.Comparator</code> - supports generality</li>
+</ul>
+</li>
+<li><em><strong>Comparator ADT</strong></em> has a method <code>compare(x,y)</code> which returns an integer <span class="math math-inline">i</span> such that:
+<ul>
+<li><span class="math math-inline">i &lt; 0</span> if <span class="math math-inline">a &lt; b</span></li>
+<li><span class="math math-inline">i = 0</span> if <span class="math math-inline">a = b</span></li>
+<li><span class="math math-inline">i &gt; 0</span> if <span class="math math-inline">a &gt; b</span></li>
+</ul>
+</li>
+<li><code>java.lang.Comparable</code> has a method <code>compareTo()</code>, similar to <code>compare()</code></li>
+</ul>
+<h4>Priority Queue Implementation</h4>
+<p><strong>Method 1 - Unsorted List</strong></p>
+<ul>
+<li>Can implement using a doubly-linked list</li>
+<li><strong>Performance:</strong>
+<ul>
+<li><code>insert</code> takes <span class="math math-inline">O(1)</span> since we can insert the item at the beginning or end of the sequence</li>
+<li><code>removeMin</code> and <code>min</code> take <span class="math math-inline">O(n)</span> time as we have to traverse the entire sequence to find the smallest key</li>
+</ul>
+</li>
+</ul>
+<p><strong>Method 2 - Sorted List</strong></p>
+<ul>
+<li>Similarly use a doubly linked list</li>
+<li>Performance:
+<ul>
+<li><code>insert</code> takes <span class="math math-inline">O(n)</span> time since have to find the place to insert the item</li>
+<li><code>removeMin</code> and <code>min</code> take <span class="math math-inline">O(1)</span> time, since the smallest key is at the beginning</li>
+</ul>
+</li>
+</ul>
+<h4>Priority Queue Sorting</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>We can use a priority queue to sort a list of comparable elements:
+<ol>
+<li>Insert elements one by one using <code>insert</code> operations</li>
+<li>Remove elements in sorted order with a series of <code>removeMin</code> operations</li>
+</ol>
+</li>
+<li>Running time depends on the <em>priority queue implementation</em></li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<pre><code class="language-pseudocode">function PQ-Sort(S, C):
+	P = priority queue with comparator C
+	while (not S.isEmpty()):
+		e = S.remove(S.first())
+		P.insert(e, NULL)
+	while (not P.isEmpty()):
+		e = P.removeMin().getKey()
+		S.addLast(e)
+</code></pre>
+<p><strong>Relation to Selection Sort</strong></p>
+<ul>
+<li><em>Selection sort</em> is the variation of PQ-sort where the priority queue is implemented with an <em><strong>unsorted sequence</strong></em>
+<ul>
+<li><span class="math math-inline">n</span> inserts takes <span class="math math-inline">O(n)</span> time in total</li>
+<li><span class="math math-inline">n</span> removals takes <span class="math math-inline">O(n^2)</span> time in total</li>
+</ul>
+</li>
+<li>Running time: <span class="math math-inline">O(n^2)</span></li>
+</ul>
+<p><strong>Relation to Insertion Sort</strong></p>
+<ul>
+<li><em>Insertion sort</em> is the variation of PQ-sort where the priority queue is implemented with a <em><strong>sorted sequence</strong></em>
+<ul>
+<li><span class="math math-inline">n</span> inserts takes <span class="math math-inline">O(n^2)</span> time in total</li>
+<li><span class="math math-inline">n</span> removals takes <span class="math math-inline">O(n)</span> time in total</li>
+</ul>
+</li>
+<li>Running time: <span class="math math-inline">O(n^2)</span></li>
+</ul>
+<h2>12. Heaps</h2>
+<h4>Heaps</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <em><strong>heap</strong></em> is a <em>binary tree</em> storing keys at its nodes and satisfying the following properties:
+<ol>
+<li>Heap-Order: for every internal node <span class="math math-inline">v</span> other than the root:
+<ul>
+<li><span class="math math-inline">\text{key}(v) \ge \text{key}(\text{parent}(v))</span> for a <em><strong>min-heap</strong></em></li>
+<li><span class="math math-inline">\text{key}(v) \le \text{key}(\text{parent}(v))</span> for a <em><strong>max-heap</strong></em></li>
+</ul>
+</li>
+<li><em>Complete Binary Tree</em> - let <span class="math math-inline">h</span> be the height of the heap
+<ul>
+<li>For <span class="math math-inline">i = 0, \cdots, h-1</span> there are <span class="math math-inline">2^i</span> nodes of depth <span class="math math-inline">i</span></li>
+<li>At depth <span class="math math-inline">h-1</span>, the internal nodes are to the left of the external nodes (<em>fill up the tree from the left</em>)</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>Informally, and starting from the <em>root</em> of the heap, we <em><strong>insert nodes level by level, from left to right</strong></em></li>
+</ul>
+<p><strong>Height of a Heap</strong></p>
+<ul>
+<li><strong>Theorem</strong>: A heap storing <span class="math math-inline">n</span> keys has height <span class="math math-inline">O(\log n)</span>.</li>
+<li><strong>Proof</strong>:
+<ul>
+<li>Let <span class="math math-inline">h</span> be the hight of a heap storing <span class="math math-inline">n</span> keys</li>
+<li>Since there are <span class="math math-inline">2^i</span> keys at depth <span class="math math-inline">i = 0, \cdots, h-1</span> and at least one key at depth <span class="math math-inline">h</span>, we have <span class="math math-inline">n \ge 1 + 2 + 4 + ... + 2^h-1 + 1</span></li>
+<li>Thus, <span class="math math-inline">n \ge 2^h</span>, i.e. <span class="math math-inline">h \le \log n</span></li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250509211810.png]]</p>
+<p><strong>Relation to Priority Queues</strong></p>
+<ul>
+<li>We can use a <em>heap</em> to implement a <strong>priority queue</strong></li>
+<li>Store <code>(key, element)</code> item at each internal node</li>
+<li>Notice that the two heap properties are satisfied</li>
+</ul>
+<p>![[Pasted image 20250509212012.png]]</p>
+<h4>Insertion into a Heap</h4>
+<p><strong>Methodology</strong></p>
+<ul>
+<li>Method <code>insertItem</code> of priority queue ADT corresponds to insertion of a key <span class="math math-inline">k</span> to the heap</li>
+<li><strong>Algorithm:</strong>
+<ul>
+<li>Find the insertion node <span class="math math-inline">z</span> (the new last node)</li>
+<li>Store <span class="math math-inline">k</span> at <span class="math math-inline">z</span></li>
+<li>Restore the <em><strong>heap-order property</strong></em> using <code>upheap</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>Upheap</strong></p>
+<ul>
+<li>Restores the heap-order property by swapping <span class="math math-inline">k</span> along an upward path from the insertion node</li>
+<li>Upheap terminates when the key <span class="math math-inline">k</span> reaches the root or a node whose parent has a key smaller than or equal to <span class="math math-inline">k</span> (for a <em><strong>min-heap</strong></em>)</li>
+<li>Since a heap has height <span class="math math-inline">O(\log n)</span>, upheap runs in <span class="math math-inline">O(\log n)</span> time</li>
+<li>Note that this is <em><strong>NOT</strong></em> <span class="math math-inline">\Theta(\log n)</span> as the insertion could be immediately valid (we can find last spot in <span class="math math-inline">O(1)</span> time with array-implementation)</li>
+</ul>
+<p>![[Pasted image 20250509212248.png]]</p>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250509212703.png]]</p>
+<p><strong>Algorithm - Node based Binary Tree</strong></p>
+<pre><code class="language-pseudocode">/* Upheap operation */
+function upHeap(curr):
+	while (curr.parent != NULL and curr.val &lt; curr.parent.val):
+		SWAP(curr.val, curr.parent.val)
+		curr = curr.parent
+</code></pre>
+<h4>Removal from a Heap</h4>
+<p><strong>Methodology</strong></p>
+<ul>
+<li>Method <code>removeMin</code> of the priority queue ADT corresponds to the removal of the <strong>root key</strong> from the heap</li>
+<li><strong>Algorithm:</strong>
+<ul>
+<li>Replace root key with key of last node <span class="math math-inline">w</span></li>
+<li>Remove <span class="math math-inline">w</span></li>
+<li>Restore the <em><strong>heap-order property</strong></em> with <code>downheap</code></li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250509213858.png]]</p>
+<p><strong>Down-heap</strong></p>
+<ul>
+<li>Restores the heap-order property by swapping key <span class="math math-inline">k</span> along a downward path from the root</li>
+<li><em>Down-heap</em> terminates when key <span class="math math-inline">k</span> reaches a leaf or node whose children have keys greater than or equal to <span class="math math-inline">k</span></li>
+<li>Similarly <em>down-heap</em> runs in <span class="math math-inline">O(\log n)</span> time</li>
+<li><strong>Note</strong> that <em>down-heap</em> is also <span class="math math-inline">\Theta(\log n)</span>, because the <strong>last</strong> node is greater than most elements in the tree, so asymptotically speaking the <strong>new root</strong> will get swapped deep into the tree.</li>
+</ul>
+<p>![[Pasted image 20250509214021.png]]</p>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250509214520.png]]</p>
+<p><strong>Algorithm - Node based Binary Tree</strong></p>
+<pre><code class="language-pseudocode">/* Down Heap Operation */
+function downHeap(curr):
+
+	while (curr != NULL):
+
+		// get the smaller node
+		smallest = curr
+		if (curr.left != NULL &amp;&amp; curr.left.val &lt; smallest.val):
+			smallest = curr.left
+		if (curr.right != NULL &amp;&amp; curr.right.val &lt; smallest.val):
+			smallest = curr.right
+
+		// heap property satisfied - exit immediately
+		if (smallest == node): break
+		
+		SWAP(curr.val, smallest.val)
+		curr = smallest
+		
+</code></pre>
+<h4>Array-based Heap Implementation</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A better way to represent a heap with <span class="math math-inline">n</span> keys is using an array of length <span class="math math-inline">n</span></li>
+<li>For the node at index <span class="math math-inline">i</span>:
+<ul>
+<li>The <em>left child</em> is at index <span class="math math-inline">2i+1</span></li>
+<li>The <em>right child</em> is at index <span class="math math-inline">2i+2</span></li>
+<li>The parent node is at index <span class="math math-inline">(i-1) / 2</span></li>
+</ul>
+</li>
+<li><em><strong>This allows us to get access to the last element in constant time</strong></em></li>
+</ul>
+<p>![[Pasted image 20250510100753.png]]</p>
+<h4>Heap-Sort</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Using a heap-based priority queue, we can sort a sequence of <span class="math math-inline">n</span> elements in <span class="math math-inline">O(n \log n)</span> time - a lot faster than quadratic sorting algorithms</li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<ol>
+<li>Insert the elements to be sorted in a heap</li>
+<li>Call <code>removeMin()</code> <span class="math math-inline">n</span> times</li>
+</ol>
+<ul>
+<li>Note that we can execute Phase 1 faster than <span class="math math-inline">O(n \log n)</span> steps using the <strong>Heapify Algorithm</strong></li>
+</ul>
+<p><strong>Heapify</strong></p>
+<ul>
+<li>
+<p>Starting at index <span class="math math-inline">i = (n-1)/2</span>, call <code>downheap()</code> until <span class="math math-inline">i=0</span>, decrementing <span class="math math-inline">i</span> at each step</p>
+</li>
+<li>
+<p><strong>Algorithm</strong>:</p>
+</li>
+</ul>
+<pre><code class="language-pseudocode">for i = (n-1)/2 to 0:
+	downHeap(i)
+</code></pre>
+<ul>
+<li><strong>General Algorithm for Array-based implementation:</strong></li>
+</ul>
+<pre><code class="language-java">void heapify(int arr[], int n, int i) {
+	int smallest = i;
+	int l = 2*i+1;
+	int r = 2*i + 2;
+	if (l &lt; n &amp;&amp; arr[l] &lt; arr[smallest])
+		smallest = l;
+	if (r &lt; n &amp;&amp; arr[r] &lt; arr[smallest])
+		smallest = r;
+	if (smallest != i) {
+		SWAP(arr, i, smallest)
+		heapify(arr, n, smallest)
+	}
+}
+</code></pre>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250510103332.png]]</p>
+<p><strong>Heapify - Running Time</strong></p>
+<ul>
+<li><em><strong>Theorem</strong></em> - for a perfect binary tree containing <span class="math math-inline">2{h+1} - 1</span> nodes, the sum of the heights of the nodes is <span class="math math-inline">2^{h+1} -1 - (h+1)</span></li>
+<li>Since <span class="math math-inline">h = \Theta(\log n)</span>, the sum is <span class="math math-inline">\Theta(n)</span></li>
+<li><strong>Proof</strong>:
+<ul>
+<li>There are <span class="math math-inline">2^i</span> nodes at height <span class="math math-inline">h - i</span></li>
+<li>Starting from the root, the cost is:
+<span class="math math-display">S = 1*h + 2*(h-1) + 4*(h-2) + \cdots + 2^{h-1}*1</span>
+<span class="math math-display">2S = 2h + 4(h-1) + 8(h-2) + \cdots + 2^h</span>
+<span class="math math-display">2S - S = -h + 2(h - h + 1) + 4(h - h + 1) + \cdots + 2^{h-1}(h - h + 1) + 2^h</span>
+<span class="math math-display">S = -h + 2 + 4 + 8 + \cdots + 2^{h-1} + 2^h</span>
+<span class="math math-display">S = 2^{h+1} - 1 -(h + 1)</span></li>
+</ul>
+</li>
+<li>Since a complete binary tree has between <span class="math math-inline">2^h</span> and <span class="math math-inline">2^{h+1}</span> nodes, the sum of the heights of its nodes is <span class="math math-inline">\Theta(n)</span></li>
+<li><strong>Hence</strong>, the running time is <span class="math math-inline">T(n) = O(n + n\log n) = O(n \log n)</span>.</li>
+</ul>
+<h2>13. Maps</h2>
+<h4>Map ADT</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <strong>map</strong> (associative array) models a searchable collection of <em>key-value</em> entries</li>
+<li>Main operations are <em>searching</em>, <em>inserting</em> and <em>deleting</em> values</li>
+<li><em><strong>Multiple entries with the same key are not allowed</strong></em></li>
+</ul>
+<p><strong>Map ADT</strong></p>
+<ul>
+<li><code>get(k)</code> - return associated value with key <span class="math math-inline">k</span>, <code>null</code> if not found</li>
+<li><code>put(k, v)</code> - insert entry <code>(k,v)</code> into map. If key <span class="math math-inline">k</span> does not exist, return <code>null</code>, otherwise return old value associated with <span class="math math-inline">k</span></li>
+<li><code>remove(k)</code> - remove and return associated value with key <span class="math math-inline">k</span>, <code>null</code> if it doesn’t exist</li>
+<li><code>size()</code> - size of map</li>
+<li><code>isEmpty()</code> - if map is empty</li>
+<li><code>entrySet()</code> - <em>iterable collection of entries in map</em></li>
+<li><code>keySet()</code> - <em>iterable collection of keys in map</em></li>
+<li><code>values()</code> - <em>iterator of values in map</em></li>
+</ul>
+<h4>Simple List-Based Map</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Implement a map using an <em>unsorted list</em></li>
+<li>Store items of the map in a list <span class="math math-inline">S</span> based on a doubly linked list</li>
+</ul>
+<p>![[Pasted image 20250510110555.png]]</p>
+<p><strong><code>get(k)</code> Algorithm</strong>:</p>
+<pre><code class="language-pseudocode">function get(k):
+	B = S.positions()
+	while B.hasNext() do
+		p = B.next()
+		if p.element().getKey() == k then
+			return p.element().getValue()
+	return null
+</code></pre>
+<p><strong><code>put(k,v)</code> Algorithm</strong>:</p>
+<pre><code class="language-pseudocode">function put(k,v):
+	B = S.positions()
+	while B.hasNext() do
+		p = B.next()
+		if p.element().getKey() == k then
+			t = p.element().getValue()
+			S.set(p, (k,v))
+			return t
+	S.addLast((k, v))
+	size++
+	return null
+</code></pre>
+<p><strong><code>remove(k)</code> Algorithm</strong></p>
+<pre><code class="language-pseudocode">function remove(k):
+	B = S.positions()
+	while B.hasNext() do
+		p = B.next()
+		if p.element().getKey() == k then
+			t = p.element().getValue()
+			S.remove(p)
+			size--
+			return t
+	return null
+</code></pre>
+<p><strong>Performance</strong></p>
+<ul>
+<li>The basic methods <code>put</code>, <code>get</code>, <code>remove</code> all take <span class="math math-inline">O(n)</span> time since in the worst case, we traverse the entire sequence to look for an item with the given key</li>
+<li>Unsorted list implementation is effective only for maps of a small size</li>
+</ul>
+<h2>14. Hash Tables</h2>
+<h4>Hash Tables</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <strong>hash table</strong> is an effective data structure for implementing a map</li>
+<li>A <em><strong>hash function</strong></em> is used to map general keys to corresponding indices in a table, as the keys may not be integers in the range <span class="math math-inline">0</span> to <span class="math math-inline">N-1</span> where <span class="math math-inline">N</span> is the size of the map</li>
+</ul>
+<p><strong>Hash Function</strong></p>
+<ul>
+<li>A <em>hash function</em> <span class="math math-inline">h</span> maps key to integers in a fixed interval <span class="math math-inline">[0, N-1]</span> also called <em>buckets</em></li>
+<li>E.g. <span class="math math-inline">h(x) = x \bmod N</span> is a hash function for integer keys</li>
+<li>The integer <span class="math math-inline">h(x)</span> is called the <em>hash value</em> of key <span class="math math-inline">x</span></li>
+<li>An ideal hash function maps the keys to integers in a random-like manner, so that bucket values are evenly distributed</li>
+<li>Consists of two steps:
+<ol>
+<li>Map the <em>key</em> to an <em>integer</em> - <strong>Hash Code</strong> <span class="math math-display">h_1 : \text{key} \to \text{integers}</span></li>
+<li>Map the <em>integer</em> to a <em>bucket</em> - <strong>Compression Function</strong> <span class="math math-display">h_2 : \text{integers} \to [0,N-1]</span></li>
+</ol>
+</li>
+<li>The hash function is the <strong>composition</strong> of these two functions:
+<span class="math math-display">h(k) = h_2(h_1(k))</span></li>
+<li>To store an item <span class="math math-inline">(k,v)</span> in a hash table, we:
+<ul>
+<li>Compute its hash code <span class="math math-inline">h_1(k)</span></li>
+<li>Apply the compression function <span class="math math-inline">h_2(h_1(k))</span></li>
+<li>Item <span class="math math-inline">(k,v)</span> will be stored at index <span class="math math-inline">i=h(k)</span></li>
+</ul>
+</li>
+</ul>
+<h4>Hash Codes</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>The hash code <strong>ideally</strong> should <em>minimise collisions</em></li>
+<li>There is no unique way to choose a hash code for a key</li>
+</ul>
+<ol>
+<li>For a data type represented by at most 32-bits (<code>int</code>, <code>byte</code>, <code>short</code>, <code>char</code>), take as a hash code the integer representation of its bits
+<ul>
+<li><strong>not efficient</strong> for 64-bit representations because <em>Java</em> relies on 32-bit hash codes</li>
+<li>For 64-bit data types (<code>long</code>, <code>double</code>), one may combine the high and low halves of the key to get a 32-bit key</li>
+</ul>
+</li>
+<li>For strings and tuples of the form <span class="math math-inline">(a_0, a_1, \cdots, a_{n-1})</span> we can use a <strong>polynomial hash code</strong></li>
+</ol>
+<p><strong>Polynomial Hash Code</strong></p>
+<ul>
+<li>Partition the bits of the key into a sequence of components of fixed length:
+<span class="math math-display">a_0 a_1 \cdots a_{n-1}</span></li>
+<li>Evaluate the polynomial
+<span class="math math-display">p(z) = a_0 + a_1z + a_2z^2 + \cdots + a_{n-1}z^{n-1}</span>
+at a fixed value <span class="math math-inline">z</span>, ignoring overflows</li>
+<li>This can be computed in <span class="math math-inline">O(n)</span> using <strong>Horner’s Rule</strong>:
+<span class="math math-display">p(z) = a_0 + z(a_1 + z(a_2 + z(a_3 + \cdots + z(a_{n-2} + za_{n-1}) \cdots )))</span></li>
+<li>Most suitable for <strong>strings</strong>
+<ul>
+<li>Choice <span class="math math-inline">z=33</span> gives at most <span class="math math-inline">6</span> collisions on a set of <span class="math math-inline">50000</span> English words</li>
+</ul>
+</li>
+</ul>
+<h4>Compression Functions</h4>
+<p><strong>Division</strong></p>
+<ul>
+<li>One of the simplest methods:
+<span class="math math-display">h_2(y) = y \bmod N</span></li>
+<li><span class="math math-inline">N</span> is usually chosen to be a prime number, this has to do with number theory</li>
+</ul>
+<p><strong>Multiply, Add and Divide (MAD)</strong>
+<span class="math math-display">h_2(y) = (ay + b) \bmod N</span></p>
+<ul>
+<li><span class="math math-inline">a</span>, <span class="math math-inline">b</span> are nonnegative integers such that <span class="math math-inline">a \bmod N \ne 0</span>, otherwise every integer would map to same value <span class="math math-inline">b</span></li>
+</ul>
+<h4>Resolving Collisions - Separate Chaining</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Collisions occur when different elements are mapped to the same cell</li>
+<li>There are many techniques to deal with this, e.g. Separate Chaining, Open Addressing etc.</li>
+</ul>
+<p><strong>Separate Chaining</strong></p>
+<ul>
+<li>Let each cell in the table point to a <em>linked list</em> of entries that map there</li>
+<li>Simple but requires additional memory outside the table</li>
+</ul>
+<p>![[Pasted image 20250510113354.png]]</p>
+<ul>
+<li><strong>Analysis:</strong>
+<ul>
+<li>Given a hash table <span class="math math-inline">T</span> with <span class="math math-inline">N</span> slots that stores <span class="math math-inline">n</span> elements, we define the <em><strong>load factor</strong></em> <span class="math math-inline">\alpha = \frac{n}{N}</span></li>
+<li>If the hash function performs well, then the average length of a list is <span class="math math-inline">\alpha</span></li>
+<li>If <span class="math math-inline">n = O(N)</span>, then the operations <code>get</code>, <code>put</code> and <code>remove</code> take <span class="math math-inline">O(1)</span> time on average</li>
+</ul>
+</li>
+</ul>
+<h4>Resolving Collisions - Open Addressing</h4>
+<p><strong>Open Addressing</strong></p>
+<ul>
+<li><em><strong>Open Addressing</strong></em> - the colliding item is placed in a different cell of the table</li>
+<li>Each table cell inspected is referred to as a <em>probe</em></li>
+<li>The goal of a collision resolution is to find a free slot in the table</li>
+<li><strong>Probe Sequence</strong> - the series of slots visited following a collision resolution policy - <span class="math math-inline">\beta_0 = h(k)</span>, <span class="math math-inline">(\beta_0, \beta_1, \cdots)</span> is the <em>probe sequence</em>.</li>
+<li>Given a hash function <span class="math math-inline">h&#39;</span>: <span class="math math-display">\beta_i = h(k, i) = (h&#39;(k) + f(i)) \bmod N</span></li>
+<li>Three techniques are used to compute the probe sequences for open addressing:
+<ol>
+<li>Linear probing</li>
+<li>Quadratic probing</li>
+<li>Double hashing</li>
+</ol>
+</li>
+</ul>
+<p><strong>Linear Probing</strong></p>
+<ul>
+<li>Use the probe function <span class="math math-inline">f(i) = i</span></li>
+<li>Simply go to the next slot in the table (circularly)</li>
+<li>Suffers from <em><strong>primary clustering</strong></em> - records tend to cluster in the table under linear probing since the probabilities for which slot to use next are not the same for all slots</li>
+</ul>
+<p>![[Pasted image 20250510114439.png]]</p>
+<p><strong>Quadratic Probing</strong></p>
+<ul>
+<li>Use the probe function <span class="math math-inline">f(i) = i^2</span></li>
+<li>Same idea as linear probing, but follow a square rule for the next slot</li>
+<li>Suffers from <em><strong>secondary clustering</strong></em></li>
+</ul>
+<p>![[Pasted image 20250510114548.png]]</p>
+<p><strong>Double Hashing</strong></p>
+<ul>
+<li>Use the probe function <span class="math math-inline">f(i) = i \times h&#39;&#39;(k)</span>
+<ul>
+<li>Choose <span class="math math-inline">h&#39;&#39;(k) = q - k \bmod q</span> where <span class="math math-inline">q &lt; N</span> is a prime</li>
+</ul>
+</li>
+<li>The possible values of <span class="math math-inline">h&#39;&#39;(k)</span> are <span class="math math-inline">1,2, \cdots, q</span>, so <span class="math math-inline">h_2(k)</span> cannot have zero values</li>
+</ul>
+<p>![[Pasted image 20250510114719.png]]</p>
+<p><strong>Analysis</strong></p>
+<ul>
+<li>For open addressing, the load factor <span class="math math-inline">\alpha = \frac{n}{N}</span> should remain below <span class="math math-inline">0.5</span>, or <span class="math math-inline">N \ge 2n</span></li>
+<li>When the load factor grows beyond 0.5, one must <em><strong>rehash</strong></em> the table</li>
+<li>It is recommended that the new hash table have a prime number size approximately double the previous size</li>
+</ul>
+<h4>Basic Operations - Open Addressing</h4>
+<p><strong>Deleting from Hash Table</strong></p>
+<ul>
+<li>Replace the deleted element with a <em>special</em> <code>DEFUNCT</code> sentinel object</li>
+<li>Referred to as <em><strong>lazy deletion</strong></em> - mark an element as deleted instead of removing it</li>
+<li><code>search(k)</code> will skip over cells containing <code>DEFUNCT</code> and continue probing until finding <span class="math math-inline">k</span></li>
+<li>This is <em>important</em> as deleting the value may lead to subsequent values in the <em>probe chain</em> from being unreachable as an <em>empty cell</em> indicates that the item isn’t found</li>
+</ul>
+<p><strong>Overview</strong></p>
+<ul>
+<li><code>remove(k)</code>:
+<ul>
+<li>Search for entry with key <span class="math math-inline">k</span></li>
+<li>If found, we replace by <code>DEFUNCT</code> and return element <span class="math math-inline">v</span></li>
+<li>Otherwise return <code>null</code></li>
+</ul>
+</li>
+<li><code>put(k, v)</code>
+<ul>
+<li>Throw exception if table is full</li>
+<li>Probe consecutive cells until:
+<ul>
+<li>A cell <span class="math math-inline">i</span> is found that is either <em>empty</em> or stores <code>DEFUNCT</code> with the right key (key is often retained after deletion)</li>
+<li><span class="math math-inline">N</span> cells have been unsuccessfully probed</li>
+</ul>
+</li>
+<li>We store <span class="math math-inline">(k,v)</span> in cell <span class="math math-inline">i</span></li>
+</ul>
+</li>
+</ul>
+<h4>Analysis</h4>
+<p><strong>Running Time</strong></p>
+<ul>
+<li>The <em><strong>expected running time</strong></em> of all dictionary ADT operations in a hash table is <span class="math math-inline">O(1)</span>
+<ul>
+<li>Insertion, deletion, search</li>
+</ul>
+</li>
+<li>In practice, hashing is very fast provided the load factor is not close to 100%</li>
+</ul>
+<h2>15. Trees</h2>
+<h4>Introduction to Trees</h4>
+<p><strong>Trees</strong></p>
+<ul>
+<li>A tree is an abstract model of a hierarchical structure, which consists of nodes with a parent-child relation</li>
+<li>Applications:
+<ul>
+<li>Organisation charts</li>
+<li>File systems</li>
+<li>Programming environments</li>
+</ul>
+</li>
+</ul>
+<p><strong>Terminology</strong></p>
+<ul>
+<li>
+<p><em><strong>Root</strong></em> - node without parent</p>
+</li>
+<li>
+<p><em><strong>Internal Node</strong></em> - node with at least one child</p>
+</li>
+<li>
+<p><em><strong>Leaf</strong></em> - node without children</p>
+</li>
+<li>
+<p><em><strong>Ancestors</strong></em> (of a node) - parent, grandparent, etc.</p>
+</li>
+<li>
+<p><em><strong>Descendant</strong></em> (of a node) - child, grandchild, etc.</p>
+</li>
+<li>
+<p><em><strong>Siblings</strong></em> - nodes which belong to the same parent</p>
+</li>
+<li>
+<p><em><strong>Subtree</strong></em> - tree consisting of a node and its descendants</p>
+</li>
+<li>
+<p><em><strong>Depth</strong></em> - number of ancestors, or length of the path from the root to the node. The <em>depth</em> of the root is <span class="math math-inline">0</span></p>
+</li>
+<li>
+<p><em><strong>Height</strong></em> - length of the longest path from leaf to the node. The <em>height</em> of a leaf is <span class="math math-inline">0</span></p>
+</li>
+<li>
+<p><strong>NOTE</strong> - the height of a <em>tree</em> is equal to its depth</p>
+</li>
+</ul>
+<p><strong>Tree ADT</strong></p>
+<ul>
+<li>We define a tree ADT using a <em>position</em> as an abstraction for a node. Each element is stored at each position</li>
+<li>Accessors:
+<ul>
+<li><code>root()</code></li>
+<li><code>parent(p)</code></li>
+<li><code>children(p)</code> - iterable collection of children</li>
+<li><code>numChildren(p)</code></li>
+</ul>
+</li>
+<li>Queries:
+<ul>
+<li><code>isInternal()</code></li>
+<li><code>isExternal()</code></li>
+<li><code>isRoot(p)</code></li>
+</ul>
+</li>
+<li>General methods:
+<ul>
+<li><code>size()</code></li>
+<li><code>isEmpty()</code></li>
+<li><code>iterator()</code> - an iterator for all positions in a tree</li>
+<li><code>positions()</code> - returns an iterable collection (tree traversals)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Linked List Trees</strong></p>
+<ul>
+<li>A node is represented by an object storing:
+<ul>
+<li><em>Element</em></li>
+<li><em>Parent node</em></li>
+<li><em>Sequence of children nodes</em></li>
+</ul>
+</li>
+<li>Node objects implement the <code>Position ADT</code></li>
+</ul>
+<h4>Tree Traversals</h4>
+<p><strong>Pre-Order Traversal</strong></p>
+<ul>
+<li>A <em><strong>traversal</strong></em> visits the nodes of a tree in a systematic manner</li>
+<li><strong>Pre-Order</strong>: Node is visited before its descendants</li>
+<li>Application: print a structured document</li>
+<li><strong>Algorithm:</strong></li>
+</ul>
+<pre><code class="language-pseudocode">function preOrder(v):
+	visit(v)
+	for each child w of v:
+		preOrder(w)
+</code></pre>
+<p>![[Pasted image 20250510120634.png]]</p>
+<p><strong>Post-Order Traversal</strong></p>
+<ul>
+<li>In a <em>post-order traversal</em>, a node is visited after its descendants</li>
+<li>Application - compute space used by files in a directory and its subdirectories</li>
+<li><strong>Algorithm:</strong></li>
+</ul>
+<pre><code class="language-pseudocode">function postOrder(v):
+	for each child w of v:
+		postOrder(w)
+	visit(v)
+</code></pre>
+<p>![[Pasted image 20250510120748.png]]</p>
+<h4>Binary Trees</h4>
+<p><strong>Binary Tree ADT</strong></p>
+<ul>
+<li>A <em><strong>binary tree</strong></em> is a tree where each node has at most two children</li>
+<li>The <code>BinaryTree</code> DT extends the Tree ADT with the following methods:
+<ul>
+<li><code>position left(p)</code></li>
+<li><code>position right(p)</code></li>
+<li><code>position sibling(p)</code></li>
+<li>(return null in absence of a node)</li>
+</ul>
+</li>
+<li>Applications:
+<ul>
+<li>arithmetic expressions</li>
+<li>decision processes</li>
+<li>searching</li>
+</ul>
+</li>
+</ul>
+<p><strong>Linked List Structure for Binary Trees</strong></p>
+<ul>
+<li>Each node is represented by an object storing:
+<ol>
+<li>Element</li>
+<li>Parent node</li>
+<li>Left child node</li>
+<li>Right child node</li>
+</ol>
+</li>
+<li>Node objects implement the Position ADT</li>
+</ul>
+<p><strong>Proper Binary Trees</strong></p>
+<ul>
+<li>A <em><strong>proper</strong></em> (full) binary tree is a tree where every node has <span class="math math-inline">0</span> or <span class="math math-inline">2</span> children</li>
+<li>Denote by:
+<ul>
+<li><span class="math math-inline">n</span> = number of nodes</li>
+<li><span class="math math-inline">e</span> = number of external nodes</li>
+<li><span class="math math-inline">i</span> = number of internal nodes</li>
+<li><span class="math math-inline">h</span> = height</li>
+</ul>
+</li>
+<li>Properties:
+<ul>
+<li><span class="math math-inline">e = i + 1</span></li>
+<li><span class="math math-inline">h \le (n-1)/2</span></li>
+<li><span class="math math-inline">h \ge \log_2(n+1) - 1</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>In Order Traversal</strong></p>
+<ul>
+<li>Note that <em>in-order</em> traversal is only possible with a binary tree</li>
+<li>The node is visited after its left subtree but before its right subtree</li>
+<li><strong>Algorithm:</strong></li>
+</ul>
+<pre><code class="language-pseudocode">function inOrder(v):
+	if left(v) != NULL:
+		inOrder(left(v))
+	visit(v)
+	if right(v) != NULL:
+		inOrder(right(v))
+</code></pre>
+<p>![[Pasted image 20250510121655.png]]</p>
+<p><strong>Application - Arithmetic Expressions</strong></p>
+<ul>
+<li><em><strong>Proper Binary Tree</strong></em> associated with an arithmetic expression
+<ul>
+<li>internal nodes - operators</li>
+<li>external nodes - operands</li>
+</ul>
+</li>
+<li>We can use <em><strong>in-order</strong></em> traversal to print the arithmetic expression with a binary tree</li>
+</ul>
+<p>![[Pasted image 20250510121752.png]]</p>
+<p><strong>Application - Decision Tree</strong></p>
+<ul>
+<li>Binary tree associated with a decision process
+<ul>
+<li>internal nodes - questions with yes/no answer</li>
+<li>external nodes - decisions</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250510121844.png]]</p>
+<h4>Running Time Analysis</h4>
+<p><strong>Common Running Times:</strong></p>
+<ul>
+<li>Cost of traversing a tree = <span class="math math-inline">O(n)</span></li>
+<li>Maximum height of a binary tree = <span class="math math-inline">O(n)</span></li>
+</ul>
+<h4>Sorting - Decision Trees</h4>
+<p><strong>Decision Tree Proof</strong></p>
+<ul>
+<li>Recall that *any comparison-based sorting algorithm cannot run faster than <span class="math math-inline">\Omega(n \log n)</span> time</li>
+<li>Proof using binary decision trees:
+<ul>
+<li>Let <span class="math math-inline">S = (x_0, x_1, \cdots, x_{n-1})</span> be a sequence of elements to be sorted. Assume that all <span class="math math-inline">x_i</span> are distinct</li>
+<li>Each time the algorithm compares two elements, there are two possible outputs (yes, no)</li>
+<li>We can use a decision tree <span class="math math-inline">T</span> to represent a comparison-based algorithm where:
+<ul>
+<li><span class="math math-inline">T</span> represents all possible sequences of comparisons that a sorting algorithm might make</li>
+<li>Internal node = comparison, edges = yes/no answer</li>
+</ul>
+</li>
+<li>The <em><strong>height</strong></em> of the decision tree is a lower bound on the running time, as every input permutation must lead to a separate leaf output</li>
+<li>We know that there are <span class="math math-inline">n!</span> possible outputs of a sorting algorithm, so there are <span class="math math-inline">n!</span> leaves</li>
+<li>The height is at least <span class="math math-inline">\log(n!)</span>, which is <span class="math math-inline">\Omega(n \log n)</span> as we will see later</li>
+</ul>
+</li>
+</ul>
+<p><strong>Proof that <span class="math math-inline">\log(n!) = \Theta(n \log n)</span></strong>
+<span class="math math-display">\log(n!) = \log(1\times 2 \times \cdots \times (n-1) \times n)</span>
+<span class="math math-display">= \log 1 + \log 2 + \cdots + \log(n/2) + \cdots + \log(n)</span>
+<span class="math math-display"> \ge 0 + 0 + ... + \log(n/2) + \cdots + \log(n/2)</span>
+<span class="math math-display">\ge (n/2) \times \log(n/2)</span></p>
+<ul>
+<li>Therefore <span class="math math-inline">\log(n!) = \Omega(n \log n)</span></li>
+<li>We also know that: <span class="math math-display">\log1 + \log 2 + \cdots + \log(n) \le \log n + \log n + \cdots + \log n = n \log n</span></li>
+<li>So we have that <span class="math math-inline">\log(n!) = O(n \log n)</span>.</li>
+<li>Therefore, <span class="math math-inline">\log(n!) = \Theta(n \log n)</span></li>
+</ul>
+<p><strong>Conclusion</strong></p>
+<ul>
+<li>We now know that the height is at least <span class="math math-inline">\Omega(n \log n)</span>, so we have that comparison-based sorting algorithms have a lower bound of <span class="math math-inline">\Omega(n \log n)</span></li>
+</ul>
+<h2>16. Binary Search Trees</h2>
+<h4>Binary Search Trees</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <em>Binary Search Tree</em> (BST) efficiently implements an <strong>ordered map</strong>, where the keys satisfy the properties of a <em>total order</em></li>
+<li>This allows us to support nearest neighbour queries:
+<ul>
+<li>Item with largest key less than or equal to <span class="math math-inline">k</span></li>
+<li>Item with smallest key greater than or equal to <span class="math math-inline">k</span></li>
+</ul>
+</li>
+<li>Fundamental methods:
+<ul>
+<li><code>get(k)</code> - returns value <span class="math math-inline">v</span> associated with key <span class="math math-inline">k</span>, or null if doesn’t exist</li>
+<li><code>put(k,v)</code> - inserts a new entry or replaces any value associated with <span class="math math-inline">k</span></li>
+<li><code>remove(k)</code> - removes entry with key <span class="math math-inline">k</span>, or returns null if doesn’t exist</li>
+</ul>
+</li>
+</ul>
+<p><strong>Ordered Map - Sorted Array Implementation</strong></p>
+<ul>
+<li><em><strong>Binary Search</strong></em> can perform nearest neighbour queries on an ordered map that is implemented with an array, sorted by key
+<ul>
+<li><em>Search</em> takes <span class="math math-inline">O(\log n)</span></li>
+<li>Insertion takes <span class="math math-inline">O(n)</span> time, as we have to shift items to make room for the new item</li>
+<li>Removal takes <span class="math math-inline">O(n)</span> time</li>
+</ul>
+</li>
+<li><strong>Lookup</strong> is only effective for ordered maps of small size, or maps where <em><strong>searches</strong></em> are the most common, and <em>insertions</em> / <em>removals</em> are not common</li>
+</ul>
+<p><strong>Binary Search Tree</strong></p>
+<ul>
+<li>A <strong>binary tree</strong> storing keys at its internal nodes, satisfying the property:
+<ul>
+<li><span class="math math-inline">\text{key}(u) \le \text{key}(v) \le \text{key}(w)</span> for <span class="math math-inline">u</span> in left subtree of <span class="math math-inline">v</span> and <span class="math math-inline">w</span> in right subtree of <span class="math math-inline">v</span></li>
+</ul>
+</li>
+<li>External nodes do not store items
+<ul>
+<li>These are the <code>null</code> pointers of leaf nodes</li>
+</ul>
+</li>
+<li><em>An in-order traversal of a binary search tree visits the keys in increasing order</em></li>
+</ul>
+<h4>BST Search</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>Start at the root and compare <span class="math math-inline">k</span> with value of the current node.</li>
+<li>If <span class="math math-inline">k</span> is equal to the node value, we are done</li>
+<li>If <span class="math math-inline">k</span> is smaller, recurse on the left child</li>
+<li>Otherwise, recurse on the right child</li>
+<li>If we reach a leaf (external node), the key is not found</li>
+</ul>
+<pre><code class="language-pseudocode">function TreeSearch(k, v):
+	if T.isExternal(v)
+		return v
+	if k &lt; key(v):
+		return TreeSearch(k, left(v))
+	else if k &gt; key(v):
+		return TreeSearch(k, right(v))
+	else:
+		return v
+</code></pre>
+<h4>BST Insert</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>Assume <span class="math math-inline">k</span> is not already in the tree, and let <span class="math math-inline">w</span> be the leaf reached by the search</li>
+<li>We insert <span class="math math-inline">k</span> at node <span class="math math-inline">w</span> and expand <span class="math math-inline">w</span> into an internal node</li>
+<li>If <span class="math math-inline">k</span> is found by the search, we can terminate early to either exit, or update the value of the key <span class="math math-inline">k</span></li>
+</ul>
+<pre><code class="language-pseudocode">function insertBST(k, v):
+
+	// search for the place to insert
+	parent = NULL
+	curr = T.root
+	while (curr != NULL):
+		if k == curr.val().getKey():
+			curr.val().setValue(v)
+			return
+		else if k &lt; curr.val().getKey():
+			parent = curr
+			curr = curr.left
+		else:
+			parent = curr
+			curr = curr.right
+
+	// by now, we know that curr is NULL
+	if (k &lt; parent.val().getKey()):
+		parent.setLeft(new Node(k, v))
+	else:
+		parent.setRight(new Node(k, v))
+</code></pre>
+<p>![[Pasted image 20250510161350.png]]</p>
+<p>![[Pasted image 20250510161826.png]]</p>
+<h4>BST Delete</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>For deletion, we distinguish three cases
+<ol>
+<li>The node to be deleted has no children
+<ul>
+<li><em>Just delete the node</em></li>
+</ul>
+</li>
+<li>The node to be deleted has a single child
+<ul>
+<li><em>Make child of node to be child of parent, then delete the node</em></li>
+</ul>
+</li>
+<li>The node to be deleted has two children
+<ul>
+<li>Replace the node value by maximum value of left subtree, and delete the max node of left subtree</li>
+<li>This method is the <strong>In-Order Predecessor Method</strong></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-pseudocode">/* Helper Function */
+function maxValue(curr):
+	if curr.right != NULL:
+		return maxValue(curr.right)
+	return curr.val
+
+/* Main Function */
+function deleteBST(curr, key):
+	if curr == NULL: return curr
+
+	if key &lt; curr.val:
+		curr.left = deleteBST(curr.left, key)
+	else if key &gt; curr.val:
+		curr.right = deleteBST(curr.right, key)
+	else:
+		// case 1
+		if curr.left == NULL &amp;&amp; curr.right == NULL:
+			return NULL
+		// case 2a
+		else if curr.left != NULL &amp;&amp; curr.right == NULL:
+			return curr.left
+		// case 2b
+		else if curr.left == NULL &amp;&amp; curr.right != NULL:
+			return curr.right
+		// case 3
+		else:
+			max = maxValue(curr.left)
+			curr.left = deleteBST(curr.left, max)
+			curr.val = max
+	return curr
+</code></pre>
+<p>![[Pasted image 20250510162719.png]]
+![[Pasted image 20250510162730.png]]</p>
+<h4>Performance</h4>
+<p><strong>Performance</strong></p>
+<ul>
+<li>Consider an ordered map with <span class="math math-inline">n</span> items implemented using a binary search tree of height <span class="math math-inline">h</span></li>
+<li>Space used is <span class="math math-inline">O(n)</span></li>
+<li>Methods <code>get</code>, <code>put</code>, <code>remove</code> take <span class="math math-inline">O(h)</span> time</li>
+<li>The height <span class="math math-inline">h</span> is <span class="math math-inline">O(n)</span> in the worst case and <span class="math math-inline">O(\log n)</span> in the best case</li>
+</ul>
+<h2>17. AVL Trees</h2>
+<h4>AVL Trees</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>An <em>Adelson-Veslkii and Landis</em> (<strong>AVL</strong>) tree is a <strong>Binary Search Tree</strong> with a balance property:
+<ul>
+<li><em><strong>For each node, the height of the left and right subtrees differ by at most 1</strong></em></li>
+</ul>
+</li>
+<li>Formally, let <span class="math math-inline">\alpha</span> be <em>any node</em> in an AVL tree, <span class="math math-inline">h_L</span>, <span class="math math-inline">h_R</span> be the heights of the left/right subtrees of <span class="math math-inline">\alpha</span>. The AVL property states that:
+<span class="math math-display">|h_L - h_R| \le 1</span></li>
+</ul>
+<p><strong>Height of an AVL Tree</strong></p>
+<ul>
+<li>The height of an AVL tree with <span class="math math-inline">n</span> nodes is <span class="math math-inline">O(\log n)</span></li>
+<li><strong>Proof:</strong>
+<ul>
+<li>Let <span class="math math-inline">T_h</span> be the smallest AVL tree of height <span class="math math-inline">h</span> and <span class="math math-inline">N(h)</span> be the number of nodes in <span class="math math-inline">T_h</span></li>
+<li>The height of the subtrees of <span class="math math-inline">T_h</span> are <span class="math math-inline">h-1</span> and <span class="math math-inline">h-2</span></li>
+<li>We get:
+<ol>
+<li><span class="math math-inline">N(h) = N(h-1) + N(h-2) + 1</span></li>
+<li><span class="math math-inline">N(1) = 1</span> and <span class="math math-inline">N(2) = 2</span></li>
+</ol>
+</li>
+<li>This recurrence is similar to the Fibonacci one</li>
+<li><span class="math math-inline">N(h) \ge \phi^h</span> where <span class="math math-inline">\phi = (1 + \sqrt 5)/2</span>, the golden ratio</li>
+<li>Since <span class="math math-inline">N(h)</span> is the number of nodes for the <em>smallest AVL tree</em> of height <span class="math math-inline">h</span>, then for <strong>any</strong> AVL tree of height h, <span class="math math-inline">N \ge \Omega(\phi^h)</span></li>
+<li>Hence <span class="math math-inline">h = O(\log n)</span>, as <span class="math math-inline">\phi</span> is a constant</li>
+</ul>
+</li>
+<li><strong>Second Proof:</strong>
+<ul>
+<li>We know that <span class="math math-inline">N(h-1) \ge N(h-2)</span>, so by dropping the +1 in the recurrence, we get:
+<span class="math math-display">N(h) \ge 2N(h-2)</span><span class="math math-display">\ge 2^2N(h-4)</span><span class="math math-display">\ge 2^iN(h-2i)</span></li>
+</ul>
+</li>
+<li>We choose <span class="math math-inline">i</span> such that <span class="math math-inline">h-2i = 1</span> or <span class="math math-inline">2</span> (base case), so <span class="math math-inline">i = h/2 - 1</span></li>
+<li>Hence we get <span class="math math-inline">N(h) \ge 2^{h/2-1}</span>, so <span class="math math-inline">\log(N(h)) \ge h/2 - 1</span>, therefore <span class="math math-inline">h \le \log(N(h))</span></li>
+</ul>
+<h4>Insertion</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Insertion and deletion may violate the <strong>AVL</strong> property</li>
+<li>Hence after insertion/deletion we need to restore the AVL property</li>
+<li><em>Start from the node inserted, and work up to the root of the tree, finding the first node that has an imbalance, and restore the imbalance.</em></li>
+<li><strong>Note that only one imbalance will occur with an Insertion</strong></li>
+<li><strong>We distinguish 4 cases:</strong>
+<ol>
+<li><em>Left-Left Imbalance - Rotate Right</em></li>
+<li><em>Right-Right Imbalance - Rotate Left</em></li>
+<li><em>Left-Right Imbalance - Rotate Left, then Right</em></li>
+<li><em>Right-Left Imbalance - Rotate Right, then Left</em></li>
+</ol>
+</li>
+</ul>
+<p><strong>Single Rotation - Example</strong></p>
+<p>![[Pasted image 20250510172405.png]]
+![[Pasted image 20250510172420.png]]</p>
+<p><strong>Trinode Restructuring</strong></p>
+<ul>
+<li>Rebalancing an AVL tree involves performing a single or double rotation</li>
+<li><strong>Trinode Restructuring</strong> involves a node <span class="math math-inline">x</span>, its parent <span class="math math-inline">y</span> and its grandparent <span class="math math-inline">z</span></li>
+<li>E.g. RR imbalance
+<ol>
+<li>Replace subtree rooted at <span class="math math-inline">z</span> with subtree rooted at <span class="math math-inline">b</span></li>
+<li><span class="math math-inline">a</span> becomes left child of <span class="math math-inline">b</span> and T2 becomes a subtree of <span class="math math-inline">a</span></li>
+</ol>
+</li>
+</ul>
+<p>![[Pasted image 20250510172641.png]]</p>
+<ul>
+<li><strong>NOTE</strong>: Cost of restructuring is <span class="math math-inline">O(1)</span></li>
+</ul>
+<p><strong>More Examples</strong></p>
+<p>![[Pasted image 20250510172758.png]]
+![[Pasted image 20250510172822.png]]
+![[Pasted image 20250510172832.png]]
+![[Pasted image 20250510172840.png]]
+![[Pasted image 20250510172846.png]]</p>
+<h4>Deletion</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Removal beings as in a <strong>binary search tree</strong></li>
+<li>It’s parent <span class="math math-inline">w</span> may cause an imbalance, so whilst travelling up the tree from <span class="math math-inline">w</span>, we might need to restore the balance for some subtree rooted at <span class="math math-inline">z</span></li>
+<li>This restructuring may upset the balance of another node higher in the tree, we must continue checking until the root is reached</li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>Delete a node <span class="math math-inline">x</span> as in ordinary binary search tree</li>
+<li>Then trace the path from the new leaf towards the root
+<ol>
+<li>For each node <span class="math math-inline">x</span> encountered, check if <code>height(left(x))</code> and <code>height(right(x))</code> differ by at most 1</li>
+<li>If yes, proceed to <code>parent(x)</code></li>
+<li>If no, perform an appropriate rotation at <span class="math math-inline">x</span></li>
+</ol>
+</li>
+</ul>
+<p>![[Pasted image 20250510173146.png]]</p>
+<h4>Time Complexities</h4>
+<p><strong>Running times</strong></p>
+<ul>
+<li>Search runs in <span class="math math-inline">O(\log n)</span></li>
+<li>Insertion runs in <span class="math math-inline">O(\log n)</span> and <span class="math math-inline">\Theta(\log n)</span>, because insertion occurs deep in the tree at the leaves, so you have to traverse down to the bottom</li>
+<li>Deletion runs in <span class="math math-inline">O(\log n)</span> and <span class="math math-inline">\Theta(\log n)</span>, as deletion from BST is <span class="math math-inline">\Theta(\log n)</span> and restructuring requires going to the root</li>
+</ul>
+<h2>18. Skip Lists</h2>
+<h4>Skip Lists</h4>
+<p><strong>Motivation</strong></p>
+<ul>
+<li><strong>Binary Search</strong> can find an element in a sorted array in <span class="math math-inline">O(\log n)</span>, but insertion and deletion take <span class="math math-inline">O(n)</span> steps due to shifting elements around</li>
+<li>Using a <strong>linked-list</strong> improves insertion and deletion (in case we are given the position of the element to update) but search is inefficient since it takes <span class="math math-inline">O(n)</span></li>
+<li>An efficient data structure for implementing the <strong>Ordered Map ADT</strong> is a <em><strong>Skip List</strong></em></li>
+</ul>
+<p><strong>Skip Lists</strong></p>
+<ul>
+<li>A skip list is a <em>two-dimensional</em> collection of positions arranged horizontally into <strong>levels</strong> and vertically into <strong>towers</strong></li>
+<li>Each level is a list <span class="math math-inline">S_i</span> and each tower contains positions storing the same entry across consecutive lists</li>
+<li><strong>Operations:</strong>
+<ul>
+<li><code>next(p)</code> - returns position following <span class="math math-inline">p</span> on the same level</li>
+<li><code>prev(p)</code> - returns position preceding <span class="math math-inline">p</span> on same level</li>
+<li><code>above(p)</code> - returns position above <span class="math math-inline">p</span> in the same tower</li>
+<li><code>below(p)</code> - returns position below <span class="math math-inline">p</span> in the same tower</li>
+</ul>
+</li>
+</ul>
+<p><strong>Description</strong></p>
+<ul>
+<li>A <strong>skip</strong> list for a set <span class="math math-inline">S</span> of distinct <code>(key, element)</code> items is a series of lists <span class="math math-inline">S_0, S_1, \cdots, S_h</span> such that:
+<ul>
+<li>Each list <span class="math math-inline">S_i</span> contains the special keys <span class="math math-inline">+\infty</span> and <span class="math math-inline">-\infty</span></li>
+<li>List <span class="math math-inline">S_0</span> contains the keys of <span class="math math-inline">S</span> in increasing order plus <span class="math math-inline">+\infty</span> and <span class="math math-inline">-\infty</span></li>
+<li>Each list is a random subsequence of the previous one:
+<span class="math math-display">S_0 \supseteq S_1 \supseteq\cdots\supseteq S_h</span></li>
+<li>List <span class="math math-inline">S_h</span> contains only the <em>two special keys</em></li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250510174654.png]]</p>
+<h4>Search</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>We <em>start</em> at the first position of the top list, then repeat the below steps:</li>
+<li>At the current position <span class="math math-inline">p</span>, we compare <span class="math math-inline">k</span> with <span class="math math-inline">y = \text{key}(\text{next}(p))</span>:
+<ul>
+<li><span class="math math-inline">k = y</span>: we return <span class="math math-inline">\text{element}(\text{next}(p))</span></li>
+<li><span class="math math-inline">k &gt; y</span>: we “scan forward”</li>
+<li><span class="math math-inline">k &lt; y</span>: we “drop down”</li>
+</ul>
+</li>
+<li>If we try to drop down past the bottom list, we return <code>null</code> (<span class="math math-inline">k</span> not found)</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250510175112.png]]</p>
+<h4>Insertion</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li>Insertion into a skip list uses a <strong>randomized algorithm</strong></li>
+<li>Involves tossing a coin, assuming that:
+<ul>
+<li>Coin is unbiased</li>
+<li>Coin tosses are independent of each other</li>
+</ul>
+</li>
+<li><code>put(k,v)</code> uses a randomized algorithm to insert:
+<ul>
+<li>Run <code>SkipSearch(k)</code> -If a position <span class="math math-inline">p</span> is found with key <span class="math math-inline">k</span>, then overwrite its associated value with <span class="math math-inline">v</span></li>
+<li>Otherwise, insert <span class="math math-inline">(k,v)</span> immediately after position <span class="math math-inline">p</span> in <span class="math math-inline">S_i = S_0</span></li>
+<li>Then flip a coin to determine the height of the tower for <span class="math math-inline">(k,v)</span>
+<ol>
+<li>If it is tails, stop here</li>
+<li>If it is heads, insert the new entry at the appropriate position in <span class="math math-inline">S_i+1</span></li>
+<li>Go back to Step 1</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250510175454.png]]</p>
+<h4>Deletion</h4>
+<p><strong>Algorithm</strong></p>
+<ul>
+<li><code>SkipSearch(k)</code> - if no entry with key <span class="math math-inline">k</span> is found, return <code>null</code></li>
+<li>Otherwise, remove the element at position <span class="math math-inline">p</span> and all elements above <span class="math math-inline">p</span>, keeping only one list containing the two special keys <span class="math math-inline">+\infty</span> and <span class="math math-inline">-\infty</span></li>
+</ul>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250510175608.png]]</p>
+<h4>Implementation</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>We can implement a skip list with <em>quad-nodes</em></li>
+<li>A <em>quad-node</em> stores:
+<ul>
+<li><em>entry</em></li>
+<li>link to the node <em>previous</em></li>
+<li>link to the node <em>next</em></li>
+<li>link to the node <em>below</em></li>
+<li>link to the node <em>above</em></li>
+</ul>
+</li>
+<li>Also we define special keys <code>PLUS_INF</code> and <code>MINUS_INF</code> and we modify the key comparator to handle them</li>
+</ul>
+<h4>Height, Space Usage, Running Time</h4>
+<p><strong>Height</strong></p>
+<ul>
+<li>
+<p>Operations <code>skipSearch</code>, <code>put</code>, <code>remove</code> depend on the height of the skip list, <span class="math math-inline">h</span></p>
+</li>
+<li>
+<p>Height <span class="math math-inline">h</span> is determined by the randomized insertion algorithm</p>
+</li>
+<li>
+<p>Probability that a given entry has tower of height <span class="math math-inline">i</span> is:
+<span class="math math-display">\frac{1}{2^i}</span></p>
+</li>
+<li>
+<p>Hence the probability <span class="math math-inline">P_i</span> that the level has at least one entry is at most:
+<span class="math math-display">P_i \le \frac{n}{2^i}</span></p>
+</li>
+<li>
+<p>This is because: <span class="math math-display">P(A_1 \cup A_2 \cup \cdots \cup A_n) \le P(A_1) + P(A_2) + \cdots + P(A_n)</span></p>
+</li>
+<li>
+<p>In other words, the expected number positions at level <span class="math math-inline">i</span> cannot exceed <span class="math math-inline">n/2^i</span></p>
+</li>
+<li>
+<p>Generally speaking, for a constant <span class="math math-inline">c &gt; 1</span>, <span class="math math-inline">S</span> has height <span class="math math-inline">h</span> more than <span class="math math-inline">i = c\log n</span> with probability at most <span class="math math-inline">1/n^{c-1}</span></p>
+</li>
+<li>
+<p>In other words, the probability that <span class="math math-inline">h &lt; c\log n</span> is at least <span class="math math-display">1 - \frac{1}{n^{c-1}}</span></p>
+</li>
+<li>
+<p>With a very high probability, the height of <span class="math math-inline">h</span> is <span class="math math-inline">O(\log n)</span></p>
+</li>
+</ul>
+<p><strong>Space Usage</strong></p>
+<ul>
+<li>The total expected positions in <span class="math math-inline">S</span> is the sum of all positions at levels <span class="math math-inline">0 \le i \le h</span>:
+<span class="math math-display">\sum_{i=0}^h\frac{n}{2^i} = n\sum_{i=0}^h\frac{1}{2^i}&lt;2n</span></li>
+<li>This is because <span class="math math-inline">\sum_{i=0}^n(1/2^i) &lt; 2</span></li>
+<li>We can conclude that the <strong>expected</strong> space requirement of a skip list with <span class="math math-inline">n</span> items is <span class="math math-inline">O(n)</span></li>
+</ul>
+<p><strong>Running Time</strong></p>
+<ul>
+<li>
+<p>Search: <span class="math math-inline">O(\log n)</span> expected time</p>
+</li>
+<li>
+<p>Insertion: <span class="math math-inline">O(\log n)</span> expected time</p>
+</li>
+<li>
+<p>Deletion: <span class="math math-inline">O(\log n)</span> expected time</p>
+</li>
+<li>
+<p>Search time in a skip list is proportional to the <em>number of drop-downs</em> and the <em>number of scan-forward steps</em></p>
+<ul>
+<li>Drop-down steps are bounded by height of skip list <span class="math math-inline">\implies</span> <span class="math math-inline">O(\log n)</span> with high probability</li>
+<li>We can reason that the expected number of scan-forward steps is <span class="math math-inline">O(\log n)</span> using the fact that the expected number of coin tosses required in order to get tails is <span class="math math-inline">2</span></li>
+</ul>
+</li>
+</ul>
+<h2>19. Graphs</h2>
+<h4>Introduction to Graphs</h4>
+<p><strong>Graphs</strong></p>
+<ul>
+<li>A graph <span class="math math-inline">G = (V,E)</span> where <span class="math math-inline">V</span> = vertices, <span class="math math-inline">E</span> = edges</li>
+<li>Note that <span class="math math-inline">E \subseteq V^2</span></li>
+</ul>
+<p><strong>Edge Types</strong></p>
+<ul>
+<li><em>Directed</em> edge - ordered pair of vertices <span class="math math-inline">(u,v)</span> where <span class="math math-inline">u</span> is the origin, <span class="math math-inline">v</span> is the destination</li>
+<li><em>Undirected</em> edge - unordered pair of vertices <span class="math math-inline">(u,v)</span></li>
+<li><strong>Digraph</strong> = Directed graph, all edges are directed</li>
+<li>Undirected graph - all edges are undirected</li>
+</ul>
+<p><strong>Applications</strong></p>
+<ul>
+<li>Electronic circuits
+<ul>
+<li>Printed circuit board, Integrated circuit</li>
+</ul>
+</li>
+<li>Transportation networks
+<ul>
+<li>Highway network, Flight network</li>
+</ul>
+</li>
+<li>Computer networks
+<ul>
+<li>Local area network, Internet, Web</li>
+</ul>
+</li>
+<li>Databases
+<ul>
+<li>Entity-relationship diagram</li>
+</ul>
+</li>
+</ul>
+<p><strong>Terminology</strong></p>
+<ul>
+<li><strong>End Vertices</strong> of an edge</li>
+<li>Edges <strong>incident</strong> on a vertex</li>
+<li><strong>Adjacent vertices</strong> - connected by an edge</li>
+<li><strong>Degree</strong> - number of incoming/outgoing edges</li>
+<li><strong>Parallel edges</strong></li>
+<li><strong>Self-loop</strong></li>
+<li><strong>Path</strong> - sequence of alternating vertices and edges</li>
+<li><strong>Simple Path</strong> - path with all vertices and edges distinct</li>
+<li><strong>Cycle</strong> - circular sequence of alternating vertices and edges</li>
+<li><strong>Simple Cycle</strong> - cycle such that all vertices and edges are distinct</li>
+</ul>
+<p><strong>Properties</strong></p>
+<ul>
+<li>Handshaking Lemma - <span class="math math-inline">\sum_{v \in V}{\deg(v)} = 2|E|</span></li>
+<li>If <span class="math math-inline">G</span> is a tree, we have <span class="math math-inline">|V| - |E| = 1</span></li>
+</ul>
+<p><strong>Complete Graph</strong></p>
+<ul>
+<li>A <em>complete graph</em> is a simple, undirected graph where every pair of vertices is connected by a unique edge</li>
+<li>The number of edges in a complete graph with <span class="math math-inline">n</span> nodes is <span class="math math-inline">O(n^2)</span></li>
+<li>Each vertex has maximum degree <span class="math math-inline">n-1</span></li>
+</ul>
+<p><strong>Graph ADT</strong></p>
+<ul>
+<li><code>numVertices()</code></li>
+<li><code>vertices()</code></li>
+<li><code>numEdges()</code></li>
+<li><code>edges()</code></li>
+<li><code>getEdge(u, v)</code></li>
+<li><code>endVertices(e)</code></li>
+<li><code>opposite(v,e)</code></li>
+<li><code>outDegree(v)</code></li>
+<li><code>inDegree(v)</code></li>
+<li><code>outgoingEdges(v)</code></li>
+<li><code>incomingEdges(v)</code></li>
+<li><code>insertVertex(x)</code></li>
+<li><code>insertEdge(u, v, x)</code></li>
+<li><code>removeVertex(v)</code></li>
+<li><code>removeEdge(e)</code></li>
+</ul>
+<h4>Graph Representation - Edge List</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>All vertex objects are stored in an unordered list <span class="math math-inline">V</span></li>
+<li>edge objects are stored in an unordered list <span class="math math-inline">E</span></li>
+<li><strong>Vertex</strong> contains:
+<ul>
+<li>Element</li>
+<li>Reference to position in vertex sequence</li>
+</ul>
+</li>
+<li><strong>Edge</strong> object:
+<ul>
+<li>Element</li>
+<li>Origin vertex object</li>
+<li>Destination vertex object</li>
+<li>Reference to position in edge sequence</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250510211916.png]]</p>
+<p><strong>Performance</strong></p>
+<table><thead><tr><th></th><th></th></tr></thead><tbody>
+<tr><td>Space</td><td><span class="math math-inline">O(n+m)</span></td></tr>
+<tr><td><code>incidentEdges(v)</code></td><td><span class="math math-inline">O(m)</span></td></tr>
+<tr><td><code>getEdge(u,v)</code></td><td><span class="math math-inline">O(m)</span></td></tr>
+<tr><td><code>insertVertex(o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td><code>insertEdge(v,w,o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td><code>removeVertex(v)</code></td><td><span class="math math-inline">O(m)</span></td></tr>
+<tr><td><code>removeEdge(e)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+</tbody></table>
+<h4>Graph Representation - Adjacency List</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Incidence collection of a vertex <span class="math math-inline">I(v)</span>
+<ul>
+<li>A list of edges whose entries are incident to <span class="math math-inline">v</span></li>
+</ul>
+</li>
+<li><strong>Case of a digraph:</strong>
+<ul>
+<li>We maintain two separate collections for outgoing and incoming edges <span class="math math-inline">I_{out}(v)</span> and <span class="math math-inline">I_{in}(v)</span></li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250510213216.png]]</p>
+<p><strong>Performance</strong></p>
+<table><thead><tr><th style="text-align: left"></th><th></th></tr></thead><tbody>
+<tr><td style="text-align: left">Space</td><td><span class="math math-inline">O(n+m</span>)</td></tr>
+<tr><td style="text-align: left"><code>incidentEdges(v)</code></td><td><span class="math math-inline">O(deg(v))</span></td></tr>
+<tr><td style="text-align: left"><code>getEdge(u,v)</code></td><td><span class="math math-inline">O(\min(\deg(u), deg(v)))</span></td></tr>
+<tr><td style="text-align: left"><code>insertVertex(o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>insertEdge(v,w,o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>removeVertex(v)</code></td><td><span class="math math-inline">O(\deg(v))</span></td></tr>
+<tr><td style="text-align: left"><code>removeEdge(e)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+</tbody></table>
+<p><strong>Remove Edge</strong></p>
+<ul>
+<li>We can maintain a reference to the position of an edge within <span class="math math-inline">I(u)</span> in <span class="math math-inline">O(1)</span> by including  additional information associated with an edge
+<ul>
+<li>Endpoints <span class="math math-inline">u</span> and <span class="math math-inline">v</span></li>
+<li>Position in <span class="math math-inline">I(u)</span> and <span class="math math-inline">I(v)</span></li>
+<li>Weight</li>
+</ul>
+</li>
+<li>Edge <span class="math math-inline">e</span>: <span class="math math-inline">(u,0,v,0)</span></li>
+</ul>
+<p>![[Pasted image 20250510213555.png]]</p>
+<p><strong>Alternative Method</strong>:</p>
+<ul>
+<li>Mapping a vertex to its list of adjacent vertices</li>
+<li>Note that the cost of some operations may change</li>
+<li><code>removeEdge(e)</code> now takes <span class="math math-inline">O(\deg(u) + \deg(v))</span></li>
+</ul>
+<p>![[Pasted image 20250510215348.png]]</p>
+<h4>Adjacency Map</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Improve the performance of an Adjacency List by using a hash-based map to implement <span class="math math-inline">I(v)</span> - a list of edges whose entries are incident to <span class="math math-inline">v</span></li>
+<li>We let the opposite endpoint of each incident edge to <span class="math math-inline">v</span> serve as a key in the map</li>
+<li><code>getEdge(u,v)</code> i.e. <code>areAdjacent(u,v)</code> runs in <strong>expected</strong> constant time</li>
+</ul>
+<p><strong>Performance</strong></p>
+<table><thead><tr><th style="text-align: left"></th><th></th></tr></thead><tbody>
+<tr><td style="text-align: left">Space</td><td><span class="math math-inline">O(n+m)</span></td></tr>
+<tr><td style="text-align: left"><code>incidentEdges(v)</code></td><td><span class="math math-inline">O(\deg(v))</span></td></tr>
+<tr><td style="text-align: left"><code>getEdge(u,v)</code></td><td>Expected <span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>insertVertex(o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>insertEdge(v,w,o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>removeVertex(v)</code></td><td><span class="math math-inline">O(\deg(v))</span></td></tr>
+<tr><td style="text-align: left"><code>removeEdge(e)</code></td><td>Expected <span class="math math-inline">O(1)</span></td></tr>
+</tbody></table>
+<h4>Adjacency Matrix</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Uses an <span class="math math-inline">n\times n</span> 2D-array</li>
+<li>Augmented vertex objects - Integer key (index) associated with vertex</li>
+<li>2D-array adjacency array
+<ul>
+<li>Stores references to edges</li>
+<li>Null for non nonadjacent vertices</li>
+</ul>
+</li>
+<li>“Old fashioned” version just has <span class="math math-inline">0</span> for no edge and <span class="math math-inline">1</span> for edge</li>
+<li>Inefficient for sparse matrices</li>
+<li>Main advantage: Any edge can be accessed in <span class="math math-inline">O(1)</span></li>
+</ul>
+<p>![[Pasted image 20250510220119.png]]</p>
+<p><strong>Performance</strong></p>
+<table><thead><tr><th style="text-align: left"></th><th></th></tr></thead><tbody>
+<tr><td style="text-align: left">Space</td><td><span class="math math-inline">O(n^2)</span></td></tr>
+<tr><td style="text-align: left"><code>incidentEdges(v)</code></td><td><span class="math math-inline">O(n)</span></td></tr>
+<tr><td style="text-align: left"><code>getEdge(u,v)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>insertVertex(o)</code></td><td><span class="math math-inline">O(n^2)</span></td></tr>
+<tr><td style="text-align: left"><code>insertEdge(v,w,o)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+<tr><td style="text-align: left"><code>removeVertex(v)</code></td><td><span class="math math-inline">O(n^2)</span></td></tr>
+<tr><td style="text-align: left"><code>removeEdge(e)</code></td><td><span class="math math-inline">O(1)</span></td></tr>
+</tbody></table>
+<h4>Performance Summary</h4>
+<p>![[Pasted image 20250510220817.png]]</p>
+<h2>20. Depth First Search</h2>
+<h4>Definitions</h4>
+<p><strong>Traversals</strong></p>
+<ul>
+<li>A <strong>traversal</strong> is a systematic procedure for exploring a graph by examining all of its vertices and edges</li>
+<li>A traversal is efficient if it visits all the vertices and edges in linear time</li>
+<li><strong>Reachability</strong> problem answers the question whether there is a path from one vertex to another</li>
+</ul>
+<p><strong>Reachability Problems</strong></p>
+<ul>
+<li>Computing the minimum number of edges between a start vertex and every other vertex</li>
+<li>Testing whether <span class="math math-inline">G</span> is connected, or strongly connected for a digraph</li>
+<li>Computing a <strong>spanning tree</strong> of <span class="math math-inline">G</span></li>
+<li>Computing the connected components of <span class="math math-inline">G</span>, or strongly connected components for a digraph</li>
+<li>Identifying a cycle in <span class="math math-inline">G</span></li>
+</ul>
+<p><strong>Subgraphs</strong></p>
+<ul>
+<li>A <strong>subgraph</strong> <span class="math math-inline">S</span> of a graph <span class="math math-inline">G = (V,E)</span> is a graph such that:
+<ul>
+<li><span class="math math-inline">V&#39; \subseteq V</span></li>
+<li><span class="math math-inline">E&#39; \subseteq E</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>Connectivity</strong></p>
+<ul>
+<li>A graph is <strong>connected</strong> if there is a path between every pair of vertices</li>
+<li>A connected component of a graph <span class="math math-inline">G</span> is a maximal connected subgraph of <span class="math math-inline">G</span></li>
+</ul>
+<p>![[Pasted image 20250510221439.png]]</p>
+<p><strong>Trees and Forests</strong></p>
+<ul>
+<li>A <strong>tree</strong> is an undirected graph <span class="math math-inline">T</span> such that <span class="math math-inline">T</span> is connected and it has no cycles.</li>
+<li>This definition of a tree is different to one of a <em>rooted tree</em></li>
+<li>A <strong>forest</strong> is an undirected graph without cycles</li>
+<li>The <em>connected components</em> of a forest are trees</li>
+</ul>
+<p><strong>Spanning Trees and Forests</strong></p>
+<ul>
+<li>A <strong>spanning tree</strong> of a connected graph is a spanning subgraph that is a tree</li>
+<li>A spanning tree is not unique unless the graph is a tree</li>
+<li>Applications - design of communication networks</li>
+</ul>
+<h4>Depth First Search</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A general technique for traversing a graph</li>
+<li>A DFS traversal of graph <span class="math math-inline">G</span>:
+<ul>
+<li>Visits all the vertices and edges of <span class="math math-inline">G</span></li>
+<li>Determines whether <span class="math math-inline">G</span> is connected</li>
+<li>Computes the connected components of <span class="math math-inline">G</span></li>
+<li>Computes a spanning forest of <span class="math math-inline">G</span></li>
+</ul>
+</li>
+<li>Can be further extended to solve other graph problems:
+<ul>
+<li>Find and report a path between two given vertices</li>
+<li>Find a cycle in the graph</li>
+</ul>
+</li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<pre><code class="language-psuedocode">function DFS(G, v):
+	setLabel(v, VISITED)
+	for all e in G.incidentEdges(v)
+		if getLabel(e) == UNEXPLORED:
+			w = opposite(v, e)
+			if getLabel(w) == UNEXPLORED:
+				setLabel(e, DISCOVERY)
+				DFS(G, w)
+			else:
+				setLabel(e, BACK)	
+</code></pre>
+<p><strong>Maze Traversal</strong></p>
+<ul>
+<li>DFS algorithm is similar to classic strategy for exploring a maze:
+<ul>
+<li>Mark each intersection, corner and dead end (vertex) visited</li>
+<li>Mark each corridor (edge) traversed</li>
+<li>Keep track of path back to entrance by means of rope (recursion stack)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Properties of DFS</strong></p>
+<ol>
+<li><code>DFS(G, v)</code> visits all the vertices and edges in the connected component of <span class="math math-inline">v</span></li>
+<li>Discovery edges labelled by <span class="math math-inline">DFS(G, v)</span> form a spanning tree of the connected component of <span class="math math-inline">v</span></li>
+</ol>
+<p><strong>Running Time Analysis</strong></p>
+<ul>
+<li>Settings/getting a vertex/edge label takes <span class="math math-inline">O(1)</span> time</li>
+<li>Each vertex is labelled twice, once as <code>UNEXPLORED</code> and once as <code>VISITED</code></li>
+<li>Each edge is labelled twice, once as <code>UNEXPLORED</code>, and once as <code>DISCOVERY</code> or <code>BACK</code></li>
+<li>Method <code>incidentEdges</code> is called once for each vertex</li>
+<li><em><strong>DFS</strong></em> runs in <span class="math math-inline">O(n+m)</span> time provided the graph is represented by the adjacency list structure</li>
+</ul>
+<p><strong>Path Finding</strong></p>
+<ul>
+<li>Specialise the DFS algorithm to find a path between vertices <span class="math math-inline">u</span> and <span class="math math-inline">z</span></li>
+<li>Call <code>DFS(G, u)</code> with <span class="math math-inline">u</span> as the start vertex, and once we encounter <span class="math math-inline">z</span>, we return the path as the contents of the stack</li>
+</ul>
+<pre><code class="language-pseudocode">function pathDFS(G, v, z):
+	setLabel(v, VISITED)
+	S.push(v)
+	if (v == z):
+		return S.elements()
+	for all e in G.incidentEdges(v):
+		if getLabel(e) == UNEXPLORED:
+			w = opposite(v, e)
+			if getLabel(w) == UNEXPLORED:
+				setLabel(e, DISCOVERY)
+				S.push(e)
+				pathDFS(G, w, z)
+				S.pop(e)
+			else:
+				setLabel(e, BACK)
+	S.pop(v)
+</code></pre>
+<p><strong>Backtracking</strong></p>
+<ul>
+<li>Problem - discover a path from <strong>start</strong> to <strong>goal</strong></li>
+<li>Solution:
+<ul>
+<li><em>Go deep</em> - if there is an unvisited neighbour, go there</li>
+<li><em>Backtrack</em> - Retreat along the path to find an unvisited neighbour</li>
+</ul>
+</li>
+<li>Outcome - If there is a path from <strong>start</strong> to <strong>goal</strong>, DFS finds one such path</li>
+</ul>
+<p>![[Pasted image 20250511111840.png]]</p>
+<p><strong>Cycle Finding</strong></p>
+<ul>
+<li>Use a stack <span class="math math-inline">S</span> to keep track of the path between start vertex and current vertex</li>
+<li>As soon as a back edge <span class="math math-inline">(v,w)</span> is encountered, we return the cycle as the portion of the stack from the top to vertex <span class="math math-inline">w</span></li>
+</ul>
+<pre><code class="language-pseudocode">function cycleDFS(G, v, z):
+	setLabel(v, VISITED)
+	S.push(v)
+	for all e in G.incidentEdges(v):
+		if getLabel(e) == UNEXPLORED:
+			w = opposite(v, e)
+			S.push(e)
+			if getLabel(w) == UNEXPLORED:
+				setLabel(e, DISCOVERY)
+				pathDFS(G, w, z)
+				S.pop(e)
+			else:
+				T = Stack()
+				repeat {
+					T.push(o := S.pop())
+				} until (o == w)
+				return T.elements()
+	S.pop(v)
+</code></pre>
+<p><strong>All Connected Components</strong></p>
+<ul>
+<li>If the graph is not connected, loop over all vertices, doing a <strong>DFS</strong> from each unvisited one to find all connected components</li>
+</ul>
+<p>![[Pasted image 20250511112551.png]]</p>
+<h2>21. Breadth First Search</h2>
+<h4>Breadth-First Search</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A general technique for traversing a graph that relies on a <strong>queue</strong> instead of a stack</li>
+<li>Visits nodes radially instead of going deep into one branch</li>
+</ul>
+<p><strong>Algorithm</strong></p>
+<pre><code class="language-pseudocode">function BFS(G, s):
+
+	L0 = []
+	L0.addLast(s)
+	setLabel(s, VISITED)
+	i = 0
+
+	while not L{i}.isEmpty():
+		L{i+1} = []
+		for all v in L{i}.elements():
+			for all e in G.incidentEdges(v):
+				if getLabel(e) == UNEXPLORED:
+					w = opposite(v, e)
+					if getLabel(w) == UNEXPLORED:
+						setLabel(e, DISCOVERY)
+						setLabel(w, VISITED)
+						L{i+1}.addLast(w)
+					else:
+						setLabel(e, CROSS)
+		i++
+
+</code></pre>
+<p><strong>Queue-Based Algorithm</strong></p>
+<pre><code class="language-pseudocode">function BFS(v, Q):
+	Q.enqueue(v)
+	v.visited = true
+	while (!Q.empty()):
+		Q.dequeue(v)
+		for each vertex w adjacent to v:
+			if (!w.visited):
+				w.visited = true
+				Q.enqueue(w)
+</code></pre>
+<ul>
+<li>Running time is <span class="math math-inline">O(|E| + |V|)</span></li>
+</ul>
+<p><strong>Terminology</strong></p>
+<ul>
+<li>A <strong>discovery</strong> edge is an edge in the traversal algorithm that is used to discover a new vertex</li>
+<li>A <strong>back edge</strong> <span class="math math-inline">(v,w)</span> is where <span class="math math-inline">w</span> is an ancestor of <span class="math math-inline">v</span> in the tree of discovery edges</li>
+<li>A <strong>cross edge</strong> <span class="math math-inline">(v,w)</span> is where <span class="math math-inline">w</span> is in the same level as <span class="math math-inline">v</span> or in the next level</li>
+</ul>
+<p>![[Pasted image 20250511114804.png]]</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li>Notation: <span class="math math-inline">G_s</span> = connected component of <span class="math math-inline">s</span></li>
+<li><strong>Property 1:</strong>
+<ul>
+<li><code>BFS(G, s)</code> visits all the vertices and edges of <span class="math math-inline">G_s</span></li>
+</ul>
+</li>
+<li><strong>Property 2:</strong>
+<ul>
+<li>The discovery edges labelled by <code>BFS(G, s)</code> form a spanning tree <span class="math math-inline">T_s</span> of <span class="math math-inline">G_s</span></li>
+</ul>
+</li>
+<li><strong>Property 3:</strong>
+<ul>
+<li>For each vertex <span class="math math-inline">v</span> in <span class="math math-inline">L_i</span>:
+<ul>
+<li><em>The path of <span class="math math-inline">T_s</span> from <span class="math math-inline">s</span> to <span class="math math-inline">v</span> has <span class="math math-inline">i</span> edges</em></li>
+<li><em>Every path from <span class="math math-inline">s</span> to <span class="math math-inline">v</span> in <span class="math math-inline">G_s</span> has at least <span class="math math-inline">i</span> edges</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250511114738.png]]</p>
+<p><strong>Running time</strong></p>
+<ul>
+<li>Setting/getting a vertex/edge label takes <span class="math math-inline">O(1)</span> time</li>
+<li>Similarly to <strong>DFS</strong>, each vertex is labelled twice and each edge is labelled twice</li>
+<li>Each vertex is inserted once into a sequence <span class="math math-inline">L_i</span></li>
+<li>Hence <code>BFS</code> runs in <span class="math math-inline">O(n+m)</span> time provided the graph is represented by the adjacency list structure</li>
+</ul>
+<p><strong>Applications</strong></p>
+<ul>
+<li>Compute connected components of <span class="math math-inline">G</span>
+Compute a spanning forest of <span class="math math-inline">G</span></li>
+<li>Find a simple cycle in <span class="math math-inline">G</span></li>
+<li>Find path in <span class="math math-inline">G</span> between two vertices of <span class="math math-inline">G</span> with minimum number of edges</li>
+</ul>
+<p>![[Pasted image 20250511114726.png]]</p>
+<h2>22. Directed Graphs</h2>
+<h4>Digraphs</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>A <strong>digraph</strong> is short for “directed graph”, i.e. a graph whose edges are all directed</li>
+<li>Applications:
+<ul>
+<li><em>one-way streets</em></li>
+<li><em>flights</em></li>
+<li><em>task scheduling</em></li>
+</ul>
+</li>
+<li>The <strong>outgoing</strong> edges of a vertex <span class="math math-inline">v</span> are the directed edges whose origin is that vertex, vice versa for <strong>incoming</strong> edges</li>
+<li>The <code>in-degree</code> and <code>out-degree</code> of a vertex are the number of incoming and outgoing edges respectively</li>
+</ul>
+<p><strong>Properties</strong></p>
+<ul>
+<li>A graph <span class="math math-inline">G=(V,E</span>) such that:
+<ul>
+<li>Each edge goes in <strong>one-direction</strong></li>
+<li>Edge <span class="math math-inline">(a,b)</span> goes from <span class="math math-inline">a</span> to <span class="math math-inline">b</span>, but not from <span class="math math-inline">b</span> to <span class="math math-inline">a</span></li>
+</ul>
+</li>
+<li>If <span class="math math-inline">G</span> is simple, <span class="math math-inline">m \le n\cdot(n-1)</span> instead of <span class="math math-inline">m \le n \cdot (n-1)/2</span> for an undirected graph
+<ul>
+<li>This is because we can have forwards and backwards edges, so the number of possible edges doubles</li>
+</ul>
+</li>
+<li>If we keep in-edges and out-edges in separate adjacency lists, we can perform listing of incoming &amp; outgoing edges in time proportional to their size</li>
+</ul>
+<p><strong>Application - Scheduling</strong></p>
+<ul>
+<li>Edge <span class="math math-inline">(a,b)</span> means task <span class="math math-inline">a</span> must be completed before task <span class="math math-inline">b</span> can start</li>
+</ul>
+<p>![[Pasted image 20250511115756.png]]</p>
+<p><strong>Traversals</strong></p>
+<ul>
+<li>We can specialise the traversal algorithms (<code>DFS</code> and <code>BFS</code>) to digraphs by traversing edges only along their direction</li>
+<li>Four types of edges:
+<ul>
+<li><strong>discovery edges</strong></li>
+<li><strong>back edges</strong></li>
+<li><strong>cross-edges</strong></li>
+<li><strong>forward edges</strong></li>
+</ul>
+</li>
+<li>A directed DFS starting at vertex <span class="math math-inline">s</span> determines the vertices <strong>reachable</strong> from <span class="math math-inline">s</span></li>
+</ul>
+<p>![[Pasted image 20250511120348.png]]</p>
+<h4>DAGs and Topological Ordering</h4>
+<p><strong>Directed Acyclic Graphs</strong></p>
+<ul>
+<li>A <strong>directed acyclic graph</strong> (DAG) is a directed graph without a cycle</li>
+<li>Applications:
+<ul>
+<li>Prerequisites between modules</li>
+<li>Inheritance between classes in OOP
+Scheduling tasks of a project</li>
+</ul>
+</li>
+</ul>
+<p><strong>Topological Ordering</strong></p>
+<ul>
+<li>A <em>topological ordering</em> of a digraph <span class="math math-inline">g</span> is a numbering <span class="math math-inline">v_1, \cdots, v_n</span> of its vertices such that all edges <span class="math math-inline">(v_i, v_j)</span> have <span class="math math-inline">i &lt; j</span></li>
+<li>E.g. in a task scheduling digraph, a topological ordering traverses the vertices in increasing order</li>
+<li><strong>Theorem</strong> - <em>A digraph admits a topological ordering if and only if it is a DAG</em></li>
+</ul>
+<p>![[Pasted image 20250511120746.png]]</p>
+<p><strong>Topological Sorting</strong></p>
+<ul>
+<li>A <strong>topological sorting</strong> algorithm is an algorithm that computes a <em>topological ordering</em> of a DAG
+<ul>
+<li>i.e. Number vertices, so that <span class="math math-inline">(u,v) \in E \implies u &lt; v</span></li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250511120913.png]]</p>
+<p><strong>Algorithm - DFS</strong></p>
+<pre><code class="language-pseudocode">function topologicalDFS(G, v):
+	setLabel(v, VISITED)
+	for all e in G.outEdges(v):
+		w = opposite(v, e)
+		if getLabel(w) == UNEXPLORED:
+			topologicalDFS(G, w)
+	Label v with topological number n
+	n--
+</code></pre>
+<ul>
+<li>
+<p><strong>Intuition:</strong></p>
+<ul>
+<li><code>DFS</code> will keep traversing a path until it reaches a node that has no more out edges. Hence we can safely label it as the biggest number</li>
+<li>We backtrack and number more nodes to satisfy the dependencies</li>
+<li>Lastly we number the node we are on, and keep going back to the starting node</li>
+</ul>
+</li>
+<li>
+<p>Time complexity: <span class="math math-inline">O(n+m)</span> because we are using a <code>DFS</code></p>
+</li>
+</ul>
+<p><strong>Example</strong></p>
+<p>![[Pasted image 20250511121559.png]]
+![[Pasted image 20250511121542.png]]</p>
+<p><strong>Algorithm - using a Map</strong></p>
+<ul>
+<li>An alternative approach uses a map <code>inCount</code> to map a vertex <span class="math math-inline">v</span> to the number of incoming edges that are <strong>not</strong> in the topological order <code>topo</code>
+<ul>
+<li>Can be done in <span class="math math-inline">O(1)</span> time</li>
+</ul>
+</li>
+<li>Use <strong>stack</strong> to process vertices where <code>inDegree = 0</code>
+<ul>
+<li>Vertices with no more incoming edges</li>
+<li>There is always a vertex with in degree 0, because we are working with a <strong>DAG</strong> (otherwise there will be a cycle)</li>
+</ul>
+</li>
+<li>Algorithm detects whether graph contains a cycle
+<ul>
+<li>Terminates without ordering all vertices of <span class="math math-inline">G</span></li>
+</ul>
+</li>
+<li>Running time is also <span class="math math-inline">O(n+m)</span>, where <span class="math math-inline">G</span> is represented using an adjacency list</li>
+</ul>
+<p>![[Pasted image 20250511122011.png]]
+![[Pasted image 20250511122020.png]]</p>
+<h2>23. Reachability</h2>
+<h4>Reachability</h4>
+<p><strong>Reachability</strong></p>
+<ul>
+<li><em>Reachability</em> is whether there exists a path between two vertices in a graph</li>
+<li>We can use graph traversal algorithms <code>DFS</code>, <code>BFS</code> to see if another vertex can be reached from a given vertex with cost <span class="math math-inline">O(|V| + |E|)</span></li>
+</ul>
+<p><strong>Strong Connectivity</strong></p>
+<ul>
+<li>A <em>digraph</em> is strongly connected if every vertex can reach all other vertices</li>
+<li>Algorithm:
+<ol>
+<li>Pick a vertex <span class="math math-inline">v</span> in <span class="math math-inline">G</span></li>
+<li>Perform a <strong>DFS</strong> from <span class="math math-inline">v</span> in <span class="math math-inline">G</span>. If there is a node <span class="math math-inline">w</span> that is not visited, return false</li>
+<li>Let <span class="math math-inline">G&#39;</span> be <span class="math math-inline">G</span> with edges reversed</li>
+<li>Perform a <strong>DFS</strong> from <span class="math math-inline">v</span> in <span class="math math-inline">G&#39;</span>. If there is a node <span class="math math-inline">w</span> that is not visited, return false.</li>
+<li>Return True</li>
+</ol>
+</li>
+<li>Running time is <span class="math math-inline">O(|V| + |E|)</span> as we do two depth first searches</li>
+</ul>
+<p>![[Pasted image 20250511160329.png]]</p>
+<p><strong>Strongly Connected Components</strong></p>
+<ul>
+<li>SCCs are <em>maximal subgraphs</em> such that the subgraph is strongly connected, i.e. each vertex can reach all other vertices in the subgraph</li>
+<li>The previous algorithm is not efficient for finding all SCCs in a digraph</li>
+</ul>
+<p>![[Pasted image 20250511160427.png]]</p>
+<p><strong>Finding SCCs of a Graph</strong></p>
+<ul>
+<li><strong>Kosoraju’s Algorithm</strong>
+<ul>
+<li>Slight modification of previous algorithm</li>
+</ul>
+<ol>
+<li>Run DFS on <span class="math math-inline">G</span> and mark the finish times for all vertices</li>
+<li>Compute <span class="math math-inline">G&#39;</span> by reversing the edges of <span class="math math-inline">G</span></li>
+<li>Run DFS on <span class="math math-inline">G&#39;</span> in the order of decreasing finish times</li>
+<li>Each DFS traversal tree from the previous step represents a SCC</li>
+</ol>
+</li>
+<li><strong>Tarjan’s Algorithm</strong>
+<ul>
+<li>Use a stack to determine the <strong>SCCs</strong></li>
+</ul>
+</li>
+</ul>
+<h4>Transitive Closure</h4>
+<p><strong>Overview</strong></p>
+<ul>
+<li>Given a digraph <span class="math math-inline">G</span>, the <em>transitive closure</em> of <span class="math math-inline">G</span> is the digraph <span class="math math-inline">G^*</span> such that:
+<ul>
+<li><span class="math math-inline">G^*</span> has all the same vertices as <span class="math math-inline">G</span></li>
+<li>If <span class="math math-inline">G</span> has a directed path from <span class="math math-inline">u \to v</span> (<span class="math math-inline">u \ne v</span>), <span class="math math-inline">G*</span> has a <strong>directed edge</strong> from <span class="math math-inline">u</span> to <span class="math math-inline">v</span></li>
+<li>The transitive closure provides reachability information about a digraph</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250511163411.png]]</p>
+<p><strong>Computing the Transitive Closure</strong></p>
+<ul>
+<li>We can perform DFS starting at each vertex
+<ul>
+<li>We represent <span class="math math-inline">G</span> using an adjacency list or adjacency map in case the graph is sparse</li>
+<li>The time complexity is <span class="math math-inline">O(n \times (n+m))</span> as we compute DFS <span class="math math-inline">n</span> times, <span class="math math-inline">|V| = n</span> and <span class="math math-inline">|E| = m</span></li>
+</ul>
+</li>
+<li>Reachability Matrix
+<ul>
+<li>In the case the graph is <strong>dense</strong>, we can compute the <em>reachability matrix</em> of a graph <span class="math math-inline">G</span> with <span class="math math-inline">n</span> vertices:
+<span class="math math-display">R = A + A^2 + A^3 + \cdots + A^n</span></li>
+<li><span class="math math-inline">R[i,j] = 1</span> iff there is a path between node <span class="math math-inline">i</span> and node <span class="math math-inline">j</span></li>
+<li>When computing <span class="math math-inline">R</span>, we can use the logical <strong>OR</strong> instead of <span class="math math-inline">+</span> and the logical <strong>AND</strong> instead of <span class="math math-inline">\times</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>Reachability Matrix</strong></p>
+<ul>
+<li>
+<p>We can prove by induction that <span class="math math-inline">A^n[i, j] = 1</span> iff there is a path of length <span class="math math-inline">n</span> from <span class="math math-inline">i</span> to <span class="math math-inline">j</span></p>
+</li>
+<li>
+<p><strong>Proof:</strong></p>
+<ul>
+<li>Base Case - <span class="math math-inline">A^1[i,j]</span> = <span class="math math-inline">A[i,j]</span> = there is an edge <span class="math math-inline">i \to j</span>, the same thing as there is a path of length <span class="math math-inline">1</span> from <span class="math math-inline">i \to j</span>.</li>
+<li>Assume that <span class="math math-inline">A^k[i,j] \iff</span> there is a path of length <span class="math math-inline">k</span> from <span class="math math-inline">i \to j</span></li>
+<li>Consider <span class="math math-inline">A^{k+1}[i,j] = \exists x \in \{1, ..., n\} : A^k[i,x] \land A^1[x,j]</span>
+<ul>
+<li>By the inductive hypothesis, <span class="math math-inline">A^{k+1}[i,j]</span> is true iff there exists a path of length <span class="math math-inline">k</span> from <span class="math math-inline">i \to x</span> and an edge from <span class="math math-inline">x \to j</span>.</li>
+<li>This is the same as saying there exists a path of length <span class="math math-inline">k+1</span> from <span class="math math-inline">i</span> to <span class="math math-inline">j</span></li>
+<li>Inductive step complete</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>![[Pasted image 20250511163400.png]]</p>
+<ul>
+<li>
+<p>Note that if we expand <span class="math math-inline">A^n[i,j]</span> to contain natural numbers, we have that <span class="math math-inline">A^n[i,j]</span> contains the number of paths from <span class="math math-inline">i \to j</span> of length <span class="math math-inline">n</span>. The proof is similar, by induction</p>
+</li>
+<li>
+<p>By taking the bitwise <strong>OR</strong> of all of these matrix powers, we cover all lengths of paths</p>
+</li>
+<li>
+<p>Note that the last term <span class="math math-inline">A^n</span> indicates whether there is a path from a node to itself (i.e. a cycle)</p>
+<ul>
+<li>This is because the directed graph is <strong>simple</strong>, so we cannot have an edge from a node to itself</li>
+</ul>
+</li>
+<li>
+<p>The cost of computing <span class="math math-inline">A^2</span> is <span class="math math-inline">O(n \times n^2)</span> since each element in <span class="math math-inline">A^2</span> requires <span class="math math-inline">O(n)</span> basic operations to be computed (assuming basic matrix multiplication method)</p>
+</li>
+<li>
+<p>Hence the cost of computing the transitive closure <span class="math math-inline">R</span> is <span class="math math-inline">O(n \times n^3)</span></p>
+</li>
+<li>
+<p>This can be sped up to <span class="math math-inline">O(n^3 \log n)</span> using matrix multiplication using the below algorithm:</p>
+</li>
+</ul>
+<pre><code class="language-pseudocode">T := A
+repeat log n times:
+	T := T | (T x T)
+</code></pre>
+<ul>
+<li><em>However we can do even better using Warshall’s Algorithm which is <span class="math math-inline">\Theta(n^3)</span> but this is outside the scope of the exam</em></li>
+</ul>
+</body>
+
+</html>
