@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>/home/bluetot/Files/GitHub/ObsidianVault/CS118/CS118 Revision Notes.md</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false
+                    })
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+            });
+
+            
+        </script>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+              body {
+                  background-color: var(--bg);
+                  color: var(--fg);
+                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.8;
+                  padding: 2rem;
+                  max-width: 850px;
+                  margin: auto;
+              }
+
+              h1 {
+                  color: var(--red);
+                  font-size: 2.5rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+              }
+
+              h2 {
+                  color: var(--orange);
+                  font-size: 2rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+              }
+
+              h3 {
+                  color: var(--yellow);
+                  font-size: 1.75rem;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  font-weight: 600;
+              }
+
+              h4 {
+                  color: var(--green);
+                  font-size: 1.5rem;
+                  margin-top: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h5 {
+                  color: var(--blue);
+                  font-size: 1.25rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h6 {
+                  color: var(--purple);
+                  font-size: 1.1rem;
+                  margin-top: 0.75rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              a {
+                  color: var(--accent);
+                  text-decoration: underline;
+              }
+
+              code, pre {
+                  font-family: 'Fira Code', monospace;
+                  background-color: var(--surface);
+                  color: var(--fg);
+                  padding: 0.3rem 0.5rem;
+                  border-radius: 6px;
+                  overflow-x: auto;
+              }
+
+              blockquote {
+                  border-left: 4px solid var(--gray);
+                  padding-left: 1rem;
+                  color: var(--gray);
+                  font-style: italic;
+                  background-color: #2b2d51;
+                  margin: 1rem 0;
+              }
+
+              img {
+                  max-width: 100%;
+                  border-radius: 6px;
+                  margin: 1rem 0;
+              }
+
+              figcaption {
+                  font-size: 0.9em;
+                  color: var(--gray);
+                  text-align: center;
+                  margin-top: 0.25rem;
+              }
+
+              .footnote-definition > p {
+                  display: inline;
+              }
+
+              .footnote-definition-label {
+                  font-weight: bold;
+              }
+
+              table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1rem 0;
+              }
+
+              th, td {
+                  border: 1px solid var(--gray);
+                  padding: 0.5rem;
+                  text-align: left;
+              }
+
+              th {
+                  background-color: var(--surface);
+                  color: var(--fg);
+              }
+        </style>
+
+    </head>
+
+    <body><h3>Topic 2 - Variables</h3>
+<ul>
+<li><strong>Refinement</strong> - Process of conversion from the specification to high-level program code</li>
+</ul>
+<p><strong>Understanding the Specification</strong></p>
+<ul>
+<li>Precondition - <em>When should the program work?</em></li>
+<li>Input - <em>Does the program need any data?</em></li>
+<li>Calculates - <em>What should the program calculate?</em></li>
+<li>Output - <em>Does the program return any results?</em></li>
+<li>Postcondition - <em>What is the state after execution?</em></li>
+</ul>
+<p><strong>Taking Input</strong>  - <code>Scanner &lt;scanner&gt; = new Scanner(System.in)</code></p>
+<p><strong>Java Primitive Data Types:</strong></p>
+<table><thead><tr><th>Data Type</th><th>No. of Bytes</th><th>Range</th></tr></thead><tbody>
+<tr><td><code>byte</code></td><td><span class="math math-inline">1</span></td><td><span class="math math-inline">-128 \to 127</span></td></tr>
+<tr><td><code>short</code></td><td><span class="math math-inline">2</span></td><td><span class="math math-inline">-32768 \to 32767</span></td></tr>
+<tr><td><code>int</code></td><td><span class="math math-inline">4</span></td><td><span class="math math-inline">-2^{31} \to 2^{31}  -1</span></td></tr>
+<tr><td><code>long</code></td><td><span class="math math-inline">8</span></td><td><span class="math math-inline">-2^{63} \to 2^{63}-1</span></td></tr>
+<tr><td><code>float</code></td><td><span class="math math-inline">4</span> (32 bits)</td><td><span class="math math-inline">-3.4e38 \to 3.4e38</span> (6-7 s.f.)</td></tr>
+<tr><td><code>double</code></td><td><span class="math math-inline">8</span> (64 bits)</td><td><span class="math math-inline">-1.7e308 \to 1.7e308</span> (14-15 s.f.)</td></tr>
+<tr><td><code>char</code></td><td><span class="math math-inline">4</span> (<span class="math math-inline">\equiv</span> <code>short</code>)</td><td>unsigned - <span class="math math-inline">0 \to 2^{16}-1</span></td></tr>
+<tr><td><code>boolean</code></td><td><span class="math math-inline">1</span></td><td><code>true</code> or <code>false</code></td></tr>
+<tr><td><strong>Returning Output</strong></td><td></td><td></td></tr>
+</tbody></table>
+<ul>
+<li><code>System.in</code> - Input Stream</li>
+<li><code>System.out</code> - Output Stream</li>
+<li><code>System.err</code> - Error Stream</li>
+</ul>
+<p>Java <code>+</code> operator:</p>
+<ul>
+<li>Two numerical data types - addition</li>
+<li>One string object - Concatenated</li>
+</ul>
+<p><strong>IEEE-754 Floating Point Notation:</strong>
+<span class="math math-display">-1^{s} \times (1+f)\times2^{e-127}</span>
+where
+<span class="math math-inline">s</span> = sign bit
+<span class="math math-inline">f</span> = fraction
+<span class="math math-inline">e</span> = exponent bits</p>
+<p>![[Pasted image 20250412162730.png]]</p>
+<p>If <span class="math math-inline">e = 0000 0000</span>:
+If <span class="math math-inline">f = 0</span>: value is <span class="math math-inline">0</span> or <span class="math math-inline">-0</span>
+Else: Renormalise number with form
+<span class="math math-display">(-1)^s \times f \times 2^{-127}</span>
+If <span class="math math-inline">e = 11111111</span>:
+If <span class="math math-inline">f = 0</span>: value is <span class="math math-inline">\pm \infty</span>
+Else: value is <code>NaN</code> (not a number)</p>
+<p>Similarly for the <code>double</code> data type, we use 11-bit exponent and 52-bit mantissa, calculated using the below formula:</p>
+<p><span class="math math-display">(-1)^s \times (1+f) \times 2^{e-1023}</span></p>
+<ul>
+<li><strong>Implicit Cast</strong> - moving from one type to another with no loss of precision</li>
+<li><strong>Explicit Cast</strong> - moving from one type to another with less precision; meaning data is possibly lost!
+<ul>
+<li>Must be used using an explicit <em>type cast</em></li>
+</ul>
+</li>
+</ul>
+<p><strong>Boolean Operators:</strong></p>
+<ul>
+<li><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
+<li><code>||</code>, <code>&amp;&amp;</code>, <code>|</code>, <code>&amp;</code>, <code>^</code>, <code>!</code></li>
+</ul>
+<p>Note that two symbols means <em>LAZY</em>, one symbol is <em>STRICT</em></p>
+<p><strong>Watch out for partial initialisation of variables (compiler error)</strong></p>
+<p><strong>Short Hand Operators</strong></p>
+<ul>
+<li><code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code></li>
+<li><code>++</code> and <code>--</code></li>
+<li><code>a++</code> is post-increment, use <code>a</code> then increment</li>
+<li><code>++a</code> is pre-increment, increment then use <code>a</code></li>
+<li>Only makes a difference when it is used in-line with other statements</li>
+</ul>
+<p><strong>Operator Precedence</strong></p>
+<ul>
+<li>Postfix (<code>a++</code>, <code>a--</code>)</li>
+<li>Unary (<code>++a</code>, <code>--a</code>)</li>
+<li>Multiplicative (<code>*</code>, <code>/</code>, <code>%</code>)</li>
+<li>Additive (<code>+</code>, <code>-</code>)</li>
+<li>Shift (<code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>)
+<ul>
+<li>Note that <code>&gt;&gt;&gt;</code> is unsigned right shift, <code>&gt;&gt;</code> is signed right shift</li>
+</ul>
+</li>
+<li>Relational (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>)</li>
+<li>Equality (<code>==</code>, <code>!=</code>)</li>
+<li>Strict Operators (<code>&amp;</code>,<code>|</code>, <code>^</code>, <code>!</code>)</li>
+<li>Lazy Operators (<code>&amp;&amp;</code>, <code>||</code>)</li>
+<li>Assignment (<code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <span class="math math-inline">\cdots</span>)</li>
+</ul>
+<p>Note - <strong>API</strong> = Application Programming Interface</p>
+<h3>Topic 4 - Conditional Statements</h3>
+<ul>
+<li><code>if</code>, <code>else</code> keywords</li>
+</ul>
+<p>Note - <strong>braces are optional if we only have a single statement</strong>
+Note - <strong>indentation is optional but is good practice</strong></p>
+<p><strong>Dangling Else Problem</strong></p>
+<ul>
+<li>Else statement matches to nearest if statement when without braces.</li>
+<li>Beware of consequences of not using braces!</li>
+</ul>
+<p><strong>Ternary Operator:</strong></p>
+<pre><code class="language-java">value = (booleanCondition) ? valueIfTrue : valueIfFalse;
+</code></pre>
+<ul>
+<li><em>If in doubt, avoid the ternary operator</em></li>
+</ul>
+<p><strong>Switch Statement:</strong></p>
+<pre><code class="language-java">switch (variable) {
+	case VALUE:
+		break;
+	case VALUE:
+		break;
+	default:
+}
+</code></pre>
+<p><strong>NOTES:</strong></p>
+<ul>
+<li><code>variable</code> must yield a value of type <code>long</code>, <code>int</code>, <code>short</code>, <code>byte</code> or <code>char</code>.</li>
+<li><code>VALUE</code> must have same data type as <code>variable</code></li>
+<li>First <code>case</code> match will be evaluated, then all other statements will be executed</li>
+<li><code>break</code> is optional, but terminates execution of rest of <code>switch</code> statement.</li>
+<li><code>default</code> is optional, used when no cases match.</li>
+</ul>
+<p><strong>NOTE</strong> - <code>break</code> stops execution in the current <strong>scope</strong>.</p>
+<p><strong>Switch Expression:</strong></p>
+<pre><code class="language-java">&lt;type&gt; val = switch (variable) {
+	case VALUE -&gt; ...;
+	case VALUE -&gt; ...;
+	...
+	default -&gt; {
+		if (condition) yield x;
+		else yield y;
+	}
+};
+</code></pre>
+<p>NOTE - <code>break</code> is not required in the <em>switch expression</em>.
+NOTE - <code>yield</code> is used to “return” a value out of the <em>switch expression</em>.</p>
+<p><strong>Precondition of an If Statement</strong></p>
+<ul>
+<li>The condition that makes the statement in the if statement run</li>
+</ul>
+<pre><code class="language-java">if (x) {
+	p1;
+} else if (y) {
+	p2;
+} else if {z} {
+	p3;
+} else {
+	p4;
+}
+</code></pre>
+<p><code>p1</code> precondition - <code>x</code>
+<code>p2</code> precondition - <code>!x &amp; y</code>
+<code>p3</code> precondition - <code>!x &amp; !y &amp; z</code>
+<code>p4</code> precondition - <code>!x &amp; !y &amp; !z</code></p>
+<p><strong>Precondition of a Switch Statement</strong></p>
+<pre><code class="language-java">switch (var) {
+	case v1:
+		S1;
+		break;
+	case v2;
+		S2;
+		break;
+	default:
+		SD;
+}
+</code></pre>
+<p><code>S1</code> precondition - <code>var == v1</code>
+<code>S2</code> precondition - <code>var != v1 &amp; var == v2</code>
+<code>SN</code> precondition - <code>var != v1 &amp; ... &amp; var != v{N-1} &amp; var == vN</code>
+<code>SD</code> precondition - <code>var != v1 &amp; ... &amp; var != vN</code></p>
+<p><em>If there are no break statements for some of the cases, the precondition for subsequent cases includes the previous cases with an OR operator.</em></p>
+<pre><code class="language-java">switch (var) {
+	case v1:
+		S1;
+	case v2:
+		S2; break;
+}
+</code></pre>
+<p><code>S1</code> precondition - <code>var == v1</code>
+<code>S2</code> precondition - <code>var == v1 | var == v2</code></p>
+<p><strong>This approach should be applied when:</strong></p>
+<ul>
+<li>The logic is complicated</li>
+<li>When there can be no question as to the result</li>
+<li>Safety critical code</li>
+<li>When your programs fail</li>
+</ul>
+<h3>Topic 5 - Iteration</h3>
+<ul>
+<li><strong>Bounded Repetition</strong> - We repeat something a <em>fixed</em> number of times
+<ul>
+<li><em>When we know where to <strong>start</strong>, where to <strong>end</strong>, what <strong>iterative step</strong> to take each repetition</em></li>
+<li><code>for</code> loop!</li>
+</ul>
+</li>
+<li><strong>Unbounded Repetition</strong> - We are unsure how many times something will repeat
+<ul>
+<li><code>while</code> loop!</li>
+<li>While statements can be <strong>dangerous</strong> as they do not have strict bounds, can easily end up in an <strong>infinite loop</strong></li>
+<li><code>do while</code> loop:
+<ul>
+<li>Execute loop body <strong>before</strong> checking <code>booleanExpression</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>do while</code>, <code>while</code> equivalence:</strong></p>
+<pre><code class="language-java">do {
+	S1;
+} while (booleanExpression);
+</code></pre>
+<p>is equivalent to…</p>
+<pre><code class="language-java">boolean doneOnce = false;
+while (booleanExpression | !doneOnce) {
+	doneOnce = true;
+	S1;
+}
+</code></pre>
+<p><code>continue</code> - it goes to the <strong>next</strong> iteration</p>
+<h3>Topic 6 - Arrays, Methods, Scope &amp; Recursion</h3>
+<p><strong>Declaring an Array</strong></p>
+<pre><code class="language-java">&lt;type&gt;[] array; // 1d arary
+&lt;type&gt;[][] array; // 2d array
+</code></pre>
+<p><em>Note: Square brackets can be attached to the type or the variable name</em>
+<em>Note: be careful as where you put the square brackets, as it matters!</em></p>
+<pre><code class="language-java">int[] a, b; // is same as:
+int a[], b[];
+
+int[] a, b, c[]; // is same as:
+int a[], b[], c[][];
+</code></pre>
+<p><em>Note: when we declare an array, its value will be initialised to be special value <code>null</code></em></p>
+<p><strong>Creating an Array</strong></p>
+<pre><code class="language-java">&lt;type&gt;[] array = new &lt;type&gt;[size];
+&lt;type&gt;[] array = {a, b, c, ..., n};
+</code></pre>
+<p><strong>Default values for arrays:</strong></p>
+<ul>
+<li>Numerical - <code>0</code></li>
+<li><code>boolean</code> - <code>false</code></li>
+<li><code>Object</code> - <code>null</code></li>
+</ul>
+<p><em>Note: Array of size <code>n</code> have indices go from <code>0</code> to <code>n-1</code></em></p>
+<p><strong>Length of an array</strong> - <code>array.length</code>;</p>
+<p><strong>Main Method</strong></p>
+<ul>
+<li>Entry point for a Java application</li>
+<li>Signature:</li>
+</ul>
+<pre><code class="language-java">public static void main(String[] args) {}
+</code></pre>
+<ul>
+<li>Contains:
+<ul>
+<li>Access privileges: <code>public</code>, <code>private</code>, <code>protected</code></li>
+<li>Return type: <code>int</code>, <code>double</code>, <code>String</code>
+<ul>
+<li><code>void</code> means return nothing</li>
+</ul>
+</li>
+<li>Name</li>
+<li>Comma separated list of function parameters</li>
+</ul>
+</li>
+</ul>
+<p><strong>Function Overloading</strong></p>
+<ul>
+<li>Methods are defined by their <em>name</em>, <em>return type</em> and <em>parameters</em>.</li>
+<li>Multiple method with different parameter lists is called <strong>function overloading</strong>.</li>
+</ul>
+<p><strong>Scope</strong></p>
+<ul>
+<li>Variables have scope from the moment they are declared, until the block its declared within is closed</li>
+<li>A new computational environment begins when we call a function</li>
+<li>Variables must have a unique name within a particular scope</li>
+</ul>
+<p><strong>NOTE: Objects are passed by reference!</strong></p>
+<p><strong>Recursion:</strong></p>
+<ul>
+<li>A function calls itself</li>
+<li>Must have a termination condition (base case) to prevent an infinite loop</li>
+</ul>
+<h3>Topic 7 - Object Oriented Programming</h3>
+<ul>
+<li>
+<p>Data and operations on data are bundled together in a structure called an Object</p>
+<ul>
+<li>Properties - store state</li>
+<li>Methods - Operate on this data / change state</li>
+</ul>
+</li>
+<li>
+<p><strong>Class</strong> - <em>A blueprint of an object, describes how to create the object</em></p>
+</li>
+<li>
+<p><strong>Object</strong> - <em>Specific instance of a class</em></p>
+</li>
+<li>
+<p><strong>Rules of making classes:</strong></p>
+<ul>
+<li><strong>public classes must be in their own file</strong></li>
+<li><strong>class names begin with a capital letter</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Constructor Method</strong></p>
+<ul>
+<li>special method that has
+<ul>
+<li><em>no return type (not even void)</em></li>
+<li><em>same name as the class</em></li>
+</ul>
+</li>
+<li>Are optional, Java will create a default constructor if you don’t make one</li>
+</ul>
+</li>
+<li>
+<p><strong>this</strong> is used to refer to the instance of the class</p>
+<ul>
+<li>used to refer to class variables when names are the same</li>
+</ul>
+</li>
+<li>
+<p><strong>Creating objects:</strong></p>
+</li>
+</ul>
+<pre><code class="language-java">[ObjectType] variableName = new [ObjectType]([paramters]);
+</code></pre>
+<p><strong>A note on comparisons</strong></p>
+<ul>
+<li>All objects have an <code>equals</code> method</li>
+<li>Using <code>==</code> with objects is asking if the two objects have the same reference</li>
+</ul>
+<h3>Topic 8 - Modifiers and Encapsulation</h3>
+<ul>
+<li>
+<p><code>public</code> - can be accessed outside the class</p>
+</li>
+<li>
+<p><code>private</code> - can be accessed only inside the class</p>
+</li>
+<li>
+<p>Reasoning:</p>
+<ul>
+<li>Some data we want to restrict access to</li>
+<li>We want to maintain a good interface between programmers</li>
+</ul>
+</li>
+<li>
+<p>If an access modifier is not specified, they are <code>package-private</code></p>
+<ul>
+<li>somewhere between <code>private</code> and <code>protected</code></li>
+<li>Can only be accessed by other objects in the same <code>package</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Encapsulation</strong></p>
+<ul>
+<li><em>Data-hiding</em> : making data private and some methods public</li>
+<li>Encapsulation doesn’t mean data-hiding, but leads to it</li>
+<li>Users are driven to use a class by its interface</li>
+<li>Implementation of class can be done in whatever way the programmer wants, the external functionality will remain the same</li>
+<li><strong>Three purposes:</strong>
+<ul>
+<li><em>Boundaries of responsibility are clear</em></li>
+<li><em>Unnecessary detail is hidden</em></li>
+<li><em>Implementation can change without ruining dependant applications</em></li>
+</ul>
+</li>
+<li>getter (accessor) and setters (mutators)</li>
+</ul>
+</li>
+<li>
+<p><strong>Static Keyword</strong></p>
+<ul>
+<li>Method/variables belong to the whole class, not to any single instance</li>
+<li>E.g. <code>Math.PI</code>, <code>Math.round(x)</code></li>
+<li><code>main</code> has to be <code>public</code> so the Java runtime can see the method</li>
+<li><code>main</code> has to be <code>static</code> so the Java runtime can run the method without having to create an instance of an unknown class</li>
+</ul>
+</li>
+<li>
+<p><strong>Final Keyword</strong></p>
+<ul>
+<li><code>final</code> declares that a value is a constant</li>
+<li>Can only be set once after initialising</li>
+</ul>
+</li>
+<li>
+<p>Enumerated Types</p>
+<ul>
+<li><code>enum</code>’s are special classes that can hold a range of constant values</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">public enum Day {
+	SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+}
+
+Day d = Day.MONDAY;
+switch (d) {
+	case Day.MONDAY: ...
+	etc.
+}
+</code></pre>
+<h3>Topic 10 - Inheritance and Polymorphism</h3>
+<ul>
+<li><strong>Classes can inherit from a parent class</strong>
+<ul>
+<li>Base class - Superclass</li>
+<li>Derived classes - Subclasses</li>
+</ul>
+</li>
+<li>Subclasses inherits some features from its parent class and may have some additional ones of its own</li>
+</ul>
+<pre><code class="language-java">public class Lion extends Cat {...}
+</code></pre>
+<p><strong>Method overriding</strong></p>
+<ul>
+<li>Same as inherited method, and if we call it on the <em>subclass</em>, it will override the method in the <em>superclass</em></li>
+</ul>
+<p><strong>Super keyword</strong></p>
+<ul>
+<li><code>super</code> refers to the instance of the <em>superclass</em></li>
+<li><code>this</code>refers to the instance of the class</li>
+<li><code>super()</code> must be the first thing you do in the subclass constructor
+<ul>
+<li>If the superclass <strong>doesn’t have a no-argument constructor</strong>, you will get a <strong>compile time error</strong></li>
+</ul>
+</li>
+<li><code>super</code> can also refer to the superclass’s methods, such as <code>super.sleep()</code></li>
+</ul>
+<p><strong>Protected keyword</strong></p>
+<ul>
+<li>Subclasses can see <code>protected</code> elements of super-classes</li>
+</ul>
+<p><strong>Polymorphism</strong></p>
+<ul>
+<li>Ability to process objects of different types through a single uniform interface</li>
+<li><strong>overloading</strong> is static polymorphism</li>
+<li>Polymorphism in OOP is referred as <strong>run-time polymorphism</strong></li>
+</ul>
+<p><strong>Instance Of operator</strong></p>
+<ul>
+<li>Used to check if an object is of a particular type</li>
+</ul>
+<pre><code class="language-java">if (c instanceof Tiger) { /* c is a Tiger */}
+</code></pre>
+<ul>
+<li>Casting objects when they you can’t causes a <code>ClassCastException</code>, e.g. casting an <code>Object</code> to a <code>Cat</code> when it’s not a <code>Cat</code></li>
+</ul>
+<h3>Topic 11 - Abstract Classes and Inheritance</h3>
+<ul>
+<li>An <code>abstract</code> class is a special class that cannot be instantiated</li>
+<li>Allows us to capture common properties and behaviours at an abstract level</li>
+<li>Can contain a mix of <strong>abstract methods</strong> and <strong>concrete methods</strong></li>
+</ul>
+<pre><code class="language-java">public abstract class Feline {
+	...
+	public Feline mate(Feline c) {...}
+	abstract public int getCatYears();
+	abstract public String toString();
+}
+</code></pre>
+<ul>
+<li><strong>NOTE:</strong> <em>abstract method declarations end in a semi-colon. No implementation is provided</em></li>
+<li>Abstract classes must be extended before instantiations can be made</li>
+</ul>
+<pre><code class="language-java">public class Cat extends Feline {...}
+</code></pre>
+<ul>
+<li>
+<p>All the abstract methods MUST BE IMPLEMENTED in a concrete class extending an abstract class</p>
+</li>
+<li>
+<p><strong>NOTE:</strong> if an abstract class is extended, the subclass doesn’t have to be concrete, it can be abstract and have some methods that are not implemented</p>
+</li>
+<li>
+<p><strong>Interfaces</strong></p>
+<ul>
+<li><em>An interface is an abstract class that can only contain methods and the methods cannot be implemented</em></li>
+<li>But they shouldn’t be declared abstract</li>
+</ul>
+</li>
+<li>
+<p>Interfaces are used in concrete classes using <code>implements</code></p>
+</li>
+</ul>
+<pre><code class="language-java">public class TestImpl implements Test {...}
+</code></pre>
+<ul>
+<li><strong>NOTE: multiple interfaces can be implemented</strong>
+<ul>
+<li>This kind of allows for <em>“multiple inheritance”</em> but there is no confusion, as the interface contains no implementation</li>
+</ul>
+</li>
+</ul>
+<h3>Topic 12 - Exceptions</h3>
+<ul>
+<li><code>try</code> … <code>catch</code> blocks catch Exceptions</li>
+<li>Ordering of <code>catch</code> blocks is important</li>
+<li>If the first <code>catch</code> block is a <em>superclass</em> of any of the others, the <code>catch</code> blocks for the <em>subclasses</em> will never be used</li>
+<li>E.g. if <code>catch (Exception e)</code> is put first, the below catch statements will not be reached.</li>
+<li><code>finally</code> block - will be executed even after a return statement
+<ul>
+<li>E.g. tidying up (e.g. streams need closing)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">try {
+	// Code that may generate an exception
+} catch (Exception e) {
+	// Code to handle particular exception
+} finally {
+	// Code that will always be executed at the end
+}
+</code></pre>
+<p><strong>Throwable</strong></p>
+<ul>
+<li>All errors and exceptions are subclasses of the <code>Throwable</code> class</li>
+<li>It has two direct subclasses, <code>Error</code> and <code>Exception</code></li>
+<li><code>Error</code> - serious problem that a reasonable application should not try to catch</li>
+<li><code>Exception</code> - conditions that a reasonable application might want to catch</li>
+<li>(<code>Error</code> and its subclasses are quite rare)</li>
+</ul>
+<p><strong>Exceptions</strong></p>
+<ul>
+<li>There are (broadly speaking) two forms of <code>Exception</code>
+<ul>
+<li><em>Checked Exceptions</em>
+<ul>
+<li>Must be <strong>caught</strong> or <strong>re-thrown</strong></li>
+<li>Two solutions
+<ul>
+<li>Can use a try-catch block</li>
+<li>Or use <code>throws</code> keyword, added to method declaration and lists all checked exceptions that may be thrown by the method</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Unchecked Exceptions</em>
+<ul>
+<li>Any exception that extends either <code>Error</code> or <code>RuntimeException</code> are unchecked</li>
+<li>Do not need to be declared in the <code>throws</code> clause</li>
+<li>E.g. <code>ArrayIndexOutOfBoundsException</code></li>
+<li>E.g. <code>NullPointerException</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Writing exceptions:
+<ul>
+<li>Choose the <strong>most specific</strong> exception that exists, and extend that</li>
+<li>For <strong>unchecked</strong> exceptions, extend <code>RuntimeException</code></li>
+</ul>
+</li>
+<li>Four constructors for most Exception classes:
+<ul>
+<li><code>CustomException()</code></li>
+<li><code>CustomException(String s)</code></li>
+<li><code>CustomException(String message, Throwable cause)</code></li>
+<li><code>CustomException(Throwable cause)</code></li>
+</ul>
+</li>
+<li>Exception Methods
+<ul>
+<li><code>getMessage()</code></li>
+<li><code>printStackTrace()</code></li>
+<li><code>getCause()</code></li>
+<li><code>initCause(Throwable cause)</code></li>
+</ul>
+</li>
+</ul>
+<h3>Topic 13 - Generics</h3>
+<ul>
+<li>
+<p><strong>Two kinds of error</strong></p>
+<ul>
+<li>Syntactic error - usually picked up at compile-time
+<ul>
+<li><em>Easier to fix</em></li>
+<li><em>Transforming run-time errors into compile-time errors is an approach to reducing software errors</em></li>
+</ul>
+</li>
+<li>Semantic error - present themselves at run-time</li>
+</ul>
+</li>
+<li>
+<p>Generics allow programmers to write “generic” code that enforces some stronger type checks at compile time</p>
+</li>
+<li>
+<p>Use angle brackets to state type of variables you are using</p>
+</li>
+</ul>
+<pre><code class="language-java">Stack&lt;String&gt; myStack = new Stack&lt;String&gt;();
+</code></pre>
+<ul>
+<li>If the generic type is already known from initialisation, you can omit the type when creating it:</li>
+</ul>
+<pre><code class="language-java">Stack&lt;String&gt; myStack = new Stack&lt;&gt;();
+</code></pre>
+<p><strong>Benefits of Generics</strong></p>
+<ul>
+<li>Stronger type checks at compile-time</li>
+<li>Elimination of type casts</li>
+<li>Implementation of generic algorithms tailored to different types</li>
+</ul>
+<p><strong>Naming Convention</strong></p>
+<ul>
+<li>Single upper case letter</li>
+<li>E - element</li>
+<li>K - key</li>
+<li>N - number</li>
+<li>T - type</li>
+<li>V - value</li>
+</ul>
+<pre><code class="language-java">public clas Box&lt;T&gt; {
+	private T item
+	
+	public box(T o) {
+		item = o;
+	}
+
+	public void set(T o) {
+		item = o;
+	}
+
+	public T get() {
+		return item;
+	}
+}
+</code></pre>
+<ul>
+<li>
+<p><strong>NOTE: primitives are not allowed in generics, so you have to use the boxed type</strong></p>
+<ul>
+<li><em>Integer, Float, Double, Long, Short, Byte, Boolean, Character</em></li>
+</ul>
+</li>
+<li>
+<p>If you use a primitive value as a parameter, Java will <strong>auto-box</strong> the value into an object type.</p>
+</li>
+<li>
+<p>If a generic type is not given, an Object type is stored instead, and Java will show a compile-time warning.</p>
+</li>
+<li>
+<p>Generic Methods: add the generic type variables before the return type.</p>
+</li>
+</ul>
+<pre><code class="language-java">public static &lt;K,V&gt; boolean compare(Pair&lt;K,V&gt; p1, Pair&lt;K,V&gt; p2) {
+	return p1.getKey().equals(p2.getKey()) &amp;&amp; p1.getValue().equals(p2.getValue());
+}
+</code></pre>
+<ul>
+<li>Type variables can be restricted to a subclass of a particular type using the <code>extends</code> keyword.</li>
+</ul>
+<pre><code class="language-java">public class Box&lt;T extends Number&gt; {
+	private T item;
+	...
+}
+</code></pre>
+<ul>
+<li>This means that <code>T</code> must extend the <code>Number</code> class.</li>
+</ul>
+</body>
+
+</html>

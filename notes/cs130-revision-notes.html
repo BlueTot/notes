@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>/home/bluetot/Files/GitHub/ObsidianVault/CS130/CS130 Revision Notes.md</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false
+                    })
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+            });
+
+            
+        </script>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+              body {
+                  background-color: var(--bg);
+                  color: var(--fg);
+                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.8;
+                  padding: 2rem;
+                  max-width: 850px;
+                  margin: auto;
+              }
+
+              h1 {
+                  color: var(--red);
+                  font-size: 2.5rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+              }
+
+              h2 {
+                  color: var(--orange);
+                  font-size: 2rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+              }
+
+              h3 {
+                  color: var(--yellow);
+                  font-size: 1.75rem;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  font-weight: 600;
+              }
+
+              h4 {
+                  color: var(--green);
+                  font-size: 1.5rem;
+                  margin-top: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h5 {
+                  color: var(--blue);
+                  font-size: 1.25rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h6 {
+                  color: var(--purple);
+                  font-size: 1.1rem;
+                  margin-top: 0.75rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              a {
+                  color: var(--accent);
+                  text-decoration: underline;
+              }
+
+              code, pre {
+                  font-family: 'Fira Code', monospace;
+                  background-color: var(--surface);
+                  color: var(--fg);
+                  padding: 0.3rem 0.5rem;
+                  border-radius: 6px;
+                  overflow-x: auto;
+              }
+
+              blockquote {
+                  border-left: 4px solid var(--gray);
+                  padding-left: 1rem;
+                  color: var(--gray);
+                  font-style: italic;
+                  background-color: #2b2d51;
+                  margin: 1rem 0;
+              }
+
+              img {
+                  max-width: 100%;
+                  border-radius: 6px;
+                  margin: 1rem 0;
+              }
+
+              figcaption {
+                  font-size: 0.9em;
+                  color: var(--gray);
+                  text-align: center;
+                  margin-top: 0.25rem;
+              }
+
+              .footnote-definition > p {
+                  display: inline;
+              }
+
+              .footnote-definition-label {
+                  font-weight: bold;
+              }
+
+              table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1rem 0;
+              }
+
+              th, td {
+                  border: 1px solid var(--gray);
+                  padding: 0.5rem;
+                  text-align: left;
+              }
+
+              th {
+                  background-color: var(--surface);
+                  color: var(--fg);
+              }
+        </style>
+
+    </head>
+
+    <body><h2>Section 1 - Sets and Functions</h2>
+<h4>Introduction to Sets</h4>
+<ul>
+<li>A set is an *<strong>unordered collection</strong> of mathematical objects that is <em>uniquely characterised by their elements</em>
+<ul>
+<li>This means that order does not matter: <span class="math math-inline">\{a, b\} = \{b, a\}</span></li>
+<li>This means that duplicates do not count: <span class="math math-inline">\{a, b\} = \{a, a, b\}</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>The <em><strong>cardinality</strong></em> of a set is the size of the set, i.e. the number of elements in the set</p>
+</li>
+<li>
+<p>Common sets in maths are:</p>
+<ul>
+<li>Natural Numbers - <span class="math math-inline">\mathbb{N}</span> (includes 0)</li>
+<li>Integers - <span class="math math-inline">\mathbb{Z}</span></li>
+<li>Rational Numbers - <span class="math math-inline">\mathbb{Q}</span></li>
+<li>Real Numbers - <span class="math math-inline">\mathbb{R}</span></li>
+<li>Complex Numbers - <span class="math math-inline">\mathbb{C}</span></li>
+</ul>
+</li>
+<li>
+<p>All of these sets are infinite sets, but not all infinities are the same. We can define a set to be countably infinite if there exists a one-to-one mapping between every natural number and every element in the set</p>
+</li>
+<li>
+<p>The cardinality of <span class="math math-inline">\mathbb{N}</span>, <span class="math math-inline">\mathbb{Z}</span> and <span class="math math-inline">\mathbb{Q}</span> are the same, hence all of these sets are countably infinite.</p>
+<ul>
+<li><span class="math math-inline">\mathbb{Z}</span> – We can traverse 0, then -1 and 1, then -2 and 2, and so on and so forth.</li>
+<li><span class="math math-inline">\mathbb{Q}</span> – We can think of this a pair of integers such that the denominator is not 0, so it represents a 2D-coordinate plane. We can traverse this coordinate plane in a spiral formation, hitting every possible rational number.</li>
+<li><span class="math math-inline">\mathbb{R}</span> - The cardinality of <span class="math math-inline">\mathbb{R}</span> is uncountably infinite, which is strictly greater than the cardinality of the other sets. This is proved using Cantor’s Diagonalisation Argument</li>
+</ul>
+</li>
+</ul>
+<h4>Basic Set Operations</h4>
+<ul>
+<li>Elements can be part of a set. The statement <span class="math math-inline">a \in A</span> means that <span class="math math-inline">a</span> is an element of the set <span class="math math-inline">A</span>.</li>
+<li>Sets can be also a subset of another set. The statement <span class="math math-inline">A \subseteq B</span> means that <span class="math math-inline">A</span> is a subset of <span class="math math-inline">B</span>.
+<ul>
+<li>There is also the proper subset operation, <span class="math math-inline">\subset</span>, which means that <span class="math math-inline">A \subseteq B \land A \ne B</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The definition of a subset is: “Every element of A is an element of B”, otherwise written as:
+<span class="math math-display">A\subseteq B \iff \forall x(x \in A \to x \in B)</span></li>
+</ul>
+<h4>Empty Sets</h4>
+<ul>
+<li>The empty set is a set that contains no elements, written as <span class="math math-inline">\emptyset</span></li>
+<li>Tip: The empty set is a subset of any set.</li>
+</ul>
+<ul>
+<li>P.S. A set cannot be an element of itself (i.e. <span class="math math-inline">X \notin X \space \forall X</span>)</li>
+</ul>
+<h4>Set Builder Notation</h4>
+<ul>
+<li>One common way of representing sets is with Set-Roster Notation, which is listing out the elements in the set, e.g. <span class="math math-inline">\mathbb{N} = \{0, 1, 2, ...\}</span></li>
+<li>The other way of representing sets is with set comprehension, or Set-Builder Notation. The general form of this is: <span class="math math-inline">S = \{x \space |\space  ...\}</span>, where the <span class="math math-inline">|</span> is read as “such that”</li>
+<li>E.g. <span class="math math-inline">\{(-1)^n : n \in \mathbb{N}\} = \{-1, 1\}</span></li>
+<li>E.g. <span class="math math-inline">\{k^2 : k \in \mathbb{Z}\} = \{k^2 : k \in \mathbb{N}\}</span></li>
+<li>E.g. <span class="math math-inline">\{3a + 7b : a, b \in \mathbb{Z}\} = \mathbb{Z}</span></li>
+</ul>
+<h4>Finite Sequences</h4>
+<ul>
+<li><span class="math math-inline">X^n</span> is the set of all ordered sequences of length <span class="math math-inline">n</span> elements in <span class="math math-inline">X</span></li>
+<li>E.g. <span class="math math-inline">X = \{a, b, c\}</span>, so <span class="math math-inline">X^2 = \{aa, ab, ac, ba, bb, bc, ca, cb, cc\}</span></li>
+<li>Most of the time, the tuple brackets are included but sometimes it is possible to omit it.</li>
+<li>The elements of <span class="math math-inline">X^n</span> are ordered sequences of elements in <span class="math math-inline">X</span>, also known as a tuple.</li>
+<li>For any set <span class="math math-inline">X</span>, <span class="math math-inline">|X^n| = |X|^n</span></li>
+</ul>
+<ul>
+<li><span class="math math-inline">X^n = \{(x_0, x_1, ..., x_n) : x_0, x_1, ..., x_n \in X\}</span></li>
+<li>Special Case: <span class="math math-inline">X^0 = \{()\}</span>, which is a set containing an empty sequence
+<ul>
+<li>This makes sense due to the law of cardinality: <span class="math math-inline">|X^n|</span> = <span class="math math-inline">|X|^n</span>, so <span class="math math-inline">|X^0| = |X|^0 = 1</span></li>
+<li>Reason: 1 is the multiplicative identity so your base of multiplying is 1</li>
+</ul>
+</li>
+<li>Hence, <span class="math math-inline">\mathbb{Z}^2</span> is the set of all possible integer coordinates on a grid</li>
+<li><span class="math math-inline">\mathbb{R}^2</span> is the entire cartesian plane.</li>
+</ul>
+<h4>Interval Notation</h4>
+<ul>
+<li>The closed interval is defined as <span class="math math-inline">[a;  b] = \{x : a \le x \le b\}</span></li>
+<li>Similarly, the open interval is defined as <span class="math math-inline">(a;b) = \{x : a&lt;x&lt;b\}</span></li>
+<li>Closed and open interval notation can be combined, e.g. <span class="math math-inline">[0, 3)</span></li>
+</ul>
+<ul>
+<li>Intervals can also be raised to a power: <span class="math math-inline">[0, 1]^2 = \{(x, y) : x, y \in \mathbb{R}, 0 \le x \le 1, 0 \le y \le 1 \}</span>, which is the unit square</li>
+</ul>
+<h4>Functions</h4>
+<ul>
+<li>
+<p>A function is a <strong>mapping</strong> from a <strong>domain</strong> to a <strong>codomain</strong> satisfy the properties below:</p>
+<ul>
+<li>Every input in the domain must map to an output in the codomain</li>
+<li>Every input must map to exactly one output</li>
+</ul>
+</li>
+<li>
+<p>Definitions:</p>
+<ul>
+<li><strong>DOMAIN</strong>: The set of inputs to the function</li>
+<li><strong>CODOMAIN</strong>: The set of possible outputs to the function that contains the range, can be thought of as the <strong>type</strong> of the output</li>
+<li><strong>RANGE</strong>: The literal set of outputs</li>
+</ul>
+</li>
+<li>
+<p>For example, the function <span class="math math-inline">f(x) = \pm\sqrt{1-x^2}</span> is not a function because one <span class="math math-inline">x</span> value maps to multiple <span class="math math-inline">y</span> values, e.g. <span class="math math-inline">f(0) = \pm 1</span></p>
+</li>
+<li>
+<p>However, the function <span class="math math-inline">g(x) = \sqrt{1-x^2}</span> is a function because one <span class="math math-inline">x</span> value maps to exactly one <span class="math math-inline">y</span> value, provided that we choose a suitable domain, e.g. <span class="math math-inline">-1 \le x \le 1</span>. In this case, the range would be <span class="math math-inline">0 \le x \le 1</span>, or the interval <span class="math math-inline">[0;1]</span></p>
+</li>
+</ul>
+<ul>
+<li>E.g. if the domain was <span class="math math-inline">(-1;1)</span>, the range would be <span class="math math-inline">(0;1]</span>.</li>
+<li>E.g. if the domain was <span class="math math-inline">\{-1, 0, 1\}</span>, the range would be <span class="math math-inline">\{0, 1\}</span></li>
+</ul>
+<h4>Definition of a Function</h4>
+<p>If there is a rule that assigns to every <span class="math math-inline">x \in X</span> an unambiguously determined <span class="math math-inline">y \in Y</span>, then we say there is a function from <span class="math math-inline">X</span> to <span class="math math-inline">Y</span></p>
+<p><strong>Notation:</strong> <span class="math math-inline">f : X \to Y</span></p>
+<p><strong>Terminology:</strong></p>
+<ul>
+<li><span class="math math-inline">X</span> is the domain, <span class="math math-inline">Y</span> is the codomain</li>
+<li>Range = <span class="math math-inline">\{f(x) : x \in X\} \subseteq Y</span></li>
+</ul>
+<p>E.g. to make the unit circle a function:</p>
+<ul>
+<li><span class="math math-inline">f(x) = \sqrt{1-x^2}</span></li>
+<li><span class="math math-inline">f : [-1;1] \to [0;1]</span></li>
+<li>Other possible codomains are <span class="math math-inline">\mathbb{R}</span>, <span class="math math-inline">\mathbb{R_+}</span>, <span class="math math-inline">\mathbb{R_{\ge 0}}</span> (the last one is more precise, use that)</li>
+<li>It happens to be that <span class="math math-inline">[0;1]</span> is also the range</li>
+</ul>
+<p>E.g.</p>
+<ul>
+<li><span class="math math-inline">U</span> : the set of all Warwick undergraduate students</li>
+<li><span class="math math-inline">S</span> : the set of all Warwick staff</li>
+<li><span class="math math-inline">t(u)</span> = the personal tutor of <span class="math math-inline">u</span>, <span class="math math-inline">t : U \to S</span></li>
+</ul>
+<p>E.g.</p>
+<ul>
+<li><span class="math math-inline">D = \{0, 1\}</span></li>
+<li><span class="math math-inline">g(x) = \begin{cases} y &amp; \exists y,x=y0 \\ y &amp; \exists y,x=y1\end{cases}</span></li>
+</ul>
+<ul>
+<li><span class="math math-inline">g : D^n \to D^{n-1}, n \geq 2</span></li>
+<li>This function divides the binary number <span class="math math-inline">x</span> by 2 by removing the last digit (bitwise right shift)</li>
+</ul>
+<h2>Section 2 -  Logic of Propositions</h2>
+<h4>Introduction to Propositions</h4>
+<ul>
+<li>Propositions can be true or false</li>
+<li>Atomic propositions are denoted by single lowercase letters <span class="math math-inline">p</span>, <span class="math math-inline">q</span></li>
+<li>Compound propositions:
+<ul>
+<li><span class="math math-inline">\neg p</span> (negation)</li>
+<li><span class="math math-inline">p \land q</span> (conjunction)</li>
+<li><span class="math math-inline">p \lor q</span> (disjunction)</li>
+<li><span class="math math-inline">p \implies q</span> (implication)</li>
+<li><span class="math math-inline">p \iff q</span> (if and only if, equivalence)</li>
+<li><span class="math math-inline">p \oplus q</span> (exclusive or - XOR)</li>
+<li><span class="math math-inline">m(p, q, r)</span> (majority, which is true iff at least two inputs are true)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Truth table for conjunction</strong></p>
+<table><thead><tr><th><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">p \land q</span></th></tr></thead><tbody>
+<tr><td>F</td><td>F</td><td>F</td></tr>
+<tr><td>F</td><td>T</td><td>F</td></tr>
+<tr><td>T</td><td>F</td><td>F</td></tr>
+<tr><td>T</td><td>T</td><td>T</td></tr>
+</tbody></table>
+<p><strong>Truth table for disjunction</strong></p>
+<table><thead><tr><th><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">p \lor q</span></th></tr></thead><tbody>
+<tr><td>F</td><td>F</td><td>F</td></tr>
+<tr><td>F</td><td>T</td><td>T</td></tr>
+<tr><td>T</td><td>F</td><td>T</td></tr>
+<tr><td>T</td><td>T</td><td>T</td></tr>
+<tr><td><strong>Truth table for implication</strong></td><td></td><td></td></tr>
+</tbody></table>
+<ul>
+<li>Definition of implication: <span class="math math-inline">p \implies q \iff \neg p \lor q</span></li>
+</ul>
+<table><thead><tr><th><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">p \implies q</span></th></tr></thead><tbody>
+<tr><td>F</td><td>F</td><td>T</td></tr>
+<tr><td>F</td><td>T</td><td>T</td></tr>
+<tr><td>T</td><td>F</td><td>F</td></tr>
+<tr><td>T</td><td>T</td><td>T</td></tr>
+</tbody></table>
+<h4>Boolean Functions</h4>
+<p><span class="math math-inline">\mathbb{B} = \{F, T\}</span>
+A boolean function is <span class="math math-inline">f : \mathbb{B}^n \to \mathbb{B}</span>
+<span class="math math-inline">n</span> is the number of boolean variables</p>
+<p>If a boolean function acts on an atomic proposition, there are four possible boolean functions:</p>
+<table><thead><tr><th style="text-align: left"><span class="math math-inline">p</span></th><th><span class="math math-inline">f(p) = F</span></th><th><span class="math math-inline">f(p) = p</span></th><th><span class="math math-inline">f(p) = \neg p</span></th><th><span class="math math-inline">f(p) = T</span></th></tr></thead><tbody>
+<tr><td style="text-align: left">F</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+<tr><td style="text-align: left">T</td><td>F</td><td>T</td><td>F</td><td>T</td></tr>
+</tbody></table>
+<p>If there are <span class="math math-inline">n</span> atomic propositions as inputs, there are <span class="math math-inline">2^{2^n}</span> possible boolean functions
+<strong>Beware:</strong> exponentiation is not associative!</p>
+<table><thead><tr><th style="text-align: left"><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">r</span></th><th><span class="math math-inline">m(p,q,r)</span></th></tr></thead><tbody>
+<tr><td style="text-align: left">F</td><td>F</td><td>F</td><td>F</td></tr>
+<tr><td style="text-align: left">F</td><td>F</td><td>T</td><td>F</td></tr>
+<tr><td style="text-align: left">F</td><td>T</td><td>F</td><td>F</td></tr>
+<tr><td style="text-align: left">F</td><td>T</td><td>T</td><td><em><strong>T</strong></em></td></tr>
+<tr><td style="text-align: left">T</td><td>F</td><td>F</td><td>F</td></tr>
+<tr><td style="text-align: left">T</td><td>F</td><td>T</td><td><em><strong>T</strong></em></td></tr>
+<tr><td style="text-align: left">T</td><td>T</td><td>F</td><td><em><strong>T</strong></em></td></tr>
+<tr><td style="text-align: left">T</td><td>T</td><td>T</td><td><em><strong>T</strong></em></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">m(p, q, r)</span> is defined to be true when at least 2 inputs are true.</td><td></td><td></td><td></td></tr>
+<tr><td style="text-align: left">Notice that 4 outputs are true and 4 outputs are false.</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p><strong>Truth Table for Equivalence (If and Only If):</strong></p>
+<table><thead><tr><th><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">p \iff q</span></th></tr></thead><tbody>
+<tr><td>F</td><td>F</td><td>T</td></tr>
+<tr><td>F</td><td>T</td><td>T</td></tr>
+<tr><td>T</td><td>F</td><td>T</td></tr>
+<tr><td>T</td><td>T</td><td>T</td></tr>
+</tbody></table>
+<table><thead><tr><th style="text-align: left"><span class="math math-inline">p</span></th><th><span class="math math-inline">q</span></th><th><span class="math math-inline">\neg p</span></th><th><span class="math math-inline">\neg p \lor q</span></th><th><span class="math math-inline">(\neg p \lor q) \iff (p \implies q)</span></th></tr></thead><tbody>
+<tr><td style="text-align: left">F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+<tr><td style="text-align: left">F</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+<tr><td style="text-align: left">T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+<tr><td style="text-align: left">T</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">(\neg p \lor q) \iff (p \implies q)</span> is always true (<em>tautology</em>)</td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align: left">Hence the definition of implication <span class="math math-inline">p \implies q</span> is <span class="math math-inline">\neg p \lor q</span></td><td></td><td></td><td></td><td></td></tr>
+</tbody></table>
+<p><strong>Definition:</strong>
+A proposition is a <em>tautology</em> if it is TRUE regardless of the values of atomic propositions.</p>
+<p><strong>Definition:</strong>
+Propositions <span class="math math-inline">A</span> and <span class="math math-inline">B</span> are <em>logically equivalent</em> if <span class="math math-inline">A \iff B</span> is a <span class="math math-inline">tautology</span></p>
+<p><strong>Notation of Logical Equivalence:</strong> <span class="math math-inline">A \equiv B</span></p>
+<h4>Understanding Logical Implication</h4>
+<p><strong>Promise:</strong> Every card has a shape on one side and a pattern on the other side
+<strong>Check:</strong> For every card if it has a triangle on one side, then it has stripes on the other side.</p>
+<p>E.g. Card 1 has a triangle, Card 2 has stripes, Card 3 has a circle, Card 4 has zigzags</p>
+<ul>
+<li>
+<p>Card 1 must be checked to see if there are stripes on the other side.</p>
+</li>
+<li>
+<p>Card 2 doesn’t have to be checked because there are already stripes we can see, so it doesn’t matter what shape is on the other side.</p>
+<ul>
+<li>If the shape revealed is a triangle, the check is successful.</li>
+<li>If the shape revealed is not a triangle, we don’t care.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Card 3 doesn’t have to be checked because a circle is not a triangle so we don’t care.</p>
+</li>
+<li>
+<p>Card 4 has to be checked to see if there is a triangle on the other side to disprove the claim.</p>
+<ul>
+<li><span class="math math-inline">p \implies q</span> is the same as <span class="math math-inline">\neg q \implies \neg p</span> so we need to check if there is NO triangle.</li>
+</ul>
+</li>
+</ul>
+<h4>Laws of Propositional Logic</h4>
+<p><strong>Associativity</strong> <span class="math math-inline">(x \lor y) \lor z \equiv x \lor (y \lor z)</span>, <span class="math math-inline">(x \land y) \land z \equiv x \land (y \land z)</span></p>
+<ul>
+<li>This also applies to XOR, as it is addition modulo 2</li>
+</ul>
+<p><strong>Commutativity</strong> <span class="math math-inline">x \lor y \equiv y \lor x</span>, <span class="math math-inline">x \land y \equiv y \land x</span></p>
+<p><strong>De Morgan’s Laws</strong> <span class="math math-inline">\neg(x \lor y) \equiv \neg x \land \neg y</span>, <span class="math math-inline">\neg(x \land y) \equiv \neg x \lor \neg y</span></p>
+<p><strong>Double Negation</strong> <span class="math math-inline">\neg \neg x \equiv x</span></p>
+<p><strong>Excluded Middle Law</strong>  <span class="math math-inline">x \lor \neg x \equiv T</span>, <span class="math math-inline">x \land \neg x \equiv F</span></p>
+<p><strong>Distributivity</strong> (two laws)</p>
+<ul>
+<li><span class="math math-inline">x \lor (y \land z) \equiv (x \lor y) \land  (x \lor z)</span></li>
+<li><span class="math math-inline">x \land (y \lor z) \equiv (x \land y) \lor (x \land z)</span></li>
+</ul>
+<p><strong>Absorption</strong> (two laws)</p>
+<ul>
+<li><span class="math math-inline">x \lor (x \land y) \equiv x</span></li>
+<li><span class="math math-inline">x \land (x \lor y) \equiv x</span></li>
+</ul>
+<p><strong>Identity</strong> (two laws)</p>
+<ul>
+<li><span class="math math-inline">x \lor F \equiv x</span></li>
+<li><span class="math math-inline">x \land T \equiv x</span></li>
+</ul>
+<p><strong>Annihilation</strong> (two laws)</p>
+<ul>
+<li><span class="math math-inline">x \lor T \equiv T</span></li>
+<li><span class="math math-inline">x \land F \equiv F</span></li>
+</ul>
+<p><strong>Idempotence</strong> (two laws)</p>
+<ul>
+<li><span class="math math-inline">x \land x \equiv x</span></li>
+<li><span class="math math-inline">x \lor x \equiv x</span></li>
+</ul>
+<h4>Contrapositive of an Implication</h4>
+<p><em><strong>Theorem</strong></em>:</p>
+<ul>
+<li><span class="math math-inline">A \implies B \equiv \neg B \implies \neg A</span></li>
+<li>Sometimes it is easier to prove the contrapositive than the original statement</li>
+</ul>
+<p><em><strong>Proof:</strong></em>
+<span class="math math-inline">\neg B \implies \neg A \equiv \neg(\neg B) \lor \neg A</span> (using the definition of implication)
+<span class="math math-inline">\equiv B \lor \neg A</span> (double negation)
+<span class="math math-inline">\equiv \neg A \lor B</span> (commutativity)
+<span class="math math-inline">\equiv A \implies B</span> (using the definition again)</p>
+<h2>Section 3 - Logic of Predicates</h2>
+<h4>Introduction to Predicates</h4>
+<ul>
+<li><span class="math math-inline">x &lt; 0</span> is a <strong>predicate</strong> as the value of this predicate depends on the value of <span class="math math-inline">x</span>
+<ul>
+<li>It is <strong>not</strong> a statement as it is not true or false at the moment</li>
+<li>One way of turning this into a statement is by specifying the value of <span class="math math-inline">x</span></li>
+</ul>
+</li>
+</ul>
+<h4>Quantifiers</h4>
+<ul>
+<li><strong>Quantifiers</strong> can be used on a <strong>predicate</strong> to turn it into a statement.
+<ul>
+<li>E.g. <span class="math math-inline">\exists x \in \mathbb{Z}, x &lt; 0 = T</span></li>
+<li>E.g. <span class="math math-inline">\exists x \in \mathbb{N}, x &lt; 0 = F</span></li>
+<li>E.g. <span class="math math-inline">\forall x \in \mathbb{R}, x &lt; 0 = F</span></li>
+<li>E.g. <span class="math math-inline">\forall x \in \mathbb{R_{&lt;0}}, x &lt; 0 = T</span></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p>Two types of quantifiers:</p>
+<ul>
+<li>“For all”: <span class="math math-inline">\forall</span></li>
+<li>“There exists”: <span class="math math-inline">\exists</span></li>
+</ul>
+</li>
+<li>
+<p>E.g. <span class="math math-inline">(\forall x \space \exists y, \space x = y) = T</span> regardless of the set <span class="math math-inline">x, y</span> are from because we can select a value of <span class="math math-inline">y</span> that is equal to <span class="math math-inline">x</span>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>E.g. <span class="math math-inline">(\exists y \space \forall x, \space x = y) = F</span>, but only when the cardinality of the universe is at least 2, because there is only one value of <span class="math math-inline">y</span> but there are multiple values of <span class="math math-inline">x</span> that have to be equal to.</p>
+</li>
+<li>
+<p>But if <span class="math math-inline">(\exists y \in \{5\} \space \forall x \in \{5\}, \space x = y) = T</span> as the universe is a singleton set</p>
+</li>
+<li>
+<p><span class="math math-inline">\forall x \in \emptyset, \phi(x) = T</span>, because <span class="math math-inline">\forall</span> is closely related to <span class="math math-inline">\land</span>, and the identity of <span class="math math-inline">\land</span> is <span class="math math-inline">T</span>.</p>
+</li>
+<li>
+<p>Similarly, <span class="math math-inline">\exists x \in \emptyset, \phi(x) = F</span></p>
+</li>
+<li>
+<p>From yesterday’s lecture: <span class="math math-inline">\forall i \in \{1, 2, 3, 4\}, t(i) \implies s(i) \equiv t(1) \implies s(1) \land t(2) \implies s(2) \land t(3) \implies s(3) \land t(4) \implies s(4)</span></p>
+</li>
+</ul>
+<p><span class="math math-inline">P(x, y), \space x \in \{a, b, c, d\}, \space y \in \{1, 2, 3, 4, 5, 6\}</span></p>
+<ul>
+<li>A predicate is a function that maps an input to a boolean value, True or False</li>
+<li>e.g. <span class="math math-inline">P(b, 2) \equiv T</span></li>
+</ul>
+<ul>
+<li>e.g. <span class="math math-inline">\exists x P(x, 2) \equiv T</span></li>
+<li>e.g. <span class="math math-inline">\exists x P(x, 6) \equiv F</span></li>
+<li>e.g. <span class="math math-inline">\forall x \exists y P(x, y) \equiv T</span> means that for every row, there exists a column that contains True.</li>
+</ul>
+<ul>
+<li>e.g. <span class="math math-inline">\forall y \exists x P(x, y) \equiv F</span> means that for every column, there exists a row that contains True.</li>
+</ul>
+<ul>
+<li>e.g. <span class="math math-inline">\exists x \exists y, \neg P(x, y) \equiv T</span> means that there exists a cell in the table such that it contains a False.</li>
+<li>e.g. <span class="math math-inline">\forall x \forall y, \neg P(x, y) \equiv F</span> means that all cells contain False.</li>
+<li>e.g. <span class="math math-inline">\exists y \forall x P(x, y) \equiv T</span> means that there exists a column such that all rows contain True.</li>
+<li>e.g. <span class="math math-inline">\exists y \forall x, \neg P(x, y) \equiv T</span> means that there exists a column such that all rows contain False.</li>
+</ul>
+<p><strong>Analogy:</strong></p>
+<ul>
+<li>The universal quantifier (for all) attempts to find a value that is false to disprove the statement.</li>
+<li>The existential quantifier (there exists) attempts to find a value that is true to prove the statement.</li>
+</ul>
+<p><span class="math math-inline">\forall x \in \mathbb{Z} \space (Even(x) \lor Odd(x)) \equiv T</span>
+<span class="math math-inline">\equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists y \in \mathbb{Z}, x = 2y + 1))</span>
+<span class="math math-inline">\equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists u \in \mathbb{Z}, x = 2u + 1))</span></p>
+<p>This is because the values <span class="math math-inline">u</span> and <span class="math math-inline">y</span> only exist within the <span class="math math-inline">\exists</span> statement, so the two <span class="math math-inline">y</span>’s are not related at all outside the <span class="math math-inline">\exists</span> statement.</p>
+<p><span class="math math-inline">\equiv \forall x \in \mathbb{Z} \space \exists y \in \mathbb{Z}, (x = 2y \lor x = 2y + 1) \equiv T</span></p>
+<p>This is because either or statement will be true, so the disjunction of those statements would be true.</p>
+<p><strong>Law:</strong>
+<span class="math math-inline">\exists y \space (Q(y) \lor R(y)) \equiv (\exists y \space Q(y)) \lor (\exists y \space R(y))</span></p>
+<ul>
+<li>This is true because for the LHS to be true, there must be a value of <span class="math math-inline">Q(y)</span> or <span class="math math-inline">R(y)</span> is true, so either <span class="math math-inline">\exists</span> statement must contain the true value, and <span class="math math-inline">T \lor x \equiv T</span></li>
+<li>Another explanation: <span class="math math-inline">\exists</span> is a multi-or operation, and OR is commutative.</li>
+</ul>
+<p><strong>Note:</strong>
+<span class="math math-inline">\forall y \space (Q(y) \lor R(y)) \ne ((\forall y \space Q(y)) \lor (\forall y \space R(y))</span></p>
+<p>An example:</p>
+<ul>
+<li>For all y, it is either even or odd = true.</li>
+<li>For all y it is even OR for all y it is odd = false or false = false.</li>
+</ul>
+<h4>Unique Existential Operator</h4>
+<p><span class="math math-inline">\exists ! x : x^2 + 2x + 1 = 0 \equiv T</span></p>
+<p><span class="math math-inline">\exists ! x, P(x)</span> means that there exists only one value of <span class="math math-inline">x</span> such that <span class="math math-inline">P(x)</span> is true</p>
+<p><strong>Definition of Unique Existential Operator</strong>
+<span class="math math-inline">\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies \neg P(y))</span></p>
+<p><span class="math math-inline">\exists ! x : x^2 + 2x+1 = 0 \equiv T</span> (x = -1 is the only solution)
+<span class="math math-inline">\exists! x : x^2 - 1 = 0 \equiv F</span> (x = 1 or x = -1)</p>
+<ul>
+<li>Note: “There exists unique” is not one of the two main quantifiers</li>
+<li><span class="math math-inline">:\equiv</span> is the definition operator (also <span class="math math-inline">:=</span>)</li>
+</ul>
+<p><span class="math math-inline">\exists! x \space P(x) :\equiv \exists x \space:P(x) \land \forall y \space (y \ne x \implies \neg P(y))</span>
+<span class="math math-inline">\equiv \exists x : P(x) \land \neg \exists y (y \ne x \land P(y))</span></p>
+<p><strong>Law:</strong>
+<span class="math math-inline">\neg \exists y \space Q(y) \equiv \forall y \space \neg Q(y)</span>
+<span class="math math-inline">\neg \forall y \space Q(y) \equiv \exists y \space \neg Q(y)</span></p>
+<p><strong>Law:</strong>
+<span class="math math-inline">\neg (p \implies q) \equiv \neg (\neg p \lor q) \equiv p \land \neg q</span></p>
+<p><strong>Proof:</strong>
+<span class="math math-inline">\neg \exists y \space (y \ne x \land P(y)) \equiv \forall y \space \neg (y \ne x \land P(y))</span>
+<span class="math math-inline">\equiv \forall y \space (\neg (y \ne x) \lor (\neg P(y)))</span>
+<span class="math math-inline">\equiv \forall y \space (y \ne x \implies \neg P(y))</span></p>
+<h2>Section 4 - Introduction to Proofs</h2>
+<h4>Theorem 1:</h4>
+<p>If <span class="math math-inline">x \in \mathbb{Z}</span> and <span class="math math-inline">5x+3</span> is odd, then <span class="math math-inline">x</span> is even</p>
+<p><strong>Proof 1:</strong></p>
+<p>Assume <span class="math math-inline">5x+3</span> is odd
+Then <span class="math math-inline">5x = (5x + 3) - 3</span> is even, because 3 is odd, and the difference between two odd numbers is even.
+So, <span class="math math-inline">x = \frac{5x}{5}</span> is even because even / odd is even if the result is an integer.
+<strong>QED</strong></p>
+<p><strong>Proof 2:</strong> (by Contrapositive)</p>
+<p>We try to prove (x is odd <span class="math math-inline">\implies</span> <span class="math math-inline">5x+3</span> is even)
+Assume <span class="math math-inline">x</span> is odd
+Then <span class="math math-inline">x = 2y + 1</span> for some <span class="math math-inline">y \in \mathbb{Z}</span>
+Then <span class="math math-inline">5x + 3 = 5(2y+1) + 3 = 10y + 8 = 2(5y+4) = 2z</span> for some <span class="math math-inline">z \in \mathbb{Z}</span>
+Therefore <span class="math math-inline">5x + 3</span> is even
+<strong>QED</strong></p>
+<h4>Theorem 2:</h4>
+<p><span class="math math-inline">\forall n \in \mathbb{N}, 1 + (-1)^n(2n-1)</span> is divisible by 4
+We could consider two cases, <span class="math math-inline">n</span> is even and <span class="math math-inline">n</span> is odd</p>
+<p><strong>Case 1:</strong> <span class="math math-inline">n</span> is even <span class="math math-inline">\iff n = 2k</span> for some <span class="math math-inline">k \in \mathbb{N}</span></p>
+<p><span class="math math-inline">1 + (-1)^n(2n-1) = 1 + (-1)^{2k}(2(2k) - 1) = 1 + 4k - 1 = 4k</span>
+Therefore <span class="math math-inline">1 + (-1)^n(2n-1)</span> is a multiple of 4 if <span class="math math-inline">n</span> is even</p>
+<p><strong>Case 2:</strong> <span class="math math-inline">n</span> is odd <span class="math math-inline">\iff n = 2k + 1</span> for some <span class="math math-inline">k \in \mathbb{N}</span></p>
+<p><span class="math math-inline">1 + (-1)^n(2n-1) = 1 + (-1)^{2k+1}(2(2k+1)-1) = 1 -(4k + 1) = 1 - 4k - 1 = -4k</span>
+Therefore <span class="math math-inline">1 + (-1)^n(2n-1)</span> is a multiple of 4 if <span class="math math-inline">n</span> is odd</p>
+<p><strong>QED</strong></p>
+<ul>
+<li>Note: make sure that all of the cases cover all of the possibilities (cases do not have to be disjoint)</li>
+</ul>
+<h4>Theorem 3:</h4>
+<p><span class="math math-inline">\sqrt{2} \notin \mathbb{Q}</span></p>
+<p><strong>Proof:</strong> (by Contradiction)</p>
+<p>Assume <span class="math math-inline">\sqrt{2} \in \mathbb{Q}</span>
+Then <span class="math math-inline">\sqrt{2} = \frac{n}{m}, n \in \mathbb{N}, m \in \mathbb{N} \setminus \{0\}</span>
+Without loss of generality, <span class="math math-inline">gcd(n, m) = 1</span>
+We have <span class="math math-inline">2 = (\sqrt 2)^2 = \frac{n^2}{m^2}</span>, so <span class="math math-inline">n^2 = 2m^2</span>, so <span class="math math-inline">2|n</span>
+So <span class="math math-inline">n = 2k</span> for some <span class="math math-inline">k \in \mathbb{Z}</span>
+But <span class="math math-inline">m^2 = \frac{n^2}{2} = \frac{4k^2}{2} = 2k^2</span>, so <span class="math math-inline">2|m</span>, so <span class="math math-inline">gcd(n,m) &gt; 1</span>
+This is a contradiction
+So <span class="math math-inline">\sqrt 2 \notin \mathbb{Q}</span>
+<strong>QED</strong></p>
+<h4>Theorem 4:</h4>
+<p><span class="math math-inline">(\exists x \space P(x)) \lor (\exists x \space Q(x)) \equiv \exists x \space (P(x) \lor Q(x))</span>
+<span class="math math-inline">(\forall x \space P(x)) \land (\forall x \space Q(x)) \equiv \forall x \space (P(x) \land Q(x))</span></p>
+<p><strong>Proof for second theorem:</strong></p>
+<p>RHS <span class="math math-inline">\equiv \forall x \space (P(x) \land Q(x))</span>
+<span class="math math-inline">\equiv \neg \neg \forall x (P(x) \land Q(x))</span> (double negation)
+<span class="math math-inline">\equiv \neg \exists x \space (\neg (P(x) \land Q(x)))</span> (converting <span class="math math-inline">\neg \forall \space P(x)</span> into <span class="math math-inline">\exists x \space \neg P(x)</span>)
+<span class="math math-inline">\equiv \neg \exists x \space (\neg P(x) \lor \neg Q(x))</span> (De-Morgan’s law)
+<span class="math math-inline">\equiv \neg(\exists x \space \neg P(x) \lor \exists x \space \neg Q(x))</span> (distributing the <span class="math math-inline">\lor</span> via <span class="math math-inline">\exists</span> using first theorem)
+<span class="math math-inline">\equiv \neg \exists x \space \neg P(x) \land \neg \exists x \space \neg Q(x)</span> (De-Morgan’s law)
+<span class="math math-inline">\equiv \forall x \space P(x) \land \forall x \space Q(x)</span> (converting <span class="math math-inline">\neg \exists x \space P(x)</span> into <span class="math math-inline">\forall x \space \neg P(x)</span>)
+<span class="math math-inline">\equiv</span> LHS
+<strong>QED</strong></p>
+<h4>Theorem 5:</h4>
+<p>There exists irrational <span class="math math-inline">a</span> and <span class="math math-inline">b</span> such that <span class="math math-inline">a^b</span> is rational.</p>
+<p><strong>Proof:</strong>
+We have <span class="math math-inline">(\sqrt{2} ^ \sqrt{2}) ^ \sqrt{2} = \sqrt{2} ^ {2} = 2</span> which is rational
+Case <span class="math math-inline">\sqrt 2 ^ \sqrt 2</span> is irrational:
+- Then the proof is complete as <span class="math math-inline">a = \sqrt 2 ^ \sqrt 2</span>, and <span class="math math-inline">b = \sqrt 2</span>, and <span class="math math-inline">a ^ b = 2</span> which is rational
+- <span class="math math-inline">b</span> is irrational by Theorem 3.
+Case <span class="math math-inline">\sqrt 2 ^ \sqrt 2</span> is rational:
+- The proof is also complete as <span class="math math-inline">a = \sqrt 2</span> and <span class="math math-inline">b = \sqrt 2</span>, and <span class="math math-inline">b</span> is irrational by Theorem 3.
+Hence the proof is complete for both disjoint cases, so the proof is complete.
+<strong>QED</strong></p>
+<ul>
+<li>Note: we didn’t have to find values <span class="math math-inline">a</span> and <span class="math math-inline">b</span> such that <span class="math math-inline">a^b</span> is irrational to prove the theorem</li>
+</ul>
+<h2>Section 5 - More on Sets</h2>
+<h4>Set Operations</h4>
+<ul>
+<li><strong>Set Intersection</strong> - <span class="math math-inline">A \cap B \equiv \{x \space | \space x \in A \land x \in B\}</span></li>
+<li><strong>Set Difference</strong> - <span class="math math-inline">A \setminus B \equiv \{x \space | \space x \in A \land \neg x \in B\}</span>
+<ul>
+<li><span class="math math-inline">\neg x \in B \equiv x \notin B</span></li>
+</ul>
+</li>
+<li><strong>Symmetric Difference</strong> - <span class="math math-inline">A \triangle B = (A \setminus B) \cup (B \setminus A)</span>
+<ul>
+<li>Analogous to the XOR operation in propositional logic</li>
+</ul>
+</li>
+</ul>
+<h4>Theorem regarding Symmetric Difference</h4>
+<p><span class="math math-inline">A \triangle B \equiv (A \cup B) \setminus (A \cap B)</span></p>
+<p><strong>Proof:</strong></p>
+<p>Recall <span class="math math-inline">A = B \equiv \forall x, x \in A \iff x \in B</span></p>
+<p><strong>SUBSET direction</strong>
+Suppose <span class="math math-inline">x \in A \triangle B</span> (we need to show that <span class="math math-inline">x \in (A \cup B) \setminus (A \cap B)</span>)
+<span class="math math-inline">\implies x \in (A \setminus B) \cup (B \setminus A)</span></p>
+<p>Divide into two disjoint cases (check venn diagram)
+<strong>Case</strong> $x \in <span class="math math-inline">A \setminus B</span>:
+<span class="math math-inline">\implies x \in A \land x \notin B</span>
+From <span class="math math-inline">x \in A, x \in A \cup B</span>
+From <span class="math math-inline">x \notin B, x \notin A \cap B</span>
+<span class="math math-inline">\implies x \in (A \cup B) \setminus (A \cap B)</span>
+Case <span class="math math-inline">x \in B \setminus A</span>:
+<span class="math math-inline">\implies x \in B \land x \notin A</span>
+From <span class="math math-inline">x \in B, x \in A \cup B</span>
+From <span class="math math-inline">x \notin A, x \notin A \cap B</span>
+<span class="math math-inline">\implies x \in (A \cup B) \setminus (A \cap B)</span></p>
+<p><strong>SUPERSET direction</strong>
+Proving the other direction: <span class="math math-inline">x \in (A \cup B) \setminus (A \cap A) \implies x \in (A  \setminus B) \cup (B \setminus A)</span></p>
+<h4>Laws of Set Operations</h4>
+<p><strong>Associativity</strong>
+<span class="math math-inline">(A \cup B) \cup C \equiv A \cup (B \cup C)</span>
+<span class="math math-inline">(A \cap B) \cap C \equiv A \cap (B \cap C)</span></p>
+<p><strong>Commutativity</strong>
+<span class="math math-inline">A \cup B \equiv B \cup A</span>
+<span class="math math-inline">A \cap B \equiv B \cap A</span></p>
+<p><strong>Distributivity</strong>
+<span class="math math-inline">A \cup (B \cap C) \equiv (A \cup B) \cap (A \cup C)</span>
+<span class="math math-inline">A \cap (B \cup C) \equiv (A \cap B) \cup (A \cap C)</span></p>
+<p><strong>Idempotence</strong>
+<span class="math math-inline">A \cup A \equiv A</span>
+<span class="math math-inline">A \cap A \equiv A</span></p>
+<p>If <span class="math math-inline">A \subseteq U</span>, where <span class="math math-inline">U</span> is the universal set, then:</p>
+<p><strong>Annihilation</strong>
+<span class="math math-inline">A \cap \emptyset \equiv \emptyset</span>
+<span class="math math-inline">A \cup U \equiv U</span></p>
+<p><strong>Identity</strong>
+<span class="math math-inline">A \cup \emptyset \equiv A</span>
+<span class="math math-inline">A \cap U \equiv A</span></p>
+<ul>
+<li><span class="math math-inline">U</span> plays the role of <span class="math math-inline">T</span> in propositional logic</li>
+<li><span class="math math-inline">\emptyset</span> plays the role of <span class="math math-inline">F</span> in propositional logic</li>
+</ul>
+<p>From there, we can define the equivalent of “negation” in propositional logic:</p>
+<p><strong>Complement</strong>
+<span class="math math-inline">\bar{A}^U</span> = <span class="math math-inline">U \setminus A</span></p>
+<h4>Cartesian Product</h4>
+<p><strong>Definition</strong>: The cartesian product of sets <span class="math math-inline">A</span> and <span class="math math-inline">B</span> is:
+<span class="math math-inline">A \times B \equiv \{(a, b) : a \in A</span> and <span class="math math-inline">b \in B\}</span></p>
+<p>In general, <span class="math math-inline">(a, b) \ne (b, a)</span> (except <span class="math math-inline">a = b</span>), as this is an ordered pair
+<span class="math math-inline">\{a, b\} \equiv \{b, a\}</span> because sets are unordered</p>
+<p><span class="math math-inline">A \times B \times C</span> = <span class="math math-inline">\{(a, b, c) : a \in A, b \in B,  c \in C\}</span></p>
+<ul>
+<li>defined as the set of ordered triplets from <span class="math math-inline">A, B, C</span></li>
+</ul>
+<p><span class="math math-inline">(A \times B) \times C</span> is generally not the same as <span class="math math-inline">A \times (B \times C)</span>
+The first one contains elements <span class="math math-inline">((a, b), c)</span>, and the second one contains elements <span class="math math-inline">(a, (b, c))</span></p>
+<p>The Cartesian Product is <strong>NOT</strong> commutative
+<span class="math math-inline">A \times B \ne B \times A</span> in general</p>
+<h4>Power Set</h4>
+<p><strong>Power Set</strong>: The power set of a set <span class="math math-inline">A</span> is:
+<span class="math math-inline">2^A = \{X : X \subseteq A\}</span> = The set of all subsets of <span class="math math-inline">A</span></p>
+<p><span class="math math-inline">2^{\{a, b, c\}} \equiv \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}</span></p>
+<p>The motivation for this notation is that the number of subsets of a set <span class="math math-inline">A</span> is <span class="math math-inline">2^{|A|}</span>
+So for finite sets <span class="math math-inline">A</span>, <span class="math math-inline">|2^A| = 2^{|A|}</span></p>
+<ul>
+<li>This is because there is a binary choice for whether an element is IN, or OUT.</li>
+<li>So the cardinality of the power set is <span class="math math-inline">2</span> multiplied <span class="math math-inline">n</span> times, where <span class="math math-inline">n</span> is the cardinality of the set.</li>
+</ul>
+<p>For finite sets <span class="math math-inline">A</span> and <span class="math math-inline">B</span>, we have <span class="math math-inline">|A \times B| = |A| \times |B|</span></p>
+<p>Note: <span class="math math-inline">2^{\emptyset} = \{\emptyset\}</span>
+Note: <span class="math math-inline">2^{2^{\emptyset}} = 2^{\{\emptyset\}} = \{\emptyset, \{\emptyset\}\}</span>, so <span class="math math-inline">|2^{2^{\emptyset}}| = 2^{2^0} = 2^1 = 2</span></p>
+<h4>Big Intersection and Big Union Operators</h4>
+<p><strong>Notation:</strong>
+<span class="math math-inline">a \space| \space b</span> if and only if <span class="math math-inline">\exists k \in \mathbb{Z}, b = ak</span></p>
+<ul>
+<li>read “a divides b”</li>
+<li>equivalent to <span class="math math-inline">b \bmod a = 0</span></li>
+<li>equivalent to <span class="math math-inline">b \equiv 0 \pmod a</span></li>
+</ul>
+<p><span class="math math-inline">\{k \in \mathbb{Z} : 2\space |\space b\}</span> is the set of all even integers</p>
+<p>Lets define some new notation:
+<span class="math math-inline">D_a = \{k \in \mathbb{Z} : a \space | \space b\}</span></p>
+<ul>
+<li>Using this notation, the above set is <span class="math math-inline">D_2</span></li>
+</ul>
+<p><span class="math math-inline">\{b \in \mathbb{Z} : \forall \space prime \space a &lt; 7, a | b\}</span>  = all the multiples of 30
+= <span class="math math-inline">\{k \in \mathbb{Z} : 2 \space | \space b \land 3 \space | \space b \land 5 \space | \space b\}</span>
+= <span class="math math-inline">\{k \in \mathbb{Z} : b \in D_2 \land b \in D_3 \land b \in D_5\}</span>
+= <span class="math math-inline">D_2 \cap D_3 \cap D_5</span>
+= <span class="math math-inline">\bigcap_{a \in \{2, 3, 5\}}{D_a}</span></p>
+<ul>
+<li>where the <span class="math math-inline">\bigcap</span> symbol is the big intersection symbol</li>
+<li>Similar to <span class="math math-inline">\sum</span> being the big summation symbol, <span class="math math-inline">1+2+...+n = \sum_{i=1}^n{i}</span></li>
+<li>Can also write like <span class="math math-inline">\bigcap{\{D_2, D_3, D_5\}}</span></li>
+</ul>
+<p>Let <span class="math math-inline">P = \{a \in \mathbb{N} : a \space is \space prime\}</span></p>
+<p><span class="math math-inline">\bigcup_{a \in P}{D_a}</span> = <span class="math math-inline">\mathbb{Z} \setminus \{1, -1\}</span>
+<span class="math math-inline">\bigcap_{a \in P}{D_a} = \{0\}</span></p>
+<p>e.g. the Big Union <span class="math math-inline">\bigcup</span>
+<span class="math math-inline">\bigcup{\{\emptyset, \{1, 2\}, \{\emptyset\}, \{1, \{2\}\}\}}</span> = <span class="math math-inline">\{1, 2, \emptyset, \{2\}\}</span></p>
+<ul>
+<li>contains 4 elements</li>
+</ul>
+<h2>Section 6 - Relations</h2>
+<h4>Introduction to Relations</h4>
+<p><strong>Definition</strong>: A relation between sets <span class="math math-inline">A</span> and <span class="math math-inline">B</span>,
+i.e. <span class="math math-inline">R : A \leftrightarrow B</span>, i.e. <span class="math math-inline">A \underleftrightarrow{R} B</span>
+is a set <span class="math math-inline">R \subseteq A \times B</span>
+Alternative notation is <span class="math math-inline">aRb \iff(a, b) \in R</span></p>
+<p>Examples:</p>
+<ul>
+<li>Divisibility Relation: <span class="math math-inline">\{(a, b) \in \mathbb{Z}^2 : a \space| \space b\}</span></li>
+<li><span class="math math-inline">\{(a, b) \in \{2, 3, 4\} \times \{5, 6, 7, 8\} : a \space | \space b\}</span> = <span class="math math-inline">\{(2, 6), (2, 8), (3, 6), (4, 8)\}</span></li>
+</ul>
+<p>Relations can be depicted as a <strong>bipartite graph</strong> between two sets of nodes, elements in A and elements in B, and by drawing edges where <span class="math math-inline">(a, b) \in R \subseteq A \times B</span></p>
+<p>E.g. <span class="math math-inline">A = B</span> = set of all people
+<span class="math math-inline">P = (a, b) :a</span> is a parent of <span class="math math-inline">b \}</span></p>
+<p><span class="math math-inline">G = \{(a, b) : (a, c) \in P \land (c, b) \in P</span> for some <span class="math math-inline">c\}</span>
+<span class="math math-inline">aGb \iff \exists c : aPc \land cPb</span></p>
+<h4>Relation Composition</h4>
+<p><strong>Definition</strong>: The composition of two relations <span class="math math-inline">R : A \leftrightarrow B</span> and <span class="math math-inline">S : B \leftrightarrow C</span> is the relation
+<span class="math math-inline">R \circ S \equiv \{(a, c) : aRb \land bRc</span> for some <span class="math math-inline">b \in B\}</span>, <span class="math math-inline">(a, b) \in R, (b, c) \in S</span></p>
+<p>E.g.
+<span class="math math-inline">R = \{(n, m) \in \{2, 3, ..., 9\}^2 : n = m^2\} = \{(4, 2), (9, 3)\}</span></p>
+<p>E.g.
+<span class="math math-inline">S = \{(m, k) \in \{2, 3, ..., 9\}^2 : m \space | \space k\}</span>
+<span class="math math-inline">=\{(2, 2), (2, 4), (2, 6), (2, 8), (3, 3), (3, 6), (3, 9), (4, 4), (4, 8), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9)\}</span></p>
+<p>A relation is said to be <strong>ON</strong> a set if the relation spans between the same set on both sides.</p>
+<ul>
+<li>One copy of the set can be drawn instead of two copies if the relation is <strong>ON</strong> the set.</li>
+<li>If <span class="math math-inline">(a, a) \in R : A \leftrightarrow A, a \in A</span>, then a “self-loop” can be drawn going from the number to itself.</li>
+</ul>
+<p><span class="math math-inline">R \circ S = \{(4, 2), (4, 4), (4, 6), (4, 8), (9, 3), (9, 6), (9, 9)\}</span></p>
+<ul>
+<li>Composition of relations is following arrows from the first set in the first relation to the second set in the last relation</li>
+</ul>
+<p><span class="math math-inline">S \circ R = \{(2, 2), (4, 2), (3, 3), (9, 3)\}</span></p>
+<p>Hence in general, <span class="math math-inline">R \circ S \ne S \circ R</span> (except <span class="math math-inline">R = R, \space R : A \leftrightarrow A</span>)</p>
+<p><span class="math math-inline">&lt; : \mathbb{N} \leftrightarrow \mathbb{N}</span>
+<span class="math math-inline">&gt; : \mathbb{N} \leftrightarrow \mathbb{N}</span></p>
+<p><span class="math math-inline">&lt; \circ &gt;</span> relates every natural number to every natural number (e.g. 0 -&gt; 10 and 10  -&gt; 5 so 0 -&gt; 5)
+<span class="math math-inline">&lt; \circ &gt; \space \ne \space &gt; \circ &lt;</span> because 0 is not greater than any natural number, so there is no edge coming from 0, but 0 is less than every natural number (exclude 0)</p>
+<h4>Inverse of a Relation</h4>
+<p><strong>Definition:</strong> The inverse of a relation <span class="math math-inline">R : A \leftrightarrow B</span> is the relation <span class="math math-inline">R^{-1} = \{(b, a) : aRb\}</span></p>
+<ul>
+<li>e.g. <span class="math math-inline">&gt; = &lt;^{-1}</span>, <span class="math math-inline">&lt; = &gt;^{-1}</span></li>
+</ul>
+<p>The empty set is its own inverse: <span class="math math-inline">\emptyset ^{-1} = \emptyset</span>
+The equality relation is its own inverse: <span class="math math-inline">(=^{-1}) = (=)</span>
+<span class="math math-inline">=_ {A} \space = \{(a, a) : a \in A\}</span>
+e.g. <span class="math math-inline">(2, 4), (4, 8) \in R^{-1} \circ S</span> because 4 divides the square of 2, and 8 divides the square of 2.</p>
+<p><strong>Theorem:</strong>
+<span class="math math-inline">S^{-1} \circ R^{-1} \equiv (R \circ S) ^{-1}</span></p>
+<ul>
+<li>The inverse operator distributes but reverses the order of <span class="math math-inline">R</span> and <span class="math math-inline">S</span></li>
+</ul>
+<h4>Properties of Relations</h4>
+<p>Consider a relation <span class="math math-inline">R</span> <strong>on</strong> a set <span class="math math-inline">S</span>, defined as <span class="math math-inline">R : S \leftrightarrow S</span></p>
+<p><strong>Reflexive:</strong> <span class="math math-inline">\forall x \in S : \space xRx</span> -&gt; every element is related to itself
+<strong>Symmetric:</strong> <span class="math math-inline">\forall x, y \in S : \space xRy \implies yRx</span></p>
+<ul>
+<li><span class="math math-inline">\forall x, y \in S \equiv \forall x \in S, \forall y \in S</span>
+<strong>Anti-symmetric:</strong> <span class="math math-inline">\forall x, y \in S : (xRy \land yRx) \implies x = y</span>
+<strong>Transitive:</strong> <span class="math math-inline">\forall x, y, z \in S : (xRy \land yRz) \implies xRz</span></li>
+</ul>
+<h4>Examples (on <span class="math math-inline">\mathbb{Z}</span>)</h4>
+<p>Consider the relation <span class="math math-inline">x = y</span></p>
+<ul>
+<li>It is reflexive, as every integer is equal to itself</li>
+<li>It is symmetric, as <span class="math math-inline">y = x</span>, then <span class="math math-inline">x = y</span></li>
+<li>It is anti-symmetric, as <span class="math math-inline">x = y \land y = x \implies x = y</span> as <span class="math math-inline">x = y \implies x = y</span></li>
+<li>It is transitive, as if <span class="math math-inline">x = y \land y = z</span>, then <span class="math math-inline">x = z</span></li>
+</ul>
+<p>Consider the relation <span class="math math-inline">x \le y</span></p>
+<ul>
+<li>It is reflexive, as every integer is less than or equal to itself</li>
+<li>It is not symmetric, as e.g. <span class="math math-inline">5 \le 7</span> but <span class="math math-inline">7 \centernot\le 5</span></li>
+<li>It is anti-symmetric, as if <span class="math math-inline">x \le y \land y \le x</span> then <span class="math math-inline">x = y</span></li>
+<li>It is transitive, as if <span class="math math-inline">x \le y \land y \le z</span> then <span class="math math-inline">x \le z</span></li>
+</ul>
+<p>Consider the relation <span class="math math-inline">x &lt; y</span></p>
+<ul>
+<li>It is not reflexive, as <span class="math math-inline">x &lt; x \equiv F</span></li>
+<li>It is not symmetric, as e.g. <span class="math math-inline">5 &lt; 7</span> but <span class="math math-inline">7 \centernot\le 5</span></li>
+<li>It is anti-symmetric, as there are no values of <span class="math math-inline">x, y</span> such that <span class="math math-inline">x &lt; y \land y &gt; x</span>, so the vacuous implication holds for all <span class="math math-inline">x, y</span></li>
+<li>It is transitive, similar to <span class="math math-inline">x \le y</span></li>
+</ul>
+<p>Consider the total relation, every integer is related to every integer:
+<span class="math math-inline">xRy \space \forall x, y \in \mathbb{Z} \equiv T \equiv \mathbb{Z}^2</span></p>
+<ul>
+<li>It is reflexive</li>
+<li>It is symmetric, as all <span class="math math-inline">x</span> and <span class="math math-inline">y</span> are related</li>
+<li>It is not anti-symmetric, as <span class="math math-inline">5R7 \land 7R5</span> but <span class="math math-inline">5 \ne 7</span></li>
+<li>It is transitive, as the RHS of the implication is always true</li>
+</ul>
+<p>Consider the relation <span class="math math-inline">x \equiv y \pmod 3</span></p>
+<ul>
+<li>It is reflexive, as <span class="math math-inline">x = x</span> for all <span class="math math-inline">x</span></li>
+<li>It is symmetric, as <span class="math math-inline">x \bmod 3 = y \bmod 3 \equiv y \bmod 3 = x \bmod 3</span></li>
+<li>It is not anti-symmetric, as <span class="math math-inline">5 \equiv 2 \pmod 3</span> and <span class="math math-inline">2 \equiv 5 \bmod 3</span> but <span class="math math-inline">2 \ne 5</span></li>
+<li>It is transitive, as they all share the same remainder</li>
+</ul>
+<h4>Examples (on <span class="math math-inline">2^A</span>, the power set of <span class="math math-inline">A</span>)</h4>
+<p>Consider the relation <span class="math math-inline">\subseteq</span></p>
+<ul>
+<li>It is reflexive, as <span class="math math-inline">X \subseteq X</span> for all <span class="math math-inline">X</span></li>
+<li>It is not symmetric, as smaller sets can be a subset of a larger set but the larger set cannot be a subset of the smaller set</li>
+<li>It is anti-symmetric, as if <span class="math math-inline">X \subseteq Y \land Y \subseteq X \equiv X = Y</span></li>
+<li>It is transitive, as if <span class="math math-inline">X \subseteq Y</span> and <span class="math math-inline">Y \subseteq Z</span>, every element of <span class="math math-inline">X</span> is in <span class="math math-inline">Y</span>, and every element of <span class="math math-inline">Y</span> is in <span class="math math-inline">Z</span>, so every element of <span class="math math-inline">X</span> is in <span class="math math-inline">Z</span></li>
+</ul>
+<h4>Equivalence and Partial Order Relations</h4>
+<p><strong>Definition:</strong> A relation <span class="math math-inline">R</span> on a set <span class="math math-inline">S</span> is an <strong>equivalence</strong> relation if it is <em>reflexive, symmetric and transitive</em></p>
+<p><strong>Definition:</strong> A relation <span class="math math-inline">R</span> on a set <span class="math math-inline">S</span> is a <strong>partial order</strong> if it is <em>reflexive, anti-symmetric and transitive</em></p>
+<p><strong>Definition:</strong> A total relation is a partial-order relation if also <span class="math math-inline">\forall x, y \in S, xRy \lor yRx</span></p>
+<p><strong>Note:</strong> An equivalence relation can be depicted as diving a set into partitions, were each partition has an *<em>equivalence class</em></p>
+<h4>Equivalence Relations</h4>
+<p>Suppose <span class="math math-inline">E</span> is an equivalence relation on a set <span class="math math-inline">S</span></p>
+<ul>
+<li>Reminder: <span class="math math-inline">E</span> is reflexive, symmetric and transitive</li>
+</ul>
+<p><strong>Definition</strong>: <span class="math math-inline">[x] := \{y \in S : xEy\}</span> is the <strong>equivalence class</strong> of <span class="math math-inline">x</span></p>
+<ul>
+<li>An alternative notation is <span class="math math-inline">[x]_E</span>, which denotes that the equivalence class is with respect to the equivalence relation <span class="math math-inline">E</span></li>
+<li>Equivalence classes form a partition of the set <span class="math math-inline">S</span>, such that each equivalence class is a <strong>disjoint subset</strong> of the set <span class="math math-inline">S</span></li>
+</ul>
+<p><strong>Lemma 1:</strong> If <span class="math math-inline">y \in [x]</span>, then <span class="math math-inline">[y] = [x]</span> (for all <span class="math math-inline">x, y \in S</span>)
+<strong>Proof:</strong>
+<strong>Subset direction:</strong>
+Suppose <span class="math math-inline">z \in [y]</span>. Then <span class="math math-inline">yEz</span>
+Also from <span class="math math-inline">y \in [x]</span>, we have <span class="math math-inline">xEy</span>
+By transitivity of <span class="math math-inline">E</span>, <span class="math math-inline">xEy \land yEz \implies xEz</span>
+<span class="math math-inline">\therefore z \in [x], \therefore [y] \subseteq [x]</span> <em>(endcase)</em>
+<strong>Superset direction:</strong>
+Suppose <span class="math math-inline">z \in [x]</span>. Then <span class="math math-inline">xEz</span>
+Also from <span class="math math-inline">y \in [x]</span>, we have <span class="math math-inline">xEy</span>
+By symmetry of <span class="math math-inline">E</span>, <span class="math math-inline">xEy \implies yEx</span>
+By transitivity of <span class="math math-inline">E</span>, <span class="math math-inline">yEx \land xEz \implies yEz</span>
+<span class="math math-inline">\therefore z \in [y], \therefore [x] \subseteq [y]</span> <em>(endcase)</em>
+<span class="math math-inline">\therefore [y] = [x]</span>
+<strong>QED</strong></p>
+<p><strong>Lemma 2:</strong> Either <span class="math math-inline">[x] = [y]</span>, or <span class="math math-inline">[x] \cap [y] = \emptyset</span> (for all <span class="math math-inline">x, y \in S</span>)</p>
+<p><strong>Proof technique:</strong></p>
+<ul>
+<li><span class="math math-inline">P \lor Q \equiv \neg P \implies Q \equiv \neg Q \implies P</span></li>
+</ul>
+<p><strong>Proof:</strong> It suffices to show that <span class="math math-inline">[x] \cap [y] \ne \emptyset \implies [x] = [y]</span>
+(<span class="math math-inline">Q = [x] \cap [y] = \emptyset</span>, <span class="math math-inline">P = [x] = [y]</span>)
+Suppose <span class="math math-inline">z \in [x] \cap [y]</span>
+Then <span class="math math-inline">z \in [x] \land z \in [y]</span>
+By Lemma 1, <span class="math math-inline">[z] = [x]</span> and <span class="math math-inline">[z] = [y]</span>
+<span class="math math-inline">\therefore [x] = [y]</span>
+<strong>QED</strong></p>
+<p><strong>Theorem:</strong> The equivalence classes of <span class="math math-inline">E</span> partition <span class="math math-inline">S</span>,
+i.e. their union is <span class="math math-inline">S</span> and they are pairwise disjoint
+i.e. <span class="math math-inline">\bigcup \space \{[x] : x \in S\} = S \land \forall x, y \in S, x \ne y \implies [x] \cap [y] = \emptyset</span></p>
+<ul>
+<li>Notice that the second statement was already proved in <strong>Lemma 2</strong></li>
+<li>To prove the first case, <span class="math math-inline">\{[x] : x \in S\} \subseteq S</span> and <span class="math math-inline">S \subseteq \{[x] : x \in S\}</span>
+<ul>
+<li>The second half is trivial, because <span class="math math-inline">E</span> is reflexive, so <span class="math math-inline">x \in [x]</span>, so every value of <span class="math math-inline">x</span> belongs to an equivalence class</li>
+</ul>
+</li>
+</ul>
+<h4>Quotient Sets of Equivalence Relations</h4>
+<p>Suppose <span class="math math-inline">E</span> is an equivalence relation on a set <span class="math math-inline">S</span>
+Then <span class="math math-inline">\frac{S}{E}</span> the quotient of <span class="math math-inline">S</span> with respect to <span class="math math-inline">E</span>
+is <span class="math math-inline">\{[x]_E : x \in S\}</span>, the set of all equivalence classes with respect to <span class="math math-inline">E</span></p>
+<table><thead><tr><th style="text-align: left">Equivalence relation on <span class="math math-inline">\mathbb{Z}</span></th><th>Quotient Set</th></tr></thead><tbody>
+<tr><td style="text-align: left"><span class="math math-inline">x = y</span></td><td><span class="math math-inline">\{\{x\} : x \in \mathbb{Z}\}</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">\mathbb{Z}^2</span></td><td><span class="math math-inline">\{\mathbb{Z}\}</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">x \equiv y \pmod 3</span></td><td><span class="math math-inline">\{\{..., -3, 0, 3, ...\}, \{..., -2, 1, 4, ...\}, \{..., -1, 2, 5, ...\}\}</span></td></tr>
+</tbody></table>
+<h2>Section 7 - Functions</h2>
+<h4>Introduction to Functions</h4>
+<p><strong>Definition:</strong> A relation <span class="math math-inline">F : X \leftrightarrow Y</span> is a function if <span class="math math-inline">\forall x \in X, \exists! \space y \in Y : xFy</span></p>
+<ul>
+<li>This means that every value of <span class="math math-inline">x</span> is related to one and only one value of <span class="math math-inline">y</span></li>
+</ul>
+<p>For such <span class="math math-inline">F</span>, we write <span class="math math-inline">F(x) = y</span> instead of <span class="math math-inline">xFy</span></p>
+<table><thead><tr><th style="text-align: left">Example relations</th><th>Is a Function?</th></tr></thead><tbody>
+<tr><td style="text-align: left"><span class="math math-inline">\{(x, x^2) : x \in \mathbb{R}\}</span></td><td>Yes</td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">\{(x^2, x) : x \in \mathbb{R}\}</span></td><td>No</td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">A := \{(x^2, x) : x \in \mathbb{R}_{\ge 0}\}</span></td><td>Yes, provided the domain is <span class="math math-inline">\mathbb{R}_{\ge 0}</span></td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">A : \mathbb{R} \leftrightarrow \mathbb{R}</span></td><td>No</td></tr>
+<tr><td style="text-align: left"><span class="math math-inline">A : \mathbb{R}_{\ge 0} \leftrightarrow \mathbb{R}</span></td><td>Yes</td></tr>
+<tr><td style="text-align: left">First function: <span class="math math-inline">g : \mathbb{R} \to \mathbb{R}, g(x) = x^2</span></td><td></td></tr>
+<tr><td style="text-align: left">Third function: <span class="math math-inline">h : \mathbb{R}_{\ge 0} \to \mathbb{R}, h(x) = \sqrt{x}</span></td><td></td></tr>
+</tbody></table>
+<h4>Function Notation</h4>
+<p><span class="math math-inline">f(X) = \{f(x) : x \in X\}</span> is the “image” of the function, where <span class="math math-inline">X</span> is a set
+E.g. <span class="math math-inline">g(\mathbb{R}) = \{x^2 : x \in \mathbb{R}\} = \mathbb{R}_{\ge 0}</span>
+<span class="math math-inline">f^{-1}(Y) = \{x : f(x) \in Y\}</span> is the “inverse image” of the function
+E.g. <span class="math math-inline">g^{-1}([-1;1]) = \{x : -1 \le x^2 \le 1\} = [-1; 1] = g^{-1}([0;1])</span>
+<span class="math math-inline">f^{-1}(y) = \{x : f(x) = y\}</span>.
+E.g. <span class="math math-inline">g^{-1}(1) = \{-1, 1\}</span>
+<span class="math math-inline">f^{-1}(Y) = \bigcup_{y \in Y}f^{-1}(y)</span></p>
+<p>Restricted Function: <span class="math math-inline">f |_X = \{(x, f(x)) : x \in X\}</span>
+<span class="math math-inline">X</span> must be included within the domain of <span class="math math-inline">f</span></p>
+<p>E.g. <span class="math math-inline">h|_{[0;4]} = \{(x, \sqrt{x}) : 0 \le x \le 4\}</span></p>
+<p><span class="math math-inline">f \circ f&#39;(x) := f&#39;(f(x))</span>
+for <span class="math math-inline">f : X \to Y</span> and <span class="math math-inline">f&#39; : Y \to Z</span></p>
+<p>E.g. <span class="math math-inline">f(x) = x^2 + 1</span>, <span class="math math-inline">f&#39;(x) = x - 1</span>
+<span class="math math-inline">f \circ f&#39;(x) = x^2</span>
+<span class="math math-inline">f&#39; \circ f(x) = (x-1)^2+1 = x^2 - 2x + 2</span></p>
+<p><span class="math math-inline">Y^X := \{ f : X \leftrightarrow Y : f</span> is a function <span class="math math-inline">\}</span>, where <span class="math math-inline">X, Y</span> are sets
+or <span class="math math-inline">\{f : X \to Y\}</span>
+<span class="math math-inline">2^X</span> is the power set of <span class="math math-inline">X</span>
+<span class="math math-inline">Y^n</span> is the set of all <span class="math math-inline">n</span>-tuples
+<span class="math math-inline">Y^n = \{(y_1, ..., y_n) : y_1, ... y_n \in Y\}</span>
+<span class="math math-inline">Y^{\{1, ..., n\}}</span> is the set of all functions from <span class="math math-inline">\{1, ..., n\}</span> to <span class="math math-inline">Y</span></p>
+<h4>More on Functions and Sets</h4>
+<p><span class="math math-inline">X^Y</span> is the set of all functions from <span class="math math-inline">Y</span> to <span class="math math-inline">X</span>
+<span class="math math-inline">\{Y, N\}^{\{a, b, c\}} = \{\{(a, N), (b, N), (c, N)\}, \{(a, N), (b, N), (c, Y)\}, \{(a, N), (b, Y), (c, N)\}, ..., \{(a, Y), (b, Y), (c, Y)\}\}</span>
+- There are 8 functions in the set</p>
+<p><span class="math math-inline">2^{\{a, b, c}\} = \{\emptyset, \{c\}, \{b\}, \{b, c\}, \{a\}, \{a, c\}, \{a, b\}, \{a, b, c\}\}</span>
+<span class="math math-inline">\{Y, N\}^3 = \{(N, N, N), (N, N, Y), (N, Y, N), (N, Y, Y), (Y, N, N), (Y, N, Y), (Y, Y, N), (Y, Y, Y)\}</span></p>
+<p><strong>Definition:</strong> A function <span class="math math-inline">f : A \to B</span> is</p>
+<ul>
+<li><em>injective</em> (one-to-one) if <span class="math math-inline">\forall a, b \in A : a \ne b \implies f(a) \ne f(b)</span></li>
+<li><em>surjective</em> (onto) if <span class="math math-inline">\forall b \in B : \exists a \in A : f(a) = b</span> which is the same as <span class="math math-inline">f(A) = B</span></li>
+<li><em>bijective</em> (one-to-one correspondence) if it is both <em>injective</em> and <em>surjective</em></li>
+</ul>
+<h4>Equinumerous Sets</h4>
+<p><strong>Definition:</strong> Sets <span class="math math-inline">A</span> and <span class="math math-inline">B</span> are <em>equinumerous</em>, written <span class="math math-inline">A \cong B</span> if there exists a bijection <span class="math math-inline">f : A \to B</span>.</p>
+<p>If <span class="math math-inline">f</span> is one-to-one (<em>injective</em>), there may still be elements in <span class="math math-inline">B</span> that are unmatched.
+<strong>Fact:</strong> For every one-to-one function <span class="math math-inline">f : A \to B</span>, we have <span class="math math-inline">A \cong f(A)</span></p>
+<p>If <span class="math math-inline">f</span> is onto (<em>surjective</em>), there may still be elements in <span class="math math-inline">A</span> that are unmatched.
+<strong>Fact:</strong> For every onto function <span class="math math-inline">f : A \to B</span>, there exists a subset <span class="math math-inline">A&#39; \subseteq A</span> such that <span class="math math-inline">A \cong B</span>,
+<span class="math math-inline">A&#39;</span> consists of for each <span class="math math-inline">b \in B</span>, only one <span class="math math-inline">a \in A</span> with <span class="math math-inline">f(a) = b</span>.</p>
+<p><strong>Reflexive:</strong> For every set <span class="math math-inline">A</span>, <span class="math math-inline">A \cong A</span> (Use the identity function <span class="math math-inline">f(a) = a</span>)
+<strong>Symmetric:</strong> If <span class="math math-inline">A \cong B</span>, then <span class="math math-inline">B \cong A</span> (Use <span class="math math-inline">f^{-1}</span>)
+<strong>Transitive:</strong> If <span class="math math-inline">A \cong B</span> and <span class="math math-inline">B \cong C</span>, then <span class="math math-inline">A \cong C</span> (Use <span class="math math-inline">f \circ g</span>)</p>
+<p>Equinumerous relations are not equivalence relations, as there is no set we are <strong>ON</strong>. (The set of all sets is impossible)</p>
+<p>If <span class="math math-inline">A, B, C \subseteq U</span>, where <span class="math math-inline">U</span> is the universal set,
+<span class="math math-inline">2^U \setminus \cong</span> is the set of all sets with a particular size (dividing by cardinality)</p>
+<p><strong>Example:</strong> The equinumerosity relation <span class="math math-inline">\cong</span> is an equivalence relation on <span class="math math-inline">2^{\{a, b, c\}} = \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}</span>.</p>
+<p><span class="math math-inline">\emptyset \cong \emptyset</span>, <span class="math math-inline">\emptyset \centernot\cong \{a, b\}</span>, <span class="math math-inline">\{a\} \cong \{c\}</span>, …</p>
+<p><span class="math math-inline">(2^{\{a, b, c\}} \setminus \cong) \space = \{\{\emptyset\}, \{\{a\}, \{b\}, \{c\}\}, \{\{a, b\}, \{b, c\}, \{a, b\}\}, \{\{a, b, c\}\}\}</span>.</p>
+<h2>Section 8 - Cardinality of Sets</h2>
+<p><strong>Definition:</strong> A set <span class="math math-inline">X</span> is:
+- <em>finite</em> if <span class="math math-inline">X \cong F_n</span> for some <span class="math math-inline">n \in \mathbb{N}</span> where <span class="math math-inline">F_n := \{0, 1, 2, ..., n-1\}</span>.
+- <em>countably infinite</em> if <span class="math math-inline">X \cong \mathbb{N}</span>.
+- <em>countable</em> if it is either <em>finite</em> or <em>countably infinite</em>.
+- <em>uncountable</em> if it is not <em>countable</em></p>
+<p><span class="math math-inline">\mathbb{N} \cong \mathbb{N}</span> (<span class="math math-inline">f(n) = n</span>, <span class="math math-inline">f^{-1}(n) = n</span>)
+<span class="math math-inline">\mathbb{N} \cong \mathbb{N} \setminus \{0\}</span> (<span class="math math-inline">f(n) = n + 1</span>, <span class="math math-inline">f^{-1}(n) = n - 1</span>)
+<span class="math math-inline">\mathbb{N} \cong \{n^2 : n \in \mathbb{N}\} = \{0, 1, 4, 9, 16, 25, 36, ...\}</span> (<span class="math math-inline">f(n) = n^2</span>, <span class="math math-inline">f(n) = \sqrt{n}</span>)
+<span class="math math-inline">\mathbb{N} \cong \mathbb{N^2}</span> (by drawing diagonal lines on a coordinate plane)
+<span class="math math-inline">\mathbb{N} \cong \mathbb{N}^k</span> for all <span class="math math-inline">k \in \mathbb{N} \setminus \{0\}</span>
+<span class="math math-inline">\mathbb{N} \cong \mathbb{Q}</span>
+<span class="math math-inline">\mathbb{N} \cong \mathbb{Z} \times \mathbb{N}</span>
+<span class="math math-inline">\mathbb{N} \centernot\cong \mathbb{R}</span> (<span class="math math-inline">\mathbb{R}</span> is uncountable)</p>
+<p><strong>Theorem:</strong> For every set <span class="math math-inline">X</span>, there does not exist an injection <span class="math math-inline">f : 2^X \to X</span></p>
+<ul>
+<li>For a finite set <span class="math math-inline">X</span>, <span class="math math-inline">2^n &gt; n</span>, and <span class="math math-inline">f : A \to B</span> where <span class="math math-inline">f</span> is injective, implies that <span class="math math-inline">|A| \le |B|</span></li>
+</ul>
+<p><strong>Proof:</strong>
+Suppose for a contradiction, we have a function <span class="math math-inline">f : 2^X \to X</span> that is injective.
+Consider <span class="math math-inline">Y = \{x \in X : (\exists Z \in 2^X : f(Z) = x \land x \notin Z)\}</span>
+Is <span class="math math-inline">f(Y) \in Y</span>?</p>
+<p><strong>Theorem:</strong> For any set <span class="math math-inline">X</span>, there does not exist an injection <span class="math math-inline">f : 2^X \to X</span>
+<strong>Proof:</strong>
+Suppose <span class="math math-inline">f : 2^X \to X</span> is an injection, to get a contradiction
+Let <span class="math math-inline">Z = \{f(Y) : Y \subseteq X \land f(Y) \notin Y\}</span>
+- Notice that <span class="math math-inline">Y \subseteq X \equiv Y \in 2^X</span>, so <span class="math math-inline">f(Y) \in X</span>. Hence <span class="math math-inline">Z \subseteq X</span>
+If <span class="math math-inline">f(Z) \in Z</span>:
+Then <span class="math math-inline">f(Z) = f(Y)</span> for some <span class="math math-inline">Y : Y \subseteq X \land f(Y) \notin Y</span>
+Because <span class="math math-inline">f</span> is an injection, <span class="math math-inline">f(Z) = f(Y) \implies Z = Y</span>
+Then <span class="math math-inline">Z \subseteq Y \land f(Z) \notin Z</span>
+<span class="math math-inline">\therefore f(Z) \notin Z</span>
+If <span class="math math-inline">f(Z) \notin Z</span>:
+Since <span class="math math-inline">Z \subseteq X</span>, and <span class="math math-inline">f(Z) \notin Z</span>, by the definition of <span class="math math-inline">Z</span>, we have <span class="math math-inline">f(Z) \in Z</span></p>
+<p><strong>Theorem:</strong> <span class="math math-inline">\mathbb{R} \centernot\cong \mathbb{N}</span>
+<strong>Proof:</strong>
+Consider <span class="math math-inline">x \in [0; 1)</span>.
+Then <span class="math math-inline">x</span> in binary is of the form <span class="math math-inline">0.[0-1]*</span>, where <span class="math math-inline">[0-1]*</span> represents zero or more 0s or 1s. (binary decimal expansion).
+By representing the position of each <span class="math math-inline">1</span> in the binary decimal expansion of <span class="math math-inline">x</span> by a natural number, we can create a <em>bijection</em> between each <span class="math math-inline">x</span> and a subset of the natural numbers.
+- E.g. <span class="math math-inline">0.10101</span> is related to <span class="math math-inline">\{0, 2, 4\}</span> in this bijection.
+For any <span class="math math-inline">x \in \mathbb{R}</span>, consider <span class="math math-inline">g(x) = \{q \in \mathbb{Q} : q &lt; x\}</span>
+- <span class="math math-inline">g(x)</span> is a injection, as each set of rational numbers uniquely define any real <span class="math math-inline">x</span>, as the rational numbers are dense.
+We can then establish an injection between the reals and the power set of the naturals.
+Hence by using the theorem from above, we can prove <span class="math math-inline">R \centernot\cong N</span></p>
+<p><strong>Theorem (Cantor):</strong> For any set <span class="math math-inline">X</span>, there is no injection <span class="math math-inline">2^X \to X</span>.
+<strong>Lemma 1:</strong> There exists an injection <span class="math math-inline">\mathbb{R} \to 2^\mathbb{N}</span>.
+<strong>Proof:</strong>
+<span class="math math-inline">f(x) = \{g(q) : q \in \mathbb{Q}, q &lt; x\}</span>, where <span class="math math-inline">g : \mathbb{Q} \to \mathbb{N}</span> is a bijection.
+<strong>Lemma 2:</strong> There exists an injection <span class="math math-inline">2^\mathbb{N} \to \mathbb{R}</span>.
+<strong>Proof:</strong>
+<span class="math math-inline">f(X) = 0.d_0 d_1 d_2 ...</span> where <span class="math math-inline">d_n = \begin{cases} 1 &amp; n \in X \\ 0 &amp; n \notin X \end{cases}</span>
+<span class="math math-inline">= \sum_{n=0}^\infty d_n * 10^{-n-1}</span>
+<strong>Corollary:</strong> <span class="math math-inline">\mathbb{N} \centernot\cong \mathbb{R}</span>
+<strong>Proof:</strong>
+Suppose <span class="math math-inline">h : \mathbb{N} \to \mathbb{R}</span> is a bijection.
+Then for <span class="math math-inline">f : 2^\mathbb{N} \to \mathbb{R}</span> an injection by Lemma 2,
+<span class="math math-inline">f \circ h^{-1} : 2^\mathbb{N} \to \mathbb{N}</span> is an injection <span class="math math-inline">\implies</span> contradiction!
+<strong>QED</strong></p>
+<p><strong>Cantor-Schroeder-Bernstein Theorem</strong>
+- If there exist an injection from <span class="math math-inline">A \to B</span>, and if there exist an injection from <span class="math math-inline">B \to A</span>, then there exists a bijection <span class="math math-inline">A \leftrightarrow B</span>.</p>
+<h2>Section 9 - Mathematical Induction</h2>
+<p><span class="math math-inline">s(0) = 0</span>
+<span class="math math-inline">s(n+1) = s(n) + (n+1)</span></p>
+<p><strong>Fact:</strong> For all <span class="math math-inline">n</span>, <span class="math math-inline">s(n) = \frac{n(n+1)}{2}</span>
+<strong>Proof:</strong>
+<em>Base Case</em>: <span class="math math-inline">s(0) = 0</span> and <span class="math math-inline">\frac{0 (0 + 1)}{2} = 0</span>
+<em>Inductive Step</em>:
+Assume <span class="math math-inline">s(n) = \frac{n(n+1)}{2}</span> for some <span class="math math-inline">n \ge 0</span> –&gt; Inductive Hypothesis
+Consider <span class="math math-inline">s(n+1) = s(n) + (n+1)</span>
+<span class="math math-inline">= \frac{n(n+1)}{2} + (n+1)</span>
+<span class="math math-inline">= \frac{n(n+1) + 2n + 2}{2}</span>
+<span class="math math-inline">= \frac{n^2 + 3n + 2}{2}</span>
+<span class="math math-inline">= \frac{(n+1)(n+2)}{2}</span>
+<span class="math math-inline">= \frac{(n+1)((n+1) + 1)}{2}</span>
+<strong>QED</strong></p>
+<p><strong>Principle of Induction</strong>:
+For any predicate <span class="math math-inline">P</span> on <span class="math math-inline">\mathbb{N}</span>, if we have:
+- <span class="math math-inline">P(0)</span> is true, and
+- For all <span class="math math-inline">n \in \mathbb{N}, P(n) \implies P(n+1)</span>.
+Then we have that for all <span class="math math-inline">n \in \mathbb{N}</span>, <span class="math math-inline">P(n)</span> is true</p>
+<p><strong>Big Fact:</strong>
+Every non-empty set <span class="math math-inline">X \subseteq N</span> has a smallest element.</p>
+<h3>Induction</h3>
+<p><strong>Principle of Induction 1:</strong>
+If <span class="math math-inline">P(0)</span> and <span class="math math-inline">P(n) \implies P(n+1)</span> for all <span class="math math-inline">n \in \mathbb{N}</span>, then <span class="math math-inline">P(n)</span> for all <span class="math math-inline">n \in \mathbb{N}</span>.</p>
+<p><strong>Big Fact:</strong>
+Every non-empty <span class="math math-inline">X \in \mathbb{N}</span> has a smallest element.</p>
+<p><strong>Principle of Induction 2:</strong>
+If <span class="math math-inline">(\forall m &lt; n : P(m)) \implies P(n) \implies P(n)</span> for all <span class="math math-inline">n \in \mathbb{N}</span>, then <span class="math math-inline">P(n)</span> for all <span class="math math-inline">n \in \mathbb{N}</span>.</p>
+<h2>Section 10 - Graphs</h2>
+<h4>Introduction to Graphs</h4>
+<p><strong>Definition:</strong> A graph <span class="math math-inline">G</span> consists of a non-empty finite set of vertices <span class="math math-inline">V</span> and a collection of edges <span class="math math-inline">E</span>.</p>
+<ul>
+<li>Directed graph: edges are ordered pairs - <span class="math math-inline">(u, v)</span> for <span class="math math-inline">u, v \in V</span>.</li>
+<li>Undirected graph: edges are sets - <span class="math math-inline">\{u, v\}</span> for <span class="math math-inline">u, v \in V</span>.</li>
+<li>A collection is a set that allows duplicates (but is still unordered)</li>
+<li>With parallel (or multiple) edges: bag of edges</li>
+<li>Without parallel edges: set of edges</li>
+</ul>
+<p><span class="math math-inline">u \to v</span> means <span class="math math-inline">(u, v) \in E</span>.</p>
+<ul>
+<li><span class="math math-inline">u</span> and <span class="math math-inline">v</span> are <em>adjacent</em>.</li>
+<li><span class="math math-inline">u</span> and <span class="math math-inline">v</span> are the <em>endpoints</em> of the edge.</li>
+<li>In directed graphs, <span class="math math-inline">u</span> is the <em>source</em> and <span class="math math-inline">v</span> is the <em>target</em> or <em>destination</em>.</li>
+<li>The edge <span class="math math-inline">u \to v</span> is <em>incident</em> on <span class="math math-inline">u</span> and on <span class="math math-inline">v</span>.</li>
+</ul>
+<p>A <em>loop</em> or <em>self-loop</em> is an edge <span class="math math-inline">u \to u</span>.</p>
+<p><strong>Definition:</strong> The <em>degree</em> of a vertex <span class="math math-inline">v</span> is the number of edges incident on <span class="math math-inline">v</span>, with each loop counted twice. In directed graphs, <span class="math math-inline">\deg(v) = \deg_{in}(v) + \deg_{out}(v)</span>, where <span class="math math-inline">\deg_{in}</span> is the number of incoming incident edges, and <span class="math math-inline">\deg_{out}</span> is the number of outgoing incident edges.</p>
+<p><strong>Theorem</strong> (<em>The Handshake Lemma</em>):    <span class="math math-inline">\sum_{v \in V} deg(v) = 2|E|</span>.
+<strong>Proof:</strong>
+In the sum <span class="math math-inline">\sum_{v \in V} \deg(v)</span>, each edge is counted twice, once for each of its two endpoints.
+<strong>QED</strong></p>
+<p><strong>Definition:</strong> An <em>isomorphism</em> between graphs <span class="math math-inline">(V, E)</span> and <span class="math math-inline">(V&#39;, E&#39;)</span> is a bijection <span class="math math-inline">f : V \to V&#39;</span> such that <span class="math math-inline">\forall u, v \in V : (u, v) \in E \iff (f(u), f(v)) \in E&#39;</span>.</p>
+<p>Up to <em>isomorphism</em>, for any <span class="math math-inline">n \ge 1</span>, there is a unique <em>simple</em> undirected graph on <span class="math math-inline">n</span> vertices with <span class="math math-inline">n\choose2</span> <span class="math math-inline">= \frac{n(n-1)}{2}</span> edges.</p>
+<p><strong>Definition:</strong> A graph is <em>simple</em> if it has no parallel edges and no loops.</p>
+<p><span class="math math-inline">K_n</span> is the <em>complete</em> simple undirected graph on <span class="math math-inline">n</span> vertices
+(the word <em>the</em> means “up the isomorphism”)</p>
+<h4>Graph Isomorphisms</h4>
+<p>![[Pasted image 20250415173138.png]]</p>
+<p><strong>Definition of Isomorphism:</strong></p>
+<ul>
+<li>There exists a function <span class="math math-inline">f :V \to V&#39;</span> such that <span class="math math-inline">\forall u, v \in V : (u,v) \in E \iff (f(u), f(v)) \in E&#39;</span></li>
+</ul>
+<p>![[Pasted image 20250415173354.png]]</p>
+<p><strong>Example:</strong> <em>the two graphs above are not isomorphic.</em>
+<strong>Proof:</strong> (by contradiction)
+Suppose <span class="math math-inline">f : \{1, 2, 3, 4\} \to \{a, b, c, d\}</span> is an isomorphism.
+For some <span class="math math-inline">V \in \{1, 2, 3, 4\}</span>, we have <span class="math math-inline">f(v) = a</span>
+Let <span class="math math-inline">V&#39; \ne V</span> such that <span class="math math-inline">(V, V&#39;)</span> is an edge in the first graph.
+Then <span class="math math-inline">f(V&#39;)</span> must be an edge in the second graph.
+But there is no edge incident on <span class="math math-inline">a</span>.
+This is a contradiction!
+<span class="math math-inline">\therefore</span> The two graphs are not isomorphic.
+<strong>QED</strong></p>
+<h4>Graph Terminology, Reachability</h4>
+<p>In a graph <span class="math math-inline">G = (V,E)</span>:</p>
+<ul>
+<li>A <strong>walk</strong> is a sequence <span class="math math-inline">(v_0,v_1), (v_1,v_2),\dots,(v_{n-1},v_n)</span> such that <span class="math math-inline">v_0, v_1, ..., v_n \in V</span>, and <span class="math math-inline">(v_0,v_1), (v_1,v_2), \dots, (v_{n-1}, v_n) \in E</span>. The walk is of length <span class="math math-inline">n</span>.</li>
+<li>A <strong>path</strong> is a walk without repetitions of edges.</li>
+<li>A <strong>simple path</strong> is a walk without repetition of vertices</li>
+<li>A <strong>tour</strong> is a walk such that <span class="math math-inline">v_0 = v_n</span></li>
+<li>A <strong>cycle</strong> is a tour without repetition of edges</li>
+<li>A <strong>simple cycle</strong> is a cycle without repetitions of vertices, except <span class="math math-inline">v_0 = v_n</span>.</li>
+</ul>
+<p><strong>Reachability Relation</strong></p>
+<ul>
+<li><span class="math math-inline">u \to*v</span> means there is a <strong>walk</strong> from <span class="math math-inline">u</span> to <span class="math math-inline">v</span>.</li>
+<li><strong>Fact:</strong> If there is a walk <span class="math math-inline">u \to*v</span> then there is a path <span class="math math-inline">u \to^*v</span>.</li>
+</ul>
+<p><strong>Proposition:</strong> If <span class="math math-inline">u \ne v</span> and <span class="math math-inline">u \to^*v</span> then there exists a simple path  from <span class="math math-inline">u</span> to <span class="math math-inline">v</span>.</p>
+<p><strong>Proof</strong> (by contradiction):
+Assume <span class="math math-inline">u \to^*v</span> and there does not exist a simple path
+There must be a shortest walk
+But there are no simple paths, so we can cut out a segment of a shortest walk to get an even shorter walk
+This is a contradiction!</p>
+<p><strong>Theorem:</strong> On the vertices <span class="math math-inline">V</span> of any undirected graph <span class="math math-inline">(V,E)</span>, the reachability relation <span class="math math-inline">\to^*</span> is an equivalence relation.</p>
+<p><strong>Proof:</strong>
+<strong>Reflexive</strong> - <span class="math math-inline">a \to^*a</span>, as this is a walk of length 0
+<strong>Symmetry</strong> - <span class="math math-inline">a\to^*b \implies b\to^*a</span>
+<strong>Transitive</strong> - Concatenate walks</p>
+<h4>Eulerian Cycles</h4>
+<p>A cycle is <strong>Eulerian</strong> if it contains every edge in the graph (necessarily exactly one because it is a cycle)</p>
+<p><strong>Euler-Hierholzer Theorem</strong>: An undirected graph without isolated vertices has an <em>Eulerian cycle</em> iff it is connected and every vertex has even degree.</p>
+<p><strong>Proof (<em>forwards</em>) direction:</strong>
+Suppose <span class="math math-inline">v_0 \to v_1 \to \dots \to v_k = v_n</span> is a an Eulerian cycle.
+<strong>Proof for connectiveness:</strong>
+Consider any two vertices <span class="math math-inline">u</span>, <span class="math math-inline">w</span>.
+Since <span class="math math-inline">u, w</span> are not isolated, <span class="math math-inline">u = v_i, w = v_j</span> from some <span class="math math-inline">i, j \in \{0, \dots, k-1\}</span> because the cycle is Eulerian.
+If <span class="math math-inline">i \le j</span>, then follow the Eulerian cycle from <span class="math math-inline">v_i \to v_j</span>
+Otherwise, the same via <span class="math math-inline">v_k</span>.
+<strong>Proof for even degree:</strong>
+Consider any vertex in the graph.
+Its degree is twice the number of times it occurs in the Eulerian cycle, because every edge in the graph occurs in the cycle exactly once.
+<strong>End</strong>
+<strong>Proof (<em>backwards</em>) direction:</strong> - by induction on <span class="math math-inline">|E|</span>
+Inductive Hypothesis - The implication is true for all graphs <span class="math math-inline">(V&#39;, E&#39;)</span> such that <span class="math math-inline">|E&#39;| &lt; |E|</span> (strong induction)
+Since there are no isolated vertices, pick <span class="math math-inline">v_0 \in V</span> with an edge <span class="math math-inline">v_0 \to v_1</span>
+Consider any path <span class="math math-inline">\pi = v_0 \to v_1 \to \dots \to v_k</span> and <span class="math math-inline">G&#39; = (V, E&#39;)</span> be the graph obtained from <span class="math math-inline">G</span> by removing all edges in <span class="math math-inline">\pi</span>.
+<strong>Claim 1:</strong> If <span class="math math-inline">v_k \ne v_0</span>, then <span class="math math-inline">\deg_{G&#39;}(v_k)</span> is odd. Otherwise, <span class="math math-inline">\deg_{G&#39;}(v)</span> is even <span class="math math-inline">\forall v \in V</span>.
+Let <span class="math math-inline">k</span> be such that <span class="math math-inline">v_k = v_0</span>.
+This is possible by the first part of <strong>Claim 1</strong>, and because the number of edges is finite.
+By the second part of <strong>Claim 1</strong>, let <span class="math math-inline">G_1, \dots, G_n</span> be the connected components of <span class="math math-inline">G&#39;</span>, then the degree of every vertex in any <span class="math math-inline">G_i</span> is even.
+By the inductive hypothesis, each <span class="math math-inline">G_i</span> has an Eulerian cycle <span class="math math-inline">\kappa_i</span> provided <span class="math math-inline">G_i</span> is not an isolated vertex.
+<strong>Claim 2:</strong> <span class="math math-inline">\pi</span> visits each <span class="math math-inline">G_i</span>, so for each <span class="math math-inline">i \in \{1, 2, \dots, n\}</span>, <span class="math math-inline">\pi</span> contains some vertex <span class="math math-inline">u_i</span> of <span class="math math-inline">G_i</span>.
+By inserting each Eulerian cycle <span class="math math-inline">\kappa_i</span> (for <span class="math math-inline">G_i</span> which are not isolated vertices) in <span class="math math-inline">\pi</span> at the vertex <span class="math math-inline">u_i</span>, we obtain an Eulerian cycle in <span class="math math-inline">G</span>.
+<strong>End</strong></p>
+<h4>Trees, Forests and K-Colourability</h4>
+<ul>
+<li>
+<p>A <strong>forest</strong> is a graph without proper cycles (length of at least 1)</p>
+</li>
+<li>
+<p>A <strong>tree</strong> is a connected forest</p>
+</li>
+<li>
+<p>A <strong>leaf</strong> is a vertex of degree 1</p>
+</li>
+<li>
+<p>A graph is K-Colourable if there exists a <strong>proper</strong> K-colouring <span class="math math-inline">f : V \to \{1, 2, \dots, k\}</span> such that <span class="math math-inline">\forall (u,v) \in E : f(u) \ne f(v)</span>.</p>
+</li>
+<li>
+<p>A graph is <strong>bipartite</strong> if it is 2-colourable.</p>
+</li>
+<li>
+<p><span class="math math-inline">K_{n,m}</span> is the <strong>complete bipartite</strong> graph with bipartitions of sizes <span class="math math-inline">n</span> and <span class="math math-inline">m</span>.</p>
+</li>
+</ul>
+<h4>Planar Graphs</h4>
+<ul>
+<li>A graph is <strong>planar</strong> if it can be drawn without edges crossing.
+<ul>
+<li><em>mathematical definition is outside scope of this module</em></li>
+</ul>
+</li>
+</ul>
+<p><strong>Kuratowski’s Theorem:</strong> a graph is planar iff it does not have a subgraph which is isomorphic to a graph obtained from <span class="math math-inline">K_5</span> or <span class="math math-inline">K_{3,3}</span> by zero or more edge subdivisions.</p>
+<p><strong>Four Colour Theorem:</strong> Every planar graph is 4-colourable</p>
+<p><strong>Euler’s Theorem for Planar Graphs:</strong>
+<span class="math math-display">|V| - |E| + |F| = 2</span>
+where <span class="math math-inline">|F|</span> is the number of faces</p>
+<ul>
+<li>For forests, <span class="math math-inline">|F| = 1</span> (obviously forests are planar) so:
+<span class="math math-display">|V| - |E| = 1</span></li>
+</ul>
+<h2>Section 11 - Partial Orders</h2>
+<h4>Introduction to Posets</h4>
+<ul>
+<li>
+<p>A <strong>poset</strong> is a set <span class="math math-inline">X</span> with a relation <span class="math math-inline">\preccurlyeq : X \leftrightarrow X</span> which is reflexive, antisymmetric and transitive.</p>
+<ul>
+<li>Reflexive: <span class="math math-inline">\forall x : x \preccurlyeq x</span></li>
+<li>Anti-symmetric: <span class="math math-inline">\forall x, y : x \preccurlyeq y \land y \preccurlyeq x \implies x = y</span></li>
+<li>Transitive: <span class="math math-inline">\forall x, y, z : x \preccurlyeq \land y \preccurlyeq z \implies x \preccurlyeq z</span></li>
+</ul>
+</li>
+<li>
+<p>An element <span class="math math-inline">x</span> is <strong>maximal</strong> if there is no other element <span class="math math-inline">y \in X</span> such that <span class="math math-inline">x \preccurlyeq y</span>.</p>
+<ul>
+<li>There can be multiple maximal elements</li>
+</ul>
+</li>
+<li>
+<p>An element <span class="math math-inline">x</span> is the <strong>greatest</strong> if <span class="math math-inline">\forall y : X: y \preccurlyeq x</span>.</p>
+</li>
+<li>
+<p>An element <span class="math math-inline">x</span> is <strong>minimal</strong> if there is no other element <span class="math math-inline">y \in X</span> such that <span class="math math-inline">y \preccurlyeq x</span>.</p>
+<ul>
+<li>There can be multiple minimal elements</li>
+</ul>
+</li>
+<li>
+<p>An element <span class="math math-inline">y</span> is the <strong>least</strong> if <span class="math math-inline">\forall y : X : x \preccurlyeq y</span></p>
+</li>
+<li>
+<p>Two elements <span class="math math-inline">x, y</span> are <strong>incomparable</strong> when <span class="math math-inline">x \centernot\preccurlyeq y \land y \centernot\preccurlyeq x</span></p>
+</li>
+<li>
+<p>Notation: <span class="math math-inline">x &lt; y</span> if <span class="math math-inline">x \preccurlyeq y \land x \ne y</span></p>
+</li>
+<li>
+<p>Notation: <span class="math math-inline">x &lt;\cdot y</span> means “x is covered by y”, if <span class="math math-inline">x &lt; y \land \neg\exists z : x &lt; z \land z &lt; y</span></p>
+</li>
+</ul>
+<h4>Examples of Posets</h4>
+<p><span class="math math-display">(\mathbb{N}\setminus\{0\}, |)</span></p>
+<ul>
+<li>The minimal elements are the primes (2, 3, 5, 7, …)</li>
+<li>There is no least element as there are multiple minimal elements</li>
+<li>There is no maximal element, hence no greatest element.</li>
+</ul>
+<p><span class="math math-display">(2^{\{a,b,c\}}\setminus\{\{a,b,c\}\}, \subseteq)</span></p>
+<ul>
+<li>There is only one minimal element, that is <span class="math math-inline">\emptyset</span>, and that is also the least element.</li>
+<li>The maximal elements are <span class="math math-inline">\{a,b\}, \{a,c\}, \{b,c\}</span>. Since there is more than one maximal element, there is no greatest element.</li>
+</ul>
+<h4>Hasse Diagrams</h4>
+<ul>
+<li>
+<p>Edges are drawn where one element covers the other</p>
+<ul>
+<li>do not draw lines inferred by transitivity</li>
+</ul>
+</li>
+<li>
+<p><span class="math math-inline">(\mathbb{Q}, \le)</span> fails on a Hasse Diagram, because there are infinitely many rationals between any two given rationals.</p>
+</li>
+</ul>
+<h4>Products of Partial Orders</h4>
+<p>Suppose we have two posets <span class="math math-inline">(p_1, \preccurlyeq_1), (p_2, \preccurlyeq_2)</span></p>
+<p>Product Partial Order:
+<span class="math math-display">(p_1, p_2) \preccurlyeq_{pr} (p_1&#39;, p_2&#39;) \iff p_1 \preccurlyeq_1 p_1&#39; \land p_2 \preccurlyeq_2 p_2&#39;</span>
+Lexicographical Partial Order:
+<span class="math math-display">(p_1, p_2) \preccurlyeq_{lex}(p_1&#39;,p_2&#39;) \iff p_1\preccurlyeq_1p_1&#39;\lor(p_1=p_1&#39;\land p_2\preccurlyeq_2p_2&#39;)</span></p>
+<p><em>Note that the Lexicographical Ordering preserves Total Ordering (if <span class="math math-inline">\preccurlyeq_1, \preccurlyeq_2</span> are total orders, then <span class="math math-inline">\preccurlyeq_{lex}</span> is a total order)</em></p>
+<p><strong>Note that:</strong></p>
+<ul>
+<li><span class="math math-inline">(\{0,1\}^n, \preccurlyeq_{pr})</span> is the same as the power set partial order</li>
+<li><span class="math math-inline">(\{0,1\}^n, \preccurlyeq_{lex})</span> is the order of n-digit binary numbers</li>
+</ul>
+<h4>Total Ordering</h4>
+<ul>
+<li>A relation is a <strong>total order</strong> if it is a partial order and there are no incomparable elements
+<ul>
+<li>For all <span class="math math-inline">a, b \in X</span>, either <span class="math math-inline">a \preccurlyeq b</span> or <span class="math math-inline">b \preccurlyeq a</span>.</li>
+</ul>
+</li>
+</ul>
+<h2>Section 12 - Trees</h2>
+<p><strong>In this section, we work with undirected simple graphs</strong></p>
+<h4>Lemmas about Graphs</h4>
+<p><strong>Lemma 1</strong>: In any connected graph, removing an edge from a cycle keeps the graph connected.</p>
+<p><strong>Proof:</strong>
+Consider removing from a cycle <span class="math math-inline">\kappa</span> an edge <span class="math math-inline">e</span>.
+Suppose <span class="math math-inline">v, w</span> are vertices in the graph <span class="math math-inline">G</span>.
+Let <span class="math math-inline">\omega</span> be a walk <span class="math math-inline">v \to^*w</span> in the original graph <span class="math math-inline">G</span>.
+If <span class="math math-inline">\omega</span> does not contain <span class="math math-inline">e</span>, <span class="math math-inline">\omega</span> is a walk in the new graph <span class="math math-inline">G&#39; = G \setminus \{e\}</span>.
+Otherwise, let <span class="math math-inline">\omega&#39;</span> be the walk obtained from <span class="math math-inline">\omega</span> by replacing every occurrence of <span class="math math-inline">e</span> in <span class="math math-inline">\omega</span> by a walk obtained from the cycle <span class="math math-inline">\kappa</span> by removing <span class="math math-inline">e</span>.
+Then, <span class="math math-inline">\omega&#39;</span> is a walk <span class="math math-inline">v \to^* w</span> in <span class="math math-inline">G&#39;</span>.
+<strong>End</strong></p>
+<p><strong>Lemma 2:</strong> In any connected graph, adding a <em>new</em> edge introduces a cycle.</p>
+<p><strong>Proof:</strong>
+Suppose a new edge is <span class="math math-inline">\{u,v\}</span>.
+Since the graph was connected, there is a walk <span class="math math-inline">\omega = u \to^*v</span> in the original graph.
+Then adding <span class="math math-inline">\{u, v\}</span> to the end of <span class="math math-inline">\omega</span> creates a tour.
+We obtain a cycle by repeatedly shortening the tour to eliminate repetitions of edges.
+<strong>End</strong></p>
+<p><strong>Lemma 3</strong>: Let <span class="math math-inline">n</span> be the number of connected components. (a) <span class="math math-inline">n \ge |V| - |E|</span>, and (b) if the graph is acyclic, then <span class="math math-inline">n = |V| - |E|</span>.</p>
+<p><strong>Proof:</strong> (by induction on <span class="math math-inline">|E|</span>)
+<strong>Base Case:</strong> Here <span class="math math-inline">|E| = 0</span>, so <span class="math math-inline">n = |V| = |V| - |E|</span>
+<strong>Inductive Step:</strong>
+Consider adding an edge <span class="math math-inline">e</span> to a graph <span class="math math-inline">G = (V,E)</span>.
+<strong>Case <span class="math math-inline">(*)</span></strong> - Edge <span class="math math-inline">e</span> is within a connected component of <span class="math math-inline">G</span>.
+Then <span class="math math-inline">n</span> in the new graph is the same as in <span class="math math-inline">G</span>. Also by Lemma 2, (b) does not apply.
+Case <span class="math math-inline">(**)</span> - Edge <span class="math math-inline">e</span> is between two connected components of <span class="math math-inline">G</span>.
+Then <span class="math math-inline">n</span> in the new graph is one less than in <span class="math math-inline">G</span>. By the inductive hypothesis and the fact that <span class="math math-inline">|V| - (|E| + 1) = |V| - |E| - 1</span>, we have (a) and (b).
+<strong>End</strong></p>
+<h4>Spanning Tree</h4>
+<p>For a graph <span class="math math-inline">G = (V,E)</span>, a <strong>spanning tree</strong> is a subgraph <span class="math math-inline">T = (V&#39;, E&#39;)</span> such that <span class="math math-inline">V = V&#39;</span> and <span class="math math-inline">T</span> is a tree (connected, acyclic graph)</p>
+<p><strong>Theorem 1:</strong> Every connected graph has a spanning tree.
+<strong>Proof:</strong> (by induction on <span class="math math-inline">|E|</span>, and by Lemma 1)
+If <span class="math math-inline">G</span> is a tree, we are done.
+Otherwise, <span class="math math-inline">G</span> must contain a cycle.
+By Lemma 1, we can remove an edge and it would be connected.
+By induction, <span class="math math-inline">G&#39;</span> would contain a spanning tree.</p>
+<h4>Five Definitions of Trees TFAE</h4>
+<ul>
+<li>TFAE = “the following are equivalent”</li>
+</ul>
+<ol>
+<li><span class="math math-inline">G = (V,E)</span> is a tree</li>
+<li><span class="math math-inline">G</span> is acyclic and <span class="math math-inline">|V| - |E| = 1</span></li>
+<li><span class="math math-inline">G</span> is connected and <span class="math math-inline">|V| - |E| = 1</span></li>
+<li><span class="math math-inline">G</span> is connected and removing an edge makes it disconnected</li>
+<li><span class="math math-inline">G</span> is acyclic and inserting an edge introduces a cycle</li>
+</ol>
+<p><strong>Proof:</strong> (by the cycle method)</p>
+<p><span class="math math-inline">(1) \implies (2)</span>:
+<span class="math math-inline">G</span> is acyclic because it is a tree.
+It is connected for the same reason, so <span class="math math-inline">|V| - |E| = 1</span> by Lemma 3(b)
+<span class="math math-inline">(2) \implies (3)</span>:
+Since <span class="math math-inline">G</span> is acyclic, and <span class="math math-inline">|V| - |E| = 1</span>, by Lemma 3(b), we have that the number of connected components is 1, i.e. <span class="math math-inline">G</span> is connected.
+<span class="math math-inline">(3) \implies (4)</span>:
+Let <span class="math math-inline">G&#39;=(V,E&#39;)</span> be obtained from <span class="math math-inline">G</span> by removing an edge.
+By Lemma 3(a), the number of connected components <span class="math math-inline">\ge |V| - (|E| - 1) = |V| - |E| + 1</span>
+<span class="math math-inline">(4) \implies (5)</span>:
+<span class="math math-inline">G</span> is acyclic by Lemma 1.
+Inserting any edge introduces a cycle by Lemma 2.
+<span class="math math-inline">(5) \implies (1)</span>:
+Assume for a contradiction that <span class="math math-inline">G</span> is disconnected.
+Then we can insert an edge that does not introduce a cycle
+This contradicts the second part of <span class="math math-inline">(5)</span>
+So <span class="math math-inline">G</span> is connected, thus a tree.</p>
+<h2>Section 13 - Probability</h2>
+<h4>Introduction to Probability</h4>
+<p><strong>Probability Space:</strong> <span class="math math-inline">(\Omega,2^\Omega, P)</span></p>
+<ul>
+<li><span class="math math-inline">\Omega</span> = samples</li>
+<li><span class="math math-inline">2^\Omega</span> = power set of samples = events</li>
+<li><span class="math math-inline">P</span> = probability function, where <span class="math math-inline">P : 2^\Omega \to \mathbb{R}</span></li>
+</ul>
+<p><strong>Probability Axioms</strong></p>
+<ol>
+<li><span class="math math-inline">P(E) \ge 0</span> <span class="math math-inline">\forall E</span>
+<ul>
+<li>All probabilities are non-negative</li>
+</ul>
+</li>
+<li><span class="math math-inline">P(\Omega) = 1</span>
+<ul>
+<li>Probability of sample space is 1</li>
+</ul>
+</li>
+<li><span class="math math-inline">P(E \cup E&#39;) = P(E) + P(E&#39;), \forall E, E&#39; : E \cap E&#39; = \emptyset</span>
+<ul>
+<li>For <span class="math math-inline">E, E&#39;</span> that are disjoint, <span class="math math-inline">P(E \cup E&#39;) = P(E) + P(E&#39;)</span>.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example:</strong> Rolling a dice</p>
+<ul>
+<li><span class="math math-inline">\Omega = \{1, 2, 3, 4, 5, 6\}</span></li>
+<li><span class="math math-inline">P(E) = \frac{|E|}{6}</span></li>
+</ul>
+<h4>Claims and Theorems about Probability</h4>
+<p><strong>Claim 1</strong>: <span class="math math-inline">P(\emptyset) = 0</span>
+<strong>Proof:</strong>
+<span class="math math-inline">P(\Omega) = P(\Omega \cup \emptyset)</span>
+<span class="math math-inline">P(\Omega) = P(\Omega) + P(\emptyset)</span>
+<span class="math math-inline">\therefore P(\emptyset) = 0</span>
+<strong>End</strong></p>
+<p><strong>Claim 2:</strong> <span class="math math-inline">P(\bar{E}) = 1 - P(E), \forall E \subseteq \Omega</span> where <span class="math math-inline">\bar{E} = \Omega \setminus E</span>
+<strong>Proof:</strong>
+<span class="math math-inline">P(E \cup \bar{E}) = P(\Omega)</span>
+<span class="math math-inline">P(E) + P(\bar{E}) = 1</span>
+<span class="math math-inline">\therefore P(\bar{E}) = 1 - P(E)</span></p>
+<p><strong>Claim 3:</strong> <span class="math math-inline">P(E \cup F) = P(E) + P(F) - P(E \cap F)</span>
+<strong>Proof:</strong>
+<span class="math math-inline">P(E \cup F) = P(E \cup (F \setminus E))</span>
+<span class="math math-inline">= P(E) + P(F \setminus E)</span>
+<span class="math math-inline">= P(E \setminus F) + P(E \cap F) + P(F \setminus E)</span>
+<span class="math math-inline">= [P(E \setminus F) + P(E \cap F)] + [P(F \setminus E) + P(E \cap F)] - P(E \cap F)</span>
+<span class="math math-inline">= P(E) + P(F) - P(E \cap F)</span></p>
+<p><strong>Theorem:</strong> <span class="math math-inline">P(E \cup F) \le P(E) + P(F)</span>
+<strong>Proof:</strong> By claim 3 and axiom 1</p>
+<h4>Conditional Probability</h4>
+<p><strong>Suppose</strong> <span class="math math-inline">P(B) &gt; 0</span>
+<span class="math math-display">P(A|B) := \frac{P(A \cap B)}{P(B)}</span>
+<strong>Example:</strong>
+<span class="math math-inline">\Omega = \{1,2,3,4,5,6\}</span>
+<span class="math math-inline">P(E) = \frac{|E|}{6}</span>
+<span class="math math-inline">A = \{1,2,3,4,5\}</span> “not 6”
+<span class="math math-inline">B</span> = <span class="math math-inline">\{2,4,6\}</span> “even”
+<span class="math math-inline">P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(\{2,4\})}{P(\{2,4,6\})} = \frac{\frac{2}{6}}{\frac{3}{6}} = \frac{2}{3}</span>
+<span class="math math-inline">P(B|A) = \frac{P(B \cap A)}{P(A)} = \frac{P(\{2,4\})}{P(\{1,2,3,4,5\})} = \frac{\frac{2}{6}}{\frac{5}{6}} = \frac{2}{5}</span>
+“Prosecutors Fallacy” - <span class="math math-inline">P(A|B) \ne P(B|A)</span> in general.</p>
+<h4>Law of Total Probability</h4>
+<p>Suppose <span class="math math-inline">B_1, B_2, ... , B_n</span> disjointly partition <span class="math math-inline">\Omega</span> and <span class="math math-inline">P(B_i) &gt; 0, \forall i</span>.
+For all events <span class="math math-inline">A</span>:
+<span class="math math-display">P(A) = \sum_{i=1}^n{P(A|B_i)P(B_i)}</span>
+<strong>Proof:</strong>
+<span class="math math-inline">P(A) = \sum_{i=1}^n{P(A \cap B_i)}</span>
+<span class="math math-inline">= P(A \cap B_1 \cup A \cap B-2 \cup \dots \cup A \cap B_n)</span>
+= <span class="math math-inline">P(A \cap (B_1 \cup B_2 \cup \dots \cup B_n))</span>
+<span class="math math-inline">= P(A \cap \Omega)</span>
+<span class="math math-inline">= P(A)</span></p>
+<p><strong>Example</strong>: “Zoggles”
+<span class="math math-inline">\Omega</span> = the set of all zoggles.
+<span class="math math-inline">F_1</span> = the zoggles made in factory 1
+<span class="math math-inline">F_2</span> = the zoggles made in factory 2
+<span class="math math-inline">X</span> = the set of all faulty zoggles
+<span class="math math-inline">P(F_1) = 2P(F_2)</span>
+We know that <span class="math math-inline">P(F_1) + P(F_2) = 1</span>
+<span class="math math-inline">\therefore P(F_1) = \frac{2}{3}, P(F_2) = \frac{1}{3}</span>
+<strong>Given:</strong> <span class="math math-inline">P(X|F_1) = 0.2</span>, <span class="math math-inline">P(X|F_2) = 0.05</span>
+<span class="math math-inline">P(X) = P(X|F_1)P(F_1) + P(X|F_2)P(F_2)</span>
+<span class="math math-inline">= \frac{1}{5}\times\frac{2}{3}+\frac{1}{20}\times\frac{1}{3}</span>
+<span class="math math-inline">=\frac{2}{15} + \frac{1}{60} = \frac{9}{60} = \frac{3}{20} = 0.15</span></p>
+<h4>Bayes’ Rule</h4>
+<p>Assume <span class="math math-inline">P(A) &gt; 0</span>
+<span class="math math-display">P(B_i|A) = \frac{P(B_i \cap A)}{P(A)} = \frac{P(A|B_i)P(B_i)}{\sum_{j=1}^n{P(A|B_j)P(B_j)}}</span>
+<span class="math math-inline">P(B_i|A)</span> is the posterior
+<span class="math math-inline">P(B_i)</span> is the prior</p>
+<p><strong>Example:</strong>
+<span class="math math-inline">D</span> is the event of having a disease
+<span class="math math-inline">T</span> is the event of being tested positive for a disease
+<span class="math math-inline">P(D) = 0.001</span>
+<span class="math math-inline">P(T|D) = 0.9</span>
+<span class="math math-inline">P(T|\bar{D}) = 0.01</span>
+Calculate <span class="math math-inline">P(D|T)</span>
+<span class="math math-display">= \frac{P(T|D)P(D)}{P(T|D)P(D) + P(T|\bar{D})P(\bar{D})}</span>
+<span class="math math-display">= \frac{0.9 \times 0.001}{0.9 \times 0.001 + 0.01 \times 0.999}</span>
+<span class="math math-display"> = \frac{90}{1089}</span></p>
+<h4>Independent Events</h4>
+<p>Events <span class="math math-inline">A</span> and <span class="math math-inline">B</span> are <strong>independent</strong> if <span class="math math-inline">P(A \cap B) = P(A)P(B)</span>
+So <span class="math math-inline">P(A|B) = \frac{P(A\cap B)}{P(B)} = \frac{P(A)P(B)}{P(B)} = P(A)</span></p>
+<p><strong>Example</strong>:
+<span class="math math-inline">\Omega = \{1,2,3,4,5,6\}</span>
+<span class="math math-inline">A = \{1,2,3,4,5\}</span> “not 6”
+<span class="math math-inline">B = \{2,4,6\}</span>
+<span class="math math-inline">P(A) = \frac{5}{6}, P(B) = \frac{1}{2}</span>
+<span class="math math-inline">P(A \cap B) = P(\{2,4\}) = \frac{2}{6} = \frac{1}{3}</span>
+<span class="math math-inline">P(A)P(B) = \frac{5}{6}\times\frac{1}{2} = \frac{5}{12} \ne \frac{1}{3}</span>
+Hence <span class="math math-inline">A,B</span> are not independent.
+<span class="math math-inline">E</span> = <span class="math math-inline">\{1, 2\}</span> “&lt; 3”
+<span class="math math-inline">P(E) = \frac{2}{6} = \frac{1}{3}</span>
+<span class="math math-inline">P(B \cap E) = P(\{2\}) = \frac{1}{6}</span>
+<span class="math math-inline">P(B)P(E) = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6}</span>
+Hence <span class="math math-inline">E, B</span> are independent.</p>
+</body>
+
+</html>
