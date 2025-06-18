@@ -31,12 +31,20 @@ function loadNote() {
             }
 
             const li = document.createElement('li');
-            li.style.marginLeft = `${(parseInt(heading.tagName[1]) - 1) * 10}px`;
+            level = parseInt(heading.tagName[1]);
+            li.style.marginLeft = `${(level - 1) * 10}px`;
 
             const link = document.createElement('a');
             link.href = `#${heading.id}`;
             link.textContent = heading.textContent;
-            link.style.color = '#89b4fa';
+            if (level === 1) {
+                link.style.color = '#f38ba8' // H1 - soft rosy pink
+            } else if (level === 2) {
+                link.style.color = '#89b4fa' // H2 - sky blue
+            } else {
+                link.style.color = '#cdd6f4'; // default fallback for other colors
+            }
+            // link.style.color = '#89b4fa';
             link.style.textDecoration = 'none';
 
             link.onclick = (e) => {
