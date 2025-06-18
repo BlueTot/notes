@@ -23,7 +23,7 @@ function loadNote() {
         tocContainer.innerHTML = '<strong>Table of Contents</strong>';
 
         const list = document.createElement('ul');
-        const headings = innerDoc.querySelectorAll('h1, h2, h3');
+        const headings = innerDoc.querySelectorAll('h1, h2');
 
         headings.forEach((heading, index) => {
             if (!heading.id) {
@@ -59,17 +59,9 @@ function loadNote() {
     document.addEventListener("DOMContentLoaded", () => {
 
         document.getElementById("toc-toggle").addEventListener("click", () => {
-            const panel = document.getElementById("toc-panel");
-            panel.classList.toggle("closed");
-        });
+  document.getElementById("layout").classList.toggle("toc-closed");
+});
 
-        // const tocWrapper = document.getElementById("toc-wrapper");
-        // const toggleBtn = document.getElementById("toc-toggle");
-        //
-        // toggleBtn.addEventListener("click", () => {
-        //     tocWrapper.classList.toggle("collapsed");
-        //     document.body.classList.toggle("collapsed");
-        // });
     });
 
 }
