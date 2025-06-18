@@ -4,47 +4,121 @@
         <meta charset="UTF-8">
         <title>My Notes</title>
         <style>
-            body {
-                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-                margin: 0;
-                padding: 0;
-                overflow-x: hidden;
-                background: #111;
-                color: #eee;
-            }
 
-              header {
-                  background: #1e1e2e;
-                  color: #cdd6f4;
-                  padding: 1rem 2rem;
-                  border-bottom: 1px solid #444;
-              }
+html, body {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #111;
+    color: #eee;
+    overflow: hidden;
+}
 
-              h1 {
-                  margin: 0;
-                  font-size: 1.5rem;
-              }
+header {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #444;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
 
-              #note-title {
-                  font-weight: normal;
-                  font-size: 1rem;
-                  color: #a6adc8;
-              }
+h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
 
-              iframe {
-                  width: 100%;
-                  border: none;
-              }
-    </style>
+#note-title {
+    font-weight: normal;
+    font-size: 1rem;
+    color: #a6adc8;
+}
+
+#layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-top: 80px;
+    position: absolute;
+}
+
+#toc-panel {
+    width: 30%;
+    background: #1e1e2e;
+    color: #eee;
+    border-right: 1px solid #333;
+    padding: 10px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    position: relative;
+    height: 100%;
+    z-index: 10;
+}
+
+#toc-panel.closed {
+    transform: translateX(-220px);
+}
+
+#toc-toggle {
+    position: relative;
+    top: 10px;
+    right: -20px;
+    width: 20px;
+    height: 40px;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+    border-radius: 0 5px 5px 0;
+}
+
+#note-container {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+#toc-panel.closed + #note-container {
+    margin-left: 0;
+}
+
+#note-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+        </style>
     </head>
     <body>
         <header>
             <h1>My Notes Viewer<br><span id="note-title">(loading...)</span></h1>
         </header>
-        <iframe id="note-frame"></iframe>
+        <div id="layout">
+            <nav id="toc-panel">
+                <div id="toc-toggle">&#9776;</div>
+                <ul id="toc-list"></ul>
+            </nav>
+            
+            <!-- <div id="note-container"> -->
+            <iframe id="note-frame"></iframe>
+            <!-- </div> -->
+        </div>
+        <!-- <div id="layout"> -->
+        <!--     <nav id="toc-panel" class="open"> -->
+        <!--         <div id="toc-toggle">&#9776;</div> -->
+        <!--         <ul id="toc-list"></ul> -->
+        <!--     </nav> -->
+        <!--     <div id="note-container"> -->
+        <!--         <iframe id="note-frame"></iframe> -->
+        <!--     </div> -->
+        <!-- </div> -->
 
         <script src="script.js"></script>
-
     </body>
 </html>
-
