@@ -18,13 +18,6 @@ function loadNote() {
         const innerTitle = innerDoc.title || noteName;
         titleSpan.textContent = innerTitle;
 
-        frame.style.height = "auto";
-
-        // // Resize iframe height based on content
-        // setTimeout(() => {
-        //     frame.style.height = innerDoc.body.scrollHeight + 'px';
-        // }, 100);
-
         // Build table of contents
         const tocContainer = document.getElementById('toc-list');
         tocContainer.innerHTML = '<strong>Table of Contents</strong>';
