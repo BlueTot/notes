@@ -6,6 +6,7 @@ html, body {
     background: #111;
     color: #eee;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    background: #11121d;         /* darker bluish-black background */
 }
 
 /* === Header === */
@@ -24,7 +25,7 @@ header {
     z-index: 100;
 }
 
-#toc-toggle {
+#toc-toggle, #back {
     width: 40px;
     height: 40px;
     background: #2b2e3f;
@@ -38,7 +39,7 @@ header {
     transition: background 0.2s ease;
 }
 
-#toc-toggle:hover {
+#toc-toggle:hover, #back:hover {
     background: #3a3f55;
 }
 

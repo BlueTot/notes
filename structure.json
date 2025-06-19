@@ -1,0 +1,150 @@
+{
+  "/": {
+    "isFile": false,
+    "children": [
+      "/year1"
+    ],
+    "parent": null
+  },
+  "/year1": {
+    "isFile": false,
+    "children": [
+      "/year1/cs118",
+      "/year1/cs126",
+      "/year1/cs130",
+      "/year1/cs131",
+      "/year1/cs132",
+      "/year1/cs133",
+      "/year1/cs140",
+      "/year1/cs141",
+      "/year1/ib104"
+    ],
+    "parent": "/"
+  },
+  "/year1/cs118": {
+    "isFile": false,
+    "children": [
+      "/year1/cs118/cs118-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs118/cs118-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs118"
+  },
+  "/year1/cs126": {
+    "isFile": false,
+    "children": [
+      "/year1/cs126/cs126-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs126/cs126-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs126"
+  },
+  "/year1/cs130": {
+    "isFile": false,
+    "children": [
+      "/year1/cs130/cs130-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs130/cs130-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs130"
+  },
+  "/year1/cs131": {
+    "isFile": false,
+    "children": [
+      "/year1/cs131/cs131-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs131/cs131-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs131"
+  },
+  "/year1/cs132": {
+    "isFile": false,
+    "children": [
+      "/year1/cs132/cs132-fast-revision-notes.html",
+      "/year1/cs132/cs132-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs132/cs132-fast-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs132"
+  },
+  "/year1/cs132/cs132-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs132"
+  },
+  "/year1/cs133": {
+    "isFile": false,
+    "children": [
+      "/year1/cs133/bott-and-taylor-notes.html",
+      "/year1/cs133/class-test-notes.html",
+      "/year1/cs133/improved-class-test-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs133/bott-and-taylor-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs133"
+  },
+  "/year1/cs133/class-test-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs133"
+  },
+  "/year1/cs133/improved-class-test-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs133"
+  },
+  "/year1/cs140": {
+    "isFile": false,
+    "children": [
+      "/year1/cs140/cs140-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs140/cs140-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs140"
+  },
+  "/year1/cs141": {
+    "isFile": false,
+    "children": [
+      "/year1/cs141/cs141-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/cs141/cs141-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/cs141"
+  },
+  "/year1/ib104": {
+    "isFile": false,
+    "children": [
+      "/year1/ib104/ib104-revision-notes.html"
+    ],
+    "parent": "/year1"
+  },
+  "/year1/ib104/ib104-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year1/ib104"
+  }
+}

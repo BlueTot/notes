@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>/home/nokhanglo/Files/GitHub/ObsidianVault/CS133/Class Test Revision Notes.md</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false
+                    })
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+
+            });
+
+            
+        </script>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+              body {
+                  background-color: var(--bg);
+                  color: var(--fg);
+                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.8;
+                  padding: 2rem;
+                  max-width: 850px;
+                  margin: auto;
+              }
+
+              h1 {
+                  color: var(--red);
+                  font-size: 2.5rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+              }
+
+              h2 {
+                  color: var(--orange);
+                  font-size: 2rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+              }
+
+              h3 {
+                  color: var(--yellow);
+                  font-size: 1.75rem;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  font-weight: 600;
+              }
+
+              h4 {
+                  color: var(--green);
+                  font-size: 1.5rem;
+                  margin-top: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h5 {
+                  color: var(--blue);
+                  font-size: 1.25rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h6 {
+                  color: var(--purple);
+                  font-size: 1.1rem;
+                  margin-top: 0.75rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              a {
+                  color: var(--accent);
+                  text-decoration: underline;
+              }
+
+              code, pre {
+                  font-family: 'Fira Code', monospace;
+                  background-color: var(--surface);
+                  color: var(--fg);
+                  padding: 0.3rem 0.5rem;
+                  border-radius: 6px;
+                  overflow-x: auto;
+              }
+
+              blockquote {
+                  border-left: 4px solid var(--gray);
+                  padding-left: 1rem;
+                  color: var(--gray);
+                  font-style: italic;
+                  background-color: #2b2d51;
+                  margin: 1rem 0;
+              }
+
+              img {
+                  max-width: 100%;
+                  border-radius: 6px;
+                  margin: 1rem 0;
+              }
+
+              figcaption {
+                  font-size: 0.9em;
+                  color: var(--gray);
+                  text-align: center;
+                  margin-top: 0.25rem;
+              }
+
+              .footnote-definition > p {
+                  display: inline;
+              }
+
+              .footnote-definition-label {
+                  font-weight: bold;
+              }
+
+              table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1rem 0;
+              }
+
+              th, td {
+                  border: 1px solid var(--gray);
+                  padding: 0.5rem;
+                  text-align: left;
+              }
+
+              th {
+                  background-color: var(--surface);
+                  color: var(--fg);
+              }
+
+        </style>
+
+    </head>
+
+    <body>
+        <main id="content">
+            <h3>Professions and the Constitution</h3>
+<h2>Professions</h2>
+<p><strong>Profession</strong> -</p>
+<ol>
+<li>A vocation / career, especially one that involves prolonged training and a formal qualification</li>
+<li>The body of people engaging in a particular occupation</li>
+</ol>
+<p><strong>Three defining features of profession</strong></p>
+<ol>
+<li>Body of people</li>
+<li>Self governing</li>
+<li>Entry to profession is controlled</li>
+</ol>
+<ul>
+<li><strong>Engineering Profession</strong> - Engineering Council</li>
+<li><strong>Scientific Professional Qualifications</strong> - CSci, CSciTeach, RSci, RSciTeach</li>
+<li><strong>UK Engineering Professional Qualifications</strong> - ICE, CEng, IEng, EngTech
+<ul>
+<li><em>IEng</em> - Incorporated Engineer</li>
+</ul>
+</li>
+<li><strong>Europe Engineering Professional Qualifications</strong> - EUR ING</li>
+<li><strong>Science Profession</strong> - Science Council</li>
+<li><strong>Computing Profession</strong> - BCS, Chartered Institute for IT
+<ul>
+<li><em>BCS</em> - British Computer Society</li>
+</ul>
+</li>
+<li><strong>UK Computing Professional Qualification</strong> - CITP
+<ul>
+<li>The BCS offers CITP (Chartered Information Technology Practitioner)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Four Duties of BCS Code of Conduct</strong></p>
+<ol>
+<li>Public Interest</li>
+<li>Duty to relevant authority</li>
+<li>Professional competence and integrity</li>
+<li>Duty to the profession</li>
+</ol>
+<p><strong>Two ways to regulate a profession</strong></p>
+<ol>
+<li>Reservation of title</li>
+<li>Reservation of function (activity)</li>
+</ol>
+<p><strong>Continuing Professional Development - CPD</strong></p>
+<ul>
+<li>Recording career / qualifications</li>
+<li>Reflecting on them</li>
+<li>Identifying needs for training, updating knowledge / skills, etc.</li>
+</ul>
+<h2>Constitution</h2>
+<p><strong>Area of UK</strong> - England, Scotland, Wales, Northern Ireland</p>
+<ul>
+<li>Excluding Channel Islands and Isle of Man</li>
+<li><strong>NOTE</strong>: Eire is another name for Ireland</li>
+</ul>
+<p><strong>Two houses of parliament</strong> - House of Lords, House of Commons</p>
+<ul>
+<li><em>Commons</em> - elected, lower house</li>
+<li><em>Lords</em> - appointed, upper house</li>
+</ul>
+<p><strong>How laws are applied in different areas of the UK</strong></p>
+<ul>
+<li>No written constitution</li>
+<li>Separate Assemblies, each with limited powers</li>
+</ul>
+<p><strong>How a law is made in Parliament</strong></p>
+<ul>
+<li><em>First Reading</em> - bill presented to one house
+<ul>
+<li>Formality - no debate</li>
+</ul>
+</li>
+<li><em>Second Reading</em> - in that house
+<ul>
+<li>General debate, plus vote</li>
+</ul>
+</li>
+<li><em>Committee</em> Stage
+<ul>
+<li>Detailed scrutiny, and amendments</li>
+</ul>
+</li>
+<li><em>Report</em> Stage
+<ul>
+<li>Further amendments</li>
+</ul>
+</li>
+<li><em>Third Reading</em></li>
+<li>Repeat for both houses, until they both agree</li>
+<li>LAST STEP - <em>Royal Assent</em>, Bill becomes Law</li>
+</ul>
+<p><strong>Lords can DELAY but not block a bill</strong></p>
+<ul>
+<li>Legalisation - 1911 Parliament Act</li>
+</ul>
+<p><strong>European Union</strong></p>
+<ol>
+<li>Elected Parliament</li>
+<li>Council of Ministers</li>
+</ol>
+<p><strong>EU Regulation</strong> - Self-executing legalisation, takes immediate effect across whole EU
+<strong>EU Directive</strong> - Legislative act that sets out a goal that all EU countries must achieve. Must be enacted by individual countries.</p>
+<p><strong>UK Laws are Adversarial (one party vs another)</strong></p>
+<p><strong>Criminal Law Case</strong></p>
+<ul>
+<li><em>Parties</em> - State and defendant (Justice by “the state”)</li>
+<li><em>Prosecutor</em> - Crown Prosecution Service</li>
+<li><em>Role of jury</em> - Decide guilt or innocence</li>
+<li><em>Role of judge</em> - decide penalties</li>
+<li><em>Can appeal for:</em>
+<ul>
+<li>Quash conviction</li>
+<li>Order new trial</li>
+<li>Increase penalty</li>
+</ul>
+</li>
+<li>“<strong>Beyond Reasonable Doubt</strong>” test is used in a Criminal Court</li>
+</ul>
+<p><strong>Civil Law Case</strong></p>
+<ul>
+<li><em>Parties</em> - About relationships between individuals</li>
+<li><em>Deciding Factor</em> - it is about “balance of probabilities”</li>
+<li><em>Civil law case can result from:</em>
+<ul>
+<li>Contracts</li>
+<li>Libel</li>
+<li>Family Law</li>
+</ul>
+</li>
+</ul>
+<p><strong>Hierarchy of Courts</strong></p>
+<ul>
+<li>Magistrates</li>
+<li>County Court - civil cases tried here (no jury)</li>
+<li>Crown Court - criminal cases tried here</li>
+<li>Supreme Court</li>
+<li>European Court of Justice</li>
+</ul>
+<h3>IT Law</h3>
+<h2>Data Protection</h2>
+<p><strong>Data Protection Act 1984</strong></p>
+<ul>
+<li>Group / meeting - Council of Europe Convention on Data Protection</li>
+</ul>
+<p><strong>Data Protection Act 1998</strong></p>
+<ul>
+<li>UK Legislation associated with EU Data Protection Directive</li>
+<li>Associated EU Directive - EU Data Protection Directive</li>
+</ul>
+<p><strong>Data Protection Act 2018</strong></p>
+<ul>
+<li>UK Legislation associated with EU General Data Protection Regulation (GDPR)</li>
+<li>Associated EU Regulation - GDPR (The EU General Data Protection Regulation)</li>
+<li><strong>Jurisdiction of GDPR</strong>
+<ul>
+<li>Applies to ANY organisation, ANYWHERE in the world, if data is collected related to ANY EU resident</li>
+</ul>
+</li>
+<li><strong>Penalty of GDPR</strong>
+<ul>
+<li>Data Breaches - Up to 10m euros, or 2% of global gross revenue</li>
+<li>Violations of Obligations - Up to 20m euros, or 4% of global gross revenue</li>
+</ul>
+</li>
+<li><strong>Data breaches must be reported within 72 hours</strong></li>
+<li><strong>There are 7 data protection principles:</strong>
+<ul>
+<li>Processing of personal data must be LAWFUL</li>
+<li>Purpose of processing must be LEGITIMATE and EXPLICIT</li>
+<li>Personal data must be RELEFVANT and not excessive</li>
+<li>Personal Data must be ACCURATE and up to date</li>
+<li>Must not be kept for longer than necessary</li>
+<li>Must be processed in a secure manner</li>
+<li>CONTROLLER IS ACCOUNTABLE</li>
+</ul>
+</li>
+<li><strong>There are NO exemptions under GDPR.</strong></li>
+<li><strong>Exemptions under Data Protection Act 2018</strong>
+<ul>
+<li>State things (e.g. police, immigration)</li>
+</ul>
+</li>
+<li><strong>Things not covered by Data Protection Act 2018</strong>
+<ul>
+<li>National Security</li>
+<li>Law enforcement</li>
+<li>Domestic purposes</li>
+</ul>
+</li>
+</ul>
+<p><strong>Data Protection Acts</strong></p>
+<ul>
+<li>They regulate HOW data is stored, and WHO has access</li>
+<li>Data processing - collection, recording, storage, etc.</li>
+</ul>
+<p><strong>Personal Data</strong> - Data stored and processed about a data subject (not just computerised - GDPR refers to “any information”)</p>
+<p><strong>Profiling</strong></p>
+<ul>
+<li>Automated processing, to determine personal criteria</li>
+<li></li>
+</ul>
+<p><strong>Data Subject</strong> - An “identified or identifiable natural person” (not a company)</p>
+<ul>
+<li><strong>Data Subject’s Consent must be:</strong>
+<ul>
+<li>Specific</li>
+<li>Informed</li>
+<li>Demonstrable</li>
+<li>Freely given</li>
+<li>Unambiguous</li>
+<li>“Legitimate interests”</li>
+</ul>
+</li>
+<li><strong>Rights given to data subject under GDPR</strong>
+<ul>
+<li>Access by Data subject (normally within 1 month)</li>
+<li>Rectification</li>
+<li>Erasure</li>
+<li>Data portability</li>
+<li>Object to automated decision-making</li>
+<li>Restriction of processing</li>
+</ul>
+</li>
+<li><strong>Data subject’s rights, with regard to profiling:</strong>
+<ul>
+<li>Right not to be subject to profiling, if it has a legal effect</li>
+</ul>
+</li>
+</ul>
+<p><strong>Controller</strong> - A person, authority or body which determines the purposes and means of the processing of personal data</p>
+<p><strong>Information Commissioner’s Office (ICO)</strong></p>
+<ul>
+<li>The UK’s supervisory authority on data protection</li>
+</ul>
+<p><strong>Data Protection Officer is required in:</strong></p>
+<ul>
+<li>All public authorities</li>
+<li>Entities involved with “regular and systematic monitoring or data subjects on a large scale”</li>
+</ul>
+<h2>Freedom of Information</h2>
+<p><strong>Freedom of Information Act 2000</strong></p>
+<ul>
+<li><em>Covers all public bodies in UK with regards to Freedom of Information</em></li>
+<li>Request must be made in writing (including fax / email)</li>
+<li><strong>Public body must say if the information exists, and if it does, they must give it</strong></li>
+<li><strong>Fee can be charged for a Freedom of Information Request</strong></li>
+<li><strong>Time Limit</strong> - 20 working days, or until fee is paid, within a maximum of 3 months</li>
+<li><strong>Absolute Exemptions:</strong>
+<ul>
+<li>Security services</li>
+<li>“Vexatious requests”</li>
+<li>Court records</li>
+<li>Trade secrets</li>
+</ul>
+</li>
+<li><strong>Data Protection overrides Freedom of Information</strong></li>
+</ul>
+<p><strong>Publication Scheme</strong></p>
+<ul>
+<li>List of information expected to be published by a public authority</li>
+<li>Requires approval from the Information Commissioner</li>
+</ul>
+<p><strong>Powers of Information Commissioner</strong></p>
+<ul>
+<li>Information Commissioner can adjudicate, and enforce disclosure, ONLY IF the public authority’s complaints procedure has been followed first</li>
+<li>Information Commissioner can be overruled by an appropriate government minister</li>
+<li></li>
+</ul>
+<h2>Computer Misuse</h2>
+<p><strong>Computer Misuse Act 1990</strong></p>
+<ul>
+<li><em>Legislation applicable to computer misuse</em></li>
+<li><strong>Three offences:</strong>
+<ul>
+<li>Unauthorised access to computer material</li>
+<li>Unauthorised access with intent to commit a crime</li>
+<li>Unauthorised modification of computer material</li>
+</ul>
+</li>
+<li><strong>Unauthorised Access</strong>
+<ul>
+<li><strong>Definition</strong> - Causing a computer to perform ANY FUNCTION with intent to secure access to any program or data held in any computer, such that the access is KNOWINGLY UNAUTHORISED.</li>
+<li>E.g. Turning on a PC</li>
+<li><strong>Punishment</strong> - Up to 5 years imprisonment + unlimited fine</li>
+</ul>
+</li>
+<li><strong>Unauthorised Modification</strong>
+<ul>
+<li><strong>Definition</strong>
+<ul>
+<li><em>Attempting to impair operation of a computer</em></li>
+<li><em>Preventing / hindering access to any program or data</em></li>
+<li><em>Impair operation of a program, or the reliability of data</em></li>
+</ul>
+</li>
+<li><strong>Punishment</strong> - Up to 5 years imprisonment + unlimited fine</li>
+</ul>
+</li>
+</ul>
+<p><strong>Police and Justice Act 2006</strong></p>
+<ul>
+<li>Amended the Computer Misuse Act</li>
+<li><strong>Ways in which it amended:</strong>
+<ul>
+<li>Fixed Denial of Service Attacks</li>
+<li>Increased penalties for hacking</li>
+<li>Makes Unauthorised Access extraditable</li>
+<li>Criminalises the use of tools which can be used for Computer Misuse offences</li>
+</ul>
+</li>
+</ul>
+<p><strong>Regulation of Investigatory Powers Act 2000</strong></p>
+<ul>
+<li>Applies to public law enforcement bodies, with regards to Computer Misuse</li>
+<li><strong>Powers granted under RIPA are ensured to not be abused by:</strong>
+<ul>
+<li>Commissioners (judges) check in an annual report, with a tribunal to hear public complaints</li>
+</ul>
+</li>
+</ul>
+<p><strong>Regulation of Investigatory Powers Act (RIPA) 2016</strong></p>
+<ul>
+<li>Allows “equipment interference” by security services (DoS)</li>
+<li>ISPs must hold 12 months of Internet history data</li>
+<li>Collection of “bulk personal datasets” by security services</li>
+<li>Unlawfully accessing internet data is now an offence</li>
+</ul>
+<p><strong>Monitoring</strong></p>
+<ul>
+<li><strong>Is legal for the following purposes:</strong>
+<ul>
+<li>Standards purposes</li>
+<li>Compliance with Regulation</li>
+<li>Effective system use</li>
+<li>Prevention / detection of crime</li>
+<li>Detecting Unauthorised use</li>
+</ul>
+</li>
+<li><strong>Is legal for monitoring, but not recording:</strong>
+<ul>
+<li>Confidential phone lines</li>
+<li>Checking if related to the business</li>
+</ul>
+</li>
+<li><strong>Interception is ILLEGAL!</strong></li>
+<li>A <strong>warrant</strong> is required for a public body to intercept data</li>
+<li><strong>A warrant for interception can be obtained by:</strong>
+<ul>
+<li>Public body (e.g. police) applies</li>
+<li>Secretary of State makes decision</li>
+</ul>
+</li>
+</ul>
+<p><strong>Encryption Keys</strong></p>
+<ul>
+<li>Must be handed over if:
+<ul>
+<li>Data cannot be provided unencrypted</li>
+<li>If there is a trust issue</li>
+<li>If timeliness is critical</li>
+</ul>
+</li>
+</ul>
+<h3>Intellectual Property</h3>
+<p><strong>What counts as copying?</strong></p>
+<ul>
+<li>Downloading from the web</li>
+<li>Uploading to the web</li>
+<li>Photocopying</li>
+<li>Making backups</li>
+<li>Translating</li>
+<li>Loading into RAM</li>
+<li>Running a program</li>
+<li>Translating</li>
+</ul>
+<p><strong>Copyright</strong></p>
+<ul>
+<li><em>Right to copy/adapt something</em></li>
+<li><strong>Important legislations:</strong>
+<ul>
+<li>Copyright, Designs and Patents Act 1988</li>
+<li>The Copyright and Rights in Performances (Quotation and Parody) Regulations 2014</li>
+</ul>
+</li>
+<li><strong>Primary Infringement</strong> - Making a copy</li>
+<li><strong>Secondary Infringement</strong> - Obtaining a copied copy</li>
+<li><strong>Software:</strong>
+<ul>
+<li>Can be copyrighted, but not what it does</li>
+<li>Websites are copyrighted, and any code running on them too</li>
+</ul>
+</li>
+</ul>
+<p><strong>How long does copyright last?</strong></p>
+<ul>
+<li><strong>Berne Convention 1886</strong> - Life + 50 years</li>
+<li><strong>UK and USA</strong> - Life + 79 years</li>
+<li><strong>Databases</strong> - 15 years</li>
+</ul>
+<p><strong>De-compilation is allowed to:</strong></p>
+<ul>
+<li>Correct errors</li>
+<li>Discover how to “interoperate” with a program</li>
+</ul>
+<p><strong>WIPO - World Intellectual Property Organisation</strong></p>
+<ul>
+<li>International body concerning copyright</li>
+</ul>
+<p><strong>ACTA - Anti-Counterfeiting Trade Agreement</strong></p>
+<ul>
+<li>Criminalises some classes of IP infringement</li>
+<li>Makes ISPs directly responsible for their users’ online use</li>
+<li>EU Parliament rejected ratification in July 2012</li>
+</ul>
+<p><strong>EU Copyright Directive</strong></p>
+<ul>
+<li>Directive on copyright in the Digital Single Market</li>
+<li>Passed by European Parliament in Sept 2018. Under negotiation, with final vote in Jan 2019</li>
+</ul>
+<p><strong>Trademark</strong></p>
+<ul>
+<li>A distinctive name (i.e. sign, image, logo etc.)</li>
+<li>Legislation - Trade marks Act 1994</li>
+<li><strong>IPO - Intellectual Property Office</strong>
+<ul>
+<li>International body that governs trade marks</li>
+</ul>
+</li>
+<li>Protection (tm) is automatic, but registration is advisable</li>
+</ul>
+<p><strong>Patent</strong></p>
+<ul>
+<li>Temporary right to exploit an invention, usually for 20 years</li>
+<li>Must be registered at the IPO</li>
+<li><strong>PATENT IS STRONGER THAN COPYRIGHT</strong></li>
+<li>Europe - patented invention must be:
+<ul>
+<li>New</li>
+<li>Involve an “inventive step”</li>
+<li>Capable of “industrial application”</li>
+<li>Not in an excluded area</li>
+</ul>
+</li>
+<li><strong>Invalidation</strong> - Disclosure before application</li>
+<li><strong>Excludes:</strong>
+<ul>
+<li>Scientific Theories</li>
+<li>Mathematical methods</li>
+<li>Algorithms and software</li>
+</ul>
+</li>
+<li><strong>Software Patents</strong>
+<ul>
+<li>Europe - not currently allowed</li>
+<li>USA -
+<ul>
+<li>Part of procedure that is patentable</li>
+<li>Controls a process with “physical effect”</li>
+<li>Processes real physical data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Whistle-Blowing</strong></p>
+<ul>
+<li><em>Public Interest Disclosure Act 1998</em></li>
+<li>Business confidentially does not apply when:
+<ul>
+<li>Law has been broken, is going to be broken</li>
+<li>Can involve environmental damage, health and safety, criminal offences, concealment etc.</li>
+<li><strong>For example:</strong>
+<ul>
+<li><em>Failure to comply with legal obligation</em></li>
+<li><em>Miscarriage of justice</em></li>
+<li><em>Criminal offence</em></li>
+<li><em>Health and safety</em></li>
+<li><em>Environmental damage</em></li>
+</ul>
+</li>
+<li><strong>Note: Commercial confidentiality can be enforced in the below:</strong>
+<ul>
+<li><em>Breach of contract</em></li>
+<li><em>National security</em></li>
+<li><em>Offer of alternative employment</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>Companies and Finance</h3>
+<p><strong>Three sources of finance for starting a company:</strong></p>
+<ul>
+<li>Equity capital</li>
+<li>Government grants</li>
+<li>Loans (bank or government)</li>
+<li><strong>NOTE</strong>: the ratio of loan capital to equity is called <strong>GEARING</strong> or <strong>LEVERAGE</strong></li>
+</ul>
+<p><strong>Balance Sheet</strong></p>
+<ul>
+<li><strong>Assets</strong>
+<ul>
+<li>What a company owns</li>
+<li>Current vs fixed
+<ul>
+<li>Current = can be converted into cash in &lt; 1 year</li>
+<li>Fixed = Long term asset used by company to produce goods and services</li>
+</ul>
+</li>
+<li>Depreciation</li>
+<li>Debtors</li>
+</ul>
+</li>
+<li><strong>Liabilities</strong>
+<ul>
+<li>What a company owes</li>
+<li>Creditors</li>
+</ul>
+</li>
+<li><strong>Net Worth</strong>
+<ul>
+<li>Assets minus liabilities</li>
+<li>Negative values denoted with parentheses</li>
+</ul>
+</li>
+</ul>
+<p><strong>Profit and Loss Account</strong></p>
+<ul>
+<li><em>Measures the net worth (income - expenditure) of a particular account</em></li>
+<li>Income</li>
+<li>Expenditure</li>
+</ul>
+<p><strong>Cash Flow Statement</strong></p>
+<ul>
+<li>Shows the movement of cash</li>
+<li>Includes but not limited to the following:
+<ul>
+<li>Capital expenditure</li>
+<li>Tax</li>
+<li>Disposals</li>
+<li>Interest payments</li>
+<li>Dividends to shareholders</li>
+</ul>
+</li>
+</ul>
+<p><strong>Intangible Assets</strong> - Non-physical things, like IPs</p>
+<p><strong>Double Entry Bookkeeping</strong></p>
+<ul>
+<li>Every single book-keeping entry appears twice</li>
+</ul>
+<p><strong>Account vs Budget</strong></p>
+<ul>
+<li>Account says what has happened</li>
+<li>Budget says what is expected to happen</li>
+</ul>
+<p><strong>Costs</strong></p>
+<ul>
+<li>Direct Costs - Financial costs associated with labour, raw materials</li>
+<li>Indirect Costs - Costs associated with overhead of running a business
+<ul>
+<li>Rental, Vehicles, Bills (energy, water, rates), Telecoms, Postage, Insurance, Staff training, Advertising, etc.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Labour Costs</strong></p>
+<ul>
+<li>Salaries</li>
+<li>National Insurance contributions</li>
+<li>Pension contributions</li>
+<li>Statutory Sick Pay - when employees are off ill</li>
+<li>Annual holidays</li>
+</ul>
+<p><strong>Discounted Cash Flow Analysis (DCF)</strong></p>
+<ul>
+<li>Return on investment</li>
+<li>Interest rate r% over t years
+<ul>
+<li>Discount factor is <span class="math math-inline">\frac{1}{(1+r)^t}</span></li>
+<li>How much you need to put up-front now to get a given cash value future
+<strong>Rate of return</strong> - tells you if a project is financially viable</li>
+</ul>
+</li>
+</ul>
+<p><strong>Investment Forecasting Problems</strong></p>
+<ul>
+<li>Market conditions</li>
+<li>Competitors</li>
+<li>Credit availability</li>
+<li>Interest rates</li>
+</ul>
+<p><strong>Statutory Requirements</strong></p>
+<ul>
+<li><strong>Annual returns and accounts</strong>
+<ul>
+<li>Filed with Companies House, sent to HMRC (HM Revenue and Customs)</li>
+<li>For larger companies:
+<ul>
+<li>Accounts must be audited</li>
+<li>Must contain:
+<ul>
+<li>Balance sheet</li>
+<li>Profit and loss account</li>
+<li>Directors report</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Company Register</strong>
+<ul>
+<li>List of directors, secretaries, and shareholders</li>
+<li>Held at the registered office</li>
+</ul>
+</li>
+</ul>
+<h3>Organisations</h3>
+<p><strong>Six Varieties of Legal Entities</strong></p>
+<ol>
+<li>Partnerships</li>
+<li>Individuals</li>
+<li>Government Department</li>
+<li>Schools</li>
+<li>Companies</li>
+<li>Charities</li>
+</ol>
+<p><strong>Creation of Partnerships</strong></p>
+<ul>
+<li>Partnership Act 1890</li>
+</ul>
+<p><strong>Creation of Incorporation is governed by:</strong></p>
+<ol>
+<li>Royal Charter</li>
+<li>Act of Parliament</li>
+<li>Companies Act</li>
+</ol>
+<p><strong>Legalisation for Companies</strong></p>
+<ul>
+<li>Companies Act 2006</li>
+</ul>
+<p><strong>Role of Director</strong> - Run the company, are paid (executive) or unpaid</p>
+<p><strong>Memorandum of Association (up to 30/9/2009)</strong>:</p>
+<ul>
+<li><em>A legal statement, signed by all initial shareholders, agreeing to form the company.</em></li>
+<li>Contains:
+<ul>
+<li>Name, registered office, country</li>
+<li>Specification of company activities</li>
+<li>Liability Clause</li>
+<li>Declaration of association</li>
+<li>Share capital</li>
+</ul>
+</li>
+</ul>
+<p><strong>Articles of Association (up to 30/9/2009):</strong></p>
+<ul>
+<li><em>Written rules about running the company, agreed by shareholders, directors, and company secretary.</em></li>
+<li>“Table A” of Companies Act 1948 - Name for a format of Articles of Association</li>
+<li><strong>Contains:</strong>
+<ul>
+<li>Board meetings</li>
+<li>Rules on how business should be conducted</li>
+<li>Memberships of the board of directors</li>
+<li>Sales of shares</li>
+<li>Director’s terms of office</li>
+<li>Director’s Powers</li>
+<li>Dividends</li>
+</ul>
+</li>
+</ul>
+<p><strong>Update on 1 October 2009:</strong></p>
+<ul>
+<li>Companies (Model Articles) Regulations 2008 replaces “Table A”</li>
+<li>Memorandum
+<ul>
+<li>“Subscriber signatures”</li>
+<li>No longer part of constitution</li>
+<li>Subsumed into Articles</li>
+</ul>
+</li>
+</ul>
+<p><strong>Structuring Principles</strong></p>
+<ul>
+<li>Function - Simple!</li>
+<li>Location (multinationals, banks) - Local knowledge, laws important</li>
+<li>By product (consumables) - Require clear product differentiation</li>
+<li>By market sector (service products) - Require sector differentiation</li>
+<li>By technology (software companies) - Dangerous now!</li>
+</ul>
+<p><strong>Structure (By Function)</strong></p>
+<ul>
+<li>Departments
+<ul>
+<li>Production</li>
+<li>Finance</li>
+<li>Marketing</li>
+<li>Quality</li>
+<li>R&amp;D</li>
+<li>Legal</li>
+<li>HR</li>
+</ul>
+</li>
+</ul>
+<p><strong>Operational Structure</strong></p>
+<ul>
+<li>By project
+<ul>
+<li>Specific deadline, objectives</li>
+<li>Staff change per project</li>
+</ul>
+</li>
+<li>By production
+<ul>
+<li>Managed by single team</li>
+<li>Single activities</li>
+<li>e.g. IT Services</li>
+</ul>
+</li>
+<li>Depth of structure
+<ul>
+<li>Management issues</li>
+</ul>
+</li>
+<li>Centralisation
+<ul>
+<li>Company-wide policies</li>
+<li>Relates to other structural issues</li>
+</ul>
+</li>
+</ul>
+<h3>Contracts, HR, and Health and Safety</h3>
+<p><strong>Contract</strong>:</p>
+<ul>
+<li><em>Legal agreement, based on common law, between two parties.</em></li>
+<li><strong>Requirements:</strong>
+<ul>
+<li>Competent</li>
+<li>Intend to make the contract</li>
+<li>Receive / provide a “<strong>contract consideration</strong>”
+<ul>
+<li><em>Something of value to two parties</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Licence:</strong></p>
+<ul>
+<li><em>Legal permission to use it (not a contract!)</em></li>
+<li>Difference between licence and contract:
+<ul>
+<li>Contracts involve money</li>
+</ul>
+</li>
+</ul>
+<p><strong>Unfair Contract Terms Act 1977</strong> - Applied to contracts with defective software</p>
+<p><strong>Human Resources:</strong></p>
+<ul>
+<li><strong>Deals with:</strong>
+<ul>
+<li>Appraisals</li>
+<li>Recruitment</li>
+<li>Redundancies, dismissal, grievances</li>
+<li>Remuneration</li>
+<li>Staff support and development</li>
+</ul>
+</li>
+<li><strong>Legislation</strong>
+<ul>
+<li>Human Rights Act 1998</li>
+<li>Equality Acts 2006, 2010</li>
+</ul>
+</li>
+</ul>
+<p><strong>Workplace Health and Safety:</strong></p>
+<ul>
+<li>Factories Act 1961 - <em>first major legislation to do with health and safety</em></li>
+<li>Replaced by <strong>Health and Safety at Work Act 1974</strong> (Robens Report)</li>
+<li><strong>Differences:</strong>
+<ul>
+<li>1974 legislation talks about general duties, rather than specific requirements.</li>
+</ul>
+</li>
+</ul>
+<p><strong>HSE - Health and Safety Executive</strong></p>
+<ul>
+<li>UK government body responsible for enforcing health and safety at work legislation</li>
+<li>They can investigate and enforce</li>
+</ul>
+<p><strong>RIDDOR</strong> - Legislation that specifies which work accidents are reportable</p>
+<ul>
+<li>Stands for “<strong>The Reporting of Injuries, Diseases and Dangerous Occurrences Regulations 1995</strong>”</li>
+<li><strong>Reportable accidents:</strong>
+<ul>
+<li>Death and major injuries</li>
+<li>Near misses</li>
+<li>Work-related diseases</li>
+<li>“Off work for 3 days” injuries</li>
+</ul>
+</li>
+</ul>
+<p><strong>Employers’ Duties:</strong></p>
+<ul>
+<li>Provision and maintenance of safe plant</li>
+<li>Safe systems of work</li>
+<li>Safe use of Articles and substances</li>
+<li>Safe condition of workplace</li>
+<li>Provision is information, instruction, training, supervision</li>
+<li>When have more than 5 employees:
+<ul>
+<li>Have consultation with safety reps, and create a safety committee</li>
+</ul>
+</li>
+<li>Employer should go “<strong>so far as is REASONABLY PRACTICABLE</strong>” when ensuring health and safety</li>
+</ul>
+
+        </main>
+    </body>
+
+</html>
