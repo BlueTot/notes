@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>/home/nokhanglo/Files/GitHub/ObsidianVault/CS133/Bott and Taylor Notes.md</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false
+                    })
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+
+            });
+
+            
+        </script>
+
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+              body {
+                  background-color: var(--bg);
+                  color: var(--fg);
+                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+                  line-height: 1.8;
+                  padding: 2rem;
+                  max-width: 850px;
+                  margin: auto;
+              }
+
+              h1 {
+                  color: var(--red);
+                  font-size: 2.5rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 700;
+              }
+
+              h2 {
+                  color: var(--orange);
+                  font-size: 2rem;
+                  margin-top: 2rem;
+                  margin-bottom: 1rem;
+                  font-weight: 600;
+              }
+
+              h3 {
+                  color: var(--yellow);
+                  font-size: 1.75rem;
+                  margin-top: 1.5rem;
+                  margin-bottom: 0.75rem;
+                  font-weight: 600;
+              }
+
+              h4 {
+                  color: var(--green);
+                  font-size: 1.5rem;
+                  margin-top: 1.25rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h5 {
+                  color: var(--blue);
+                  font-size: 1.25rem;
+                  margin-top: 1rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              h6 {
+                  color: var(--purple);
+                  font-size: 1.1rem;
+                  margin-top: 0.75rem;
+                  margin-bottom: 0.5rem;
+                  font-weight: 600;
+              }
+
+              a {
+                  color: var(--accent);
+                  text-decoration: underline;
+              }
+
+              code, pre {
+                  font-family: 'Fira Code', monospace;
+                  background-color: var(--surface);
+                  color: var(--fg);
+                  padding: 0.3rem 0.5rem;
+                  border-radius: 6px;
+                  overflow-x: auto;
+              }
+
+              blockquote {
+                  border-left: 4px solid var(--gray);
+                  padding-left: 1rem;
+                  color: var(--gray);
+                  font-style: italic;
+                  background-color: #2b2d51;
+                  margin: 1rem 0;
+              }
+
+              img {
+                  max-width: 100%;
+                  border-radius: 6px;
+                  margin: 1rem 0;
+              }
+
+              figcaption {
+                  font-size: 0.9em;
+                  color: var(--gray);
+                  text-align: center;
+                  margin-top: 0.25rem;
+              }
+
+              .footnote-definition > p {
+                  display: inline;
+              }
+
+              .footnote-definition-label {
+                  font-weight: bold;
+              }
+
+              table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1rem 0;
+              }
+
+              th, td {
+                  border: 1px solid var(--gray);
+                  padding: 0.5rem;
+                  text-align: left;
+              }
+
+              th {
+                  background-color: var(--surface);
+                  color: var(--fg);
+              }
+
+        </style>
+
+    </head>
+
+    <body>
+        <main id="content">
+            <h3>1. Law and Government</h3>
+<p><strong>Jurisdiction</strong> - Area covered by a single legal system and a set of laws
+<strong>United Kingdom</strong> - England, Scotland, Wales, Northern Ireland</p>
+<ul>
+<li>Excluding Channel Islands, Isle of Man
+<strong>Legal Person</strong> - Organisation that has been incorporated to give it the same legal status as a natural person</li>
+</ul>
+<p><strong>Criminal Law</strong></p>
+<ul>
+<li><strong>Criminal Litigation</strong> - Court action under the criminal law</li>
+<li><strong>Crown Prosecution Service</strong> - organisation that prosecutes a person for a criminal offence</li>
+<li><strong>Defendant</strong> - Person being prosecuted</li>
+<li><strong>Beyond Reasonable Doubt</strong> - test used to prosecute person on criminal law</li>
+</ul>
+<p><strong>Civil Law</strong></p>
+<ul>
+<li><strong>Civil Litigation</strong> - Court action under the civil law</li>
+<li><strong>Parties to the Dispute</strong> - parties in a civil court action</li>
+<li><strong>Claimant</strong>  - those that initiates the civil litigation</li>
+<li><strong>Balance of Probabilities</strong> - test used to prosecute person on civil law</li>
+</ul>
+<p><strong>Common Law</strong> - decision of judges in the past over the centuries
+<strong>Precedents</strong> - Similar cases decided in the past
+<strong>Statute Law</strong> - Law signed by Act of Parliament (i.e. Legislation)</p>
+<p><strong>Chambers of Parliament</strong></p>
+<ul>
+<li><strong>House of Commons</strong> - elected, lower house</li>
+<li><strong>House of Lords</strong> - appointed, upper house</li>
+</ul>
+<p><strong>Process of approving a bill</strong></p>
+<ul>
+<li>First reading</li>
+<li>Second reading</li>
+<li>Committee stage</li>
+<li>Report stage</li>
+<li>Third reading</li>
+<li>Royal Assent</li>
+</ul>
+<p><strong>House of Lords</strong> - can delay but not block bills (1911 Parliament Act)</p>
+<p><strong>European Union consists of</strong></p>
+<ul>
+<li>European Parliament</li>
+<li>Council of Ministers</li>
+<li>European Commission</li>
+</ul>
+<p><strong>EU Regulations</strong> - Directly applicable as all in all EU member states
+<strong>EU Directives</strong> - Require each member state to modify their own legislation, if necessary, to meet a common standard</p>
+<p><strong>USA Legislature - Congress</strong></p>
+<ul>
+<li>Senate</li>
+<li>House of Representatives</li>
+</ul>
+<p><strong>Functions of Government in USA</strong></p>
+<ul>
+<li>Legislature</li>
+<li>Judiciary</li>
+<li>Executive</li>
+</ul>
+<h3>2. The Computing Profession</h3>
+<p><strong>Profession -</strong></p>
+<ul>
+<li>Substantial accredited education and training are required to practise</li>
+<li>Entry to profession is controlled</li>
+<li>Organised into one or more professional bodies</li>
+<li>Self-governing - conduct professional activities in accordance with codes of conduct laid down by professional bodies</li>
+</ul>
+<p><strong>E.g.</strong> Layers, doctors, dentists, accountants, veterinary surgeons, architects etc.</p>
+<p>Professional Groups</p>
+<ul>
+<li>British Computer Society (BCS) - UK - founded 1957</li>
+<li>Institution of Engineering and Technology (IET) - UK - founded 2006</li>
+<li>Institute of Electrical and Electronics Engineers (IEEE) - USA - founded 1946</li>
+<li>Association for Computing Machinery (ACM) - USA - founded 1947</li>
+</ul>
+<p><strong>Royal Charter</strong> - formal document, signed by monarch, which establishes organisation and lays down its purpose and rules of operation</p>
+<ul>
+<li>BCS (1984), IET (2008) both have Royal Charters</li>
+</ul>
+<p><strong>BCS Code of Conduct</strong></p>
+<ul>
+<li>Public Interest
+<ul>
+<li>Comply with aspects of law/regulations that govern acting in the public interest</li>
+</ul>
+</li>
+<li>Professional Competence and Integrity
+<ul>
+<li>Keep professional skills up to date, be familiar with relevant legislation</li>
+</ul>
+</li>
+<li>Duty to Relevant Authority
+<ul>
+<li>Behave professionally towards relevant authorities</li>
+</ul>
+</li>
+<li>Duty to the Profession
+<ul>
+<li>Uphold reputation and good standing of BCS</li>
+</ul>
+</li>
+</ul>
+<p><strong>BCS offers examinations to students in higher education</strong></p>
+<ul>
+<li>Certificate stage</li>
+<li>Diploma stage</li>
+<li>Professional Graduate Diploma stage</li>
+</ul>
+<p><strong>Accreditation</strong> - Process in which professional body recognises specific academic programmes made by specific institution of higher education.</p>
+<p><strong>The BCS offers CITP</strong> - Chartered Information Technology Practitioner</p>
+<p><strong>Continuing Professional Development - CPD</strong></p>
+<ul>
+<li>Method to keeping professionals’ knowledge up to date after qualifying</li>
+</ul>
+<p><strong>ITNOW</strong> - quarterly publication by BCS that keeps members aware of new developments and current topics of interest to the profession</p>
+<p><strong>BCS Membership Categories</strong></p>
+<ul>
+<li>Standard Grade</li>
+<li>Professional Grade</li>
+<li>CITP Status</li>
+</ul>
+<p><strong>BCS also awards:</strong></p>
+<ul>
+<li>Chartered Engineer (CEng)</li>
+<li>Incorporated Engineer (IEng)</li>
+<li>Engineering Technician (EngTech)</li>
+</ul>
+<p><strong>Methods of controlling entry to profession</strong></p>
+<ul>
+<li>Reservation of Title
+<ul>
+<li>e.g. Architects, by Architects Act 1997, registration with Architects Registration Board</li>
+</ul>
+</li>
+<li>Reservation of Function
+<ul>
+<li>e.g. Accountants (Institute of Chartered Accountants, Association of Chartered Certified Accountants)</li>
+</ul>
+</li>
+<li>Both
+<ul>
+<li>e.g. Veterinary surgery (by Veterinary Surgeons Act 1966), registered with Royal College of Veterinary Surgeons</li>
+</ul>
+</li>
+</ul>
+<p><strong>Audit</strong> - Official Inspection of an organisation’s accounts by an independent body</p>
+<h3>3. What is an Organisation?</h3>
+<p><strong>Sole Trader</strong> - individual who runs their own business
+<strong>HMRC</strong> - His Majesty’s Revenue and Customs (HMRC)
+<strong>VAT</strong> - Value added tax</p>
+<p><strong>Partnership</strong> - Relationship between persons carrying on a business with a view of profit</p>
+<ul>
+<li>Established in Partnership act 1890</li>
+<li>Liabilities of partners is unlimited, and partners are jointly and severally responsible for the partnership’s liabilities.</li>
+</ul>
+<p><strong>Most common commercial organisation</strong> - company limited by shares</p>
+<p><strong>Three principles of company limited by shares</strong></p>
+<ul>
+<li>Company has a corporate legal identity</li>
+<li>Ownership is divided into a number of shares.
+<ul>
+<li>Dividend = Profit distributed to shareholders</li>
+</ul>
+</li>
+<li>In the event the company incurs debts or other legal liabilities, the owners of the company have no obligation to pay these.</li>
+</ul>
+<p><strong>Public Limited Company</strong> - can offer shares for sale to the public (ends in plc)
+<strong>Private Limited Company</strong> - cannot (ends in ltd)</p>
+<p><strong>Companies House</strong></p>
+<ul>
+<li>government agency that handles the formation and dissolution of UK companies</li>
+<li>receives and stores information about companies that is required by law</li>
+<li>makes such information available to the general public</li>
+</ul>
+<p><strong>Companies must produce an annual account and annual report, submitted to Companies House</strong></p>
+<p><strong>Methods of creating a limited company</strong></p>
+<ul>
+<li>Act of Parliament</li>
+<li>Royal Charter</li>
+<li>Companies Act 2006</li>
+</ul>
+<p><strong>Memorandum of Association</strong></p>
+<ul>
+<li>States their wish to form a company under the Companies Act 2006, and the agreement of each of them to take at least one share</li>
+<li>(until 2009, the document was longer and more complicated)</li>
+<li>Must be filed with Companies House</li>
+</ul>
+<p><strong>Articles of Association</strong></p>
+<ul>
+<li>Number of directors</li>
+<li>How directors are appointed and removed</li>
+<li>Directors’ powers</li>
+<li>What process is required to modify the articles</li>
+<li>Authorised capital of the company (max shares, what price)</li>
+<li>Process in which authorised capital can be changed</li>
+<li><strong>Issued Share Capital</strong> = part of authorised capital issued to shareholders</li>
+<li><strong>Must be filed with Companies House, deposited at companies house.</strong></li>
+</ul>
+<p><strong>Table A</strong> - Specimen set of articles of association, introduced from Companies Act 1948</p>
+<ul>
+<li>Replaced by <strong>model articles</strong> in Companies Act 2006</li>
+</ul>
+<p><strong>Shareholders’ Agreement</strong> - private article by shareholders about how shares are transferred, e.g. how to dispose of shares</p>
+<p><strong>Directors</strong> - private LC should have at least 1, Public LC should have at least 2</p>
+<p><strong>Overall duty of director is to promote success for  the company for the benefit of its members as a whole, having regard to the following:</strong></p>
+<ul>
+<li>Likely long-term consequences of any decision</li>
+<li>Interest of company’s employees</li>
+<li>Need to foster company’s business relationships</li>
+<li>Impact of company’s operations on community and environment</li>
+<li>Desirability of company maintaining a reputation of high standards of business conduct</li>
+<li>Need to act fairly as between members of company</li>
+<li>etc.</li>
+</ul>
+<p>Obligations listed above = <strong>domestic obligations</strong></p>
+<p><strong>Off-shoring</strong> = moving activity to other countries
+<strong>Outsourcing</strong> = contracting out activities or processes from one business to another
+<strong>Takeover</strong> = one company gains control of another by acquiring a majority, if not all of its shares
+<strong>Merger</strong> = takeover where both companies come on equal terms, and the merging companies themselves cease to exist</p>
+<h3>4. Structure and Management of Organisations</h3>
+<p><strong>Organisational Theory</strong> - founded by Max Weber, Mary Parker Follett, Henri Fayol, Lyndall Urwick.</p>
+<p><strong>Core business</strong> - primary purpose of an organisation</p>
+<p><strong>Structuring Principles:</strong></p>
+<ul>
+<li>Structure by Function</li>
+<li>Structure by Product</li>
+<li>Structure by Market</li>
+<li>Structure by Technology</li>
+<li>Structure by Location</li>
+</ul>
+<h3>5. Financing a Start-up Company</h3>
+<ul>
+<li>Salaries</li>
+<li>Rent, rates, heating, lighting of premises used</li>
+<li>Equipment and consumables</li>
+<li>Costs of advertising and marketing the products</li>
+<li>Miscellaneous expenses, ranging from company stationery to travelling expenses for any trips that may be necessary</li>
+</ul>
+<p><strong>Overdraft</strong> - most flexible form of loan, offered by banks to spend more money than is in the account, up to a specified maximum. interest is only payable on amount actually owed and rate is normally low.</p>
+<p><strong>Long Term Loan</strong> - Made for a fixed period of fixed rate of interest.</p>
+<p><strong>Corporate Bonds</strong> - Loans to the company through stock exchange</p>
+<p><strong>Sources of Finance</strong></p>
+<ul>
+<li>Grants</li>
+<li>Loans</li>
+<li>Equity</li>
+</ul>
+<p><strong>Business angels</strong> - wealthy individuals wo provide equity capital for start-up companies and small firms that are seeking to grow rapidly</p>
+<p><strong>Venture capitalists</strong> - companies whose business is investing in small companies with high growth potential</p>
+<p><strong>Crowdfunding</strong> - practice of funding a project or venture by raising money from a large number of people</p>
+<p><strong>Gearing</strong> - Ratio between loan capital and equity capital</p>
+<p><strong>Equity capital</strong> - money paid to a company in exchange for a share in its ownership.</p>
+<h3>6. Financial Accounting</h3>
+<ul>
+<li>
+<p>The company produces an annual report which must be filed at Companies House</p>
+</li>
+<li>
+<p><strong>Audit</strong> - Process of formally checking and verifying by registered auditors a document</p>
+</li>
+<li>
+<p>Balance Sheet</p>
+<ul>
+<li>Assets</li>
+<li>Liabilities</li>
+<li>Net worth</li>
+</ul>
+</li>
+<li>
+<p>Profit and Loss Account</p>
+<ul>
+<li>Income</li>
+<li>Expenditure</li>
+<li>Depreciation</li>
+</ul>
+</li>
+<li>
+<p>Negative numbers denoted in parentheses</p>
+</li>
+<li>
+<p>Working Capital = Current Assets - Current Liabilities (net current assets)</p>
+<ul>
+<li>Amount of money invested in the day-to-day operations of the company</li>
+</ul>
+</li>
+<li>
+<p><strong>Current assets</strong> are items which are bought and sold in the course of its day-to-day trading activities</p>
+</li>
+<li>
+<p><strong>Fixed assets</strong> are assets that contribute to the company’s productive capacity and are held primarily for the purpose of creating wealth</p>
+</li>
+<li>
+<p><strong>Tangible assets</strong> - assets which have some physical existence</p>
+</li>
+<li>
+<p><strong>Intangible assets</strong> - no physical existence, e.g. copyright, or ownership of brand names</p>
+</li>
+<li>
+<p><strong>Cash flow statement</strong> - shows the movement of cash for one year</p>
+<ul>
+<li>Cash Inflow</li>
+<li>Cash Outflow</li>
+<li>Taxation</li>
+<li>Interest payable</li>
+<li>dividends paid</li>
+<li>Capital investment in equipment or premises</li>
+<li>disposal of a subsidiary company</li>
+</ul>
+</li>
+</ul>
+<h3>7. Management Accounting</h3>
+<ul>
+<li>
+<p>Budget - financial plan showing expected income and expenditure of an organisation over one year</p>
+</li>
+<li>
+<p>Fixed costs vs variable costs</p>
+</li>
+<li>
+<p>Broken down budget to show monthly income and expenditure is a <strong>profiled budget</strong></p>
+</li>
+<li>
+<p><strong>Employers’ National Insurance Contribution</strong> = tax the employer pays for every employee</p>
+</li>
+<li>
+<p>Direct cost / payroll cost = salary + employers’ social security contributions + other costs associated with employee</p>
+</li>
+</ul>
+<h3>8. Investment Appraisal</h3>
+<ul>
+<li>Discounted Cash Flow (DCF)</li>
+<li>Discount factor</li>
+</ul>
+<h3>9. Human Resources Issues</h3>
+<p><strong>Responsibilities of HR Department</strong></p>
+<ul>
+<li>Ensuring recruitment, selection, promotion procedures comply with anti-discrimination legislation</li>
+<li>Overseeing staff training and development</li>
+<li>Setting up and monitoring remuneration policy</li>
+<li>Setting up and monitoring appraisal procedure</li>
+<li>Administering dismissal and redundancy procedures</li>
+<li>Handling contracts of employment</li>
+<li>Engaging in workforce planning</li>
+<li>Designing and administering grievance procedures</li>
+<li>Begin aware of new legislation affecting employment rights and advising management of what the organisation must do to comply with it</li>
+<li>Overseeing health and safety</li>
+<li>Administering consultive committees</li>
+</ul>
+<p><strong>Recruitment</strong> - soliciting applications</p>
+<ul>
+<li>Recruitment is often outsourced
+<strong>Selection</strong> - selecting applicants to whom offers will be made</li>
+<li>One-to-one interviews</li>
+<li>Interview by a panel</li>
+<li>Assessment of references</li>
+<li>Psychometric tests (ability tests, aptitude tests, personality tests)</li>
+<li>Situational assessment</li>
+<li>Task assessment</li>
+<li>Relationships and acquaintances</li>
+</ul>
+<p>Pay as you earn (PAYE) employee with tax and National Insurance contributions</p>
+<ul>
+<li>IR35 - tax laws concerning off-payroll working</li>
+</ul>
+<p><strong>Redundancy</strong> - elimination of positions due to business factors</p>
+<ul>
+<li><strong>Last in, first out principle</strong>
+<strong>Dismissal</strong> - termination of individual employee’s contract due to misconduct or performance issues</li>
+</ul>
+<p>Dismissals are automatically considered to be unfair unless the statutory dismissal procedure has been followed</p>
+<p>Public Interest Disclosure Act 1998 - protect employees who raise concerns about criminal behaviour, certain types of civil offence, miscarriages of justice, activities that endanger health and safety or the environment, and attempts to cover up such malpractice.</p>
+<h3>10. Equality, Diversity and Inclusion</h3>
+<ul>
+<li>
+<p>Equality Act 2010</p>
+</li>
+<li>
+<p>Prohibits discrimination on any of the following grounds, known as protected characteristics:</p>
+<ul>
+<li>age</li>
+<li>disability</li>
+<li>gender reassignment</li>
+<li>marriage and civil partnership</li>
+<li>pregnancy and maternity</li>
+<li>race, colour, ethnic origin or nationality</li>
+<li>religion or belief</li>
+<li>sex</li>
+<li>sexual orientation</li>
+</ul>
+</li>
+<li>
+<p><strong>Direct discrimination</strong></p>
+<ul>
+<li>When one person is treated less favourably than another specifically because of one of the protected characteristics</li>
+</ul>
+</li>
+<li>
+<p><strong>Indirect discrimination</strong></p>
+<ul>
+<li>When general conditions are imposed that have a disproportionate effect on one group</li>
+</ul>
+</li>
+</ul>
+<h3>11. Intellectual Property Rights</h3>
+<ul>
+<li>
+<p>Tangible vs intangible property</p>
+</li>
+<li>
+<p>Intangible property = Intellectual property, concerned with intellectual property rights</p>
+</li>
+<li>
+<p>copyright = concerned with the right to copy something. it may be a written document, a picture or photograph, a piece of music, a recording, including a computer program</p>
+</li>
+<li>
+<p>Patent = a licence to exploit an invention for a certain period</p>
+</li>
+<li>
+<p>Confidential information = information a person receives in circumstances that make it clear they must not pass it on</p>
+<ul>
+<li>Right of confidentiality is not an intellectual property right but is often treated in a similar way</li>
+</ul>
+</li>
+<li>
+<p>Trademarks = name used to identify a product of a particular manufacturer or supplier</p>
+</li>
+</ul>
+<p><strong>Rights of copyright owner:</strong></p>
+<ul>
+<li>right to make copies of the work</li>
+<li>right to issue copies of the work to the public</li>
+<li>right to adapt the work</li>
+<li>no one can do these things without the copyright owner’s permission.</li>
+</ul>
+<p>these rights last for 70 years after death of author (not the owner)</p>
+<p>in relation to software:</p>
+<ul>
+<li>backing up is allowed, but only once. on a filing system it is common that multiple backups exist, which makes it illegal for most backing up purposes</li>
+<li>Decompiling is allowed in most cases to:
+<ul>
+<li>correct errors</li>
+<li>obtain info to write a program that will interoperate with it, provided this information is not available in any other way</li>
+</ul>
+</li>
+<li>you can sell a right to use a program, but you must not retain a copy of the program</li>
+</ul>
+<p>databases</p>
+<ul>
+<li>copyright subsists if “its contents constitute the author’s own intellectual creation”</li>
+<li>database copy right exists for 15 years.</li>
+</ul>
+<p>primary infringement</p>
+<ul>
+<li>exclusive rights of copyright owner are breached</li>
+</ul>
+<p>secondary infringement</p>
+<ul>
+<li>when primary infringement occurs in a business or commercial context, e.g. trading or using pirated software within a business (obtaining a copied copy)</li>
+</ul>
+<p>copyright, designs and patents act 1988</p>
+<ul>
+<li>makes anyone who publishes, imports or sells anti-copying devices makes it as they were infringing the copyright in a protected work
+amendments were the copyright (computer programs) regulations 1992, copyright and rights in databases regulations 1997, copyright and related rights regulations 2003.</li>
+</ul>
+<p>berne convention copyright - life + 50 years</p>
+<p>Patent</p>
+<ul>
+<li>temporary right granted by government, enabling inventors to prevent other people from exploiting their invention without permission</li>
+<li>must be applied</li>
+<li>protection is stronger than copyright</li>
+</ul>
+<p>what can be patented? (under Patents act 1977)</p>
+<ul>
+<li>is new</li>
+<li>involves an inventive step</li>
+<li>is capable of industrial application</li>
+<li>is not in an area specifically excluded</li>
+</ul>
+<p>patent application is filed at the intellectual property office (IPO)
+patents exclude:</p>
+<ul>
+<li>scientific theories</li>
+<li>mathematical methods</li>
+<li>literary, dramatic, musical or artistic work or any other aesthetic creation</li>
+<li>presentation of information</li>
+<li>scheme, rule or method (e.g. business logic or computer program)</li>
+</ul>
+<p>world intellectual property organisation (WIPO)</p>
+<p>USA software patenting</p>
+<ul>
+<li>is part of a product that is itself eligible to be patented</li>
+<li>it controls a process that has some physical effect</li>
+<li>processes data that arises from the physical world</li>
+</ul>
+<p>1998 public interest disclosure act
+qualifying disclosure:</p>
+<ul>
+<li>criminal offence</li>
+<li>failure to comply with a legal obligation</li>
+<li>a miscarriage of justice</li>
+<li>danger to health and safety</li>
+<li>environmental damage</li>
+<li>information showing that any of these has been concealed</li>
+</ul>
+<p>trade marks act 1994</p>
+<ul>
+<li>trademark = any sign capable of representing graphically which is capable of distinguishing goods or services of one undertaking from those of other undertakings</li>
+<li>trademarks are registered at UKIPO</li>
+</ul>
+<p>domain names - ICANN - internet corporation for assigned names and numbers</p>
+<h3>12. Contracts and Licences</h3>
+<p>contract - agreement between two or more persons (parties of contract) that can be enforced in a court of law</p>
+<ul>
+<li>all parties must intend to make a contract</li>
+<li>all parties must be competent to make a contract</li>
+<li>there must be a consideration (each party must be receiving something and providing something)</li>
+<li>there must be the intention to create a legal relationship</li>
+</ul>
+<p>site licence = licence that allow licencees to run as many copies of the software as they wish on computers at specified premises</p>
+<p>licences for retail software are usually granted in perpetuity
+licence agreement = agreement that covers software purchases + right to use it in certain ways</p>
+<p>outsourcing = commercial agreement in which a company or organisation hands over the planning, management and operation of certain functions to another organisation</p>
+<p>contract hire = arrangement in which supplier agrees to supply customer with services of a certain number of staff at agreed daily or hourly charge rates</p>
+<p>consultancy = up-market version of contract hire</p>
+<p>four aspects of consultancy contract</p>
+<ul>
+<li>confidentiality</li>
+<li>terms of reference</li>
+<li>liability</li>
+<li>control</li>
+</ul>
+<p>libaility for defective software - unfair contract terms act 1977</p>
+<ul>
+<li>makes it not possible to limit the damages payable if a defect in the product causes death or personal injury</li>
+</ul>
+<h3>13. Data Protection, Privacy and Freedom of Information</h3>
+<p><strong>General Data Protection Regulation (GDPR)</strong></p>
+<ul>
+<li>Law made in EU, but has implications for companies worldwide that have role in processing data about EU citizens and residents</li>
+<li>UK adopts the UK GDPR, which is an extension of the Data Protection Act 2018</li>
+<li>Council of Europe Convention for Protection of Individuals with regard to Automatic Processing of Personal Data
+<ul>
+<li>DPA 1984 used to implement the provisions of the convention</li>
+</ul>
+</li>
+<li>European Data Protection Directive 1995
+<ul>
+<li>UK’s implementation is the DPA 1998</li>
+</ul>
+</li>
+</ul>
+<p><strong>Regulation of Investigatory Powers Act 2000</strong></p>
+<ul>
+<li>Amendments contained in Investigatory Powers Act 2016</li>
+</ul>
+<p>DPA covers personal data about identified or identifiable living natural persons</p>
+<p>Data controller - person who determines why and how personal data is processed
+Data processor - person who processes personal data on behalf of the data controller, who is not an employee of the data controller
+Data subject - natural person who is the subject of the personal data</p>
+<p>Processing of data that reveals a person’s protected characteristics is prohibited by default</p>
+<ul>
+<li>referred as sensitive personal data</li>
+</ul>
+<p><strong>UK GDPR seven principles</strong></p>
+<ul>
+<li>Lawfulness - personal data is processed lawfully, fairly and in a transparent manner</li>
+<li>Purpose - collected for specified, explicit and legitimate purposes and not further processed in a manner that is incompatible with these purposes</li>
+<li>Data Minimisation - adequate relevant and limited to what is necessary in relation to the purposes for which they are processed</li>
+<li>Accuracy - personal data shall be accurate, and where necessary, kept up to date</li>
+<li>Storage - personal data shall be kept in a form which permits identification of data subjects for no longer than is necessary for the purposes for which the personal data are processed</li>
+<li>Security - Personal data shall be processed in a manner that ensures appropriate security of personal data</li>
+<li>Accountability - The controller shall be responsible for and be able to demonstrate compliance with the principles</li>
+<li>(NOT IN UK GDPR) - access - personal data shall be processed in accordance with rights of data subjects</li>
+<li>(NOT IN UK GDPR) - overseas transfer - limit transfer to other countries unless there is a guarantee of adequate levels of data protection</li>
+</ul>
+<p>Data controllers must identify a valid lawful basis for processing personal data
+The six lawful bases are:</p>
+<ul>
+<li>Consent</li>
+<li>Contract</li>
+<li>Legal obligation</li>
+<li>Legitimate interests</li>
+<li>Public task</li>
+<li>Vital interests</li>
+</ul>
+<p>Rights of data subjects</p>
+<ul>
+<li>right to be informed</li>
+<li>right of access</li>
+<li>right to rectification</li>
+<li>right to erasure</li>
+<li>right to restrict processing</li>
+<li>right to data portability</li>
+<li>right to object</li>
+<li>right regarding automated decision making and profiling</li>
+</ul>
+<p>personal data breaches</p>
+<ul>
+<li>breaches must be reported to relevant supervisory authority within 72 hours of discovering the breach</li>
+</ul>
+<p>ICO - Information commissioner office - supervisory authority for data protection and information rights</p>
+<p>Investigatory Powers Regulations 2016 &amp; 2018
+Organisations can monitor and where appropriate record communications without consent of users provided this is done for one of the following purposes:</p>
+<ul>
+<li>establish facts</li>
+<li>ensure organisation’s regulations and procedures are being complied with</li>
+<li>to demonstrate standards that are ought to be achieved</li>
+<li>to prevent or detect crime</li>
+<li>to investigate unauthorised use of telecoms systems</li>
+<li>to ensure effective operation of the system</li>
+<li>to find out whether communication is a business communication or a private one</li>
+<li>to monitor communications to confidential counselling services</li>
+</ul>
+<p>freedom of information 2000 act</p>
+<h3>15. Computer Misuse</h3>
+<ul>
+<li>Computer Misuse Act 1990
+<ul>
+<li>unauthorised access to computer</li>
+<li>unauthorised access with intention to commit a serious crim</li>
+<li>unauthorised modification of contents of computer</li>
+</ul>
+</li>
+</ul>
+
+        </main>
+    </body>
+
+</html>

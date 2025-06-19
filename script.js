@@ -17,8 +17,10 @@ async function loadNote() {
             if (dirstruct[noteName].isFile) {
                 loadFrame(`notes/${noteName}`, titleSpan);
             } else {
-                titleSpan.textContent = `Is a directory, ${noteName}`
+                titleSpan.textContent = `Hello world`;
+                showDirlist(noteName, titleSpan, dirstruct);
             }
+            addBackHandler(noteName, dirstruct);
         } else {
             titleSpan.textContent = `File not found, ${noteName}`
         }
@@ -27,32 +29,50 @@ async function loadNote() {
     } catch (error) {
         console.error('Error:', error);
     }
+}
 
-    // fetch('directory.json')
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Could not load directory structure.');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log(data);
-    //
-    //     })
-    //     .catch(error => {
-    //         console.error('Error loading directory.json:', error);
-    //     });
-    // if (fs.existsSync(path)) {
-    //     loadFrame(path, titleSpan);
-    // } else {
-    //     console.log("uh oh");
-    //     titleSpan.textContent = `404 not found ${path}`
-    //     return;
-    // }
+function addBackHandler(pathName, dirstruct) {
+    document.getElementById('back').addEventListener("click", () => {
+        const parent = dirstruct[pathName].parent;
+        console.log(parent);
+        if (parent !== null)
+            window.location.search = `?note=${encodeURIComponent(parent)}`
+    });
+}
+
+function showDirlist(noteName, titleSpan, dirstruct) {
+
+    titleSpan.textContent = `Directory: ${noteName}`;
+    document.getElementById('toc-panel').style.display = 'none';
+    document.getElementById('note-container').style.display = 'none';
+
+    const dirContainer = document.getElementById('dirlist');
+    dirContainer.style.display = 'block';
+    dirContainer.innerHTML = '';
+
+    const children = dirstruct[noteName].children;
+    if (children.length === 0) {
+        dirContainer.textContent = 'This directory is empty.';
+    } else {
+        const ul = document.createElement('ul');
+        children.forEach(child => {
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `?note=${child}`;
+            link.textContent = child;
+            link.style.color = '#89dceb';
+            link.style.textDecoration = 'none';
+            li.appendChild(link);
+            ul.appendChild(li);
+        });
+        dirContainer.appendChild(ul);
+    }
 }
 
 function loadFrame(path, titleSpan) {
     const frame = document.getElementById('note-frame');
+    document.getElementById('note-container').style.display = 'block';
+    document.getElementById('dirlist').style.display = 'none';
     frame.src = path;
 
     frame.onload = function () {
@@ -108,12 +128,9 @@ function loadFrame(path, titleSpan) {
 
     };
 
-    document.addEventListener("DOMContentLoaded", () => {
 
-        document.getElementById("toc-toggle").addEventListener("click", () => {
-  document.getElementById("layout").classList.toggle("toc-closed");
-});
-
+    document.getElementById("toc-toggle").addEventListener("click", () => {
+        document.getElementById("layout").classList.toggle("toc-closed");
     });
 
 }
