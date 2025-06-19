@@ -1,6 +1,5 @@
-function loadNote() {
+async function loadNote() {
     const noteName = new URLSearchParams(window.location.search).get('note');
-    const frame = document.getElementById('note-frame');
     const titleSpan = document.getElementById('note-title');
 
     if (!noteName) {
@@ -8,7 +7,52 @@ function loadNote() {
         return;
     }
 
-    const path = `notes/${noteName}.html`;
+    try {
+        const response = await fetch('structure.json');
+        if (!response.ok) throw new Error('Failed to load directory');
+
+        const dirstruct = await response.json();
+
+        if (noteName in dirstruct) {
+            if (dirstruct[noteName].isFile) {
+                loadFrame(`notes/${noteName}`, titleSpan);
+            } else {
+                titleSpan.textContent = `Is a directory, ${noteName}`
+            }
+        } else {
+            titleSpan.textContent = `File not found, ${noteName}`
+        }
+
+        console.log(dirstruct);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+    // fetch('directory.json')
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Could not load directory structure.');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         console.log(data);
+    //
+    //     })
+    //     .catch(error => {
+    //         console.error('Error loading directory.json:', error);
+    //     });
+    // if (fs.existsSync(path)) {
+    //     loadFrame(path, titleSpan);
+    // } else {
+    //     console.log("uh oh");
+    //     titleSpan.textContent = `404 not found ${path}`
+    //     return;
+    // }
+}
+
+function loadFrame(path, titleSpan) {
+    const frame = document.getElementById('note-frame');
     frame.src = path;
 
     frame.onload = function () {

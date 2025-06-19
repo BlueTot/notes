@@ -1,0 +1,68 @@
+{
+  "/": {
+    "isFile": false,
+    "children": [
+      "/cs118-revision-notes.html",
+      "/cs126-revision-notes.html",
+      "/cs130-revision-notes.html",
+      "/cs131-revision-notes.html",
+      "/cs132-fast-revision-notes.html",
+      "/cs132-revision-notes.html",
+      "/cs140-revision-notes.html",
+      "/cs141-revision-notes.html",
+      "/ib104-revision-notes.html",
+      "/test"
+    ],
+    "parent": null
+  },
+  "/cs118-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs126-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs130-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs131-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs132-fast-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs132-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs140-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/cs141-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/ib104-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/"
+  },
+  "/test": {
+    "isFile": false,
+    "children": [],
+    "parent": "/"
+  }
+}
