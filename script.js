@@ -1,3 +1,10 @@
+// redirect users from root to ?note=/
+const params = new URLSearchParams(window.location.search);
+if (!params.has("note")) {
+    window.location.search = "?note=%2f"; // %2f is encoded "/"
+}
+
+
 async function loadNote() {
     const noteName = new URLSearchParams(window.location.search).get('note');
     const titleSpan = document.getElementById('note-title');
