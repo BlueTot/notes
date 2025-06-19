@@ -1,9 +1,10 @@
 // redirect users from root to ?note=/
 const params = new URLSearchParams(window.location.search);
 if (!params.has("note")) {
-    window.location.search = "?note=%2f"; // %2f is encoded "/"
+    const url = new URL(window.location.href);
+    url.search = "?note=%2F";
+    window.location.href = url.toString(); // full, safe redirect
 }
-
 
 async function loadNote() {
     const noteName = new URLSearchParams(window.location.search).get('note');
