@@ -2,7 +2,8 @@
   "/": {
     "isFile": false,
     "children": [
-      "/year1"
+      "/year1",
+      "/year2"
     ],
     "parent": null
   },
@@ -146,5 +147,37 @@
     "isFile": true,
     "children": [],
     "parent": "/year1/ib104"
+  },
+  "/year2": {
+    "isFile": false,
+    "children": [
+      "/year2/cs241",
+      "/year2/cs260"
+    ],
+    "parent": "/"
+  },
+  "/year2/cs241": {
+    "isFile": false,
+    "children": [
+      "/year2/cs241/cs241-os.html"
+    ],
+    "parent": "/year2"
+  },
+  "/year2/cs241/cs241-os.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year2/cs241"
+  },
+  "/year2/cs260": {
+    "isFile": false,
+    "children": [
+      "/year2/cs260/cs260-class-test-revision-notes.html"
+    ],
+    "parent": "/year2"
+  },
+  "/year2/cs260/cs260-class-test-revision-notes.html": {
+    "isFile": true,
+    "children": [],
+    "parent": "/year2/cs260"
   }
 }
