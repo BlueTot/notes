@@ -1,0 +1,2538 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>notes.md</title>
+
+        <!-- Simplecss stylesheet -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+
+        <!-- Default katex stylesheets & scripts -->
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+
+        <!-- Highlight.js setup - simplified and corrected -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
+
+        <!-- Embedding css and macros -->
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+
+:root {
+    --bg: #11121d;         /* darker bluish-black background */
+    --surface: #1b1d2b;    /* slightly lighter surface */
+    --fg: #dcd7ba;
+    --accent: #7e9cd8;
+    --gold: #e0af68;       /* golden for bold text */
+    --red: #e46876;
+    --orange: #ffa066;
+    --yellow: #dca561;
+    --green: #98bb6c;
+    --blue: #7fb4ca;
+    --purple: #957fb8;
+    --gray: #727169;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.8;
+    padding: 2rem;
+    max-width: 850px;
+    margin: auto;
+}
+
+h1 {
+    color: var(--red);
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+h2 {
+    color: var(--orange);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+h3 {
+    color: var(--yellow);
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+h4 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+h5 {
+    color: var(--blue);
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+h6 {
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+code, pre {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--surface);
+    color: var(--fg);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+blockquote {
+    border-left: 4px solid var(--gray);
+    padding-left: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    background-color: #2b2d51;
+    margin: 1rem 0;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
+
+figcaption {
+    font-size: 0.9em;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.25rem;
+}
+
+.footnote-definition > p {
+    display: inline;
+}
+
+.footnote-definition-label {
+    font-weight: bold;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+th, td {
+    border: 1px solid var(--gray);
+    padding: 0.5rem;
+    text-align: left;
+}
+
+th {
+    background-color: var(--surface);
+    color: var(--fg);
+}
+
+        </style>
+        <script>
+                window.katexMacros = window.katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\C": "\\mathbb{C}",
+    "\\Q":"\\mathbb{Q}",
+    "\\Z": "\\mathbb{Z}",
+    "\\N": "\\mathbb{N}",
+    "\\vv": ["\\vec{#1}", 1],
+    "\\bb": ["\\textbf{#1}", 1]
+};
+;
+        </script>
+
+        <!-- Rendering script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Adds captions to images
+                $('img').wrap('<figure>')
+                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+                // [macro, args] support for katex-macros.js
+                const macros = {};
+                for (const [name, value] of Object.entries(window.katexMacros)) {
+                    if (Array.isArray(value)) {
+                        macros[name] = value[0];
+                    } else {
+                        macros[name] = value;
+                    }
+                }
+
+                for (let element of document.getElementsByClassName("math")) {
+                    let content = element.textContent;
+
+                    katex.render(content, element, {
+                        throwOnError: false,
+                        macros
+                    });
+                }
+
+                // Initialise highlight.js for all code blocks
+                hljs.highlightAll();
+
+            });
+
+            
+        </script>
+
+    </head>
+
+    <body>
+        <main id="content">
+            <h1>CS258 Database Systems</h1>
+<h2>1. Introduction to Database Management Systems</h2>
+<h3>Introduction</h3>
+<ul>
+<li>
+<p>A <strong>DBMS</strong> (Database Management System) is software that sits between applications and the raw data on disk</p>
+</li>
+<li>
+<p>It provides functions like:</p>
+<ol>
+<li>storing data</li>
+<li>modelling data</li>
+<li>accessing data: query + update</li>
+<li>analysing data: complex queries</li>
+<li>securing data</li>
+<li>ensure/maintain data consistency</li>
+<li>optimise data accesses</li>
+</ol>
+</li>
+<li>
+<p>A DBMS is implemented in the <strong>3 Schema Architecture</strong>:</p>
+<ol>
+<li><strong>External schema</strong> - what the user / application sees</li>
+<li><strong>Conceptual schema</strong> - entity-relationship level</li>
+<li><strong>Internal schema</strong> - physical storage</li>
+</ol>
+</li>
+<li>
+<p>This provides <strong>data independence</strong>:</p>
+<ul>
+<li><strong>Physical data independence</strong> - change internal details without changing conceptual/external layers</li>
+<li><strong>Logical data independence</strong> - change conceptual schema without breaking applications</li>
+</ul>
+</li>
+</ul>
+<h3>Types of Data</h3>
+<ul>
+<li>
+<p>Data comes in three types:</p>
+<ul>
+<li><strong>Structured</strong> - tables</li>
+<li><strong>Semi-structured</strong> - XML, JSON</li>
+<li><strong>Unstructured</strong> - web pages, text documents etc.</li>
+</ul>
+</li>
+<li>
+<p>Relational databases are designed for <strong>structured data</strong></p>
+</li>
+</ul>
+<h2>2. Relational Model</h2>
+<h3>Introduction</h3>
+<ul>
+<li>
+<p><em><strong>Def.</strong></em> A <strong>relation</strong> is a <strong>table</strong> of values, having:</p>
+<ul>
+<li>A set of rows, called <strong>tuples</strong></li>
+<li>Each column has an <strong>attribute</strong></li>
+</ul>
+</li>
+<li>
+<p>The <strong>schema</strong> (or description) of a relation is:</p>
+<ul>
+<li>denoted by <span class="math math-inline">R(A_1, A_2, \cdots, A_n)</span></li>
+<li>where <span class="math math-inline">R</span> is the name</li>
+<li>and <span class="math math-inline">A_1, \cdots, A_n</span> are the attributes</li>
+</ul>
+</li>
+<li>
+<p>Each attribute has a <strong>domain</strong> <span class="math math-inline">\text{dom}(A_i)</span></p>
+</li>
+<li>
+<p>The <strong>state</strong> of a relation is the set of tuples currently in the relation</p>
+<ul>
+<li>i.e. an instance</li>
+<li>written <span class="math math-inline">r(R)</span></li>
+</ul>
+</li>
+<li>
+<p>In the formal relational model, relations follow <strong>set semantics</strong> (no duplicate tuples), but SQL follows <strong>multiset semantics</strong> (allows duplicate tuples)</p>
+</li>
+</ul>
+<h3>Keys</h3>
+<ul>
+<li>
+<p>A <strong>superkey</strong> of relation <span class="math math-inline">R</span> is a <strong>subset</strong> of attributes <span class="math math-inline">SK</span> that uniquely identify tuples in <span class="math math-inline">R</span></p>
+<ul>
+<li>i.e. if <span class="math math-inline">t_1 \ne t_2</span>, then <span class="math math-inline">t_1[SK] \ne t_2[SK]</span></li>
+</ul>
+</li>
+<li>
+<p>A <strong>candidate key</strong> is a <strong>minimal</strong> superkey, i.e. removing any attribute from  candidate key <span class="math math-inline">K</span> results in a set of attributes that aren’t a superkey</p>
+</li>
+<li>
+<p>One of the candidate keys is chosen to be the <strong>primary key</strong></p>
+</li>
+</ul>
+<h3>Integrity Constraints</h3>
+<ul>
+<li>
+<p>The relational model includes the idea that the DB must satisfy constraints</p>
+<ul>
+<li><strong>Key constriaint</strong>: key values must be unique</li>
+<li><strong>Entity integrity</strong>: primary key attributes cannot be NULL</li>
+<li><strong>Referential integrity</strong>: every foreign key value must match an existing referenced key (or be NULL, if allowed)</li>
+</ul>
+</li>
+<li>
+<p>A <strong>foreign key</strong> is a set of attributes that references a <strong>primary key</strong> in another table</p>
+</li>
+</ul>
+<h3>Functional Dependencies</h3>
+<ul>
+<li>
+<p>A <strong>functional dependency</strong> <span class="math math-inline">X \to Y</span> over schema <span class="math math-inline">R</span> means for any valid instance <span class="math math-inline">r(R)</span>, whenever two tuples agree on all attributes in <span class="math math-inline">X</span>, they must agree on all attributes in <span class="math math-inline">Y</span></p>
+</li>
+<li>
+<p>i.e. values of <span class="math math-inline">t[Y]</span> depend on <span class="math math-inline">t[X]</span></p>
+</li>
+<li>
+<p>Formally, for all <span class="math math-inline">t_1, t_2 \in r(R)</span>,</p>
+<ul>
+<li>if <span class="math math-inline">t_1[X] = t_2[X]</span> then <span class="math math-inline">t_1[Y] = t_2[Y]</span></li>
+</ul>
+</li>
+<li>
+<p>we say <span class="math math-inline">X</span> functionally determines <span class="math math-inline">Y</span></p>
+</li>
+<li>
+<p>Functional dependencies matter, because:</p>
+<ul>
+<li>they imply what attributes <em>should</em> be keys</li>
+<li>they drive normalisation decisions</li>
+</ul>
+</li>
+</ul>
+<h3>Attribute Closure</h3>
+<ul>
+<li>
+<p>Given a set of functional dependencies $$, the closure <span class="math math-inline">X^+</span> is the set of all attributes functionally determined by <span class="math math-inline">X</span></p>
+</li>
+<li>
+<p>We can use <strong>closure</strong> to find a key</p>
+<ul>
+<li><span class="math math-inline">X</span> is a superkey iff <span class="math math-inline">X^+</span> contains all attributes of <span class="math math-inline">R</span></li>
+</ul>
+</li>
+<li>
+<p>Algorithm idea:</p>
+<ol>
+<li>start with <span class="math math-inline">X^+ = X</span></li>
+<li>repeatedly apply FDs: if <span class="math math-inline">A to B</span> and <span class="math math-inline">A \subseteq X^+</span>, then add <span class="math math-inline">B</span> to <span class="math math-inline">X^+</span></li>
+<li>stop when nothing new can be added</li>
+</ol>
+</li>
+</ul>
+<h2>3. Basics of SQL</h2>
+<h3>3.1 SQL as a DDL</h3>
+<h4>Data Definition Language</h4>
+<ul>
+<li>
+<p>A <strong>data definition language</strong> is a declarative language used to define schemas,relations, constraints etc.</p>
+</li>
+<li>
+<p><strong>SQL</strong> is a data definition language, which provides these core commands:</p>
+<ul>
+<li><code>CREATE SCHEMA</code> - create a collection of relations</li>
+<li><code>CREATE TABLE</code> - define columns + types + constraints</li>
+<li><code>ALTER TABLE</code> - add/drop/modify columns/constraints</li>
+<li><code>DROP TABLE</code> - remove table definition (and data)</li>
+</ul>
+</li>
+<li>
+<p>One example is:</p>
+</li>
+</ul>
+<pre><code class="language-sql">CREATE TABLE orders (
+  order_id   BIGINT PRIMARY KEY,
+  user_id    BIGINT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  status     TEXT NOT NULL CHECK (status IN ('pending','paid','shipped')),
+  total      NUMERIC(10,2) NOT NULL CHECK (total &gt;= 0),
+
+  UNIQUE (order_id), -- redundant here (PK already unique), shown just as syntax
+
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+);
+</code></pre>
+<h4>Data Types</h4>
+<ul>
+<li>Each column <em>must</em>* have a data type</li>
+<li>Common data types are:
+<ul>
+<li><code>INT</code></li>
+<li><code>DECIMAL</code></li>
+<li><code>CHAR(n)</code> / <code>VARCHAR(n)</code></li>
+<li><code>TEXT</code></li>
+<li><code>BOOLEAN</code></li>
+<li><code>DATE</code> / <code>TIME</code> / <code>TIMESTAMP</code></li>
+</ul>
+</li>
+</ul>
+<h4>Constraints</h4>
+<ul>
+<li><code>NOT NULL</code> - declares a column to be not null</li>
+<li><code>PRIMARY KEY (...)</code> - declares a set of attributes to be a primary key</li>
+<li><code>UNIQUE</code> - declares a candidate key (can be NULL)</li>
+<li><code>CHECK</code> - check constraint</li>
+<li><code>FOREIGN KEY</code> - foreign key constraint, for example
+<pre><code class="language-sql">FOREIGN KEY (courseID) REFERENCES courses(courseID) ON UPDATE CASCADE
+</code></pre>
+</li>
+<li><code>DEFAULT</code> - specify default value, for example
+<pre><code class="language-sql">created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP`
+</code></pre>
+</li>
+</ul>
+<h3>3.2 SQL as a DML</h3>
+<h4>Data Manipulation Language</h4>
+<ul>
+<li>
+<p>A <strong>data manipulation language</strong> provides updates and queries.</p>
+</li>
+<li>
+<p>SQL is a data manipulation language, providing core features like:</p>
+<ul>
+<li><code>INSERT INTO ... VALUES</code> - insert into a table</li>
+<li><code>UPDATE ... SET ... WHERE ...</code> - update a table</li>
+<li><code>DELETE FROM ... WHERE ...</code> - delete from a table</li>
+</ul>
+</li>
+<li>
+<p>And queries in the form of SELECT statements, which have the form:</p>
+<pre><code>SELECT ...
+FROM ...
+JOIN ...
+WHERE ...
+GROUP BY ...
+HAVING ...
+ORDER BY ...
+LIMIT ...
+</code></pre>
+</li>
+</ul>
+<h4>3-Valued Logic</h4>
+<ul>
+<li>
+<p>NULL has weird semantics due to 3-Valued Logic:</p>
+<ul>
+<li><code>TRUE</code>, <code>FALSE</code>, and <code>UNKNOWN</code></li>
+</ul>
+</li>
+<li>
+<p>To check if a column is NULL, use <code>IS NULL</code> or <code>IS NOT NULL</code></p>
+<ul>
+<li>note: <code>=NULL</code> will never evaluate to true</li>
+</ul>
+</li>
+</ul>
+<h4>Name Aliasing</h4>
+<ul>
+<li>
+<p>Aliasing of attributes can be done with <code>AS</code>, for example:</p>
+<pre><code class="language-sql">SELECT s.studentID FROM students s
+</code></pre>
+</li>
+<li>
+<p>It is common to alias the table name, which is necessary for certain operations like self joins to specify which table it came from</p>
+</li>
+</ul>
+<h4>String Patterns</h4>
+<ul>
+<li><code>LIKE</code> and <code>NOT LIKE</code> can be used to compare strings to patterns
+<ul>
+<li><code>%</code> = any string</li>
+<li><code>_</code> = any character</li>
+</ul>
+</li>
+</ul>
+<h4>Joins</h4>
+<ul>
+<li>
+<p>In the relational model, data is split into multiple tables due to normalisation</p>
+<ul>
+<li>Tables must be <strong>joined</strong> to query data across tables</li>
+</ul>
+</li>
+<li>
+<p>The most basic type of join is the <strong>cross join</strong>, i.e. cartesian product</p>
+<ul>
+<li>If <span class="math math-inline">|A| = m</span> and <span class="math math-inline">|B| = n</span>, then <span class="math math-inline">|A \times B| = m \times n</span></li>
+<li>In simplest terms, is written as <code>SELECT * FROM A, B</code></li>
+<li>In modern SQL, this is written as <code>SELECT * FROM A CROSS JOIN B</code></li>
+</ul>
+</li>
+<li>
+<p>The <strong>natural join</strong> is an extension of the cross join, that joins in common attributes with identical data types and names</p>
+<ul>
+<li>written as <code>A NATURAL JOIN B</code></li>
+</ul>
+</li>
+<li>
+<p>The <strong>theta join</strong> extends the natural join by providing a <strong>join condition</strong></p>
+<ul>
+<li>writen as <code>R JOIN S ON &lt;condition&gt;</code></li>
+</ul>
+</li>
+<li>
+<p>The <code>INNER JOIN</code> is the <strong>default</strong> type of theta join</p>
+<ul>
+<li>rows from both <code>R</code> and <code>S</code> must exist to be joined</li>
+</ul>
+</li>
+<li>
+<p>There are also <strong>outer joins</strong>, which preserve rows by substituting NULL for non-existent values</p>
+<ul>
+<li><code>LEFT OUTER JOIN</code> preserves data from left table, puts NULL for right table if not exists</li>
+<li><code>RIGHT OUTER JOIN</code> preserves data from right table</li>
+<li><code>FULL OUTER JOIN</code> is the default - pads both left and right</li>
+</ul>
+</li>
+<li>
+<p>For theta joins, instead of usig <code>ON</code> to specify conditions, <code>USING</code> can be used for <strong>equi-joins</strong>:</p>
+<ul>
+<li>Instead of <code>SELECT * FROM students s INNER JOIN studentCourses c ON s.studnetID = c.studentID;</code></li>
+<li>we can do <code>SELECT * FROM studnets s INNER JOIN studentCourses c USING (studnetID);</code></li>
+</ul>
+</li>
+</ul>
+<h3>3.3 Subqueries, Set Operations, Quantifiers</h3>
+<h4>Subqueries</h4>
+<ul>
+<li>
+<p><strong>Queries</strong> itself can be used in the <code>WHERE</code> clause of another query</p>
+<ul>
+<li>This is called a <strong>subquery</strong></li>
+</ul>
+</li>
+<li>
+<p>Subqueries can be:</p>
+<ul>
+<li><strong>Non-correlated</strong> - can run on its own</li>
+<li><strong>Correlated</strong> - depends on outer row (runs “per row” conceptually)</li>
+</ul>
+</li>
+<li>
+<p>Two common operators used with subqueries are:</p>
+<ul>
+<li><code>EXISTS(table)</code> - returns true if the table is not empty</li>
+<li><code>IN(table)</code> - returns true if row is in the table</li>
+</ul>
+</li>
+</ul>
+<h4>Set Operations and Quantifiers</h4>
+<ul>
+<li>
+<p><code>ANY</code> and <code>ALL</code> behave as <strong>existential</strong> and <strong>universal</strong> quantifiers:</p>
+<ul>
+<li><code>x &gt; ALL (subquery)</code> means <span class="math math-inline">x</span> is greater than every value returned</li>
+<li><code>x &gt; ANY (subquery)</code> means <span class="math math-inline">x</span> is gerater than at least one value returned</li>
+</ul>
+</li>
+<li>
+<p>Set operations can be used to combine queries:</p>
+<ul>
+<li><code>UNION</code> - union of two tables</li>
+<li><code>INTERSECT</code> - intersection of two tables</li>
+<li><code>EXCEPT</code> (postgres) / <code>MINUS</code> (oracle) - set difference of two tables</li>
+</ul>
+</li>
+<li>
+<p>Set operations by default use <strong>set semantics</strong></p>
+<ul>
+<li>appending <code>ALL</code> turns it into <strong>multiset semantics</strong></li>
+</ul>
+</li>
+<li>
+<p>The <code>DISTINCT</code> operator turns SQL’s default multiset semantics into <strong>set semantics</strong></p>
+<ul>
+<li>e.g. <code>SELECT DISTINCT * FROM A</code> returns all distinct rows from <code>A</code></li>
+</ul>
+</li>
+</ul>
+<h3>3.4 Aggregation and Window Functions</h3>
+<h4>Aggregation Functions</h4>
+<ul>
+<li>
+<p>An <strong>aggregation function</strong> is used to compute results based on multiple columns</p>
+</li>
+<li>
+<p>Some common aggregation functions are:</p>
+<ul>
+<li><code>COUNT(*)</code> - number of rows</li>
+<li><code>COUNT(col)</code> - number of non-NULL values in <code>col</code></li>
+<li><code>SUM(col)</code> - sum of a column</li>
+<li><code>AVG(col)</code> - avreage of a column</li>
+<li><code>MIN(col)</code> - minimum of a column</li>
+<li><code>MAX(col)</code> - maximum of a column</li>
+</ul>
+</li>
+<li>
+<p><code>GROUP BY</code> is used to group the aggregation by a set of columns</p>
+<ul>
+<li>In the <strong>SELECT</strong> clause, attributes must be either aggregated, or part of the <code>GROUP BY</code> statement</li>
+</ul>
+</li>
+<li>
+<p>To apply a <strong>filter</strong> on aggregated functions, use the <code>HAVING</code> clause</p>
+</li>
+<li>
+<p>Core syntax:</p>
+<pre><code class="language-sql">SELECT group_cols, AGG_FUNC(cols)
+FROM ...
+WHERE row_filter
+GROUP BY group_cols`
+HAVING group_filter
+ORDER BY ...
+</code></pre>
+</li>
+</ul>
+<h4>Window Functions</h4>
+<ul>
+<li>
+<p>Window functions compute values <strong>across related rows</strong>, but <strong>do not collapse</strong> the result like <code>GROUP BY</code> does</p>
+</li>
+<li>
+<p>Core syntax:</p>
+<pre><code class="language-sql">&lt;window_function&gt;(...) OVER (
+    PARTITION BY ...
+    ORDER BY ...
+    [ROWS/RANGE frame ...]
+)
+</code></pre>
+</li>
+<li>
+<p><code>PARTITION BY</code> defines the groups to aggregate over</p>
+</li>
+<li>
+<p><code>ORDER BY</code> defines the order within each partition</p>
+</li>
+<li>
+<p>For example, this query gets each employee + their department average salary</p>
+<pre><code class="language-sql">SELECT e.emp_id, e.dept_id, e.salary,
+       AVG(e.salary) OVER (PARTITION BY e.dept_id) AS dept_avg
+FROM employee e;
+</code></pre>
+</li>
+</ul>
+<h5>Ranking Window Functions</h5>
+<ul>
+<li>
+<p>Given a partition and an order:</p>
+<ul>
+<li><code>ROW_NUMBER()</code> retrieves the row number (no ties)</li>
+<li><code>RANK()</code> - ties share rank, and <strong>skips numbers</strong> after ties e.g. (1,1,3,…)</li>
+<li><code>DENSE_RANK()</code> - ties share rank, but there are <strong>no gaps</strong> e.g. (1,1,2,…)</li>
+</ul>
+</li>
+<li>
+<p>For example to calculate the <strong>top 3 salaries per department</strong>:</p>
+<pre><code class="language-sql">SELECT * FROM (
+    SELECT e.*, ROW_NUMBER() OVER (
+        PARTITION BY e.dept_id ORDER BY e.salary DESC
+    ) AS rn
+    FROM employee e
+) t WHERE t.rn &lt;= 3;
+</code></pre>
+</li>
+</ul>
+<h5>Running totals and moving calculations</h5>
+<ul>
+<li>
+<p>We can use <code>ROWS</code> to specify a sliding window to perform the window function over</p>
+<ul>
+<li><code>UNBOUNDED PRECEDING</code> - no limit to the left</li>
+<li><code>CURRENT ROW</code> - the current row</li>
+</ul>
+</li>
+<li>
+<p>For example, to get running total per user ordered by time:</p>
+<pre><code class="language-sql">SUM(amount) OVER (
+    PARTITION BY user_id 
+    ORDER BY ts 
+    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+)
+</code></pre>
+</li>
+<li>
+<p>To get the moving average (e.g. last 7 rows)</p>
+<pre><code class="language-sql">AVG(amount) OVER (
+    PARTITION BY user_id 
+    ORDER BY ts
+    ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+) AS moving_avg_7
+</code></pre>
+</li>
+</ul>
+<h5>LAG/LEAD (differences between rows)</h5>
+<ul>
+<li>
+<p>Used to refer to rows preceding and following the curent row</p>
+<ul>
+<li><code>LEAD()</code> gets the next row, <code>LEAD(2)</code> gets the row 2 in front</li>
+<li><code>LAG()</code> gets the previous row, <code>LAG(2)</code> gets the row 2 behidn</li>
+</ul>
+</li>
+<li>
+<p>E.g. next event time:</p>
+<pre><code class="language-sql">LEAD(ts) OVER (PARTITION BY user_id ORDER BY ts) AS next_ts
+</code></pre>
+</li>
+</ul>
+<h3>3.5 Common Functions</h3>
+<ul>
+<li>
+<p><strong>NULL handling</strong></p>
+<ul>
+<li><code>COALESCE(a,b,c)</code>: retrieves first non-NULL</li>
+<li><code>NULLIF(a,b)</code>: NULL if a = b</li>
+<li><code>CASE WHEN ... THEN ... ELSE ... END</code>: case statement</li>
+<li><code>IF(cond, x, y)</code>: MySQL-only shortcut for CASE</li>
+<li><code>IFNULL(a,b)</code>: 2-arg COALESCE for MySQL only</li>
+</ul>
+</li>
+<li>
+<p><strong>String</strong></p>
+<ul>
+<li><code>LOWER()</code>, <code>UPPER()</code></li>
+<li><code>LENGTH()</code></li>
+<li><code>SUBSTRING()</code></li>
+<li><code>REPLACE()</code></li>
+<li><code>TRIM()</code></li>
+<li>Concatenation: <code>||</code> in postgres, <code>CONCAT()</code> in MySQL</li>
+</ul>
+</li>
+<li>
+<p><strong>Numeric</strong>:</p>
+<ul>
+<li><code>ABS()</code>, <code>ROUND()</code>, <code>CEIL()</code>, <code>FLOOR</code></li>
+<li><code>POWER(a,b)</code>, <code>SQRT()</code></li>
+<li><code>MOD(a,b)</code> / <code>%</code> in postgres</li>
+<li>Random numbers: <code>random()</code> in postgres, <code>RAND()</code> in MySQL</li>
+<li><code>GREATEST(a,b,...)</code>, <code>LEAST(a,b,...)</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Date/time</strong></p>
+<ul>
+<li><code>CURRENT_TIMESTAMP</code>, <code>CURRENT_DATE</code>, <code>CURRENT_TIME</code>, <code>NOW()</code></li>
+<li>Extracting parts:
+<ul>
+<li>Postgres: <code>EXTRACT(YEAR FROM ts)</code></li>
+<li>MySQL: <code>YEAR(ts)</code>, <code>MONTH(ts)</code>, <code>DAY(ts)</code> etc.</li>
+</ul>
+</li>
+<li>Date arithmetic
+<ul>
+<li>Postgres: <code>ts + INTERVAL '7 days'</code></li>
+<li>MySQL: <code>DATE_ADD(ts, INTERVAL 7 DAY)</code>, <code>DATE_SUB(...)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Pattern Matching</strong> + <strong>Regex</strong></p>
+<ul>
+<li><code>LIKE</code>
+<ul>
+<li><code>%</code> is any number of characters</li>
+<li><code>-</code> is one single character</li>
+</ul>
+</li>
+<li><strong>Regex</strong>:
+<ul>
+<li>Postgres: <code>col ~ 'pattern'</code></li>
+<li>MySQL: <code>col REGEXP 'pattern'</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Type casting</strong></p>
+<ul>
+<li><code>CAST(x AS type)</code></li>
+<li>Postgres only: <code>x::type</code></li>
+</ul>
+</li>
+</ul>
+<h2>4. Advanced SQL</h2>
+<h3>4.1 Views</h3>
+<h4>Introduction to Views</h4>
+<ul>
+<li>
+<p>A <strong>view</strong> is a <em>named query</em> that behaves like a table</p>
+<ul>
+<li>It doesn’t usually store data, it behaves like a <strong>virtual table</strong></li>
+<li>Querying a view substitutes the view’s definition</li>
+</ul>
+</li>
+<li>
+<p>For example:</p>
+<pre><code class="language-sql">CREATE VIEW active_users AS
+SELECT user_id, email
+FROM users
+WHERE is-active = true;
+</code></pre>
+</li>
+<li>
+<p>Views provide:</p>
+<ul>
+<li><strong>Abstraction / readability</strong>: hides complex joins</li>
+<li><strong>Security</strong>: expose only a certain set of columns / rows</li>
+<li><strong>Stability</strong>: keep a stable interface while underlying tables evolve</li>
+</ul>
+</li>
+<li>
+<p>Some views can be <strong>updatable</strong>:</p>
+<ul>
+<li>usually only if it maps cleanly to a single base table</li>
+<li>postgres has rules for when a view is automatically updatable</li>
+</ul>
+</li>
+</ul>
+<h4>Materialised Views</h4>
+<ul>
+<li>
+<p>A <strong>materialised view</strong> <em>stores the result</em> of the query physically</p>
+<pre><code class="language-sql">CREATE MATERIALIZED VIEW monthly_sales AS
+SELECT date_trunc('month', paid_at) AS month,
+       SUM(amount) AS total
+FROM payments
+WHERE status = 'paid'
+GROUP BY 1;
+</code></pre>
+</li>
+<li>
+<p>The view must be <strong>refreshed</strong> to keep data updated:</p>
+<pre><code class="language-sql">REFRESH MATERIALIZED VIEW monthly_sales;
+</code></pre>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>Fast reads (precomputed)</li>
+<li>Great for reporting / analytics</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>Can be stale</li>
+<li>Refresh cost (and locking behaviour depends on DB)</li>
+</ul>
+</li>
+<li>
+<p>View vs Materialized view:</p>
+<ul>
+<li><strong>View</strong>: mainly abstraction/security; performance depends on base query</li>
+<li><strong>Materialised view</strong>: performance boost by precomputing results</li>
+</ul>
+</li>
+</ul>
+<h3>4.2 Assertions and Triggers</h3>
+<h4>Assertions</h4>
+<ul>
+<li>An <strong>assertion</strong> is a <em>global cosntraint</em> that must always hold across the database</li>
+<li>SQL standard supports:
+<pre><code class="language-sql">CREATE ASSERTION name CHECK ( ... );
+</code></pre>
+</li>
+<li>Most mainstain DBs (including PostgreSQL) do <strong>not</strong> implement general assertiosn</li>
+<li>Other alternatives can be used to enforce rules, such as:
+<ul>
+<li>Foreign key / check constraints where possibel</li>
+<li>Triggers</li>
+<li>Transactions + locking</li>
+<li>Application logic</li>
+</ul>
+</li>
+</ul>
+<h4>Triggers</h4>
+<ul>
+<li>
+<p>A <strong>trigger</strong> is code that runs automatically when an event happens on a table (or view)</p>
+<ul>
+<li>Triggers are <strong>event-driven</strong></li>
+<li>they fire on events like <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Trigger timing</strong>:</p>
+<ul>
+<li><code>BEFORE</code> triggers: run before the row is written
+<ul>
+<li>good for validation / modifying the row</li>
+</ul>
+</li>
+<li><code>AFTER</code> triggers: run after the change
+<ul>
+<li>good for auditing / side effects</li>
+</ul>
+</li>
+<li><code>INSTEAD OF</code> triggers: mainly for views</li>
+</ul>
+</li>
+<li>
+<p><strong>Trigger granularity</strong>:</p>
+<ul>
+<li><strong>Row-Level</strong> runs once per affected row (<code>FOR EACH ROW</code>)</li>
+<li><strong>Statement-level</strong>: runs once per statement</li>
+</ul>
+</li>
+<li>
+<p>For example:</p>
+<pre><code class="language-sql">CREATE OR REPLACE FUNCTION set_updated_at()
+RETURNS trigger AS $$
+BEGIN
+    NEW.updated_at := now();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_set_updated_at
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
+</code></pre>
+</li>
+<li>
+<p><strong>Triggers can be dangerous as</strong>:</p>
+<ul>
+<li>They hide side effects</li>
+<li>Affect performance, e.g. row triggers on bulk updates are expensive</li>
+<li>Concurrency issues: race conditions unless you lock correctly</li>
+<li>Recursion: triggers triggering triggers</li>
+</ul>
+</li>
+<li>
+<p>In PostgreSQL, there are <strong>constraint triggers</strong>:</p>
+<ul>
+<li>used to enforce cross-row / cross-table constraints</li>
+<li>created using <code>CREATE CONSTRAINT TRIGGER ...</code></li>
+<li>can be <code>DEFERRABLE</code>, <code>INITALLY DEFERRED</code> or <code>INITIALLY IMMEDIATE</code></li>
+</ul>
+</li>
+</ul>
+<h3>4.3 PSMs</h3>
+<ul>
+<li>
+<p>A <strong>PSM</strong> (Persistent Stored Module) is code stored and executed inside the database server</p>
+<ul>
+<li>Mainly uses <strong>procedures</strong> and <strong>functions</strong></li>
+</ul>
+</li>
+<li>
+<p>They use:</p>
+<ul>
+<li>procedural constructs (variables, loops, IF/ELSE, exceptions)</li>
+<li>can run multiple SQL statements in one call</li>
+<li>can control transactions (in postgres, functions cannot <code>COMMIT</code>/<code>ROLLBACK</code>)</li>
+</ul>
+</li>
+<li>
+<p>Procedures vs functions:</p>
+<ul>
+<li><strong>Function</strong>: returns a value/table; often used in SELECTs</li>
+<li><strong>Procedure</strong>: called for actions</li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong> of PSMs</p>
+<ul>
+<li><strong>Performance</strong> - fewer client-server round trips, execute close to data</li>
+<li><strong>Security</strong> - grant permission to execute a procedure instead of direct table access</li>
+<li><strong>Consistency</strong> - enforce a workflow does all required inserts/updates safely</li>
+<li><strong>Reusability</strong> - shared logic across many apps/services</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong> of PSMs</p>
+<ul>
+<li>Harder versioning/testing than app code</li>
+<li>DB vendor lock-in (PL/pgSQL vs MySQL stored program syntax differs0</li>
+<li>Debugging and observability can be worse than in application code</li>
+<li>Logic split across app + DB can confuse ownership</li>
+</ul>
+</li>
+<li>
+<p>PostgreSQL function:</p>
+<pre><code class="language-sql">CREATE OR REPLACE FUNCTION top_customers(p_limit int)
+RETURNS TABLE(user_id bigint, total_spend numeric)
+LANGUAGE sql
+AS $$
+    -- insert query here ...
+$$;
+</code></pre>
+</li>
+<li>
+<p>PostgreSQL procedure:</p>
+<pre><code class="language-sql">CREATE OR REPLACE PROCEDURE transfer(p_from bigint, p_to bigint, p_amount numeric)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    -- insert code here ...
+END;
+$$;
+</code></pre>
+</li>
+<li>
+<p>MySQL function:</p>
+<pre><code class="language-sql">DELIMITER //
+
+CREATE FUNCTION apply_discount(p_amount DECIMAL(10,2), p_pct DECIMAL(5,2))
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+    -- insert code here ...
+END//
+
+DELIMITER ;
+</code></pre>
+</li>
+<li>
+<p>MySQL procedure:</p>
+<pre><code class="language-sql">DELIMITER //
+
+CREATE PROCEDURE transfer(IN p_from BIGINT, IN p_to BIGINT, IN p_amount DECIMAL(10,2))
+BEGIN
+    -- insert code here ...
+END//
+
+DELIMITER ;
+</code></pre>
+</li>
+</ul>
+<h2>5. Normalisation</h2>
+<h3>5.1 Introduction</h3>
+<h4>Motivations</h4>
+<ul>
+<li>
+<p><strong>Guidelines for good relational database design</strong>:</p>
+<ol>
+<li>each tuple in a relation should represent one entity or relationship instance</li>
+<li>redundancy of tuples information is harmful and must be avoided</li>
+<li>NULL values within tuples is harmful and must be avoided</li>
+<li>design relations to avoid <em>suprious tuples</em>
+<ul>
+<li>spurious tuples are created by joining on an attribute that isn’t a key</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Normalisation</strong> is a way of designing relational schemas to reduce <strong>redundancy</strong> and avoid <strong>anomalies</strong>:</p>
+<ul>
+<li><strong>Update anomaly</strong>: you must update the same fact in multiple places</li>
+<li><strong>Insert anomaly</strong>: you can’t insert one fact without another unrelated fact</li>
+<li><strong>Delete anomaly</strong>: deleting a row accidentally deletes a fact you still wanted to keep</li>
+</ul>
+</li>
+<li>
+<p><strong>Functional dependencies</strong> are the tool used to reason about redundancy</p>
+</li>
+</ul>
+<h4>Laws of Functional Dependencies</h4>
+<ul>
+<li>
+<p>The closure <span class="math math-inline">F^+</span> of a set of functional dependencies <span class="math math-inline">F</span> is the set of all implied FDs from <span class="math math-inline">F</span></p>
+</li>
+<li>
+<p>The implied FDs from <span class="math math-inline">F</span> are derived using these rules:</p>
+<ol>
+<li><strong>Reflexive</strong>: If <span class="math math-inline">Y \subseteq X</span>, then <span class="math math-inline">X \to Y</span></li>
+<li><strong>Augmentation</strong>: If <span class="math math-inline">X \to Y</span>, then <span class="math math-inline">XZ \to YZ</span>
+<ul>
+<li>notation: <span class="math math-inline">XZ := X \cup Z</span></li>
+</ul>
+</li>
+<li><strong>Transitive</strong>: If <span class="math math-inline">X \to Y</span> and <span class="math math-inline">Y \to Z</span>, then <span class="math math-inline">X \to Z</span></li>
+<li><strong>Decomposition</strong>: If <span class="math math-inline">X \to YZ</span>, then <span class="math math-inline">X \to Y</span> and <span class="math math-inline">X \to Z</span></li>
+<li><strong>Union</strong>: If <span class="math math-inline">X \to Y</span> and <span class="math math-inline">X \to Z</span>, then <span class="math math-inline">X \to YZ</span></li>
+<li><strong>Pseudotransitivity</strong>: If <span class="math math-inline">X \to Y</span> and <span class="math math-inline">WY \to Z</span>, then <span class="math math-inline">WX \to Z</span></li>
+</ol>
+</li>
+<li>
+<p>A <strong>non-trivial</strong> functional dependency is a FD <span class="math math-inline">X \to Y</span> where <span class="math math-inline">Y</span> is not a subset of <span class="math math-inline">X</span></p>
+</li>
+</ul>
+<h4>Lossless Join and Dependency Preservation</h4>
+<ul>
+<li>When decomposing relations, we desire:
+<ul>
+<li><strong>Lossless or non-additive decomposition</strong>
+<ul>
+<li>Joining decomposed tables should reconstruct the original data <strong>without spurious tuples</strong></li>
+<li>This is critical</li>
+</ul>
+</li>
+<li><strong>Dependency preservation</strong>
+<ul>
+<li>Can enforce all original FDs by enforcing constraints on the decomposed tables <strong>without needing joins</strong></li>
+<li>This is sometimes not possible, but is desired</li>
+<li>Otherwise checking updates for violation of FDs may require computing joins, which is expensive</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>5.2 Normal Forms</h3>
+<ul>
+<li>
+<p>There are many <strong>normal forms</strong> of relational databases:</p>
+<ul>
+<li>typically, 3NF (or BCNF) suffice</li>
+<li>All normal forms up to BCNF depend on functional dependencies</li>
+</ul>
+</li>
+<li>
+<p><strong>Overview of NF definitions</strong>:</p>
+<ul>
+<li>1NF: all attributes are atomic and there is a <em>key</em>
+<ul>
+<li>“the key”</li>
+</ul>
+</li>
+<li>2NF: non-key attributes must be dependent on the <em>full key</em>
+<ul>
+<li>“the whole key”</li>
+</ul>
+</li>
+<li>3NF: non-key attributes must <em>only depend</em> on the key
+<ul>
+<li>“nothing but the key”</li>
+</ul>
+</li>
+<li>BCNF (Boyce-Codd Normal Form): if every determinant (of a non-trivial FD) is a superkey</li>
+</ul>
+</li>
+</ul>
+<h4>1NF</h4>
+<ul>
+<li>Every attribute value is <strong>atomic</strong> and there is a <strong>key</strong>
+<ul>
+<li>i.e. no “multiple values in one cell”</li>
+</ul>
+</li>
+<li>This disallows:
+<ul>
+<li>Multi-valued attributes</li>
+<li>Composite attributes</li>
+</ul>
+</li>
+<li>To move to 1NF, convert all multi-valued attributes into separate rows</li>
+</ul>
+<h4>2NF</h4>
+<ul>
+<li>Only relevant when you have a <strong>composite candidate key</strong></li>
+<li>A relation is in 2NF if:
+<ul>
+<li>it is in 1NF</li>
+<li>and every <em>nonkey attribute</em> is <strong>fully functionally dependent</strong> on any key</li>
+<li>So, if the key is <span class="math math-inline">(A, B)</span>, then a non-key attribute shouldn’t depend on just <span class="math math-inline">A</span> or just <span class="math math-inline">B</span></li>
+</ul>
+</li>
+<li>2NF improves data integrity by removing some storage anomalies
+<ul>
+<li>but there can still be anomalies regarding transitive functional dependencies</li>
+</ul>
+</li>
+</ul>
+<h4>3NF</h4>
+<ul>
+<li>A relation is in 3NF if:
+<ul>
+<li>it is in 2NF</li>
+<li>and there is <strong>no transitive functional dependency</strong> from a key to non-key attribute</li>
+</ul>
+</li>
+<li>More formally, for every non-trivial FD <span class="math math-inline">X \to A</span>, at least one holds:
+<ol>
+<li><span class="math math-inline">X</span> is a <strong>superkey</strong>, or</li>
+<li><span class="math math-inline">A</span> is a <strong>prime attribute</strong> (part of some candidate key)</li>
+</ol>
+</li>
+<li>It is always possible to find a dependency-preserving lossless-join decomposition that is in 3NF</li>
+<li>3NF removes redundancies that are in 2NF</li>
+</ul>
+<h4>BCNF</h4>
+<ul>
+<li>
+<p>A relation is in <strong>BCNF</strong> if for every non-trivial FD <span class="math math-inline">X \to Y</span>, <span class="math math-inline">X</span> is a superkey</p>
+<ul>
+<li>removes <em>all</em> FD-based redundancy</li>
+</ul>
+</li>
+<li>
+<p>Most 3NF relations are in BCNF, but not all</p>
+<ul>
+<li>BCNF is stricter than 3NF</li>
+<li>Key difference from 3NF is that the RHS of a FD must not be a <strong>prime</strong> (key) attribute, unless the FD is trivial</li>
+</ul>
+</li>
+<li>
+<p>For example:</p>
+<ul>
+<li><code>{student, course}</code> is a candidate key</li>
+<li><code>fd1: {student, course} -&gt; instructor</code></li>
+<li><code>fd2: instructor -&gt; course</code></li>
+<li>This is <strong>NOT</strong> BCNF as <code>instructor</code> is not a superkey, and <code>course</code> is part of a key</li>
+<li>This does <strong>NOT</strong> spoil 3NF as <code>course</code> is a key attribute, so we don’t have <code>non-key -&gt; non-key</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Disadvantage of BCNF</strong>:</p>
+<ul>
+<li>Dependency preservation is not guaranteed</li>
+<li>Sometimes, 3NF may be used instead if dependency preservation is important</li>
+</ul>
+</li>
+</ul>
+<h3>5.3 Denormalisation</h3>
+<ul>
+<li>
+<p><strong>Denormalisation</strong> means intentionally adding redundancy back into the scshema to improve <strong>performance</strong> or <strong>simplicity of queries</strong></p>
+<ul>
+<li>this is becuse joins are expensive</li>
+</ul>
+</li>
+<li>
+<p>Common denormalisation techniques:</p>
+<ul>
+<li>Storing derived values</li>
+<li>duplicating attributes to avoid joins</li>
+<li>precomputed summary tables / materialised views</li>
+</ul>
+</li>
+<li>
+<p><strong>Denormalisation is good when</strong>:</p>
+<ol>
+<li>read-heavy workloads + expensive joins</li>
+<li>reporting / analytics</li>
+<li>when data changes rarely</li>
+<li>can enforce consistency reliably</li>
+</ol>
+</li>
+<li>
+<p><strong>Denormalisaton is bad when</strong>:</p>
+<ol>
+<li>lots of writes/updates</li>
+<li>high correctness requirements</li>
+<li>when indexes alone solve the performance issue</li>
+</ol>
+</li>
+</ul>
+<h2>6. Theory of Databases</h2>
+<h3>6.1 Introduction</h3>
+<ul>
+<li>
+<p><strong>Relational algebra</strong> and <strong>relational calculus</strong> are both <em>formal query languages</em> for the relational model</p>
+<ul>
+<li>Relational algebra is <strong>procedural</strong>: tells you <em>how</em> to get the result</li>
+<li>Relational calculus is <strong>declarative</strong>: telsl you <em>what</em> the result should satisfy</li>
+</ul>
+</li>
+<li>
+<p>By Codd’s theorem:</p>
+<ul>
+<li>relational algebra and relational calculus are equivalent in their expressive power</li>
+</ul>
+</li>
+<li>
+<p>SQL sits in between:</p>
+<ul>
+<li>It is <strong>declarative</strong> in style</li>
+<li>but the DBMS internally rewrites / optimises queries into someting close to <strong>relational algebra</strong></li>
+</ul>
+</li>
+</ul>
+<h3>6.2 Relational Algebra</h3>
+<ul>
+<li>
+<p>Relational algebra takes <strong>relations as input</strong> and outputs <em>8relations</em>* (closure property)</p>
+</li>
+<li>
+<p>In the pure theory, relations are <strong>sets</strong> (no duplicates)</p>
+</li>
+<li>
+<p>The core operators are:</p>
+<ol>
+<li>
+<p><strong>Selection</strong>: <span class="math math-inline">\sigma</span></p>
+<ul>
+<li>Filter rows (like <code>WHERE</code>)</li>
+<li>e.g. <span class="math math-inline">sigma_{dept=&#39;CS&#39;}(Student)</span></li>
+<li>is equivalent to:</li>
+</ul>
+<pre><code class="language-sql">SELECT * FROM Student WHERE dept = 'CS';
+</code></pre>
+</li>
+<li>
+<p><strong>Projection</strong>: <span class="math math-inline">\pi</span></p>
+<ul>
+<li>Pick columns from a relation</li>
+<li>e.g. <span class="math math-inline">pi_{name}(Student)</span></li>
+<li>is equivalent to:</li>
+</ul>
+<pre><code class="language-sql">SELECT name FROM Student;
+</code></pre>
+</li>
+<li>
+<p><strong>Rename</strong>: <span class="math math-inline">\rho</span></p>
+<ul>
+<li>Rename relation or attributes</li>
+<li>similar to <code>AS</code> in SQL</li>
+</ul>
+</li>
+<li>
+<p><strong>Cartesian product</strong>: <span class="math math-inline">\times</span></p>
+<ul>
+<li>the same as <code>FROM R CROSS JOIN S</code> in SQL</li>
+</ul>
+</li>
+<li>
+<p><strong>Set Operations</strong>: <span class="math math-inline">\cup</span>, <span class="math math-inline">\cap</span>, <span class="math math-inline">-</span></p>
+<ul>
+<li>require same attributes/domains</li>
+<li>the same as SQL <code>UNION</code>, <code>INTERSECT</code>, and <code>EXCEPT</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Join</strong>: <span class="math math-inline">\bowtie</span></p>
+<ul>
+<li>Join can be expressed as product + selection</li>
+<li><strong>Theta join</strong>: <span class="math math-inline">R \bowtie_{\theta} S = \sigma_\theta (R \times S)</span>
+<ul>
+<li>For example in SQL:</li>
+</ul>
+<pre><code class="language-sql">SELECT * FROM R JOIN S ON R.a = S.b;
+</code></pre>
+</li>
+<li><strong>Equijoin</strong>:
+<ul>
+<li>Theta join where condition is only equalities</li>
+</ul>
+</li>
+<li><strong>Natural Join</strong>:
+<ul>
+<li>The default join operator in RA.</li>
+<li>equivalent to SQL <code>NATURAL JOIN</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Division</strong> (for all)</p>
+<ul>
+<li>operator behind <strong>for all</strong> queries</li>
+<li>let <span class="math math-inline">R(XY), S(Y)</span> be relations</li>
+<li><span class="math math-inline">R(XY) \div S(Y)</span> is a relation <span class="math math-inline">T(X)</span> where <span class="math math-inline">X</span>-tuples are paired with every <span class="math math-inline">Y</span>-tuple in <span class="math math-inline">S</span></li>
+<li>used for queries like “find students who are enrolled in <strong>all</strong> required modules”</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3>6.3 Relational Calculus</h3>
+<ul>
+<li>
+<p>Relational calculus is <strong>logic-based</strong>: you specify a <em>condition</em> that output tuples must satisfy</p>
+</li>
+<li>
+<p>Two common forms:</p>
+<ul>
+<li><strong>Tuple Relational Calculus</strong>: uses notation like <code>t.attribute</code>
+<ul>
+<li>for example <span class="math math-inline">\{t | Student(t) \land t.dept = &#39;CS&#39;\}</span></li>
+</ul>
+</li>
+<li><strong>Domain Relational Calculus</strong>: uses variables for attribute values rather than whole tuples
+<ul>
+<li>for example<span class="math math-inline">\{\langle sid, name \rangle | \exists dept (Student(sid, name, dept) \land dept = &#39;CS&#39;)\}</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Relational calculus uses quantifiers:</p>
+<ul>
+<li><span class="math math-inline">\exists</span>: existential quantifier</li>
+<li><span class="math math-inline">\forall</span>: universal quantifier</li>
+</ul>
+</li>
+<li>
+<p>Relational calculus is based off <strong>first order logic</strong></p>
+<ul>
+<li>using predicates and propositions</li>
+<li>roughly speaking, a predicate is a <strong>schema</strong> and a proposition is a <strong>tuple</strong>
+<ul>
+<li>e.g. <span class="math math-inline">Student(t)</span> means that <span class="math math-inline">t</span> is a tuple in the Student relation</li>
+</ul>
+</li>
+<li><strong>Extension</strong> is the set of all <em>instantiations</em> for which the predicate holds true</li>
+<li>An <strong>extension</strong> is equivalent to a relation</li>
+</ul>
+</li>
+<li>
+<p><strong>Safety</strong></p>
+<ul>
+<li>It is possible to write relational calculus queries that describe <strong>infinite results</strong>
+<ul>
+<li>e.g. <span class="math math-inline">\{t | \neg Student(t)\}</span> describes all tuples aren’t in the Student relation, which could be infinite</li>
+<li>These queries are described as <strong>unsafe</strong></li>
+</ul>
+</li>
+<li>It is important that RC queries are <strong>safe</strong> / <strong>range-restricted</strong></li>
+</ul>
+</li>
+</ul>
+<h2>7. Physical Database Design</h2>
+<h3>7.1 Physical Storage and File Structures</h3>
+<h4>Disk/Page Model</h4>
+<ul>
+<li>
+<p>Databases are too large to fit in main memory, so they are stored on disk</p>
+</li>
+<li>
+<p>Disk I/O is expensive, so DBs move data in <strong>fixed-sized blocks</strong> called pages, which are stored on disk as <strong>disk-blocks</strong></p>
+<ul>
+<li>DB reads/writes whole pages, not individual rows</li>
+<li>a table is stored as a collection of disk blocks</li>
+</ul>
+</li>
+<li>
+<p>Storing records on disk can be done in two ways:</p>
+<ul>
+<li><strong>Unspanned organisation</strong> - records don’t span across disk blocks
+<ul>
+<li>this can cause <strong>internal fragmentation</strong></li>
+</ul>
+</li>
+<li><strong>Spanned organisation</strong> - records can cross boundaries
+<ul>
+<li>this requires pointers to link record fragments</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The <strong>blocking factor</strong> is the number of records stored in blocks</p>
+</li>
+<li>
+<p><strong>File block</strong> - filesystem-level chunk for files</p>
+<ul>
+<li>The <span class="math math-inline">i</span>th disk block refers to the block on disk allocated to contain the contents of the <span class="math math-inline">i</span>th file block</li>
+</ul>
+</li>
+<li>
+<p>The query cost is defined in terms of the number of <strong>disk block</strong> accesses needed</p>
+</li>
+</ul>
+<h4>Organising DB data on disk</h4>
+<ul>
+<li>Used for DB to keep track of which pages belong to the file/table</li>
+</ul>
+<h5>Contiguous Allocation</h5>
+<ul>
+<li>A file/table occupies a <strong>contiguous run of blocks</strong> on disk</li>
+<li><strong>Pros</strong>:
+<ul>
+<li>Very fast sequential scans</li>
+</ul>
+</li>
+<li><strong>Cons</strong>:
+<ul>
+<li>Hard to grow: if you need more space, you may have to move the file</li>
+<li>Fragmentation issues in long-running systems</li>
+</ul>
+</li>
+</ul>
+<h5>Linked Allocation</h5>
+<ul>
+<li>Each block contains a pointer to the next block (a linked list of blocks)</li>
+<li><strong>Pros</strong>:
+<ul>
+<li>Easy to grow</li>
+<li>No need for contiguous free space)</li>
+</ul>
+</li>
+<li><strong>Cons</strong>:
+<ul>
+<li>Sequential access</li>
+<li>Pointer overhead and poor locality</li>
+</ul>
+</li>
+</ul>
+<h5>Indexed Allocation</h5>
+<ul>
+<li>
+<p>Maintain an <strong>index structure</strong> that tells you where the blocks are</p>
+<ul>
+<li>Either a table with a header pointing to all its pages</li>
+<li>Or a multi-level index like B-trees</li>
+</ul>
+</li>
+<li>
+<p>This is the most common real-world implementation</p>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>Good random access</li>
+<li>Still easy to grow</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Extra metadata to contain</li>
+</ul>
+</li>
+</ul>
+<h4>Structuring DB data on disk</h4>
+<ul>
+<li>About <strong>file organisation</strong> for a table: how records are placed into pages</li>
+</ul>
+<h5>Heap Files</h5>
+<ul>
+<li>
+<p>Records are stored wherever there’s space; no particular order</p>
+</li>
+<li>
+<p><strong>Operations</strong>:</p>
+<ul>
+<li><strong>Insert</strong>: fast (add to the end)</li>
+<li><strong>Lookup by key</strong>:
+<ul>
+<li>without an index: must scan</li>
+<li>with an index: index gives you the page + slot</li>
+</ul>
+</li>
+<li><strong>Range Query</strong>: without index: scan</li>
+</ul>
+</li>
+<li>
+<p>Heap files are good when:</p>
+<ul>
+<li>require lots of inserts / updates (e.g. online transaction processing)</li>
+<li>rely on indexes for fast queries</li>
+</ul>
+</li>
+</ul>
+<h5>Sequential (ordered) files</h5>
+<ul>
+<li>
+<p>Records are stored <strong>sorted by some search key</strong></p>
+</li>
+<li>
+<p><strong>Operations</strong>:</p>
+<ul>
+<li>Lookup: use binary search</li>
+<li>Range queries: fast</li>
+<li>Insert: expensive (worst case: move half the pages)</li>
+<li>Updates that change the key: costly</li>
+</ul>
+</li>
+<li>
+<p>Sequential files are good when:</p>
+<ul>
+<li>Workloads dominated by range scans on that ordering key</li>
+<li>Time-series data if stored/clustered by timestamp</li>
+</ul>
+</li>
+</ul>
+<h5>Hash Files</h5>
+<ul>
+<li>
+<p>Use a hash function on a key to choose a bucket/page</p>
+<ul>
+<li>Records with the same bucket go in the same page chain/bucket structure</li>
+</ul>
+</li>
+<li>
+<p><strong>Operations</strong>:</p>
+<ul>
+<li>Equality lookup: very fast on average</li>
+<li>Range queries: bad</li>
+<li>Complicated to handle growth</li>
+</ul>
+</li>
+<li>
+<p><strong>Overflow buckets</strong> may be needed to store records inserted into full buckets</p>
+</li>
+<li>
+<p>Hash files are good when:</p>
+<ul>
+<li>Heavy equality lookups, few range queries</li>
+</ul>
+</li>
+</ul>
+<h3>7.2 Indexes and query performance</h3>
+<h4>Introduction to Indexes</h4>
+<ul>
+<li>
+<p>An <strong>index</strong> is an extra data structure that maps <code>search key</code> -&gt; <code>row location</code></p>
+<ul>
+<li>which helps the DB avoid scanning the whole table</li>
+</ul>
+</li>
+<li>
+<p>In PostgreSQL and MySQL, defining a <code>PRIMARY KEY</code> or <code>UNIQUE</code> constraint automatically creates a <strong>unique B-Tree</strong> index to enforce it.</p>
+</li>
+<li>
+<p>In MySQL, foreign keys (child table) get an index created automatically</p>
+<ul>
+<li>PostgreSQL does not do this</li>
+</ul>
+</li>
+<li>
+<p>Separate indexes can be created using the <code>CREATE INDEX</code> statement:</p>
+<ul>
+<li>e.g. <code>CREATE INDEX idx_orders_user_id orders(user_id);</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong></p>
+<ul>
+<li>Fast filtering (<code>WHERE</code> clause)</li>
+<li>Fast joins (especially joining on PK/FK)</li>
+<li>Fast ordering + LIMIT</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong></p>
+<ul>
+<li>More storage</li>
+<li>Slower writes (must maintain indexes)</li>
+</ul>
+</li>
+</ul>
+<h4>Types of Indexes</h4>
+<h5>B+ Trees</h5>
+<ul>
+<li>A <strong>B+ tree</strong> is the most common index structure.</li>
+<li>It is a <strong>balanced search tree</strong> that stores <em>keys and child pointers</em> in internal nodes, and <em>key entries</em> at the leaf nodes
+<ul>
+<li>All leaves are at the same depth</li>
+</ul>
+</li>
+<li>It is space efficient - fits into a <strong>disk page</strong></li>
+<li>Finding row locations in the B+ tree is <strong>logarithmic time</strong>, which is very efficient
+<ul>
+<li>suitable for range queries and equality queries</li>
+</ul>
+</li>
+</ul>
+<h5>Hash Indexes</h5>
+<ul>
+<li>
+<p>Hash index helps <strong>equality lookups</strong> but not range queries</p>
+<ul>
+<li>uses a <strong>hash function</strong> on the search key to find the bucket containing matching entries</li>
+</ul>
+</li>
+<li>
+<p>Not suitable for range queries or <code>ORDER BY</code>, so it is less widely used</p>
+</li>
+</ul>
+<h5>Clustered Index</h5>
+<ul>
+<li>
+<p>A <strong>clustered</strong> index is where the table’s rows are stored <strong>physically in the same order as the index key</strong></p>
+<ul>
+<li>the “table” is the clustered index</li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>range queries on clustered key</li>
+<li><code>ORDER BY</code> clustered key</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>inserting into middle can cause page splits/fragmentation</li>
+<li>updating clustered key is expensive</li>
+<li>only one clustered index</li>
+</ul>
+</li>
+<li>
+<p>For example, in MySQL the <code>PRIMARY KEY</code> is clustered</p>
+</li>
+</ul>
+<h5>Non-Clustered Index</h5>
+<ul>
+<li>
+<p>A <strong>non-clustered</strong> index is where the index is a separate structure</p>
+<ul>
+<li>leaves contain <code>key -&gt; row locator</code>, not the row data stored in that order</li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>speeding up lookups on non-clustered columns</li>
+<li>multiple indexes on different columns</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>DB may need extra reads to fetch the actual table rows</li>
+<li>range scans may involve many random reads if rows are scattered</li>
+</ul>
+</li>
+</ul>
+<h5>Covering Indexes</h5>
+<ul>
+<li>A <strong>covering index</strong> is an index that contains <strong>all the columns needed</strong> to answer a query</li>
+<li>Allows DB to skip reading the table at all</li>
+<li>Also known as <strong>index-only access</strong> in PostgreSQL</li>
+</ul>
+<h4>Query Planning &amp; Performance</h4>
+<h5>Introduction</h5>
+<ul>
+<li>
+<p>A <strong>query plan</strong> is the DBMS’s steps for executing the planned SQL query</p>
+</li>
+<li>
+<p><strong>Query optimisation</strong> is the process of choosing the best plan for that SQL query</p>
+</li>
+<li>
+<p>Decisions that might be made are:</p>
+<ul>
+<li>Using what <strong>join algorithm</strong></li>
+<li>Whether sorting, aggregation, hash tables are required</li>
+<li>What order to perform these steps</li>
+</ul>
+</li>
+<li>
+<p>Internally, <strong>relational algebra</strong> is used for query optimisation.</p>
+</li>
+</ul>
+<h5>Query Planning</h5>
+<ul>
+<li>
+<p>Internally, the DBMS performs these steps:</p>
+<ol>
+<li><strong>Parse</strong>
+<ul>
+<li>check syntax, resolve table/column names, types, functions</li>
+</ul>
+</li>
+<li><strong>Rewrite</strong>
+<ul>
+<li>Expand views, simplify predicates</li>
+</ul>
+</li>
+<li><strong>Plan/Optimise</strong>
+<ul>
+<li>Picking joining algorithms, indexing, table sizes etc. to estimate costs</li>
+</ul>
+</li>
+<li><strong>Execute</strong>
+<ul>
+<li>Execute the query plan</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>A query plan is a tree of operators like:</p>
+<ul>
+<li><strong>Seq Scan</strong> - scan the whole table</li>
+<li><strong>Index Scan / Index Only Scan</strong></li>
+<li><strong>Bitmap Index Scan + Bitmap Heap Scan</strong></li>
+<li><strong>Sort</strong></li>
+<li><strong>Aggregate</strong></li>
+<li>Joining algorithms - NestedLoop, Hash Join, Merge Join</li>
+</ul>
+</li>
+<li>
+<p>The DBMS uses statistics to estimate costs, to pick the best query plan to execute</p>
+</li>
+</ul>
+<h5>EXPLAIN</h5>
+<ul>
+<li>The <code>EXPLAIN</code> statement can be used to show the <em>planned</em> query pln</li>
+<li><code>EXPLAIN (ANALYZE)</code> runs the query and shows real timings and row counts</li>
+</ul>
+<h2>8. Database System Design</h2>
+<h3>8.1 Transactions and ACID</h3>
+<ul>
+<li>
+<p>A <strong>transaction</strong> is a sequence of reads/writes treated as one logical unit</p>
+<ul>
+<li>it either <strong>all happens</strong> (commit) or <strong>none happens</strong> (rollback)</li>
+</ul>
+</li>
+<li>
+<p>For example: bank transfer transaction occurs as one atomic operation</p>
+<ol>
+<li>subtract from <span class="math math-inline">A</span></li>
+<li>add to <span class="math math-inline">B</span></li>
+</ol>
+</li>
+<li>
+<p>The <strong>ACID</strong> principles of relational databases describe the properties of transactions</p>
+<ul>
+<li><strong>A - Atomicity</strong>
+<ul>
+<li>All or nothing. If the transaction fails halfway, DB undoes partial changes</li>
+</ul>
+</li>
+<li><strong>C - Consistency</strong>
+<ul>
+<li>DB moves from one <em>valid</em> state to another</li>
+<li>Valid is defined by constraints/triggers</li>
+</ul>
+</li>
+<li><strong>I - Isolation</strong>
+<ul>
+<li>Concurrent transactions don’t interfere in ways that break correctness</li>
+<li>Result is equivalent to serial execution</li>
+</ul>
+</li>
+<li><strong>D - Durability</strong>
+<ul>
+<li>Once committed, changes survive crashes/power loss</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>8.2 Concurrency control, Locking, Deadlocks</h3>
+<h4>Concurrency Control</h4>
+<ul>
+<li>
+<p><strong>Concurrency control</strong> is a mechanism that allows simultaneous execution of transactions while maintaining ACID principles.</p>
+</li>
+<li>
+<p>If concurrency isn’t controlled, you can get:</p>
+<ul>
+<li><strong>Lost update</strong>: one overwrites the other</li>
+<li><strong>Dirty read</strong>: read data another transaction hasn’t committed yet</li>
+<li><strong>Non-repeatable read</strong>: read row twice and changes in between</li>
+<li><strong>Phantom read</strong>: range query is rerun and rows appear/disappear</li>
+</ul>
+</li>
+<li>
+<p><strong>Isolation levels</strong> decide which of these are allowed</p>
+</li>
+</ul>
+<h5>Locking</h5>
+<ul>
+<li>
+<p>Transactions must acquire locks before accessing data:</p>
+<ul>
+<li><strong>S (shared) lock</strong> for reading</li>
+<li><strong>X (exclusive) lock</strong> for writing</li>
+</ul>
+</li>
+<li>
+<p>Two-Phase Locking (2PL) enforces a rule:</p>
+<ol>
+<li><strong>Growing phase</strong>: transaction acquires locks, does not release any</li>
+<li><strong>Shrinking phase</strong>: transaction releases locks, cannot acquire new ones</li>
+</ol>
+</li>
+<li>
+<p>This enforces the schedule is <strong>conflict-serialisable</strong> (equivalent to some serial order)</p>
+</li>
+<li>
+<p><strong>Disadvantages</strong>:</p>
+<ul>
+<li><strong>Blocking</strong>: transactions wait for locks</li>
+<li><strong>Deadlocks</strong>: cycles of waiting occur; DB detects and aborts one victim</li>
+</ul>
+</li>
+</ul>
+<h5>Timestamps</h5>
+<ul>
+<li>
+<p>Give every transaction a <strong>timestamp</strong> when it starts, enforces all conflicting operations occur in timestamp order</p>
+</li>
+<li>
+<p><strong>Basic-timestamp ordering</strong> is a protocol that uses timestamps.</p>
+<ul>
+<li>abort if reading/writing is invalid</li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>No deadlocks</li>
+<li>Good for high contention</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong></p>
+<ul>
+<li>Can cause lots of aborts/restarts</li>
+<li>Starvation possible</li>
+</ul>
+</li>
+<li>
+<p><strong>MVCC</strong> (multi-version concurrency protocol) builds upon timestamps and is a widely used protocol for concurrency control</p>
+</li>
+</ul>
+<h5>Isolation Levels</h5>
+<ul>
+<li>
+<p><strong>Isolation level</strong> is the contractfor <em>how much</em> interference between concurrent transactions is allowed</p>
+</li>
+<li>
+<p>Common isolation levels are:</p>
+<ul>
+<li><code>READ UNCOMITTED</code>
+<ul>
+<li>dirty reads allowed</li>
+</ul>
+</li>
+<li><code>READ COMITTTED</code>
+<ul>
+<li>no dirty reads</li>
+<li>Non-repeatable reads and phantoms can happen</li>
+</ul>
+</li>
+<li><code>REPEATABLE READ</code>
+<ul>
+<li>no dirty reads or Non-repeatable reads</li>
+<li>phantoms can be possible</li>
+</ul>
+</li>
+<li><code>SERIALIZABLE</code> (strongest)
+<ul>
+<li>prevents all anomalies</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3>8.3. Recovery and Durability</h3>
+<h4>Motivations for Recovery</h4>
+<ul>
+<li>
+<p><strong>Durability</strong> means: <em>once a transaction commits, its effects must survive power crashses</em> (power loss, OS crash, DB restart)</p>
+</li>
+<li>
+<p><strong>Recovery</strong> is the DBMS process after the crash to ensure <strong>Atomicity</strong> and <strong>Durability</strong>:</p>
+<ol>
+<li>All committed transactions are reflected in the database (durability)</li>
+<li>No uncommitted transaction leaves partial changes behind (atomicity)</li>
+</ol>
+</li>
+</ul>
+<h4>Log-based Recovery</h4>
+<ul>
+<li>
+<p><strong>Log-based recovery</strong> (Write Ahead Logging) is the standard approach in most DBs</p>
+</li>
+<li>
+<p><strong>Mechanism</strong>:</p>
+<ul>
+<li>Updates happen in memory -&gt; pages become dirty</li>
+<li>Before a dirty page is written to disk, DB appends a <strong>log record</strong> describing the update and <strong>forces the log to disk first</strong></li>
+</ul>
+</li>
+<li>
+<p>This provides <strong>durability</strong> as the commit is logged on disk. This allows:</p>
+<ul>
+<li><strong>REDO</strong> committed updates that weren’t written to data pages yet
+<ul>
+<li>ensures <em>durability</em></li>
+</ul>
+</li>
+<li><strong>UNDO</strong> incomplete (uncommitted) updates
+<ul>
+<li>ensures <em>atomicity</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>A transaction is <em>durable</em> when its <strong>commit record</strong> are flushed to disk</p>
+</li>
+</ul>
+<h4>Shadow Paging</h4>
+<ul>
+<li>
+<p><strong>Shadow paging</strong> keeps a <strong>shadow page table</strong> that points to the stable version of each page</p>
+</li>
+<li>
+<p>When a transaction updates a page</p>
+<ul>
+<li>original page is not overwritten</li>
+<li>write modified page to a <strong>new location</strong></li>
+<li>update <em>current</em>p age table to point to the new page</li>
+</ul>
+</li>
+<li>
+<p>On commit, you <strong>atomically switch</strong> from the shadow page table to the new page table</p>
+</li>
+<li>
+<p>This is <strong>crash-safe</strong> as:</p>
+<ul>
+<li>If crash before commit: shadow table is used; changes are ignored</li>
+<li>If crashes after commit: root pointer points to new pages; changes are preserved</li>
+</ul>
+</li>
+<li>
+<p><strong>Disadvantages</strong>:</p>
+<ul>
+<li>Fragmentation - pages get written to new locations constantly</li>
+<li>Expensive for many updates</li>
+<li>Hard with concurrency</li>
+<li>Not great for long-running transactions</li>
+</ul>
+</li>
+</ul>
+<h4>Checkpointing</h4>
+<ul>
+<li>
+<p><strong>Checkpointing</strong> is an optimisation to WAL that reduce recovery time</p>
+<ul>
+<li>With normal WAL, scanning the log from the beginning takes a lot of time</li>
+</ul>
+</li>
+<li>
+<p>Periodicially, the system performs a checkpoint operation, which:</p>
+<ol>
+<li>forces all log records from memory to disk</li>
+<li>forces all modified database pages from memory to disk</li>
+<li>writes a checkpoint record into the log file</li>
+</ol>
+</li>
+<li>
+<p>When recovery is needed, the DBMS finds the <strong>last checkpoint</strong></p>
+<ul>
+<li>prevents the DBMS from starting from the beginning</li>
+</ul>
+</li>
+</ul>
+<h4>Backups</h4>
+<ul>
+<li><strong>Backups</strong> are the last safeguard against severe failures such as a complete disk crash</li>
+<li>Types of backups:
+<ul>
+<li><strong>Full backup</strong> - complete copy</li>
+<li><strong>Differential backup</strong> - copy of only data that has changed</li>
+<li><strong>Point-in-time recovery</strong> (PITR) - restore a base backup + replay logs up to a timestamp</li>
+</ul>
+</li>
+</ul>
+<h3>8.4 Security and Access Control</h3>
+<h4>Introduction</h4>
+<ul>
+<li>
+<p><strong>Database security</strong> is the set of policies and mechanisms that protect a database’s <strong>confidentiality</strong>, <strong>integrity</strong>, and <strong>availability</strong></p>
+</li>
+<li>
+<p>The main control measures are:</p>
+<ol>
+<li>Access control</li>
+<li>Inference control</li>
+<li>Application-level defences</li>
+<li>Flow control</li>
+<li>Data encryption</li>
+</ol>
+</li>
+<li>
+<p>The <strong>database administrator</strong> (DBA) is a central authority for database security</p>
+<ul>
+<li>holds a powerful superuser account</li>
+<li>performs tasks like creating accounts, granting/revoking privileges, assigning security levels/roles, and defining/enforcing security policies</li>
+</ul>
+</li>
+<li>
+<p>A DB system <strong>log</strong> requires all update operations</p>
+<ul>
+<li>A database <strong>audit</strong> is reviewing the log to trace suspicious actions</li>
+</ul>
+</li>
+<li>
+<p><strong>Security</strong>: protect all sensitive data</p>
+</li>
+<li>
+<p><strong>Precision</strong>: reveal as much nonsensitive data as possible</p>
+</li>
+<li>
+<p><strong>Privacy</strong>: appropriate use of personal information</p>
+</li>
+<li>
+<p>Tradeoff: perfect security often reduces precision</p>
+</li>
+</ul>
+<h4>Access Control</h4>
+<ul>
+<li><strong>Access control</strong> (authorisation) is ensuring only authorised users can read/write specific data</li>
+</ul>
+<h5>Discretionary Access Control (DAC)</h5>
+<ul>
+<li>
+<p>Owner/admin <strong>grants privileges</strong> on DB objects</p>
+</li>
+<li>
+<p><strong>User privileges</strong> are applied to the account independently of specific tables</p>
+<ul>
+<li>e.g. <code>CREATE TABLE</code>, <code>ALTER</code>, <code>SELECT</code> etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Object privileges</strong> are applied per table/view</p>
+<ul>
+<li>e.g. <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>REFERENCES</code></li>
+</ul>
+</li>
+<li>
+<p><code>GRANT</code> and <code>REVOKE</code> are used to grant/revoke privileges to accounts</p>
+</li>
+<li>
+<p>Users can grant privileges to other users:</p>
+<pre><code class="language-sql">GRANT SELECT ON empl TO u1 WITH GRANT OPTION;
+</code></pre>
+</li>
+<li>
+<p>Some DBs extend DAC to allow for propagation limits:</p>
+<ul>
+<li><strong>Horizontal</strong>: define how many other users can be passed the privilege</li>
+<li><strong>Vertical</strong>: define how many times privilege can be passed successively</li>
+</ul>
+</li>
+<li>
+<p>DAC is flexible but can be vulnerable to <strong>trojan horse</strong> programs</p>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>flexible and easier to manage for many applications</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>weaker against malicious software and information leakage</li>
+</ul>
+</li>
+<li>
+<p>More common in SQL</p>
+</li>
+</ul>
+<h5>Mandatory Access Control (MAC)</h5>
+<ul>
+<li>
+<p><strong>MAC</strong> is a system-wide policy based on <strong>labels/clearances</strong></p>
+</li>
+<li>
+<p>Data and users have labels; access is decided by comparing labels (not the object owner)</p>
+</li>
+<li>
+<p>Security level stack:</p>
+<ol>
+<li>Top Secret</li>
+<li>Secret</li>
+<li>Confidential</li>
+<li>Unclassified</li>
+</ol>
+</li>
+<li>
+<p>Most common model is the <strong>Bell-LaPadula Model</strong></p>
+<ul>
+<li><strong>No read up</strong> - low subjects can’t learn from higher objects</li>
+<li><strong>No write down</strong> - higher subjects can’t write to lower objects</li>
+</ul>
+</li>
+<li>
+<p>With MAC, views are filtered by clearance. This leaves two options:</p>
+<ol>
+<li>unauthorised users <em>don’t</em> see the tuple at all</li>
+<li>unauthorised users just see <code>NULL</code></li>
+</ol>
+<ul>
+<li>second option leads to indistinguishability with presence of data</li>
+</ul>
+</li>
+<li>
+<p>With MAC, we require <strong>polyinstantiaion</strong></p>
+<ul>
+<li>Multiple tuples can share the same <strong>apparent key</strong></li>
+<li>Real key is <code>(key, classlevel)</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>very strong protection; prevents illegal information flows</li>
+</ul>
+</li>
+<li>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>Rigid; requires strict classification and labeling</li>
+</ul>
+</li>
+<li>
+<p>Only common in high-security settings</p>
+</li>
+</ul>
+<h5>Role-Based Access Control (RBAC)</h5>
+<ul>
+<li>
+<p>Permissions are assigned to <strong>roles</strong>, users are assigned roles</p>
+</li>
+<li>
+<p>Roles are organised in a hierarchy reflecting authority</p>
+<ul>
+<li>hierarchy is a partial order</li>
+</ul>
+</li>
+<li>
+<p>Scales better than DAC-per-user, and supports <strong>least privilege</strong></p>
+</li>
+<li>
+<p>In SQL, RBAC is supported by granting privileges to <strong>roles</strong>, and then granting roles to users. e.g.</p>
+<pre><code class="language-sql">GRANT SELECT ON orders TO analyst_role;
+GRANT analyst_role TO alice;
+</code></pre>
+</li>
+</ul>
+<h5>Row-Level, Column-Level, Label-Based Security</h5>
+<ul>
+<li>
+<p><strong>Row-level Security</strong> enforces a <strong>per-row predicate</strong> for each user/role</p>
+<ul>
+<li>e.g. users can only see their own rows</li>
+</ul>
+</li>
+<li>
+<p><strong>Column-level Security</strong> restricts access to certain columns, even if users can access the table</p>
+<ul>
+<li>this is primarily done by <strong>views</strong> that expose only allowed columns</li>
+</ul>
+</li>
+<li>
+<p><strong>Label-level security</strong> is where each row has a <strong>security label</strong> and each user has a clearance</p>
+<ul>
+<li>uses MAC-style access control</li>
+<li>is a special form of row level security</li>
+</ul>
+</li>
+</ul>
+<h4>Application-level Defences</h4>
+<ul>
+<li>
+<p>One of the most common <strong>application-level</strong> attacks is <strong>SQL injection</strong> - when an attacker supplies input that gets treated as part of the SQL code</p>
+<ul>
+<li>can maliciously change what the query does</li>
+</ul>
+</li>
+<li>
+<p>Two main types</p>
+<ul>
+<li><strong>Code injection</strong> - inject code like <code>... OR 1=1</code>
+<ul>
+<li>mainly used to bypass auth / dump data / modify schema &amp; data</li>
+</ul>
+</li>
+<li><strong>Functional-call injection</strong> - use database functions
+<ul>
+<li>e.g. time-based probing / DoS using <code>pg_sleep</code> / <code>SLEEP()</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Countermeasures</strong></p>
+<ol>
+<li><strong>Paramterised queries / prepared statements</strong>
+<ul>
+<li>send SQL + values separately, so DB never parses user input as code</li>
+</ul>
+</li>
+<li><strong>Least privilege for application DB user</strong>
+<ul>
+<li>restrict privileges, e.g. app account shouldn’t be able to <code>DROP</code></li>
+</ul>
+</li>
+<li><strong>Avoid dynamic SQL</strong></li>
+<li><strong>Input Validation &amp; Function Security</strong>
+<ul>
+<li>filter and validate all user input</li>
+<li>restrict powerful database functions callable from SQL</li>
+</ul>
+</li>
+<li><strong>Safe stored procedures</strong></li>
+<li><strong>Monitoring/WAF/logging</strong></li>
+</ol>
+</li>
+</ul>
+<h4>Inference Control</h4>
+<ul>
+<li><strong>Inference control</strong> is about stopping users from learning sensitive facts <strong>indirectly</strong> from allowed queries</li>
+<li>Common controls are:
+<ul>
+<li>suppress results for small groups (k-threshold)</li>
+<li>generalise data (age bands, regions)</li>
+<li>add noise to aggregates</li>
+</ul>
+</li>
+</ul>
+<h4>Flow Control</h4>
+<ul>
+<li>
+<p><strong>Flow control</strong> is about preventing information from a high-sensitivity source from leaking to a low-sensitivity sink</p>
+</li>
+<li>
+<p><strong>Explicit flow</strong> is when the sensitive value is directly copied into an output</p>
+</li>
+<li>
+<p><strong>Implicit flow</strong> is when sensitive value affects control flow, and ooutcome leaks often through public logs</p>
+</li>
+<li>
+<p><strong>Covert channels</strong> are a way of communicating information through a mechanism not indended for communication, e.g.</p>
+<ul>
+<li><strong>Storage covert channel</strong> - toggling a lock to transmit bits</li>
+<li><strong>Timing covert channel</strong> - leaking through how long something takes</li>
+</ul>
+</li>
+</ul>
+<h2>9. Applications and Alternatives</h2>
+<h3>9.1 Application Architecture</h3>
+<ul>
+<li>
+<p>Applications are typically designed as <strong>3-tier</strong>:</p>
+<ol>
+<li>Client / mobile</li>
+<li>API / service</li>
+<li>Database</li>
+</ol>
+</li>
+<li>
+<p>Typically, <strong>one user action / API reuqest</strong> maps to <strong>one transaction</strong></p>
+<ul>
+<li>keep transactions short</li>
+</ul>
+</li>
+<li>
+<p><strong>Connection pooling</strong> is used to reuse connections across requests</p>
+<ul>
+<li>this is because DB connections are expensive</li>
+<li>limits max concurrency to avoid overwhelming DB</li>
+</ul>
+</li>
+<li>
+<p>An <strong>Object-Relational Mapping</strong> (ORM) is an interface for the database instead of SQL</p>
+<ul>
+<li><strong>ORM</strong>: faster development, but risks issues like N+1 queries, accidental huge joins</li>
+<li><strong>SQL</strong>: maximum control and performance clarity</li>
+</ul>
+</li>
+<li>
+<p>In production systems, <strong>migrations</strong> to the schema are used when modificiation is required:</p>
+<ul>
+<li>roll forward safely</li>
+<li>often do <strong>backwards-compatible</strong> steps</li>
+</ul>
+</li>
+<li>
+<p><strong>Caching</strong></p>
+<ul>
+<li>Use caches (e.g. Redis) for hot reads</li>
+<li>Use <strong>materialised views / summary table</strong> when analytics queries are heavy</li>
+</ul>
+</li>
+</ul>
+<h3>9.2 NoSQL</h3>
+<h4>SQL Databases</h4>
+<ul>
+<li>
+<p>A <strong>SQL</strong> database is a relational database</p>
+</li>
+<li>
+<p><strong>Pros of SQL Databases</strong>:</p>
+<ul>
+<li>Strong consistency + transactions</li>
+<li>Joins and powerful ad-hoc querying</li>
+<li>Schema + constraints enforce invariants</li>
+<li>Mature optimisers, indexes, tooling</li>
+</ul>
+</li>
+<li>
+<p>This makes SQL databases good for:</p>
+<ul>
+<li>Most online transaction payment (OLTP) business apps</li>
+<li>workloads where correctness matter a lot</li>
+</ul>
+</li>
+</ul>
+<h4>NoSQL Databases</h4>
+<ul>
+<li>
+<p><strong>NoSQL</strong> (non-relational databases) are a family of databases that relax some relational features to gain:</p>
+<ul>
+<li>sacability</li>
+<li>flexibility of data model</li>
+<li>performance for certain access patterns</li>
+</ul>
+</li>
+<li>
+<p>The main families are:</p>
+<ul>
+<li><strong>Key-value store</strong>: (Redis style)
+<ul>
+<li>great for caching, sessions, simple lookups</li>
+</ul>
+</li>
+<li><strong>Document stores</strong> (JSON docs)
+<ul>
+<li>flexible schema, nested structures</li>
+<li>good when data naturally fits “one aggregate per document”</li>
+</ul>
+</li>
+<li><strong>Wide-column</strong>
+<ul>
+<li>rows with many sparse columns, designed for huge scale</li>
+<li>good for time series / logs with predicatble queries</li>
+</ul>
+</li>
+<li><strong>Graph DBs</strong>
+<ul>
+<li>nodes/edges, traversals</li>
+</ul>
+</li>
+<li><strong>Search engines</strong>
+<ul>
+<li>inverted indexes, relevance ranking, full-text search</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Tradeoffs vs SQL</strong></p>
+<ul>
+<li>Often weaker support for joins, multi-row transactions, and ad-hoc queries</li>
+<li>Strong performance when access pattern matches the model</li>
+<li>Usually design around <strong>query patterns first</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>When to use NoSQL</strong></p>
+<ul>
+<li>schema is highly variable or nested and joins are complex</li>
+<li>need high horizontal scaling</li>
+<li>can accept weaker consistency / transactions</li>
+</ul>
+</li>
+</ul>
+<h3>9.3 Distributed Databases</h3>
+<ul>
+<li>
+<p>A <strong>distributed database</strong> stores data across multiple machines to improve:</p>
+<ul>
+<li>availability</li>
+<li>fault tolerance</li>
+<li>throughput / storage capacity</li>
+</ul>
+</li>
+<li>
+<p><strong>Replication</strong> is making copies of the database</p>
+<ul>
+<li><strong>Leader-follower</strong> replication is most common: writes go to primary, replicas serve reads</li>
+<li>Consequences: <strong>replication lag</strong> - reads from replicas may be stale</li>
+</ul>
+</li>
+<li>
+<p><strong>Sharding</strong> is splitting the database into multiple parts</p>
+<ul>
+<li>Data is divided by a shard key:
+<ul>
+<li><strong>Hash sharding</strong>: good balance, bad for range scans</li>
+<li><strong>Range sharding</strong>: good for range scans, risk hotspots</li>
+</ul>
+</li>
+<li>Key consequences
+<ul>
+<li>queries not using shard key may hit many shards</li>
+<li>cross-shard joins and transactions are much harder</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The <strong>CAP Theorem</strong> states:</p>
+<ul>
+<li>During a network partition, systems trade off:
+<ul>
+<li><strong>Consistency</strong> - everyone sees the same latest value</li>
+<li><strong>Availability</strong> - every request gets a response</li>
+</ul>
+</li>
+<li>So under a network partition, you trade <strong>C</strong> for <strong>A</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>Consistency models</strong></p>
+<ul>
+<li>Strong consistency - reads reflect the latest committed value</li>
+<li>Eventual consistency - replicas converge over time</li>
+<li>Session consistency - a common middle-ground guarantee</li>
+</ul>
+</li>
+<li>
+<p><strong>Distributed transactions</strong></p>
+<ul>
+<li>Coordination is required if transaction is split across multiple shards</li>
+<li><strong>2PC</strong> (two-phase-commit) can be used but doesn’t solve the full problem</li>
+<li>Cross-shard transactions are just avoided in general</li>
+</ul>
+</li>
+</ul>
+
+        </main>
+    </body>
+
+</html>
