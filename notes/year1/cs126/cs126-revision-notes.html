@@ -2,42 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>CS126 Revision Notes</title>
+        <title>cs126-revision-notes.md</title>
+
+        <!-- Simplecss stylesheet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+
+        <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
-    crossorigin="anonymous"></script>
+        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Adds captions to images
-                $('img').wrap('<figure>')
-                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
-
-                for (let element of document.getElementsByClassName("math")) {
-                    let content = element.textContent;
-
-                    katex.render(content, element, {
-                        throwOnError: false
-                    })
-                }
-
-                // Initialise highlight.js for all code blocks
-                hljs.highlightAll();
-            });
-
-            
-        </script>
-
+        <!-- Embedding css and macros -->
         <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
 
 :root {
     --bg: #11121d;         /* darker bluish-black background */
@@ -54,129 +38,188 @@
     --gray: #727169;
 }
 
-              body {
-                  background-color: var(--bg);
-                  color: var(--fg);
-                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-                  line-height: 1.8;
-                  padding: 2rem;
-                  max-width: 850px;
-                  margin: auto;
-              }
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.8;
+    padding: 2rem;
+    max-width: 850px;
+    margin: auto;
+}
 
-              h1 {
-                  color: var(--red);
-                  font-size: 2.5rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 700;
-              }
+h1 {
+    color: var(--red);
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
 
-              h2 {
-                  color: var(--orange);
-                  font-size: 2rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 600;
-              }
+h2 {
+    color: var(--orange);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
 
-              h3 {
-                  color: var(--yellow);
-                  font-size: 1.75rem;
-                  margin-top: 1.5rem;
-                  margin-bottom: 0.75rem;
-                  font-weight: 600;
-              }
+h3 {
+    color: var(--yellow);
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
 
-              h4 {
-                  color: var(--green);
-                  font-size: 1.5rem;
-                  margin-top: 1.25rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h4 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h5 {
-                  color: var(--blue);
-                  font-size: 1.25rem;
-                  margin-top: 1rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h5 {
+    color: var(--blue);
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h6 {
-                  color: var(--purple);
-                  font-size: 1.1rem;
-                  margin-top: 0.75rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h6 {
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              a {
-                  color: var(--accent);
-                  text-decoration: underline;
-              }
+a {
+    color: var(--accent);
+    text-decoration: underline;
+}
 
-              code, pre {
-                  font-family: 'Fira Code', monospace;
-                  background-color: var(--surface);
-                  color: var(--fg);
-                  padding: 0.3rem 0.5rem;
-                  border-radius: 6px;
-                  overflow-x: auto;
-              }
+code, pre {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--surface);
+    color: var(--fg);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
 
-              blockquote {
-                  border-left: 4px solid var(--gray);
-                  padding-left: 1rem;
-                  color: var(--gray);
-                  font-style: italic;
-                  background-color: #2b2d51;
-                  margin: 1rem 0;
-              }
+blockquote {
+    border-left: 4px solid var(--gray);
+    padding-left: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    background-color: #2b2d51;
+    margin: 1rem 0;
+}
 
-              img {
-                  max-width: 100%;
-                  border-radius: 6px;
-                  margin: 1rem 0;
-              }
+img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
 
-              figcaption {
-                  font-size: 0.9em;
-                  color: var(--gray);
-                  text-align: center;
-                  margin-top: 0.25rem;
-              }
+figcaption {
+    font-size: 0.9em;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.25rem;
+}
 
-              .footnote-definition > p {
-                  display: inline;
-              }
+.footnote-definition > p {
+    display: inline;
+}
 
-              .footnote-definition-label {
-                  font-weight: bold;
-              }
+.footnote-definition-label {
+    font-weight: bold;
+}
 
-              table {
-                  border-collapse: collapse;
-                  width: 100%;
-                  margin: 1rem 0;
-              }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
 
-              th, td {
-                  border: 1px solid var(--gray);
-                  padding: 0.5rem;
-                  text-align: left;
-              }
+th, td {
+    border: 1px solid var(--gray);
+    padding: 0.5rem;
+    text-align: left;
+}
 
-              th {
-                  background-color: var(--surface);
-                  color: var(--fg);
-              }
+th {
+    background-color: var(--surface);
+    color: var(--fg);
+}
+
         </style>
+        <script>
+        window.katexMacros = window.katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\C": "\\mathbb{C}",
+    "\\Q":"\\mathbb{Q}",
+    "\\Z": "\\mathbb{Z}",
+    "\\N": "\\mathbb{N}",
+    "\\vv": ["\\vec{#1}", 1],
+    "\\bb": ["\\textbf{#1}", 1]
+};
+;
+        </script>
+
+        <!-- Rendering script -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Adds captions to images
+            $('img').wrap('<figure>')
+            $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+            // [macro, args] support for katex-macros.js
+            const macros = {};
+            for (const [name, value] of Object.entries(window.katexMacros)) {
+                if (Array.isArray(value)) {
+                    macros[name] = value[0];
+                } else {
+                    macros[name] = value;
+                }
+            }
+
+            for (let element of document.getElementsByClassName("math")) {
+                let content = element.textContent.trim();
+
+                const isDisplayMath =
+                    element.tagName.toLowerCase() === "div" ||
+                        element.classList.contains("display") ||
+                        element.classList.contains("math-display");
+
+                katex.render(content, element, {
+                    throwOnError: false,
+                    macros,
+                    displayMode: isDisplayMath
+                });
+
+                if (isDisplayMath) {
+                    element.classList.add("math-display");
+                }
+            }
+
+            // Initialise highlight.js for all code blocks
+            hljs.highlightAll();
+
+        });
+
+    
+        </script>
 
     </head>
 
-    <body><h2>1. Introduction</h2>
+    <body>
+        <main id="content">
+            <h2>1. Introduction</h2>
 <p><strong>Motivation</strong></p>
 <ul>
 <li>At the heart of Computer Science there are two sometimes conflicting goals:
@@ -3413,6 +3456,8 @@ repeat log n times:
 <ul>
 <li><em>However we can do even better using Warshall’s Algorithm which is <span class="math math-inline">\Theta(n^3)</span> but this is outside the scope of the exam</em></li>
 </ul>
-</body>
+
+        </main>
+    </body>
 
 </html>

@@ -2,42 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>CS118 Revision Notes</title>
+        <title>cs118-revision-notes.md</title>
+
+        <!-- Simplecss stylesheet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+
+        <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
-    crossorigin="anonymous"></script>
+        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Adds captions to images
-                $('img').wrap('<figure>')
-                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
-
-                for (let element of document.getElementsByClassName("math")) {
-                    let content = element.textContent;
-
-                    katex.render(content, element, {
-                        throwOnError: false
-                    })
-                }
-
-                // Initialise highlight.js for all code blocks
-                hljs.highlightAll();
-            });
-
-            
-        </script>
-
+        <!-- Embedding css and macros -->
         <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
 
 :root {
     --bg: #11121d;         /* darker bluish-black background */
@@ -54,129 +38,188 @@
     --gray: #727169;
 }
 
-              body {
-                  background-color: var(--bg);
-                  color: var(--fg);
-                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-                  line-height: 1.8;
-                  padding: 2rem;
-                  max-width: 850px;
-                  margin: auto;
-              }
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.8;
+    padding: 2rem;
+    max-width: 850px;
+    margin: auto;
+}
 
-              h1 {
-                  color: var(--red);
-                  font-size: 2.5rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 700;
-              }
+h1 {
+    color: var(--red);
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
 
-              h2 {
-                  color: var(--orange);
-                  font-size: 2rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 600;
-              }
+h2 {
+    color: var(--orange);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
 
-              h3 {
-                  color: var(--yellow);
-                  font-size: 1.75rem;
-                  margin-top: 1.5rem;
-                  margin-bottom: 0.75rem;
-                  font-weight: 600;
-              }
+h3 {
+    color: var(--yellow);
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
 
-              h4 {
-                  color: var(--green);
-                  font-size: 1.5rem;
-                  margin-top: 1.25rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h4 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h5 {
-                  color: var(--blue);
-                  font-size: 1.25rem;
-                  margin-top: 1rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h5 {
+    color: var(--blue);
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h6 {
-                  color: var(--purple);
-                  font-size: 1.1rem;
-                  margin-top: 0.75rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h6 {
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              a {
-                  color: var(--accent);
-                  text-decoration: underline;
-              }
+a {
+    color: var(--accent);
+    text-decoration: underline;
+}
 
-              code, pre {
-                  font-family: 'Fira Code', monospace;
-                  background-color: var(--surface);
-                  color: var(--fg);
-                  padding: 0.3rem 0.5rem;
-                  border-radius: 6px;
-                  overflow-x: auto;
-              }
+code, pre {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--surface);
+    color: var(--fg);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
 
-              blockquote {
-                  border-left: 4px solid var(--gray);
-                  padding-left: 1rem;
-                  color: var(--gray);
-                  font-style: italic;
-                  background-color: #2b2d51;
-                  margin: 1rem 0;
-              }
+blockquote {
+    border-left: 4px solid var(--gray);
+    padding-left: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    background-color: #2b2d51;
+    margin: 1rem 0;
+}
 
-              img {
-                  max-width: 100%;
-                  border-radius: 6px;
-                  margin: 1rem 0;
-              }
+img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
 
-              figcaption {
-                  font-size: 0.9em;
-                  color: var(--gray);
-                  text-align: center;
-                  margin-top: 0.25rem;
-              }
+figcaption {
+    font-size: 0.9em;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.25rem;
+}
 
-              .footnote-definition > p {
-                  display: inline;
-              }
+.footnote-definition > p {
+    display: inline;
+}
 
-              .footnote-definition-label {
-                  font-weight: bold;
-              }
+.footnote-definition-label {
+    font-weight: bold;
+}
 
-              table {
-                  border-collapse: collapse;
-                  width: 100%;
-                  margin: 1rem 0;
-              }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
 
-              th, td {
-                  border: 1px solid var(--gray);
-                  padding: 0.5rem;
-                  text-align: left;
-              }
+th, td {
+    border: 1px solid var(--gray);
+    padding: 0.5rem;
+    text-align: left;
+}
 
-              th {
-                  background-color: var(--surface);
-                  color: var(--fg);
-              }
+th {
+    background-color: var(--surface);
+    color: var(--fg);
+}
+
         </style>
+        <script>
+        window.katexMacros = window.katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\C": "\\mathbb{C}",
+    "\\Q":"\\mathbb{Q}",
+    "\\Z": "\\mathbb{Z}",
+    "\\N": "\\mathbb{N}",
+    "\\vv": ["\\vec{#1}", 1],
+    "\\bb": ["\\textbf{#1}", 1]
+};
+;
+        </script>
+
+        <!-- Rendering script -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Adds captions to images
+            $('img').wrap('<figure>')
+            $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+            // [macro, args] support for katex-macros.js
+            const macros = {};
+            for (const [name, value] of Object.entries(window.katexMacros)) {
+                if (Array.isArray(value)) {
+                    macros[name] = value[0];
+                } else {
+                    macros[name] = value;
+                }
+            }
+
+            for (let element of document.getElementsByClassName("math")) {
+                let content = element.textContent.trim();
+
+                const isDisplayMath =
+                    element.tagName.toLowerCase() === "div" ||
+                        element.classList.contains("display") ||
+                        element.classList.contains("math-display");
+
+                katex.render(content, element, {
+                    throwOnError: false,
+                    macros,
+                    displayMode: isDisplayMath
+                });
+
+                if (isDisplayMath) {
+                    element.classList.add("math-display");
+                }
+            }
+
+            // Initialise highlight.js for all code blocks
+            hljs.highlightAll();
+
+        });
+
+    
+        </script>
 
     </head>
 
-    <body><h3>Topic 2 - Variables</h3>
+    <body>
+        <main id="content">
+            <h2>Topic 2 - Variables</h2>
 <ul>
 <li><strong>Refinement</strong> - Process of conversion from the specification to high-level program code</li>
 </ul>
@@ -268,7 +311,7 @@ Else: value is <code>NaN</code> (not a number)</p>
 <li>Assignment (<code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <span class="math math-inline">\cdots</span>)</li>
 </ul>
 <p>Note - <strong>API</strong> = Application Programming Interface</p>
-<h3>Topic 4 - Conditional Statements</h3>
+<h2>Topic 4 - Conditional Statements</h2>
 <ul>
 <li><code>if</code>, <code>else</code> keywords</li>
 </ul>
@@ -367,7 +410,7 @@ NOTE - <code>yield</code> is used to “return” a value out of the <em>switch 
 <li>Safety critical code</li>
 <li>When your programs fail</li>
 </ul>
-<h3>Topic 5 - Iteration</h3>
+<h2>Topic 5 - Iteration</h2>
 <ul>
 <li><strong>Bounded Repetition</strong> - We repeat something a <em>fixed</em> number of times
 <ul>
@@ -400,7 +443,7 @@ while (booleanExpression | !doneOnce) {
 }
 </code></pre>
 <p><code>continue</code> - it goes to the <strong>next</strong> iteration</p>
-<h3>Topic 6 - Arrays, Methods, Scope &amp; Recursion</h3>
+<h2>Topic 6 - Arrays, Methods, Scope &amp; Recursion</h2>
 <p><strong>Declaring an Array</strong></p>
 <pre><code class="language-java">&lt;type&gt;[] array; // 1d arary
 &lt;type&gt;[][] array; // 2d array
@@ -464,7 +507,7 @@ int a[], b[], c[][];
 <li>A function calls itself</li>
 <li>Must have a termination condition (base case) to prevent an infinite loop</li>
 </ul>
-<h3>Topic 7 - Object Oriented Programming</h3>
+<h2>Topic 7 - Object Oriented Programming</h2>
 <ul>
 <li>
 <p>Data and operations on data are bundled together in a structure called an Object</p>
@@ -515,7 +558,7 @@ int a[], b[], c[][];
 <li>All objects have an <code>equals</code> method</li>
 <li>Using <code>==</code> with objects is asking if the two objects have the same reference</li>
 </ul>
-<h3>Topic 8 - Modifiers and Encapsulation</h3>
+<h2>Topic 8 - Modifiers and Encapsulation</h2>
 <ul>
 <li>
 <p><code>public</code> - can be accessed outside the class</p>
@@ -587,7 +630,7 @@ switch (d) {
 	etc.
 }
 </code></pre>
-<h3>Topic 10 - Inheritance and Polymorphism</h3>
+<h2>Topic 10 - Inheritance and Polymorphism</h2>
 <ul>
 <li><strong>Classes can inherit from a parent class</strong>
 <ul>
@@ -633,7 +676,7 @@ switch (d) {
 <ul>
 <li>Casting objects when they you can’t causes a <code>ClassCastException</code>, e.g. casting an <code>Object</code> to a <code>Cat</code> when it’s not a <code>Cat</code></li>
 </ul>
-<h3>Topic 11 - Abstract Classes and Inheritance</h3>
+<h2>Topic 11 - Abstract Classes and Inheritance</h2>
 <ul>
 <li>An <code>abstract</code> class is a special class that cannot be instantiated</li>
 <li>Allows us to capture common properties and behaviours at an abstract level</li>
@@ -679,7 +722,7 @@ switch (d) {
 </ul>
 </li>
 </ul>
-<h3>Topic 12 - Exceptions</h3>
+<h2>Topic 12 - Exceptions</h2>
 <ul>
 <li><code>try</code> … <code>catch</code> blocks catch Exceptions</li>
 <li>Ordering of <code>catch</code> blocks is important</li>
@@ -755,7 +798,7 @@ switch (d) {
 </ul>
 </li>
 </ul>
-<h3>Topic 13 - Generics</h3>
+<h2>Topic 13 - Generics</h2>
 <ul>
 <li>
 <p><strong>Two kinds of error</strong></p>
@@ -846,6 +889,8 @@ switch (d) {
 <ul>
 <li>This means that <code>T</code> must extend the <code>Number</code> class.</li>
 </ul>
-</body>
+
+        </main>
+    </body>
 
 </html>

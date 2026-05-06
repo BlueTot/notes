@@ -2,43 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Bott and Taylor Notes</title>
+        <title>bott-and-taylor-notes.md</title>
+
+        <!-- Simplecss stylesheet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+
+        <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
-    crossorigin="anonymous"></script>
+        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Adds captions to images
-                $('img').wrap('<figure>')
-                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
-
-                for (let element of document.getElementsByClassName("math")) {
-                    let content = element.textContent;
-
-                    katex.render(content, element, {
-                        throwOnError: false
-                    })
-                }
-
-                // Initialise highlight.js for all code blocks
-                hljs.highlightAll();
-
-            });
-
-            
-        </script>
-
+        <!-- Embedding css and macros -->
         <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
 
 :root {
     --bg: #11121d;         /* darker bluish-black background */
@@ -55,132 +38,188 @@
     --gray: #727169;
 }
 
-              body {
-                  background-color: var(--bg);
-                  color: var(--fg);
-                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-                  line-height: 1.8;
-                  padding: 2rem;
-                  max-width: 850px;
-                  margin: auto;
-              }
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.8;
+    padding: 2rem;
+    max-width: 850px;
+    margin: auto;
+}
 
-              h1 {
-                  color: var(--red);
-                  font-size: 2.5rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 700;
-              }
+h1 {
+    color: var(--red);
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
 
-              h2 {
-                  color: var(--orange);
-                  font-size: 2rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 600;
-              }
+h2 {
+    color: var(--orange);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
 
-              h3 {
-                  color: var(--yellow);
-                  font-size: 1.75rem;
-                  margin-top: 1.5rem;
-                  margin-bottom: 0.75rem;
-                  font-weight: 600;
-              }
+h3 {
+    color: var(--yellow);
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
 
-              h4 {
-                  color: var(--green);
-                  font-size: 1.5rem;
-                  margin-top: 1.25rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h4 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h5 {
-                  color: var(--blue);
-                  font-size: 1.25rem;
-                  margin-top: 1rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h5 {
+    color: var(--blue);
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h6 {
-                  color: var(--purple);
-                  font-size: 1.1rem;
-                  margin-top: 0.75rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h6 {
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              a {
-                  color: var(--accent);
-                  text-decoration: underline;
-              }
+a {
+    color: var(--accent);
+    text-decoration: underline;
+}
 
-              code, pre {
-                  font-family: 'Fira Code', monospace;
-                  background-color: var(--surface);
-                  color: var(--fg);
-                  padding: 0.3rem 0.5rem;
-                  border-radius: 6px;
-                  overflow-x: auto;
-              }
+code, pre {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--surface);
+    color: var(--fg);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
 
-              blockquote {
-                  border-left: 4px solid var(--gray);
-                  padding-left: 1rem;
-                  color: var(--gray);
-                  font-style: italic;
-                  background-color: #2b2d51;
-                  margin: 1rem 0;
-              }
+blockquote {
+    border-left: 4px solid var(--gray);
+    padding-left: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    background-color: #2b2d51;
+    margin: 1rem 0;
+}
 
-              img {
-                  max-width: 100%;
-                  border-radius: 6px;
-                  margin: 1rem 0;
-              }
+img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
 
-              figcaption {
-                  font-size: 0.9em;
-                  color: var(--gray);
-                  text-align: center;
-                  margin-top: 0.25rem;
-              }
+figcaption {
+    font-size: 0.9em;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.25rem;
+}
 
-              .footnote-definition > p {
-                  display: inline;
-              }
+.footnote-definition > p {
+    display: inline;
+}
 
-              .footnote-definition-label {
-                  font-weight: bold;
-              }
+.footnote-definition-label {
+    font-weight: bold;
+}
 
-              table {
-                  border-collapse: collapse;
-                  width: 100%;
-                  margin: 1rem 0;
-              }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
 
-              th, td {
-                  border: 1px solid var(--gray);
-                  padding: 0.5rem;
-                  text-align: left;
-              }
+th, td {
+    border: 1px solid var(--gray);
+    padding: 0.5rem;
+    text-align: left;
+}
 
-              th {
-                  background-color: var(--surface);
-                  color: var(--fg);
-              }
+th {
+    background-color: var(--surface);
+    color: var(--fg);
+}
 
         </style>
+        <script>
+        window.katexMacros = window.katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\C": "\\mathbb{C}",
+    "\\Q":"\\mathbb{Q}",
+    "\\Z": "\\mathbb{Z}",
+    "\\N": "\\mathbb{N}",
+    "\\vv": ["\\vec{#1}", 1],
+    "\\bb": ["\\textbf{#1}", 1]
+};
+;
+        </script>
+
+        <!-- Rendering script -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Adds captions to images
+            $('img').wrap('<figure>')
+            $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+            // [macro, args] support for katex-macros.js
+            const macros = {};
+            for (const [name, value] of Object.entries(window.katexMacros)) {
+                if (Array.isArray(value)) {
+                    macros[name] = value[0];
+                } else {
+                    macros[name] = value;
+                }
+            }
+
+            for (let element of document.getElementsByClassName("math")) {
+                let content = element.textContent.trim();
+
+                const isDisplayMath =
+                    element.tagName.toLowerCase() === "div" ||
+                        element.classList.contains("display") ||
+                        element.classList.contains("math-display");
+
+                katex.render(content, element, {
+                    throwOnError: false,
+                    macros,
+                    displayMode: isDisplayMath
+                });
+
+                if (isDisplayMath) {
+                    element.classList.add("math-display");
+                }
+            }
+
+            // Initialise highlight.js for all code blocks
+            hljs.highlightAll();
+
+        });
+
+    
+        </script>
 
     </head>
 
     <body>
         <main id="content">
-            <h3>1. Law and Government</h3>
+            <h2>1. Law and Government</h2>
 <p><strong>Jurisdiction</strong> - Area covered by a single legal system and a set of laws
 <strong>United Kingdom</strong> - England, Scotland, Wales, Northern Ireland</p>
 <ul>
@@ -238,7 +277,7 @@
 <li>Judiciary</li>
 <li>Executive</li>
 </ul>
-<h3>2. The Computing Profession</h3>
+<h2>2. The Computing Profession</h2>
 <p><strong>Profession -</strong></p>
 <ul>
 <li>Substantial accredited education and training are required to practise</li>
@@ -325,7 +364,7 @@
 </li>
 </ul>
 <p><strong>Audit</strong> - Official Inspection of an organisation’s accounts by an independent body</p>
-<h3>3. What is an Organisation?</h3>
+<h2>3. What is an Organisation?</h2>
 <p><strong>Sole Trader</strong> - individual who runs their own business
 <strong>HMRC</strong> - His Majesty’s Revenue and Customs (HMRC)
 <strong>VAT</strong> - Value added tax</p>
@@ -398,7 +437,7 @@
 <strong>Outsourcing</strong> = contracting out activities or processes from one business to another
 <strong>Takeover</strong> = one company gains control of another by acquiring a majority, if not all of its shares
 <strong>Merger</strong> = takeover where both companies come on equal terms, and the merging companies themselves cease to exist</p>
-<h3>4. Structure and Management of Organisations</h3>
+<h2>4. Structure and Management of Organisations</h2>
 <p><strong>Organisational Theory</strong> - founded by Max Weber, Mary Parker Follett, Henri Fayol, Lyndall Urwick.</p>
 <p><strong>Core business</strong> - primary purpose of an organisation</p>
 <p><strong>Structuring Principles:</strong></p>
@@ -409,7 +448,7 @@
 <li>Structure by Technology</li>
 <li>Structure by Location</li>
 </ul>
-<h3>5. Financing a Start-up Company</h3>
+<h2>5. Financing a Start-up Company</h2>
 <ul>
 <li>Salaries</li>
 <li>Rent, rates, heating, lighting of premises used</li>
@@ -431,7 +470,7 @@
 <p><strong>Crowdfunding</strong> - practice of funding a project or venture by raising money from a large number of people</p>
 <p><strong>Gearing</strong> - Ratio between loan capital and equity capital</p>
 <p><strong>Equity capital</strong> - money paid to a company in exchange for a share in its ownership.</p>
-<h3>6. Financial Accounting</h3>
+<h2>6. Financial Accounting</h2>
 <ul>
 <li>
 <p>The company produces an annual report which must be filed at Companies House</p>
@@ -489,7 +528,7 @@
 </ul>
 </li>
 </ul>
-<h3>7. Management Accounting</h3>
+<h2>7. Management Accounting</h2>
 <ul>
 <li>
 <p>Budget - financial plan showing expected income and expenditure of an organisation over one year</p>
@@ -507,12 +546,12 @@
 <p>Direct cost / payroll cost = salary + employers’ social security contributions + other costs associated with employee</p>
 </li>
 </ul>
-<h3>8. Investment Appraisal</h3>
+<h2>8. Investment Appraisal</h2>
 <ul>
 <li>Discounted Cash Flow (DCF)</li>
 <li>Discount factor</li>
 </ul>
-<h3>9. Human Resources Issues</h3>
+<h2>9. Human Resources Issues</h2>
 <p><strong>Responsibilities of HR Department</strong></p>
 <ul>
 <li>Ensuring recruitment, selection, promotion procedures comply with anti-discrimination legislation</li>
@@ -550,7 +589,7 @@
 </ul>
 <p>Dismissals are automatically considered to be unfair unless the statutory dismissal procedure has been followed</p>
 <p>Public Interest Disclosure Act 1998 - protect employees who raise concerns about criminal behaviour, certain types of civil offence, miscarriages of justice, activities that endanger health and safety or the environment, and attempts to cover up such malpractice.</p>
-<h3>10. Equality, Diversity and Inclusion</h3>
+<h2>10. Equality, Diversity and Inclusion</h2>
 <ul>
 <li>
 <p>Equality Act 2010</p>
@@ -582,7 +621,7 @@
 </ul>
 </li>
 </ul>
-<h3>11. Intellectual Property Rights</h3>
+<h2>11. Intellectual Property Rights</h2>
 <ul>
 <li>
 <p>Tangible vs intangible property</p>
@@ -689,7 +728,7 @@ qualifying disclosure:</p>
 <li>trademarks are registered at UKIPO</li>
 </ul>
 <p>domain names - ICANN - internet corporation for assigned names and numbers</p>
-<h3>12. Contracts and Licences</h3>
+<h2>12. Contracts and Licences</h2>
 <p>contract - agreement between two or more persons (parties of contract) that can be enforced in a court of law</p>
 <ul>
 <li>all parties must intend to make a contract</li>
@@ -714,7 +753,7 @@ licence agreement = agreement that covers software purchases + right to use it i
 <ul>
 <li>makes it not possible to limit the damages payable if a defect in the product causes death or personal injury</li>
 </ul>
-<h3>13. Data Protection, Privacy and Freedom of Information</h3>
+<h2>13. Data Protection, Privacy and Freedom of Information</h2>
 <p><strong>General Data Protection Regulation (GDPR)</strong></p>
 <ul>
 <li>Law made in EU, but has implications for companies worldwide that have role in processing data about EU citizens and residents</li>
@@ -793,7 +832,7 @@ Organisations can monitor and where appropriate record communications without co
 <li>to monitor communications to confidential counselling services</li>
 </ul>
 <p>freedom of information 2000 act</p>
-<h3>15. Computer Misuse</h3>
+<h2>15. Computer Misuse</h2>
 <ul>
 <li>Computer Misuse Act 1990
 <ul>

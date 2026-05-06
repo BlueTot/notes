@@ -2,42 +2,26 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>CS141 Revision Notes</title>
+        <title>cs141-revision-notes.md</title>
+
+        <!-- Simplecss stylesheet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-        integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+
+        <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-            integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
-    crossorigin="anonymous"></script>
+        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/haskell.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Adds captions to images
-                $('img').wrap('<figure>')
-                $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
-
-                for (let element of document.getElementsByClassName("math")) {
-                    let content = element.textContent;
-
-                    katex.render(content, element, {
-                        throwOnError: false
-                    })
-                }
-
-                // Initialise highlight.js for all code blocks
-                hljs.highlightAll();
-            });
-
-            
-        </script>
-
+        <!-- Embedding css and macros -->
         <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code&display=swap');
 
 :root {
     --bg: #11121d;         /* darker bluish-black background */
@@ -54,129 +38,188 @@
     --gray: #727169;
 }
 
-              body {
-                  background-color: var(--bg);
-                  color: var(--fg);
-                  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-                  line-height: 1.8;
-                  padding: 2rem;
-                  max-width: 850px;
-                  margin: auto;
-              }
+body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.8;
+    padding: 2rem;
+    max-width: 850px;
+    margin: auto;
+}
 
-              h1 {
-                  color: var(--red);
-                  font-size: 2.5rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 700;
-              }
+h1 {
+    color: var(--red);
+    font-size: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
 
-              h2 {
-                  color: var(--orange);
-                  font-size: 2rem;
-                  margin-top: 2rem;
-                  margin-bottom: 1rem;
-                  font-weight: 600;
-              }
+h2 {
+    color: var(--orange);
+    font-size: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
 
-              h3 {
-                  color: var(--yellow);
-                  font-size: 1.75rem;
-                  margin-top: 1.5rem;
-                  margin-bottom: 0.75rem;
-                  font-weight: 600;
-              }
+h3 {
+    color: var(--yellow);
+    font-size: 1.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
 
-              h4 {
-                  color: var(--green);
-                  font-size: 1.5rem;
-                  margin-top: 1.25rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h4 {
+    color: var(--green);
+    font-size: 1.5rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h5 {
-                  color: var(--blue);
-                  font-size: 1.25rem;
-                  margin-top: 1rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h5 {
+    color: var(--blue);
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              h6 {
-                  color: var(--purple);
-                  font-size: 1.1rem;
-                  margin-top: 0.75rem;
-                  margin-bottom: 0.5rem;
-                  font-weight: 600;
-              }
+h6 {
+    color: var(--purple);
+    font-size: 1.1rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
 
-              a {
-                  color: var(--accent);
-                  text-decoration: underline;
-              }
+a {
+    color: var(--accent);
+    text-decoration: underline;
+}
 
-              code, pre {
-                  font-family: 'Fira Code', monospace;
-                  background-color: var(--surface);
-                  color: var(--fg);
-                  padding: 0.3rem 0.5rem;
-                  border-radius: 6px;
-                  overflow-x: auto;
-              }
+code, pre {
+    font-family: 'Fira Code', monospace;
+    background-color: var(--surface);
+    color: var(--fg);
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    overflow-x: auto;
+}
 
-              blockquote {
-                  border-left: 4px solid var(--gray);
-                  padding-left: 1rem;
-                  color: var(--gray);
-                  font-style: italic;
-                  background-color: #2b2d51;
-                  margin: 1rem 0;
-              }
+blockquote {
+    border-left: 4px solid var(--gray);
+    padding-left: 1rem;
+    color: var(--gray);
+    font-style: italic;
+    background-color: #2b2d51;
+    margin: 1rem 0;
+}
 
-              img {
-                  max-width: 100%;
-                  border-radius: 6px;
-                  margin: 1rem 0;
-              }
+img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
 
-              figcaption {
-                  font-size: 0.9em;
-                  color: var(--gray);
-                  text-align: center;
-                  margin-top: 0.25rem;
-              }
+figcaption {
+    font-size: 0.9em;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 0.25rem;
+}
 
-              .footnote-definition > p {
-                  display: inline;
-              }
+.footnote-definition > p {
+    display: inline;
+}
 
-              .footnote-definition-label {
-                  font-weight: bold;
-              }
+.footnote-definition-label {
+    font-weight: bold;
+}
 
-              table {
-                  border-collapse: collapse;
-                  width: 100%;
-                  margin: 1rem 0;
-              }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
 
-              th, td {
-                  border: 1px solid var(--gray);
-                  padding: 0.5rem;
-                  text-align: left;
-              }
+th, td {
+    border: 1px solid var(--gray);
+    padding: 0.5rem;
+    text-align: left;
+}
 
-              th {
-                  background-color: var(--surface);
-                  color: var(--fg);
-              }
+th {
+    background-color: var(--surface);
+    color: var(--fg);
+}
+
         </style>
+        <script>
+        window.katexMacros = window.katexMacros = {
+    "\\R": "\\mathbb{R}",
+    "\\C": "\\mathbb{C}",
+    "\\Q":"\\mathbb{Q}",
+    "\\Z": "\\mathbb{Z}",
+    "\\N": "\\mathbb{N}",
+    "\\vv": ["\\vec{#1}", 1],
+    "\\bb": ["\\textbf{#1}", 1]
+};
+;
+        </script>
+
+        <!-- Rendering script -->
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Adds captions to images
+            $('img').wrap('<figure>')
+            $('img').after(function () {return `<figcaption>${$(this).attr('alt')}</figcaption>`});
+
+            // [macro, args] support for katex-macros.js
+            const macros = {};
+            for (const [name, value] of Object.entries(window.katexMacros)) {
+                if (Array.isArray(value)) {
+                    macros[name] = value[0];
+                } else {
+                    macros[name] = value;
+                }
+            }
+
+            for (let element of document.getElementsByClassName("math")) {
+                let content = element.textContent.trim();
+
+                const isDisplayMath =
+                    element.tagName.toLowerCase() === "div" ||
+                        element.classList.contains("display") ||
+                        element.classList.contains("math-display");
+
+                katex.render(content, element, {
+                    throwOnError: false,
+                    macros,
+                    displayMode: isDisplayMath
+                });
+
+                if (isDisplayMath) {
+                    element.classList.add("math-display");
+                }
+            }
+
+            // Initialise highlight.js for all code blocks
+            hljs.highlightAll();
+
+        });
+
+    
+        </script>
 
     </head>
 
-    <body><h1>1. Introduction to Haskell</h1>
+    <body>
+        <main id="content">
+            <h1>1. Introduction to Haskell</h1>
 <h3>Lambda Calculus</h3>
 <ul>
 <li>
@@ -277,14 +320,16 @@ module Whatever where
 </ul>
 <h3>Importing Modules</h3>
 <ul>
-<li>We can import definitions from other modules or libraries using the <code>import</code> keyword:
+<li>
+<p>We can import definitions from other modules or libraries using the <code>import</code> keyword:</p>
 <pre><code class="language-haskell">-- Whatever.hs
 module Whatever where
 import SomeOtherModule
-
 </code></pre>
 </li>
-<li>If source files are nested inside other folders, we use those as part of the module name using a <code>.</code></li>
+<li>
+<p>If source files are nested inside other folders, we use those as part of the module name using a <code>.</code></p>
+</li>
 </ul>
 <h4>Libraries</h4>
 <ul>
@@ -293,23 +338,35 @@ import SomeOtherModule
 </ul>
 <h3>Lambdas</h3>
 <ul>
-<li><strong>Lambdas</strong> are used to write functions as <em>expressions</em>. They allows us to define <strong>unnamed functions</strong> as well.</li>
-<li>All function definitions are converted to <em>lambdas</em> by the compiler.</li>
-<li><em><strong>Def</strong></em>. <em>syntactic sugar</em> is an equivalent way of writing the same thing, which is nicer to read and write</li>
-<li>The <code>\</code> represents <em>lambda</em>, meaning <strong>taking an argument</strong>.</li>
-<li>The standard way to write a lambda is:
+<li>
+<p><strong>Lambdas</strong> are used to write functions as <em>expressions</em>. They allows us to define <strong>unnamed functions</strong> as well.</p>
+</li>
+<li>
+<p>All function definitions are converted to <em>lambdas</em> by the compiler.</p>
+</li>
+<li>
+<p><em><strong>Def</strong></em>. <em>syntactic sugar</em> is an equivalent way of writing the same thing, which is nicer to read and write</p>
+</li>
+<li>
+<p>The <code>\</code> represents <em>lambda</em>, meaning <strong>taking an argument</strong>.</p>
+</li>
+<li>
+<p>The standard way to write a lambda is:</p>
 <pre><code class="language-haskell">double = \x -&gt; x * 2
 </code></pre>
 </li>
-<li>We can write it as a <strong>top level function</strong>, which is syntactic sugar for <em>lambdas</em>:
+<li>
+<p>We can write it as a <strong>top level function</strong>, which is syntactic sugar for <em>lambdas</em>:</p>
 <pre><code class="language-haskell">double x = x * 2
 </code></pre>
 </li>
-<li>We can add more arguments by adding <code>-&gt;</code>:
+<li>
+<p>We can add more arguments by adding <code>-&gt;</code>:</p>
 <pre><code class="language-haskell">add = \x -&gt; \y -&gt; x + y
 </code></pre>
 </li>
-<li>This can be written in the following ways by <em>syntactic sugar</em>:
+<li>
+<p>This can be written in the following ways by <em>syntactic sugar</em>:</p>
 <pre><code class="language-haskell">add = \x y -&gt; x + y
 add x y = x + y
 </code></pre>
@@ -1419,14 +1476,19 @@ sum = foldl' (+) 0
 </ul>
 <h4>Function Application</h4>
 <ul>
-<li>One common combinator is <code>($)</code>, the function application operator:
+<li>
+<p>One common combinator is <code>($)</code>, the function application operator:</p>
 <pre><code class="language-haskell">infixr 0 $
 ($) :: (a -&gt; b) -&gt; a -&gt; b
 f $ x = f x
 </code></pre>
 </li>
-<li>We can see that <code>($)</code> is <em>right</em> associative and has the lowest possible precedence of <span class="math math-inline">0</span>.</li>
-<li><code>($)</code> is often used to make long patterns of parantheses more readable, commonly used in function chaining.</li>
+<li>
+<p>We can see that <code>($)</code> is <em>right</em> associative and has the lowest possible precedence of <span class="math math-inline">0</span>.</p>
+</li>
+<li>
+<p><code>($)</code> is often used to make long patterns of parantheses more readable, commonly used in function chaining.</p>
+</li>
 </ul>
 <pre><code class="language-haskell">times32 :: Num a =&gt; a -&gt; a
 times32 x = double (double (double (double (double x))))
@@ -1435,15 +1497,19 @@ times32 x = double $ double $ double $ double $ double x
 </code></pre>
 <h4>Function Composition</h4>
 <ul>
-<li>Haskell has a <em>function composition</em> operator <code>(.)</code> which acts exactly like in maths:
-<span class="math math-display">(g \circ f) = g(f(x))</span></li>
-<li>The operator is defined as:
+<li>
+<p>Haskell has a <em>function composition</em> operator <code>(.)</code> which acts exactly like in maths:
+<span class="math math-display">(g \circ f) = g(f(x))</span></p>
+</li>
+<li>
+<p>The operator is defined as:</p>
 <pre><code class="language-haskell">infixr 9 .
 (.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 g . f = \x -&gt; g (f x)
 </code></pre>
 </li>
-<li>This is a convenient way to chain functions in sequence.
+<li>
+<p>This is a convenient way to chain functions in sequence.</p>
 <ul>
 <li>the application order with <code>(.)</code> is the same as the application order with <code>($)</code></li>
 <li>read chains from <em>right-to-left</em></li>
@@ -1490,13 +1556,20 @@ data Unit = Unit
 </ul>
 <h4>Sum Types</h4>
 <ul>
-<li>A <em>sum type</em> is a type that has more than one constructor.</li>
-<li>E.g. <code>Bool</code> is a sum type:
+<li>
+<p>A <em>sum type</em> is a type that has more than one constructor.</p>
+</li>
+<li>
+<p>E.g. <code>Bool</code> is a sum type:</p>
 <pre><code class="language-haskell">data Bool = False | True
 </code></pre>
 </li>
-<li>The <em>cardinality</em> of a sum type is the <em>sum</em> of the cardinalities of its input types.</li>
-<li>Hence, the cardinality of <code>Bool</code> is <span class="math math-inline">2</span></li>
+<li>
+<p>The <em>cardinality</em> of a sum type is the <em>sum</em> of the cardinalities of its input types.</p>
+</li>
+<li>
+<p>Hence, the cardinality of <code>Bool</code> is <span class="math math-inline">2</span></p>
+</li>
 </ul>
 <h4>Product Type</h4>
 <ul>
@@ -1531,12 +1604,16 @@ data Unit = Unit
 </ul>
 <h3>Either</h3>
 <ul>
-<li>The classic example of a polymorphic sum type is <code>Either</code>.
+<li>
+<p>The classic example of a polymorphic sum type is <code>Either</code>.</p>
 <pre><code class="language-haskell">data Either a b = Left a | Right b
 </code></pre>
 </li>
-<li>Note that the <code>Either</code> type is polymorphic over two type variables.</li>
-<li><strong>NOTE</strong>: <em>sum types</em> are also known as <em>tagged unions</em>.
+<li>
+<p>Note that the <code>Either</code> type is polymorphic over two type variables.</p>
+</li>
+<li>
+<p><strong>NOTE</strong>: <em>sum types</em> are also known as <em>tagged unions</em>.</p>
 <ul>
 <li>values from the <code>a</code> type are tagged with <code>Left</code>, and values from the <code>b</code> type are tagged with <code>Right</code></li>
 <li>allows compiler to be more thorough with type checking, and enables use of pattern matching and <code>case...of...</code> to check for values of each type.</li>
@@ -1561,7 +1638,7 @@ data Unit = Unit
 </li>
 <li>For example, we can print out strings backwards:</li>
 </ul>
-<pre><code class="language-haskell">newtype Backwards = Backwards String
+<pre><code class="language-haskell"> Backwards = Backwards String
     deriving (Eq, Ord)
 
 instance Show Backwards where
@@ -1590,42 +1667,53 @@ GHCi&gt; show (Backwards "hello")
 <h1>13. Recursive Data Types, Functor, Foldable</h1>
 <h3>Recursive Data Types</h3>
 <ul>
-<li>A <em>recrusive data type</em> is a data type defined using one of its own constructors.</li>
-<li>An example is the list:
+<li>
+<p>A <em>recrusive data type</em> is a data type defined using one of its own constructors.</p>
+</li>
+<li>
+<p>An example is the list:</p>
 <pre><code class="language-haskell">data MyList a
     = Nil
     | Cons a (MyList a)
 </code></pre>
 </li>
-<li>This brings two constructors into scope:
+<li>
+<p>This brings two constructors into scope:</p>
 <pre><code class="language-haskell">Nil :: MyList a
 Cons :: a -&gt; MyList a -&gt; MyList a
 </code></pre>
 </li>
-<li>Note that <code>MyList a</code> and <code>[a]</code> are isomorphic, and indeed we can use the <code>MyList</code> type to construct abritrary lists.
+<li>
+<p>Note that <code>MyList a</code> and <code>[a]</code> are isomorphic, and indeed we can use the <code>MyList</code> type to construct abritrary lists.</p>
 <pre><code class="language-haskell">oneTwoThree' :: MyList Int
 oneTwoThree' = Cons 1 (Cons 2 (Cons 3 Nil))
+
 </code></pre>
 </li>
-<li>We can also pattern match on the constructors:
+<li>
+<p>We can also pattern match on the constructors:</p>
 <pre><code class="language-haskell">startsWithFive :: MyList Int -&gt; Bool
 startsWithFive (Cons 5 _) = True
 startsWithFive _ = False
 </code></pre>
 </li>
-<li>We can also write a function to convert a normal list to a custom list:
+<li>
+<p>We can also write a function to convert a normal list to a custom list:</p>
 <pre><code class="language-haskell">-- Given a list, turn it into a MyList
 toMyList :: [a] -&gt; MyList a
 toMyList [] = Nil
 toMyList (x:xs) = Cons x (toMyList xs)
 </code></pre>
 </li>
-<li><strong>notice</strong> that the <code>toMyList</code> function matches the <strong>fold</strong> pattern. We can cleanly implement <code>toMyList</code> in terms of <code>foldr</code>
+<li>
+<p><strong>notice</strong> that the <code>toMyList</code> function matches the <strong>fold</strong> pattern. We can cleanly implement <code>toMyList</code> in terms of <code>foldr</code></p>
 <pre><code class="language-haskell">toMyList :: [a] -&gt; MyList a
 toMyList xs = foldr Cons Nil xs
 </code></pre>
 </li>
-<li>It turns out that since <code>MyList a</code> is isomorphic to <code>[a]</code>, it should support all the normal fold operations.</li>
+<li>
+<p>It turns out that since <code>MyList a</code> is isomorphic to <code>[a]</code>, it should support all the normal fold operations.</p>
+</li>
 </ul>
 <h3>Foldable</h3>
 <ul>
@@ -1649,7 +1737,6 @@ toMyList xs = foldr Cons Nil xs
 <pre><code class="language-haskell">instance Foldable MyList where
     foldr f z Nil = z
     foldr f z (Cons x xs) = f x (foldr f z xs)
-
 </code></pre>
 </li>
 <li>
@@ -1663,7 +1750,8 @@ toMyList xs = foldr Cons Nil xs
 </ul>
 <h4>List Functions</h4>
 <ul>
-<li>Basically all of the list functions are generalised to work over <strong>any</strong> <code>Foldable</code> structure. For example, <code>sum</code> is defined over all foldable types:
+<li>
+<p>Basically all of the list functions are generalised to work over <strong>any</strong> <code>Foldable</code> structure. For example, <code>sum</code> is defined over all foldable types:</p>
 <pre><code class="language-haskell">sum :: (Foldable t, Num a) =&gt; t a -&gt; a
 sum xs = foldr (+) 0 xs
 </code></pre>
@@ -1712,14 +1800,17 @@ map f (x:xs) = f x : map f xs
 <li>
 <p>There are <strong>three</strong> functor laws, one informal and two formal:</p>
 <ol>
-<li><strong><em>(Informal)</em> Functors must be <em>structure-preserving</em></strong>; that is, the output must be the same shape as the input. Only the underlying values are allowed to change.</li>
-<li><strong>Legal functors must obey the identity law:</strong>
+<li>
+<p><strong><em>(Informal)</em> Functors must be <em>structure-preserving</em></strong>; that is, the output must be the same shape as the input. Only the underlying values are allowed to change.</p>
+</li>
+<li>
+<p><strong>Legal functors must obey the identity law:</strong></p>
 <pre><code class="language-haskell">forall x: fmap id x === x
 </code></pre>
 </li>
-<li><strong><code>fmap</code> must distribute over function composition <code>(.)</code>:</strong>
+<li>
+<p><strong><code>fmap</code> must distribute over function composition <code>(.)</code>:</strong></p>
 <pre><code class="language-haskell">forall f,g,x: fmap (f.g) x === (fmap f . fmap g) x
-
 </code></pre>
 </li>
 </ol>
@@ -1743,18 +1834,21 @@ map f (x:xs) = f x : map f xs
 <h3>Instances for Maybe</h3>
 <h4>Functor Instance</h4>
 <ul>
-<li>Since <code>Maybe</code> takes one type parameter, we are allowed to define a <code>Functor</code> instance for it:
+<li>
+<p>Since <code>Maybe</code> takes one type parameter, we are allowed to define a <code>Functor</code> instance for it:</p>
 <pre><code class="language-haskell">instance Functor Maybe where
     fmap f Nothing = Nothing
     fmap f (Just x) = Just (f x)
 </code></pre>
 </li>
-<li>The <code>Functor</code> instance for <code>Maybe</code> is often used, as if the value is a <code>Just</code>, it just applies the function, but if it is <code>Nothing</code>, then nothing will happen.
+<li>
+<p>The <code>Functor</code> instance for <code>Maybe</code> is often used, as if the value is a <code>Just</code>, it just applies the function, but if it is <code>Nothing</code>, then nothing will happen.</p>
 <ul>
 <li>useful for handling cases where <em>nothing</em> is a possible value.</li>
 </ul>
 </li>
-<li>For example:
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">GHCi&gt; fmap succ Nothing
 Nothing
 
@@ -1785,25 +1879,33 @@ Just True
 <h1>14. Purely Functional Data Structures</h1>
 <h3>Binary Trees</h3>
 <ul>
-<li>We can use <strong>data type recursion</strong> to create a <strong>binary tree</strong>:
+<li>
+<p>We can use <strong>data type recursion</strong> to create a <strong>binary tree</strong>:</p>
 <pre><code class="language-haskell">data BinTree a
     = Empty
     | Node a (BinTree a) (BinTree a)
 </code></pre>
 </li>
-<li>Each node is either a leaf (empty) or an internal node with one or two children.</li>
+<li>
+<p>Each node is either a leaf (empty) or an internal node with one or two children.</p>
+</li>
 </ul>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAzcAAAHQCAYAAACcD5TJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAGjLSURBVHhe7Z0JuFVT4/9JadBARUmGF+lFhF5Tg4jI1GAOyVhEKjJHpgyR6DXkZ8g8azIkQ0VSylspNIgmQiWV+TWs//Ndv/+6v33W3vvec84993TvPp/P83yeOnvt4dx9pvXda9gbGQAAAAAAgASwkb8AAAAAAACgIkK4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACAREC4AQAAAACARFCqcPPXX3+ZP/74w/z3v/9FRERERETMWOUJ5YpckFW4+fPPP80vv/xifv75Z0RERERExFKrfKGcURoyDje///576IkgIiIiIiLmQuWNbMko3KjJyD84IiIiIiJiLlXuyIa0w83ff/9NVzRERERERMyLyh+Zkna4odUGERERERHzZTatN2mHG8baICIiIiJivsxm7E3a4ebXX38NHRAREREREbEsVP7IFMINIiIiIiKWOwk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3iIiIiIiYCAk3G8D77rvP9OnTx3z//fehMkREREREzM6CCjdz5swxzz//vPnggw9CZfLdd9+15evWrQuV5dL27dubjTbayHzzzTehMkREREREzM6CCje33nqrDRX169c3K1euDJUfe+yxeQkd5THcjBkzxtSrV89stdVWoTJERERExIpgQYYbedNNN4XKCzXcfPbZZ2aLLbYwlSpVMpUrVw6VIyIiIiJWBAsy3LRq1crUrVvXfPfddynlhRhuNO6nefPmpmnTpqZz586EG0RERESssBZkuBkxYoT997rrrkspLy7caBzOXXfdZQPAbrvtZo4++mgzaNAgs2bNmtC6TnV9GzBggDn44IPNPvvsY3r27Gnmz59vOnbsGHscqbFBF154oWnTpo0NHl27djUvvvhiaL1cePrpp5sqVaqYKVOm2OdFuEFERETEimpBhpsZM2aYli1bmjp16pgVK1YUlceFm4ULF5q99trLljVp0sQcd9xxplmzZkWPZ82aFTrW3LlzbZnW2X777c1RRx1ldtppJ1O7dm37b9Rx5JAhQ0y1atXsc9NxzjzzTLPrrrva9bt37x5avzTefffddr86ph6rRYlwg4iIiIgV1YIMNxMmTLAD6PX/q666qqg8Lty4bmSDBw9OWf7oo4/aMNCiRQuzfv36lLKDDjrIbnPttdean376qWi5Wo0UcKKOM378eDvupXXr1mbZsmVFy3/88UfTq1cvu80zzzyTsk22Tpw40Wy66aa2VcgtI9wgIiIiYkW2IMPN2LFj7eMDDzzQ1KpVy3z11Vf2cVS4efXVV+0ydUPz9yfPOeccW67Q4pZp/1p2yCGHhNaXcWNu1BqkVpslS5aEtlH3N40TUhc3vyxTtf9GjRqZPffc06xevbpoOeEGERERESuyBRlu1Gqjx6+//rp93L9/f/u4S5cuodBx44032mWPPfZYaH9SrS0qv+iii4qWXX/99XaZWnb89WVUuNHkBmq12W+//cz7778f6b777mu23nrr0P4yUWOHNJZHs6N9+umnKWWEG0RERESsyBZ0uJGq6NesWdN2AzvjjDNCoUPdtrRMN/j09yc///xzW96uXbuiZaecckqx20SFG62rZSVZvXr10P4y8eKLL7b70b86D0H33ntvG7Dc41WrVoW2R0REREQsrxZ8uHEtLxp7oxnK/NDhwsDo0aND+5PTp0+35cGxK5oVTcvUpc1fX0aFG01aoGWHHnpoqMUm6LRp00L7y8QGDRqEAlOcmhTB3x4RERERsbxa8OFGamyMumn17t07FDoeeughu+zqq68O7U8OGzbMlt9yyy1Fy26//fbQsqBR4UbWq1fPdjvzJyfIpZpmevbs2ZFqBrlNNtmk6PHatWtD2yMiIiIillcJNz//bN555x27vHHjxqHQockGttpqKzvD2YIFC1K2U9m2225ru7XNmzevaLmCgcauaH9+gHn77bftxAD+caQClJb37ds3ZblT983xl+VSxtwgIiIiYkWWcPP/da0pUaFD0y9rLMqWW25p9/HKK6/YG3put912dv1///vfof316NHDluleN/fcc495+umnzfnnn2/HzOywww6Rx9Fgf83gpjLNiqZJDDQWRzfw1KQHm2++eWz3uFxIuEFERETEiizh5v8bHNDvhw6p1h13407nzjvvXDSttK+6lmkcT9WqVYvW32WXXewMbW4GtqjjqCvYoEGDbDe54LHUZe2yyy4zy5cvD22TKwk3iIiIiFiRLahwkwsVLnQDzKh70USpsKJJAPwubemomdh0w9Evv/wyVIaIiIiIiKkSbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbhARERERMRESbvLszJkzzUEHHWQWLFgQKisPjhs3zvTp08d89NFHobJCkdcIMRkuX77ctGvXzkyaNClUhrn3/fffNwcffLBZunRpqAwRMV8SbvLotGnTTP369c2ee+5pvvrqq1D5Sy+9ZJ5//nmzevXqUNm3335ry2bMmBEqy6U33XST2Wijjeyx/LIN4eLFi23I+PHHH0NlZWFxr9GKFSvseXnllVdC28lPPvnEln/55Zehslxanl4jnZPZs2eb7777LlSWC9988037dxbnmjVrQtvl2/Xr15uffvoptHxDqefinyff1157LbRdvtXz1Lnzl+fKVatWmTZt2piaNWua8ePHh8pzpSrz/vn11XeLv12+1fdoWZ7vjz/+2Gy99damadOmZtGiRaFyRMR8SLjJk998843ZZpttzG677WaWLVsWKpf6AValddCgQaEy/TCq7KKLLgqV5dLyUHFeuHCh6dq1qz1fei6yatWq5owzzijT1pSSXiNdlXTP59133w2VDx48OC/nrjy8RhMmTDD7779/0fmQu+66q3n55ZdD65bGli1bphwjSgVgf7t8qgCm5zFmzJhQ2YZSFVj/PPnusssuoe3y7bXXXmufS1kG1JUrV9r3UZ06dcznn38eKs+FCor++fU999xzQ9vl27Zt25r99tsvtDyX6mJHgwYN7HHKMkghIsZJuMmTqphvuummtsuTX+Z04aZevXqhK+GFEm4mT55sz8Pmm29uevbsaR566CHzyCOPmJNOOsk+ryZNmpivv/46tF0uLOk1Coab9u3bh8oLJdzceuutpnLlyjbMXHHFFeapp54yN954o2nYsKF9XrkMOC7cqPKo8x/lunXrQtvl0xdeeME+x/IYbnbcccfQ+XKWh26NvXv3ts+zLMONVCtC7dq1zeGHHx4qy4Uu3Bx//PGh8+ycP39+aLt827x58zIPN3LkyJH2fNx8882hMkTEspZwkwffe+89+0V/1VVXhcqCqlLvKnPXX399SlmhhBt1U9FziOradcEFF9jn9uCDD4bKSms6r5EqKFqnVatW9t933nknpbxQws2dd95pevToYX744YeU5boqXqtWrZy2CLjPg8ZO+GXlRb0fy2u4USukX1aePO200/ISbuTdd99tj6Uw6peVVhduzj///FBZeXK77bbLS7iRCnpqcWf8DSLmW8JNHlRFUF/yGjfjlwVVuOnWrZsdAKuWi+D6JYUbjddRRUFjRdT1QAPOv/jii9B6QR944AHTsWNH06xZM3PKKafY7jV33HFHsRVnPSd1JenQoYOtOHXq1MlWdvNx9VzPSc/tsssuC5WV1nReIxdu7rrrLvv6aOBssLy4cKPzo+06d+5sz9vRRx9tux+WVKnL5jWaM2eOufDCC+1YA12pVRe/F198MbReWaj3w8YbbxxqeczWTMPN2WefbVuO3njjDXPMMceYww47zA4mVxC78sorzd57721b6Pznpy5DTz75pB2TMHz4cHPCCSfYc64Ww6hzp/1fcsklplevXubAAw+0z1HHOvPMM1MMbqv9a9msWbNC+3OqFUzrRIX7TMw03Og9o+Pq3/vuu88G+FNPPbVozNs555xj30s33HBDynajRo2y2+l9rO5Iffv2td0V9d7T+dGYLP9Yek9rPQWB7bff3j7P008/PXTutD+trzGIel2LawX4/vvvzVlnnWX+/e9/h8qcOicaT3fssceGykprpuFG71H9TTpv/fv3Ny1atDCXXnqpvbjz9ttv28+RQoj/3rv99tvNddddV3RM7UPf+UcddZT9/okam3j55Zebiy++2Jx33nn2O07nwD/X0q3/4Ycf2sdx3y9y+vTpdh19Dvyy4H50TvS8/DJExLKUcFPGqlK1xRZb2IqWX+arcKPKr/uhvOaaa4rK4sKNfrBdly31c9YPtyqE6l6lPubPPfdc6Dj6QVU40TZ169Y1RxxxhNlrr71MlSpVbAUmruKsHzINFt1kk01styxVCFWJ0fqqNGrMir9NLtWPs46V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nEpJV83Ls/kKN252RLUyqLuTur2lM+PZ0qVLTdOmTe0Fiw0902MuzFe40ftU70u17Oi7UF1i02kBVqu0go3e1yW1XCIilpWEmzyrbivqy55u8z7mX16jwjMf4UZdEjXWwY130P1GVPn216tI5ivc9OrVq+hGwnqtoibhiFKTCGgcXVLus5KvcKPxgTrPOpaCYbqTuCh86sat6iLtlyEi5kvCDSIWvJoNLdc3dvRVaFYYGDBggJ3BrqzGquVTVXr1N2mcjF+WS3W+NCGGZp8r5BZVzY6m860utH5ZLtWYJt1EWDNv0gKDiBVNwg0iIiIiIiZCwg0iIiIiIiZCwg0iIiIiIiZCwg0iIiIiIiZCwg0iIiIiIiZCwg0iIiIiIiZCwk2enTlzpr0J3YIFC0Jl5cFx48aZPn36mI8++ihUhoiIiIhYniXc5NFp06aZ+vXr25sFfvXVV6Hyl156yd4ML+oGaLqhpMpmzJgRKsul+bopXyauXLnS3tuiIt/JHRERERHLXsJNntQdpbfZZhuz2267mWXLloXKZc2aNW2wGDRoUKhMwUhlF110Uagsl5ancDNixAjTpEkTU6lSJfucdH6OOOIIM3v27NC6iIiIiIiEmzx5xhlnmE033dR2S/PLnC7c1KtXL3RX6EIKN2qhOfPMM+3z2GOPPczAgQPtnbL79etn6tata3bddVezbt260HaIiIiIWNgSbvLge++9ZyvqV111VagsqMJNy5Yt7brXX399SlkhhZthw4bZ53DKKaeYNWvWpJSp1WvevHmhbRARERERCTd5sEePHqZq1ap23IxfFlThplu3bqZdu3Zm8803T1m/pHCj8TqnnXaaHc/Ttm1bOynAF198EVov6AMPPGA6duxomjVrZoPEm2++ae64445iw42e07XXXms6dOhgu9h16tTJ3HnnnTlrSfnxxx/NDjvsYP9+deXzyxERERER4yTclLE//PCD2WKLLcwxxxwTKvNVuOncubN57bXXbMC45pprisriws369evNSSedZMsaNGhgjj32WNv6oy5wderUMc8991zoOGoNUTjRNurmpXEse+21l6lSpYpp3rx5bLh54403zNZbb2022WQT0759e3PuueeaNm3a2PX33nvvnISRDz74wO6vf//+oTJERERExOIk3JSx06dPt5X1e+65J1Tmq3Bz6KGH2v/vv//+pnbt2ubrr7+2j+PCjetGpoDz/fffFy1XSGjUqJGpVauWWbhwYco2Ck3a5uijj04Z2/P++++bpk2bRoYbdQfbaqutrPqbgmVPPfWU3eaCCy5IWZ6Nrkva6NGj7eM5c+aY4cOHm1tvvdWMHDkyZy1EiIiIiJg8CTdlrCrkqqy//PLLoTJfhRuFGv3/1VdftdtdccUV9nFUuFEwqVatmm2xWbVqVWh/jz32mN3mrLPOKlqmbmXaRpMWRLW0xI256dWrl13+4osvhraRaglS1zu1JPllmeiC1/jx422XN/1f02fXqFHD/l+TCRQ3KQMiIiIiFq6EmzLWtURMmTIlVOarcLPffvsVPW7VqpVdtnz5cntTTT/cTJw40S4755xzQvuSChrqaqZxOG7ZO++8Y7fRbGT++jIu3LRo0cJUr17dHlMtPL4aV6TtPv7449A+M7Fv3752P+pS17Nnz6JpnzWD2uOPP26726kLXWlDFCIiIiImT8JNGXvffffZyrpmTPPLfP1wozEu2vaSSy4xCxYsCIUbTQigZTfffHNoX86ddtrJtqi4G2Def//9xW4TF24UbLS8JN99993QPjNx8ODBdj/qhuaXSf39Kp86dWqoDBERERELW8JNGTtmzBhbGX/hhRdCZb5+uJEHHXSQHTfz2WefhcKNZkjTMoUff19OTWbQuHHjosdufMzll18eWlfGhZsdd9zRTj4wefLkUKtN0OC4n2x0f9MTTzwRKpO6safK9a9fhoiIiIiFLeGmjNX4EFXG1SLhl/lGhZu33nrLbn/dddeFws38+fPtMs1Y5u9LqkuXyjUexi1Ti4e/LGhcuNEsblo+a9as0Da5VH9TpUqVUsYJBdW003oe48aNC5UhIiIiYmFLuCljdd8WzVp2yCGHhMp8o8KN1AxqmjSgcuXKodnStF9V9v2B/hqToumnVfbMM88ULV+7dq1thdl4441tK0xwm0WLFtnxLFHhRmFC2xx44IF2eutgmTteaVttnLpfj8YKzZgxI2W5ZkrTVNWbbbZZifcMQkRERMTCk3CTB/v162fvDbNkyZJQWdC4cOMmDvBbbqS6q2nwvYKPBuNrdraHH3646P4zmiLa39+TTz5py3S866+/3naZu/rqq03Dhg3tGJ2ocCP1d6hs5513tlNbv/322/aePLfddptdVlz3uExU643CnKbCVovXpEmTbHe11q1b2+Nr3JC/DSIiIiIi4SYPqnuYwo1ueumXBY0LN1I32owKN1L3sdE9a3QMF4IUeBQM1HLkry/VmqMplt36W265pV1/woQJseFGanmTJk2KtpOabEAhKpdTNC9evNj+zQpt7ji6gaimt/bXRURERESUhJs82b9/f9utS60dflmuXL16te1q9sknnxTNjlaSWlfdv9Jd37lixQrboqLt4wJULlRXN/1Nn376acbPERERERELS8JNnlyzZo29AaXG38yZMydUjoiIiIiIpZNwk0fVfUxdujQ1s8bK+OWIiIiIiJi9hJs8q0kFzjzzTGb7QkRERETMsYQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhISbhPrdd9+ZDh06mNdffz1UVh6cP3++6dOnj3nhhRdCZYj4f/744492+vhhw4aFyhARETFVwk0C/frrr82+++5r6tSpY6ZMmRIqf+mll8zzzz9vVq9eHSrT/XdUNmPGjFBZLp00aZLZaKONzEUXXRQqS5ozZ86057Q4P//889B2+VaV6PXr14eWb0jffPPN0LnyXbNmTWi7fKvz9tNPP4WW58q+ffvaz8utt94aKkNERMT/k3CTQI866ihTq1Yt895774XKZM2aNW1FadCgQaGyadOm5SV0lIdw8/7775t69erFetJJJ4W2ycYrrrjC/q3F+fjjj4e2y7dt27Y1++23X2j5hrRly5ahc+W7ePHi0Hb5VAFMz2PMmDGhslzau3dve5yXX345VIaIiIj/K+EmYT788MO2AvTAAw+Eypwu3KgCr+5rwbJCCjejR4+2z+GAAw4wp59+esjbb789tE02unBz880320AVpVrb/O3ybfPmzcttuHnttddC58y5bt260Hb5VF0r8xFu1LKmFtmtt97arFixIlSOiIiIhJtEqe45devWNW3atCm2i4zCjas0Xn/99SllhRRuRowYYZ/DM888EyrLpS7cPP3006Gy8uR2221XbsPN8uXLQ2XlxQcffDAv4UZOnz7dVK5c2bbi+GWIiIhIuEmUTz75pK1kjR07NlQWVOGmW7dupl27dmbzzTe342xcWUnh5qOPPjI9evQwBx54oGnRooU5++yzzbvvvhtaL+gbb7xhTjvtNLPHHnuYY445xlYGSzqOrlLfd9995oQTTjC77babOeyww0z//v3NV199FVo3W++66y77HN5+++1QWS7NNNyo25HOq8Kq/mad50svvdQGVj3XTp062RDy4osvpmynlqbrrrvO/l8tHdrHnnvuabspDh482J5T/1iXX365ufjii815551nqlataurXr28Hr/u69T/88EP7WGNd/H05VQHXOnrd/bJMzTTc6G/W+dOx9V7T+0ZB+ocffjBXXnml2Xvvvc0ZZ5wRarE899xz7edH52j48OH2fdesWTPbNdE/z1L7v+SSS0yvXr3sZ0HPUcfyz1twW+1fy2bNmhXan/Opp56y63z55ZehMmfHjh3t67R27dpQGSIiYqFLuEmQRx55pG25KambjsJN586dbQVYlbJrrrmmqKy40KHK86abbmq3VzA64ogj7KQFm2yyia3A++vLAQMGmEqVKplq1arZFiW52WabmX322Sf2OBpcr+43KlfF/pxzzrEVOu1jq622MpMnTw5tk40KAjrGnDlzQmW5NNNwM3DgQLv+scceaxo1amS22WYb+1jd2vT6unOn87F06dKi7dq3b2/Pj86Xzrkq54cffrjdRuvr/37A2WmnnYrUOgo4wWVOt75CgrpFaZm/L2f37t1t68IXX3wRKsvUTMONjnvIIYeY2rVr2/O08cYb23B8/vnnm2233dY0bNjQ7k+BLridzuVBBx1kWrVqZd/jrVu3tv+vXr26Xd9v4bzzzjuLzs0WW2xh19G+/fOm9dw2mqRDz0fhyn/eUuF15513ts/XLwvqWhyZaRARETEs4SZBqpKlK87+cl+Fk0MPPdT+f//997cVQTfmIy7cTJgwoajCvGDBgqLly5YtsxVBbeNf4dbVbS1v0qSJ+fjjj4uWawC4gljUcVTBU+VUx3rsscdSymbPnm3/RrVG5GJWLzdAWxMrKDypNUSBQmEv3cp0Orpwo9YXtSr46hwG13fhRi1dujqv10aVYi1zAalnz572sa70u+0UbrRMleoPPvigaLla5lRxV5kqxv7zc6o8nW5pmrErrnKtFhG9v7p06RIqy0YXbvS8/fMm/e6XCjda/4knnrCPL7zwQvt4r732sudSYVCPd91115TtFG60XOcwGBjVyqKAWaVKFTNv3rzQ85N6v2jbdLql6X2vALlkyZJQmfu8qEXRLwuq94N7P/lliIiIhS7hJiGuWrXKVnh07xi/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ysZMw426Hem8Kqzqb9Z5vvTSS21gffvtt02nTp1sCHnxxRdTtrv99tvNddddZ/+vlg7tY88997TdFAcPHmzPqX+syy+/3Fx88cXmvPPOM1WrVjX169e3g9d93foffvihfayxLv6+nKqAax297n5ZpmYabvQ36/zp2Hqv6X2jIP3DDz+YK6+80uy9997mjDPOCLVYnnvuufbzo3M0fPhw+75r1qyZOemkk0LnWWr/l1xyienVq5d9v+g56lj+eQtuq/1r2axZs0L7cz711FN2nS+//DJU5uzYsaN9ndauXRsqQ0RELHQJNwnyyCOPtC03JXXTUbjp3LmzrQCrUnbNNdcUlRUXOlR53nTTTe32CkZHHHGEnbRgk002sRV4f305YMAAU6lSJVOtWjXboiQ322wzs88++8QeR4Pr1f1G5arYn3POObZCp31stdVWZvLkyaFtcuVNN91kj/vBBx+EyrI103AzcOBAu/6xxx5rGjVqZLbZZhv7WN3a9Pq6c6fzsXTp0qLt2rdvb8+PzpfOuSrnhx9+uN1G6+v/fsDZaaeditQ6CjjBZU63vkKCukVpmb8vp1q81LrwxRdfhMoyNdNwo+MecsghtuVN52njjTe24fj888832267rWnYsKHdnwJdcDudy4MOOsi0atXKvsdbt25t/1+9enW7vt/Ceeeddxadmy222MKuo337503ruW00SYeej8KV/7ylwuvOO+9sn69fFnTEiBH2eMw0iIiIGJZwkyBVydIVZ3+5r8LJoYceav+///7724qgG/MRF24mTJhQVGFesGBB0fJly5bZiqC28a9w6+q2ljdp0sR8/PHHRcs1AFxBLOo4quCpcqpjPfbYYylls2fPtn+jWiPKYlYvXc3X/o8++uhQWWl04UatL2pV8NU5DK7vwo1aunR1Xq+NKsVa5gJSz5497WNd6XfbKdxomSrVwXCmljlV3FWmirH//JwqT6dbmmbsiqtc6xzq/dWlS5dQWTa6cKPn7Z836Xe/VLjR+k888YR9fOGFF9rHe+21lz2XCoN6vOuuu6Zsp3Cj5TqHwcCoVhYFzCpVqph58+aFnp/UxQFtm063NL3vFSCXLFkSKnOfl7vuuitUFlTvB/d+8ssQERELXcJNQly1apWt8OjeMX6ZryqfCjX6/6uvvmq3cy0vceFGXW9UwdYAbn9/qvTpareuOgeX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TUJVBapXr15p9+XHim++wo3GUCkM6FiaSUwTUfjrVDTzEW4045taVN2YJt1TKN37Nd100012whB/OSIiIqZKuEFMiJodTZXgsh6bpHsR6R4ruldLSeNKKoqaDW348OGh5blU43H0+mgGQM0IqBYZfx1EREQsnYQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhIQbRERERERMhISbMlL3tGjXrh13E0dEREREzJOEmzJy1apV9u7jNWvWNOPHjw+VIyIiIiJibiXclKErV640LVu2NHXq1DGff/55qBwREREREXMn4aaMXbRokaldu7Y5/PDDQ2WIiIiIiJg7CTd58O677zYbbbSReeGFF0JliIiIiIiYGwk3eXD9+vWmfv365thjjw2VISIiIiJibiTc5Mmzzz7bVKlSxc6i5pchIiIiImLpJdzkyWeffdZ2TRszZkyoDBERERERSy/hJk9OnjzZhpt77703VIaIiIiIiKWXcJMnNRW0ws2VV14ZKkNERERExNJLuMmT8+fPt+FmwIABoTJERERERCy9hJs8OWnSJBtuhg8fHipDRERERMTSS7jJk48//rgNN6+++mqoDBERERERSy/hJk+efPLJpkaNGua7774LlSEiIiIiYukl3OTB77//3tSsWdN07do1VIaIiIiIiLmRcJMHr7nmGtslbfz48aEyRERERETMjYSbMnb27NmmatWqplu3bqEyRERERETMnYSbMvTLL780TZo0Mdtss4355ptvQuWIiIiIiJg7CTdl5NKlS03Tpk1No0aNzKxZs0LliIiIiIiYWwk3ZaQmETj33HPNp59+GipDRERERMTcS7hBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMRESLhBRERERMREWKbh5vfffw8dEBERERERsSxU/siUtMPNH3/8ETogIiIiIiJiWaj8kSlph5u///7b/PLLL6GDIiIiIiIi5lLlDuWPTEk73Ig///wzdGBERERE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ADKDcAMAkAazZs0yO+64I601UOa4Vhy93/S+AwCA9CHcAACkgSqcupLeqlUrW/Hs06cPs1lBTtH7Se8rvb/0PtP7jSANAJAZhBsAgAxR96ERI0bYyqf+BSgtwfcT3R0BALKHcAMAAAAAAImAcAMAAAAAAImAcAMAAAAAAImAcAMAAAAAAImAcAMAAAAAAImAcAMAAAAAAImAcAMAAAAAAImAcAMAFZIrr7zS3HXXXf5iACiBhx56yPTv39/8+uuvfhEAQIWHcAMAGTF16lQzevRos2zZMr/I8tprr5mJEyf6i3NOtWrVzF577eUv3iD8+OOP5vPPPze///67XwRQhN4j+uzMnDnTL7J8+OGHtvyPP/7wi3JKhw4dzEYbbWTWrl3rF20Q/v77b7N48WKzfv16vwgAIGMINwCQEcccc4ytGB111FF+kWXzzTfPS+jY0OHml19+MQMGDDC77rqrqVSpkj0n+vewww4zH3zwgb86gLnzzjvt+2TLLbc0P/30k19sOnfunJfQUV7CzcqVK81JJ51k6tSpY5/PxhtvbHbeeWczdOhQ89dff/mrAwCkBeEGADLChRupVhyfQgg3aqnZZZddzCabbGK6du1q7r33XvPCCy/Yrj6bbbaZqVGjhpkxY4a/GRQ4LtzI2267zS8uqHAzffp0s/XWW5vKlSubHj16mIcfftjcfffdRc/tmWee8TcBAEgLwg0AZITCTZMmTUyDBg1M+/bt/eKCCDfiiSeeiAwwL7/8sq2cde/e3S+CAseFmzZt2ph69eqFumEVSrjRWJ9//OMftsUmqpUz6nMFAJAuhBsAyAiFG1VMBg0aZCtI7733Xkp5ceHm+++/N9dcc4054ogjzJ577mlOPfVU8+yzz/qrpaC++L179zb77befOeSQQ8wNN9xgu4RtscUWsccRb731ljnnnHNMixYtTKtWrcz5559v5s6d66+Wc1Rh1Hlp2bKlXwQFjgs3apXQvzfddFNKeXHhRuNw1EJ4/PHHm2bNmpmOHTuawYMHm99++81ftQh1fdPn5dBDDzX/+te/zIUXXmiWLl1qunTpEnscUdafnREjRtjj33jjjX4RAECpIdwAQEYo3Oiq8w8//GBq1aplDj744JTyuHAzYcIE29qjrlz777+/raRtu+22tpJz5JFHmp9//tnfxLz66qv26q764u+99952nM9W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" alt="Screenshot" /></p>
 <h4>Functor Instance</h4>
 <ul>
-<li>We can write a <code>Functor</code> instance for the binary tree.</li>
-<li>Remember that <code>fmap</code> must always preserve the shape of the data strcture, so we should see the same constructors used on the left and right in each case.
+<li>
+<p>We can write a <code>Functor</code> instance for the binary tree.</p>
+</li>
+<li>
+<p>Remember that <code>fmap</code> must always preserve the shape of the data strcture, so we should see the same constructors used on the left and right in each case.</p>
 <pre><code class="language-haskell">instance Functor BinTree where
     fmap f Empty = Empty
     fmap f (Node x l r) = Node (f x) (fmap f l) (fmap f r)
 </code></pre>
 </li>
-<li>We apply <code>fmap</code> to each subtree recursively.</li>
+<li>
+<p>We apply <code>fmap</code> to each subtree recursively.</p>
+</li>
 </ul>
 <h4>Foldable Instance</h4>
 <ul>
@@ -1831,8 +1933,11 @@ Just True
 </ul>
 <h4>List to Binary Tree</h4>
 <ul>
-<li>We can convert a <em>list</em> to a <code>BinTree</code> in a <em>balanced way</em> by doing a <strong>binary search</strong> through the list.</li>
-<li>This will guarantee that the <code>BinTree</code> has minimum height.
+<li>
+<p>We can convert a <em>list</em> to a <code>BinTree</code> in a <em>balanced way</em> by doing a <strong>binary search</strong> through the list.</p>
+</li>
+<li>
+<p>This will guarantee that the <code>BinTree</code> has minimum height.</p>
 <pre><code class="language-haskell">fromList :: [a] -&gt; BinTree a
 fromList [] = Empty
 fromList (x:xs) = Node x (fromList l) (fromList r)
@@ -1861,11 +1966,14 @@ newtype OrdTree a = OTree (BinTree a)
 </ul>
 <h4>List to Balanced Ordered Tree</h4>
 <ul>
-<li>We can write a <strong>smart constructor</strong> to make a list into a balanced ordered tree.</li>
-<li>We must wrap the result in the <code>OTree</code> constructor to make it into an ordered tree.
-<pre><code class="language-haskell"></code></pre>
+<li>
+<p>We can write a <strong>smart constructor</strong> to make a list into a balanced ordered tree.</p>
 </li>
-<li><strong>NOTE</strong>: as an efficiency improvement, we can sort the list first before doing the binary search
+<li>
+<p>We must wrap the result in the <code>OTree</code> constructor to make it into an ordered tree.</p>
+</li>
+<li>
+<p><strong>NOTE</strong>: as an efficiency improvement, we can sort the list first before doing the binary search</p>
 <pre><code class="language-haskell">ordTreeFromList :: Ord a =&gt; [a] -&gt; OrdTree a
 ordTreeFromList xs = OTree $ mkTree xs'
     where
@@ -1899,7 +2007,8 @@ appears x (OTree t) = case t of
 </ul>
 <h4>Insertion</h4>
 <ul>
-<li>We can make use of the invariant again to insert:
+<li>
+<p>We can make use of the invariant again to insert:</p>
 <pre><code class="language-haskell">insert :: Ord a =&gt; a -&gt; OrdTree a -&gt; OrdTree a
 insert x (OTree t) = OTree (insert' x t)
     where
@@ -2044,7 +2153,8 @@ updateFirstName fn s = s { firstName = fn }
 </ul>
 <h3>Show Instances</h3>
 <ul>
-<li>When using record syntax, we are treated to a more readable (if verbose) derived <code>Show</code> instance:
+<li>
+<p>When using record syntax, we are treated to a more readable (if verbose) derived <code>Show</code> instance:</p>
 <pre><code class="language-haskell">data Rectangle = Rect { width :: Int, height :: Int}
     deriving (Show)
 
@@ -2115,31 +2225,49 @@ instance Show Backwards where
 </ul>
 <h3>Kinds</h3>
 <ul>
-<li>A <strong>kind</strong> is the type of <em>types</em> and <em>type constructors</em></li>
-<li>Helps determine whether certain types are <strong>well formed</strong> or not, for example <code>Maybe Maybe</code>.</li>
-<li>The <code>::</code> keyword is used to denote the kind of a type (i.e. same syntax)</li>
-<li>Types which take <strong>zero type parameters</strong> are of kind <code>*</code>, which is pronounced <em>type</em>
+<li>
+<p>A <strong>kind</strong> is the type of <em>types</em> and <em>type constructors</em></p>
+</li>
+<li>
+<p>Helps determine whether certain types are <strong>well formed</strong> or not, for example <code>Maybe Maybe</code>.</p>
+</li>
+<li>
+<p>The <code>::</code> keyword is used to denote the kind of a type (i.e. same syntax)</p>
+</li>
+<li>
+<p>Types which take <strong>zero type parameters</strong> are of kind <code>*</code>, which is pronounced <em>type</em></p>
 <pre><code class="language-Haskell">Bool :: *
 String :: *
 </code></pre>
 </li>
-<li>A <em>type constructor</em> is something which takes a type and returns a type. For example <code>Maybe</code> is a type constructor.</li>
-<li><code>Maybe</code> can be thought of as a type-level function:
+<li>
+<p>A <em>type constructor</em> is something which takes a type and returns a type. For example <code>Maybe</code> is a type constructor.</p>
+</li>
+<li>
+<p><code>Maybe</code> can be thought of as a type-level function:</p>
 <pre><code class="language-haskell">Maybe :: * -&gt; *
 Maybe Int :: *
 </code></pre>
 </li>
-<li>by supplying a type of kind <code>*</code> to Maybe, we get back a fully-qualified type.</li>
-<li><code>:kind</code> can be used to check the value of a type in ghci.</li>
-<li>Similarly, <code>Either</code> takes two type variables, so:
+<li>
+<p>by supplying a type of kind <code>*</code> to Maybe, we get back a fully-qualified type.</p>
+</li>
+<li>
+<p><code>:kind</code> can be used to check the value of a type in ghci.</p>
+</li>
+<li>
+<p>Similarly, <code>Either</code> takes two type variables, so:</p>
 <pre><code class="language-haskell">Either :: * -&gt; * -&gt; *
 </code></pre>
 </li>
 </ul>
 <h3>Type Classes and Kinds</h3>
 <ul>
-<li>When defining a type class, we care about the <em>kind</em> of the type or type constructor that we are defining over.</li>
-<li>For example:
+<li>
+<p>When defining a type class, we care about the <em>kind</em> of the type or type constructor that we are defining over.</p>
+</li>
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">class Show a where
     show :: a -&gt; String
 
@@ -2147,19 +2275,29 @@ class Foldable t where
     foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b
 </code></pre>
 </li>
-<li>It can be seen that <code>t a</code> is a type, and <code>a</code> is a type, so <code>t</code> must take exactly one type argument and must therefore be of kind <code>* -&gt; *</code>.</li>
+<li>
+<p>It can be seen that <code>t a</code> is a type, and <code>a</code> is a type, so <code>t</code> must take exactly one type argument and must therefore be of kind <code>* -&gt; *</code>.</p>
+</li>
 </ul>
 <h3>Subtypes</h3>
 <ul>
-<li>The <em>first</em> and <em>second</em> types of polymorphism are <strong>parametric</strong> and <strong>ad-hoc</strong> polymorphism.</li>
-<li>The <strong>third</strong> type of polymorphism is <strong>subtype polymorphism</strong>.</li>
-<li>In Java, <em>subtype polymoprhism</em> is known as <strong>inheritance</strong>.</li>
-<li><em><strong>Def</strong></em>. <em>subtype polymorphism</em> is where a type class constraint is placed on the type class definition itself.
+<li>
+<p>The <em>first</em> and <em>second</em> types of polymorphism are <strong>parametric</strong> and <strong>ad-hoc</strong> polymorphism.</p>
+</li>
+<li>
+<p>The <strong>third</strong> type of polymorphism is <strong>subtype polymorphism</strong>.</p>
+</li>
+<li>
+<p>In Java, <em>subtype polymoprhism</em> is known as <strong>inheritance</strong>.</p>
+</li>
+<li>
+<p><em><strong>Def</strong></em>. <em>subtype polymorphism</em> is where a type class constraint is placed on the type class definition itself.</p>
 <ul>
 <li>we may want to enforce that <em>every</em> instance of a type class is already an instance of some other type class (<strong>precondition is a global requirement</strong>)</li>
 </ul>
 </li>
-<li>For example, every member of <code>Ord</code> must be a member of <code>Eq</code>:
+<li>
+<p>For example, every member of <code>Ord</code> must be a member of <code>Eq</code>:</p>
 <pre><code class="language-haskell">class Eq a =&gt; Ord a where
     -- ... the functions of ord go here
 </code></pre>
@@ -2223,9 +2361,14 @@ class Foldable t where
 </ul>
 <h4>Lists</h4>
 <ul>
-<li>The semigroup operation on lists is <code>(++)</code>, pronounced <em>append</em></li>
-<li>It adds the elements of one list to the end of another.</li>
-<li>In this case we do not need a constraint on <code>a</code>: this instance works for <em>any</em> list
+<li>
+<p>The semigroup operation on lists is <code>(++)</code>, pronounced <em>append</em></p>
+</li>
+<li>
+<p>It adds the elements of one list to the end of another.</p>
+</li>
+<li>
+<p>In this case we do not need a constraint on <code>a</code>: this instance works for <em>any</em> list</p>
 <pre><code class="language-haskell">instance Semigroup [a] where
     -- Append is an associative binary operation
     x &lt;&gt; y = x ++ y
@@ -2239,10 +2382,17 @@ GHCi&gt; "Hello" &lt;&gt; ", " &lt;&gt; "World"
 </ul>
 <h4>Sets</h4>
 <ul>
-<li><code>Set</code> is part of the <code>containers</code> package, and represents a finite mathematical set, with no duplicate elements.</li>
-<li>Internally it is represented as a balanced, ordered binary tree</li>
-<li>There are two associative binary operations, <strong>union</strong> and <strong>intersection</strong></li>
-<li>For reasons that will become clear soon (<em>monoid</em>!), <em>union</em> is chosen as the associative binary operation.
+<li>
+<p><code>Set</code> is part of the <code>containers</code> package, and represents a finite mathematical set, with no duplicate elements.</p>
+</li>
+<li>
+<p>Internally it is represented as a balanced, ordered binary tree</p>
+</li>
+<li>
+<p>There are two associative binary operations, <strong>union</strong> and <strong>intersection</strong></p>
+</li>
+<li>
+<p>For reasons that will become clear soon (<em>monoid</em>!), <em>union</em> is chosen as the associative binary operation.</p>
 <pre><code class="language-haskell">import Data.Set (Set)
 import qualified Data.Set as Set
 
@@ -2253,7 +2403,8 @@ instance Ord a =&gt; Semigroup (Set a) where
 </ul>
 <h4>Pairs</h4>
 <ul>
-<li>If we have a <em>semigroup</em> instance for <code>a</code> and for <code>b</code>, then we can create a semigroup instance for the pair <code>(a,b)</code> by combining the first and second elements:
+<li>
+<p>If we have a <em>semigroup</em> instance for <code>a</code> and for <code>b</code>, then we can create a semigroup instance for the pair <code>(a,b)</code> by combining the first and second elements:</p>
 <pre><code class="language-haskell">instance (Semigroup a, Semigroup b) =&gt; Semigroup (a,b) where
     a &lt;&gt; b = (fst a &lt;&gt; fst b, snd a &lt;&gt; snd b)
 
@@ -2264,7 +2415,8 @@ GHCi&gt; ("Hello, ", "123") &lt;&gt; ("World!", "45")
 </ul>
 <h4>Maybe</h4>
 <ul>
-<li>If both inputs to <code>(&lt;&gt;)</code> are <code>Nothing</code>, we should return <code>Nothing</code>. If either one is <code>Just</code>, return that one; and if both are <code>Just</code> then we combine them.
+<li>
+<p>If both inputs to <code>(&lt;&gt;)</code> are <code>Nothing</code>, we should return <code>Nothing</code>. If either one is <code>Just</code>, return that one; and if both are <code>Just</code> then we combine them.</p>
 <pre><code class="language-haskell">instance Semigroup a =&gt; Semigroup (Maybe a) where
     Nothing &lt;&gt; Nothing = Nothing
     Just x &lt;&gt; Nothing = Just x
@@ -2353,7 +2505,8 @@ instance Num a =&gt; Monoid (Product a) where
 <h3>stimes, mconcat, foldMap</h3>
 <h5>stimes</h5>
 <ul>
-<li>The <code>stimes</code> function takes some semigroup value and combines it with itself as many times as required.
+<li>
+<p>The <code>stimes</code> function takes some semigroup value and combines it with itself as many times as required.</p>
 <pre><code class="language-haskell">stimes :: (Semigroup a, Integral b) =&gt; b -&gt; a -&gt; a
 
 GHCi&gt; stimes 5 "Hello"
@@ -2363,7 +2516,8 @@ GHCi&gt; stimes 5 "Hello"
 </ul>
 <h4>mconcat</h4>
 <ul>
-<li>The <code>mconcat</code> function takes a <em>list</em> of monoidal values and combines them together.
+<li>
+<p>The <code>mconcat</code> function takes a <em>list</em> of monoidal values and combines them together.</p>
 <pre><code class="language-haskell">mconcat :: Monoid a =&gt; [a] -&gt; a
 mconcat = foldr (&lt;&gt;) mempty
 
@@ -2374,8 +2528,11 @@ Sum 6
 </ul>
 <h4>foldMap</h4>
 <ul>
-<li>The <code>foldMap</code> function is used to first <strong>map</strong> the same function over every value in a list, and then combine together monoidally</li>
-<li>It is written into the <code>Foldable</code> type class:
+<li>
+<p>The <code>foldMap</code> function is used to first <strong>map</strong> the same function over every value in a list, and then combine together monoidally</p>
+</li>
+<li>
+<p>It is written into the <code>Foldable</code> type class:</p>
 <pre><code class="language-haskell">class Foldable t where
     -- foldl, foldr, foldl', ..., and:
     foldMap :: Monoid m =&gt; (a -&gt; m) t a -&gt; m
@@ -2383,7 +2540,9 @@ Sum 6
     foldMap f = foldr (\x acc -&gt; f x &lt;&gt; acc) mempty
 </code></pre>
 </li>
-<li>There is <em>one</em> variant called <code>foldMap'</code>, which accumulates strictly as it goes along, similar to <code>foldl'</code>.</li>
+<li>
+<p>There is <em>one</em> variant called <code>foldMap'</code>, which accumulates strictly as it goes along, similar to <code>foldl'</code>.</p>
+</li>
 </ul>
 <h1>18. Typeclass instances for Functions</h1>
 <h3>Functions as Values</h3>
@@ -2434,8 +2593,11 @@ String -&gt; :: * -&gt; *
 </ul>
 <h3>Functions as Semigroups</h3>
 <ul>
-<li>Since <code>(a -&gt; b)</code> is a fully qualified type, we can define semigroup instances for it.</li>
-<li><strong>our definition of semigroup</strong> is to <em>combine</em> two functions by applying both to the same input, then combining the result
+<li>
+<p>Since <code>(a -&gt; b)</code> is a fully qualified type, we can define semigroup instances for it.</p>
+</li>
+<li>
+<p><strong>our definition of semigroup</strong> is to <em>combine</em> two functions by applying both to the same input, then combining the result</p>
 <ul>
 <li>we must know that <code>b</code> is a <code>Semigroup</code> too!</li>
 </ul>
@@ -2447,7 +2609,8 @@ String -&gt; :: * -&gt; *
 </ul>
 <p><img src="data:image/png;base64,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" alt="Screenshot" /></p>
 <ul>
-<li>An example:
+<li>
+<p>An example:</p>
 <pre><code class="language-haskell">twoChars = replicate 2
 threeNextChars = replicate 3 . succ
 myCombo = twoChars &lt;&gt; threeNextChars
@@ -2481,45 +2644,68 @@ GHCi&gt; f 5
 </ul>
 <h3>Functions as Functors</h3>
 <ul>
-<li>Recall that for <code>f</code> to be a <code>Functor</code>, it must be a <em>type constructor</em> of kind <code>* -&gt; *</code></li>
-<li>Hence, we can define a <code>Functor</code> instance for <code>(-&gt;) e</code>. This is often called the <em>environment functor</em>, where <code>e</code> is the <em>environment</em>.
+<li>
+<p>Recall that for <code>f</code> to be a <code>Functor</code>, it must be a <em>type constructor</em> of kind <code>* -&gt; *</code></p>
+</li>
+<li>
+<p>Hence, we can define a <code>Functor</code> instance for <code>(-&gt;) e</code>. This is often called the <em>environment functor</em>, where <code>e</code> is the <em>environment</em>.</p>
 <ul>
 <li>because we map over the result while leaving the environment <strong>untouched</strong></li>
 </ul>
 </li>
-<li>When <code>f</code> is a <code>Functor</code>, <code>fmap f g</code> represents <em>mapping</em> function <code>f</code> over function <code>g</code>, which is basically <strong>function composition</strong>.
+<li>
+<p>When <code>f</code> is a <code>Functor</code>, <code>fmap f g</code> represents <em>mapping</em> function <code>f</code> over function <code>g</code>, which is basically <strong>function composition</strong>.</p>
 <pre><code class="language-haskell">instance Functor ((-&gt;) e) where
     -- fmap :: (a -&gt; b) -&gt; (e -&gt; a) -&gt; (e -&gt; b)
     fmap = (.)
     -- recall that (.) :: (b -&gt; c) -&gt; (a -&gt; b) -&gt; (a -&gt; c)
 </code></pre>
 </li>
-<li><strong>NOTE</strong>: it is not common to <em>directly</em> use <code>(&lt;&gt;)</code> and <code>fmap</code> on functions.</li>
+<li>
+<p><strong>NOTE</strong>: it is not common to <em>directly</em> use <code>(&lt;&gt;)</code> and <code>fmap</code> on functions.</p>
+</li>
 </ul>
 <h3>Other Instances</h3>
 <ul>
-<li>There are many type classes that functions do <em>not</em> naturally fall into</li>
-<li>comparing two functions for equality is <strong>undecidable</strong> (equivalent to solving the Halting problem)</li>
-<li>Defining an instance for <code>Show</code> is difficult since we do not know how <code>f</code> is implemented.
+<li>
+<p>There are many type classes that functions do <em>not</em> naturally fall into</p>
+</li>
+<li>
+<p>comparing two functions for equality is <strong>undecidable</strong> (equivalent to solving the Halting problem)</p>
+</li>
+<li>
+<p>Defining an instance for <code>Show</code> is difficult since we do not know how <code>f</code> is implemented.</p>
 <pre><code class="language-haskell">instance Show b =&gt; Show (a -&gt; b) where
     show f = "&lt;function&gt;"
 </code></pre>
 </li>
-<li>This is the only reasonable <code>Show</code> implementation, which is useless.</li>
+<li>
+<p>This is the only reasonable <code>Show</code> implementation, which is useless.</p>
+</li>
 </ul>
 <h1>19. Applicative</h1>
 <h3>Lifted Values</h3>
 <ul>
-<li><em><strong>Def</strong></em>. A <em>lifted</em> value is a value that lives inside a functor. An <em>unlifed</em> (<em>plain</em>) value is one that doesn’t.</li>
-<li>For example, <code>Maybe Int</code> can be thought of as a value of type <code>Int</code> lifted into the <code>Maybe</code>.</li>
-<li>Since <code>fmap</code> is so important, it has its own operator: <code>&lt;$&gt;</code>
+<li>
+<p><em><strong>Def</strong></em>. A <em>lifted</em> value is a value that lives inside a functor. An <em>unlifed</em> (<em>plain</em>) value is one that doesn’t.</p>
+</li>
+<li>
+<p>For example, <code>Maybe Int</code> can be thought of as a value of type <code>Int</code> lifted into the <code>Maybe</code>.</p>
+</li>
+<li>
+<p>Since <code>fmap</code> is so important, it has its own operator: <code>&lt;$&gt;</code></p>
 <pre><code class="language-haskell">($) :: (a -&gt; b) -&gt; a -&gt; b
 (&lt;$&gt;) :: Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
 </code></pre>
 </li>
-<li>It is clear that <code>(&lt;$&gt;)</code> is a <em>lifted</em> version of the function application operator <code>($)</code>.</li>
-<li>We can say <code>fmap</code> takes a function and applies it to a <em>lifted</em> value to give a new <em>lifted value</em></li>
-<li>For example:
+<li>
+<p>It is clear that <code>(&lt;$&gt;)</code> is a <em>lifted</em> version of the function application operator <code>($)</code>.</p>
+</li>
+<li>
+<p>We can say <code>fmap</code> takes a function and applies it to a <em>lifted</em> value to give a new <em>lifted value</em></p>
+</li>
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">ghci&gt; fmap (+1) (Just 5)
 Just 6
 
@@ -2548,8 +2734,11 @@ ghci&gt; (+1) &lt;$&gt; [2,3,4]
 </ul>
 <h3>Applicative Functors</h3>
 <ul>
-<li>The <code>Applicative</code> type class is a subclass of <code>Functor</code>.</li>
-<li>It provides two useful tools:
+<li>
+<p>The <code>Applicative</code> type class is a subclass of <code>Functor</code>.</p>
+</li>
+<li>
+<p>It provides two useful tools:</p>
 <ol>
 <li>a function to inject a <strong>single value</strong> into the functor
 <ul>
@@ -2563,14 +2752,18 @@ ghci&gt; (+1) &lt;$&gt; [2,3,4]
 </li>
 </ol>
 </li>
-<li>Definition:
+<li>
+<p>Definition:</p>
 <pre><code class="language-haskell">class Functor f =&gt; Applicative f where
     pure :: a -&gt; f a
     (&lt;*&gt;) :: f (a -&gt; b) -&gt; f a -&gt; f b
 </code></pre>
 </li>
-<li>The difference between <code>(&lt;$&gt;)</code> and <code>(&lt;*&gt;)</code> is that the latter uses a <em>lifted function</em>.</li>
-<li>For example:
+<li>
+<p>The difference between <code>(&lt;$&gt;)</code> and <code>(&lt;*&gt;)</code> is that the latter uses a <em>lifted function</em>.</p>
+</li>
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">GHCi&gt; Just (\x -&gt; x * 2) &lt;*&gt; Just 5
 Just 10
 
@@ -2581,44 +2774,55 @@ Nothing
 </ul>
 <h4>Applicative Functor Laws</h4>
 <ol>
-<li><em><strong>Identity</strong></em> - lifting <code>id</code> to a lifted value does nothing
+<li>
+<p><em><strong>Identity</strong></em> - lifting <code>id</code> to a lifted value does nothing</p>
 <pre><code class="language-haskell">pure id &lt;*&gt; v === v
 </code></pre>
 </li>
-<li><em><strong>Homomorphism</strong></em> - function application in the functor is faithful to function application outside the functor
+<li>
+<p><em><strong>Homomorphism</strong></em> - function application in the functor is faithful to function application outside the functor</p>
 <pre><code class="language-haskell">pure f &lt;*&gt; pure x === pure (f x)
 </code></pre>
 </li>
-<li><em><strong>Interchange</strong></em> - applying a lifted function is still faithful when we swap the arguments to <code>(&lt;*&gt;)</code>
+<li>
+<p><em><strong>Interchange</strong></em> - applying a lifted function is still faithful when we swap the arguments to <code>(&lt;*&gt;)</code></p>
 <pre><code class="language-haskell">u &lt;*&gt; pure y === pure ($ y) &lt;*&gt; u
 </code></pre>
 </li>
-<li><strong>Composition</strong> - composing two lifted functions <code>u</code> and <code>v</code>, then applying it to <code>w</code>, should first apply <code>v</code>, and then <code>u</code>
+<li>
+<p><strong>Composition</strong> - composing two lifted functions <code>u</code> and <code>v</code>, then applying it to <code>w</code>, should first apply <code>v</code>, and then <code>u</code></p>
 <pre><code class="language-haskell">pure (.) &lt;*&gt; u &lt;*&gt; v &lt;*&gt; w === u &lt;*&gt; (v &lt;*&gt; w)
 </code></pre>
 </li>
 </ol>
 <h4>Applicative as “Joining”</h4>
 <ul>
-<li><strong>NOTE</strong>: <code>(&lt;$&gt;</code>) and <code>(&lt;*&gt;)</code> both associate to the left and have the same precedence.</li>
-<li>To rewrite this expression in <strong>lifted form</strong> over <code>Maybe</code>:
+<li>
+<p><strong>NOTE</strong>: <code>(&lt;$&gt;</code>) and <code>(&lt;*&gt;)</code> both associate to the left and have the same precedence.</p>
+</li>
+<li>
+<p>To rewrite this expression in <strong>lifted form</strong> over <code>Maybe</code>:</p>
 <pre><code class="language-haskell">GHCi&gt; 5 * 6
 30
 </code></pre>
 </li>
-<li>we have to use both <code>(&lt;$&gt;)</code> and <code>(&lt;*&gt;)</code>
+<li>
+<p>we have to use both <code>(&lt;$&gt;)</code> and <code>(&lt;*&gt;)</code></p>
 <pre><code class="language-haskell">GHCi&gt; (*) &lt;$&gt; Just 5 &lt;*&gt; Just 6
 &gt;&gt;&gt; Just ((*) 5) &lt;*&gt; Just 6
 &gt;&gt;&gt; Just ((*) 5 6)
 &gt;&gt;&gt; Just 30
 </code></pre>
 </li>
-<li>in this case, <code>&lt;*&gt;</code> is read as <code>and</code> and is the <strong>lifted version</strong> of joining arguments to a function.</li>
+<li>
+<p>in this case, <code>&lt;*&gt;</code> is read as <code>and</code> and is the <strong>lifted version</strong> of joining arguments to a function.</p>
+</li>
 </ul>
 <h3>Applicative Functors</h3>
 <h4>Maybe</h4>
 <ul>
-<li>We only get a meaningful value when both the function and value are not <code>Nothing</code>.
+<li>
+<p>We only get a meaningful value when both the function and value are not <code>Nothing</code>.</p>
 <pre><code class="language-haskell">instance Applicative Maybe where
     pure x = Just x
     Nothing &lt;*&gt; _ = Nothing
@@ -2629,8 +2833,11 @@ Nothing
 </ul>
 <h4>Lists</h4>
 <ul>
-<li>Applicative can be used to apply a <em>list</em> of functions to a <em>list</em> of input values.</li>
-<li>This is done by taking the **cartesian product*8 of the lists, applying each function to each value and collecting them all together into one list
+<li>
+<p>Applicative can be used to apply a <em>list</em> of functions to a <em>list</em> of input values.</p>
+</li>
+<li>
+<p>This is done by taking the **cartesian product*8 of the lists, applying each function to each value and collecting them all together into one list</p>
 <pre><code class="language-haskell">GHCi [ (*1), (*2), (*3) ] &lt;*&gt; [1,2,3]
 [1,2,3,2,4,6,3,6,9]
 
@@ -2641,8 +2848,11 @@ GHCi&gt; (\x y -&gt; (x,y)) &lt;$&gt; [1,2,3] &lt;*&gt; [1,2,3]
 </ul>
 <h4>Functions</h4>
 <ul>
-<li>Applicative things are generally known as <strong>actions</strong>, because the <em>contents</em> of a control functor is hard to describe.</li>
-<li>Instance definition:
+<li>
+<p>Applicative things are generally known as <strong>actions</strong>, because the <em>contents</em> of a control functor is hard to describe.</p>
+</li>
+<li>
+<p>Instance definition:</p>
 <pre><code class="language-haskell">instance Applicative ((-&gt;) e) where
     -- pure :: a -&gt; (e -&gt; a)
     pure a = \x -&gt; a
@@ -2650,40 +2860,47 @@ GHCi&gt; (\x y -&gt; (x,y)) &lt;$&gt; [1,2,3] &lt;*&gt; [1,2,3]
     f &lt;*&gt; g = \x -&gt; (f x) (g x)
 </code></pre>
 </li>
-<li>For example:
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">mm = (\x y -&gt; (x, y)) &lt;$&gt; minimum &lt;*&gt; maximum
 
 GHCi&gt; mm [5,1000,2]
 (2,1000)
 </code></pre>
 </li>
-<li>This means:
+<li>
+<p>This means:</p>
 <ul>
 <li>apply the pair function to <code>minimum</code> to make <code>minimum</code> return the <em>minimum</em> and something else (not defined yet)</li>
 <li>then apply this function to <code>maximum</code> to make the remaining value the <em>maximum</em></li>
 <li>So the result is the <strong>pair</strong> of the <em>minimum</em> and <em>maximum</em>.</li>
 </ul>
 </li>
-<li>This can also be thought of as <strong>applying pair</strong> to the <em>minimum</em> <strong>and</strong> the <em>maximum</em>.</li>
+<li>
+<p>This can also be thought of as <strong>applying pair</strong> to the <em>minimum</em> <strong>and</strong> the <em>maximum</em>.</p>
+</li>
 </ul>
 <h1>20. Monad</h1>
 <h3>Motivation</h3>
 <ul>
-<li>Suppose we have a function <code>halfInt</code> which halves an integer if it is even, and returns <code>Nothing</code> otherwise.
+<li>
+<p>Suppose we have a function <code>halfInt</code> which halves an integer if it is even, and returns <code>Nothing</code> otherwise.</p>
 <pre><code class="language-haskell">halfInt :: Int -&gt; Maybe Int
 halfInt x
     | even x = Just (x `div` 2)
     | otherwise = Nothing
 </code></pre>
 </li>
-<li>Now consider making a function <code>quarterInt</code> which should call <code>halfInt</code> twice, but the types do not line up
+<li>
+<p>Now consider making a function <code>quarterInt</code> which should call <code>halfInt</code> twice, but the types do not line up</p>
 <ul>
 <li><code>halfInt</code> takes an <code>Int</code> but <code>halfInt</code> returns a <code>Maybe Int</code></li>
 <li>To write this, you would have to <strong>pattern match</strong> on the output of the first <code>halfInt</code>, and then call <code>halfInt</code> again.</li>
 <li>This is tedious</li>
 </ul>
 </li>
-<li>Instead, we can use the <code>Maybe</code> <strong>monad</strong> to <strong>chain operations</strong>:
+<li>
+<p>Instead, we can use the <code>Maybe</code> <strong>monad</strong> to <strong>chain operations</strong>:</p>
 <pre><code class="language-haskell">quarterInt :: Int -&gt; Maybe Int
 quarterInt = halfInt &gt;&gt;= halfInt
 </code></pre>
@@ -2691,14 +2908,20 @@ quarterInt = halfInt &gt;&gt;= halfInt
 </ul>
 <h3>Monad</h3>
 <ul>
-<li><strong>Monad</strong> provides the important <code>bind</code> function, written as <code>&gt;&gt;=</code>.</li>
-<li><em>Bind</em> describes what happens when we pass a lifted value into a function that itself returns a lifted value.</li>
-<li>Definition:
+<li>
+<p><strong>Monad</strong> provides the important <code>bind</code> function, written as <code>&gt;&gt;=</code>.</p>
+</li>
+<li>
+<p><em>Bind</em> describes what happens when we pass a lifted value into a function that itself returns a lifted value.</p>
+</li>
+<li>
+<p>Definition:</p>
 <pre><code class="language-haskell">class Monad m where
     (&gt;&gt;=) :: m a -&gt; (a -&gt; m b) -&gt; m b
 </code></pre>
 </li>
-<li>We can define a <code>Monad</code> instance for <code>Maybe</code>:
+<li>
+<p>We can define a <code>Monad</code> instance for <code>Maybe</code>:</p>
 <pre><code class="language-haskell">instance Monad Maybe where
     -- if we try to pass Nothing in, give up and return Nothing
     Nothing &gt;&gt;= f = Nothing
@@ -2820,17 +3043,20 @@ m &gt;&gt;= pure === m
 </ul>
 <h4>Running a Stateful Computation</h4>
 <ul>
-<li>As by the definition, a state can be run using the <code>runState</code> function:
+<li>
+<p>As by the definition, a state can be run using the <code>runState</code> function:</p>
 <pre><code class="language-haskell">runState :: State s a -&gt; s -&gt; (a,s)
 runState (St f) s = f s
 </code></pre>
 </li>
-<li>There is also <code>evalState</code> which gets the <strong>result</strong> of the computation:
+<li>
+<p>There is also <code>evalState</code> which gets the <strong>result</strong> of the computation:</p>
 <pre><code class="language-haskell">evalState :: State s a -&gt; s -&gt; a
 evalState st s = fst (runState st s)
 </code></pre>
 </li>
-<li>There is also <code>execState</code> which gets the <strong>final state</strong> of the computation:
+<li>
+<p>There is also <code>execState</code> which gets the <strong>final state</strong> of the computation:</p>
 <pre><code class="language-haskell">execState :: State s a -&gt; s -&gt; s
 execState st s = snd (runState st s)
 </code></pre>
@@ -2841,17 +3067,20 @@ execState st s = snd (runState st s)
 <li>There are three helper functions that work with state:</li>
 </ul>
 <ol>
-<li><code>get</code> - <em>grabs the value of the stateful component and returns it as the main value</em>
+<li>
+<p><code>get</code> - <em>grabs the value of the stateful component and returns it as the main value</em></p>
 <pre><code class="language-haskell">get :: State s s
 get = St (\s -&gt; (s, s))
 </code></pre>
 </li>
-<li><code>put</code> - <em>takes a replacement value and sets the state to that</em>. It does not return anything meaningful so we return <em>unit</em> <code>()</code>
+<li>
+<p><code>put</code> - <em>takes a replacement value and sets the state to that</em>. It does not return anything meaningful so we return <em>unit</em> <code>()</code></p>
 <pre><code class="language-haskell">put :: s -&gt; State s ()
 put s' = St (\_ -&gt; ((), s'))
 </code></pre>
 </li>
-<li><code>modify</code> - applies a <em>modification function</em> to the stateful component.
+<li>
+<p><code>modify</code> - applies a <em>modification function</em> to the stateful component.</p>
 <pre><code class="language-haskell">modify :: (s -&gt; s) -&gt; State s ()
 modify f = get &gt;&gt;= \val -&gt; put (f val)
 </code></pre>
@@ -2876,18 +3105,21 @@ modify f = get &gt;&gt;= \val -&gt; put (f val)
 </ul>
 <h4>main</h4>
 <ul>
-<li>Defining a haskell program requires us to define a computation called <code>main</code>:
+<li>
+<p>Defining a haskell program requires us to define a computation called <code>main</code>:</p>
 <pre><code class="language-haskell">main :: IO ()
 </code></pre>
 </li>
 </ul>
 <h4>Hello World</h4>
 <ul>
-<li>The <code>getLine</code> function is used to get a line of text from stdin:
+<li>
+<p>The <code>getLine</code> function is used to get a line of text from stdin:</p>
 <pre><code class="language-haskell">getLine :: IO String
 </code></pre>
 </li>
-<li>The <code>putStrLn</code> function is used to write a line of text to stdout:
+<li>
+<p>The <code>putStrLn</code> function is used to write a line of text to stdout:</p>
 <pre><code class="language-haskell">putStrLn :: String -&gt; IO ()
 </code></pre>
 </li>
@@ -2895,9 +3127,14 @@ modify f = get &gt;&gt;= \val -&gt; put (f val)
 <h1>22. Do Notation</h1>
 <h3>Do Notation</h3>
 <ul>
-<li>The normal notation of using <code>(&gt;&gt;=)</code> followed by a lambda function is <strong>not ergonomic</strong></li>
-<li><strong>Do Notation</strong> is <em>syntactic sugar</em> for the <code>(&gt;&gt;=)</code> chains and is designed to make writing monadic code a lot better.</li>
-<li>Previously:
+<li>
+<p>The normal notation of using <code>(&gt;&gt;=)</code> followed by a lambda function is <strong>not ergonomic</strong></p>
+</li>
+<li>
+<p><strong>Do Notation</strong> is <em>syntactic sugar</em> for the <code>(&gt;&gt;=)</code> chains and is designed to make writing monadic code a lot better.</p>
+</li>
+<li>
+<p>Previously:</p>
 <pre><code class="language-haskell">gen' = State Seed Int
 gen' = State gen
 
@@ -2909,7 +3146,8 @@ add3' =
     pure $ x + y + z
 </code></pre>
 </li>
-<li>With <strong>do notation</strong>, we can write this as:
+<li>
+<p>With <strong>do notation</strong>, we can write this as:</p>
 <pre><code class="language-haskell">add3' :: State Seed Int
 add3' = do
     x &lt;- gen'
@@ -2918,17 +3156,32 @@ add3' = do
     pure $ x + y + z
 </code></pre>
 </li>
-<li>The left arrow <code>&lt;-</code> is pronounced <em>bind</em>.</li>
-<li>The <strong>last statement</strong> in a <code>do</code>-block is the value <strong>returned</strong> from the function.</li>
-<li><strong>NOTE</strong>: <code>do</code> blocks are strictly read top-to-bottom because of the use of <code>&gt;&gt;=</code> to sequence operations.</li>
-<li>The <strong>bind</strong> <code>(&lt;-)</code> arrow simply means <em>extract</em> the inner value from the moandic value.</li>
-<li>The behaviour of a <code>do</code>-block depends entirely on the <em>type of the expression’s return value</em></li>
+<li>
+<p>The left arrow <code>&lt;-</code> is pronounced <em>bind</em>.</p>
+</li>
+<li>
+<p>The <strong>last statement</strong> in a <code>do</code>-block is the value <strong>returned</strong> from the function.</p>
+</li>
+<li>
+<p><strong>NOTE</strong>: <code>do</code> blocks are strictly read top-to-bottom because of the use of <code>&gt;&gt;=</code> to sequence operations.</p>
+</li>
+<li>
+<p>The <strong>bind</strong> <code>(&lt;-)</code> arrow simply means <em>extract</em> the inner value from the moandic value.</p>
+</li>
+<li>
+<p>The behaviour of a <code>do</code>-block depends entirely on the <em>type of the expression’s return value</em></p>
+</li>
 </ul>
 <h3>Let Blocks</h3>
 <ul>
-<li>We can write <code>let</code> blocks inside <code>do</code>-notation to do intermediate calculations.</li>
-<li><strong>NOTE</strong> that there is no <code>in</code> statement at the end.</li>
-<li>For example:
+<li>
+<p>We can write <code>let</code> blocks inside <code>do</code>-notation to do intermediate calculations.</p>
+</li>
+<li>
+<p><strong>NOTE</strong> that there is no <code>in</code> statement at the end.</p>
+</li>
+<li>
+<p>For example:</p>
 <pre><code class="language-haskell">doubleState :: State Int ()
 doubleState = do
     x &lt;- get
@@ -2936,7 +3189,8 @@ doubleState = do
     put y
 </code></pre>
 </li>
-<li>can be <em>desugared</em> into:
+<li>
+<p>can be <em>desugared</em> into:</p>
 <pre><code class="language-haskell">doubleState :: State Int ()
 doubleState = get &gt;&gt;= (\x -&gt; (let y = x * 2 in put y))
 </code></pre>
@@ -2944,17 +3198,22 @@ doubleState = get &gt;&gt;= (\x -&gt; (let y = x * 2 in put y))
 </ul>
 <h3>The return function</h3>
 <ul>
-<li>The <code>Monad</code> type class also defines the <code>return</code> function:
+<li>
+<p>The <code>Monad</code> type class also defines the <code>return</code> function:</p>
 <pre><code class="language-haskell">return :: Monad m =&gt; a -&gt; m a
-
 </code></pre>
 </li>
-<li>This has the same type signature as <code>pure</code>. Since <code>Applicative</code> is a superclass of <code>Monad</code>, <code>return</code> and <code>pure</code> are effectively the same.</li>
-<li><code>return</code> exists for <em>historical reasons</em> - <strong>it is a lot better to use pure</strong></li>
+<li>
+<p>This has the same type signature as <code>pure</code>. Since <code>Applicative</code> is a superclass of <code>Monad</code>, <code>return</code> and <code>pure</code> are effectively the same.</p>
+</li>
+<li>
+<p><code>return</code> exists for <em>historical reasons</em> - <strong>it is a lot better to use pure</strong></p>
+</li>
 </ul>
 <h3>Recursive Do Notation</h3>
 <ul>
-<li>We can use <code>recursion</code> to continually perform something in <code>do</code> notation:
+<li>
+<p>We can use <code>recursion</code> to continually perform something in <code>do</code> notation:</p>
 <pre><code class="language-haskell">echo :: IO ()
 echo = do
     x &lt;- getLine
@@ -2962,8 +3221,12 @@ echo = do
     echo
 </code></pre>
 </li>
-<li>This will continually get a line from the user and print it.</li>
-<li>The <code>Control.Monad</code> module includes the <code>forever</code> function which repeats an action infinitely many times, never returning a value</li>
+<li>
+<p>This will continually get a line from the user and print it.</p>
+</li>
+<li>
+<p>The <code>Control.Monad</code> module includes the <code>forever</code> function which repeats an action infinitely many times, never returning a value</p>
+</li>
 </ul>
 <h3>Monadic and Applicative Sequencing Operators</h3>
 <ul>
@@ -2973,9 +3236,14 @@ echo = do
 </ul>
 <h3>Using Do Notation</h3>
 <ul>
-<li>It is <em>not always the best</em> to use <code>do</code>-notation</li>
-<li><code>do</code>-notation will simplify your code when you want to run a lot of operations in order that rely on some monadic effect like <code>State</code> or <code>IO</code></li>
-<li>If the function is just <strong>one line</strong>, <em><strong>do not</strong></em> use <code>do</code>-notation
+<li>
+<p>It is <em>not always the best</em> to use <code>do</code>-notation</p>
+</li>
+<li>
+<p><code>do</code>-notation will simplify your code when you want to run a lot of operations in order that rely on some monadic effect like <code>State</code> or <code>IO</code></p>
+</li>
+<li>
+<p>If the function is just <strong>one line</strong>, <em><strong>do not</strong></em> use <code>do</code>-notation</p>
 <pre><code class="language-haskell">
 -- not good
 main = do putStrLn "Hello, world!"
@@ -2988,24 +3256,30 @@ main = putStrLn "Hello World!"
 <h1>23. Parsing</h1>
 <h3>Basics of Megaparsec</h3>
 <ul>
-<li><em><strong>Def</strong></em>. A <em>parser</em> is a function or computation which takes a <code>String</code> and returns a value, if possible</li>
-<li><strong>Dependencies of Megaparsec:</strong>
+<li>
+<p><em><strong>Def</strong></em>. A <em>parser</em> is a function or computation which takes a <code>String</code> and returns a value, if possible</p>
+</li>
+<li>
+<p><strong>Dependencies of Megaparsec:</strong></p>
 <pre><code class="language-haskell">dependencies:
     - base &gt;= 4.7 &amp;&amp; &lt; 5
     - megaparsec
     - parser-combinators
 </code></pre>
 </li>
-<li><strong>Imports</strong>:
+<li>
+<p><strong>Imports</strong>:</p>
 <pre><code class="language-haskell">import Text.Megaparsec
 import Text.Megaparsec.Char
 </code></pre>
 </li>
-<li><strong>At the top of every parser file</strong>, define a type synonym:
+<li>
+<p><strong>At the top of every parser file</strong>, define a type synonym:</p>
 <pre><code class="language-haskell">type Parser = Parsec Void String
 </code></pre>
 </li>
-<li>The arguments are:
+<li>
+<p>The arguments are:</p>
 <ul>
 <li><strong>error type</strong> - <code>Void</code> in this case as we do not want custom errors</li>
 <li><strong>stream type</strong> - <code>String</code> in this case (the type of input to the parser)</li>
@@ -3016,12 +3290,14 @@ import Text.Megaparsec.Char
 <h3>Primitives and Combinators</h3>
 <h4>Primitives</h4>
 <ul>
-<li><code>fail</code> is a function that <em>fails</em> the parser with an error message
+<li>
+<p><code>fail</code> is a function that <em>fails</em> the parser with an error message</p>
 <pre><code class="language-haskell">ohdear :: Parser Int
 ohdear = fail "Oh dear"
 </code></pre>
 </li>
-<li><code>satisfy</code> is a function that tries to consume the next character if it matches a predicate. If not, it fails.
+<li>
+<p><code>satisfy</code> is a function that tries to consume the next character if it matches a predicate. If not, it fails.</p>
 <pre><code class="language-haskell">parseFive :: Parser Int
 parseFive = do
     x &lt;- satisfy (== '5')
@@ -3029,7 +3305,8 @@ parseFive = do
     pure (read [x])
 </code></pre>
 </li>
-<li>There is also <code>char</code>, which parses a single character.
+<li>
+<p>There is also <code>char</code>, which parses a single character.</p>
 <pre><code class="language-haskell">parseTen =:: Parser Int
 parseTen = do
     char '5'
@@ -3068,15 +3345,19 @@ many :: Parser a -&gt; Parser [a]
 </ul>
 <h4>Choice</h4>
 <ul>
-<li>The <code>Alternative</code> type class allows us to combine values by taking the first <em>successful</em> result it finds.</li>
-<li>The <code>&lt;|&gt;</code> operator allows us to do just that:
+<li>
+<p>The <code>Alternative</code> type class allows us to combine values by taking the first <em>successful</em> result it finds.</p>
+</li>
+<li>
+<p>The <code>&lt;|&gt;</code> operator allows us to do just that:</p>
 <pre><code class="language-haskell">(&lt;|&gt;) :: Alternative f =&gt; f a -&gt; f a -&gt; f a
 
 fiveOrSix :: Parser Char
 fiveOrSix = char '5' &lt;|&gt; char '6'
 </code></pre>
 </li>
-<li>If there are <em>lots</em> of alternatives to try, we can use <code>choice</code>:
+<li>
+<p>If there are <em>lots</em> of alternatives to try, we can use <code>choice</code>:</p>
 <pre><code class="language-haskell">choice :: Alternative f =&gt; [f a] -&gt; f a
 
 fiveOrSixOrSeven :: Parser Char
@@ -3086,15 +3367,19 @@ fiveOrSixOrSeven = choice [char '5', char '6', char '7']
 </ul>
 <h4>try</h4>
 <ul>
-<li>The <code>try</code> combinator allows you to <strong>try</strong> running a parser <span class="math math-inline">p</span>, and if it fails, backtrack the state and try some other parser <span class="math math-inline">q</span>
+<li>
+<p>The <code>try</code> combinator allows you to <strong>try</strong> running a parser <span class="math math-inline">p</span>, and if it fails, backtrack the state and try some other parser <span class="math math-inline">q</span></p>
 <pre><code class="language-haskell">try :: Parser a -&gt; Parser a
 </code></pre>
 </li>
-<li>This <strong>should be avoided</strong> as it is very slow</li>
+<li>
+<p>This <strong>should be avoided</strong> as it is very slow</p>
+</li>
 </ul>
 <h3>Running Parsers</h3>
 <ul>
-<li>There are multiple ways to run a parser. The most useful is <code>parse</code>
+<li>
+<p>There are multiple ways to run a parser. The most useful is <code>parse</code></p>
 <pre><code class="language-haskell">parse :: Parser a -- your parser to run
       -&gt; String -- a filename (can be empty)
       -&gt; String -- the string to parse
@@ -3142,13 +3427,17 @@ double x = do
 </ul>
 <h3>2. Principle of Least Surprise</h3>
 <ul>
-<li><strong>Principle of Least Surprise</strong>: Code should not be “surprising”. Things should work how they would be expected to work, and be arranged how a common practitioner would expect them to be arranged.</li>
-<li>E.g. this is a violation of this principle
+<li>
+<p><strong>Principle of Least Surprise</strong>: Code should not be “surprising”. Things should work how they would be expected to work, and be arranged how a common practitioner would expect them to be arranged.</p>
+</li>
+<li>
+<p>E.g. this is a violation of this principle</p>
 <pre><code class="language-haskell">double :: Int -&gt; Int
 double x = x * 3
 </code></pre>
 </li>
-<li>Also, module names should correspond to the things that are exported by those modules
+<li>
+<p>Also, module names should correspond to the things that are exported by those modules</p>
 <ul>
 <li>links with <strong>good variable name</strong> practices</li>
 </ul>
@@ -3235,6 +3524,8 @@ import qualified Data.Set as Set
 </ul>
 </li>
 </ul>
-</body>
+
+        </main>
+    </body>
 
 </html>
