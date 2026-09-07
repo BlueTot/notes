@@ -1,4 +1,5 @@
 const state = { structure: null, currentPath: null };
+const NOTE_ZOOM = 0.85;
 const byId = id => document.getElementById(id);
 const el = {
   layout: byId('layout'), title: byId('note-title'), brand: byId('brand'), back: byId('back'),
@@ -159,6 +160,7 @@ function renderNote(path) {
   el.frame.onload = () => {
     try {
       const doc = el.frame.contentDocument || el.frame.contentWindow.document;
+      doc.documentElement.style.zoom = NOTE_ZOOM;
       const title = doc.title || name;
       el.title.textContent = title;
       document.title = `${title} · Warwick Revision Notes`;
