@@ -16,6 +16,12 @@ header {
 }
 #brand { display:flex; flex-direction:column; min-width:0; color:var(--text); text-decoration:none; font-size:.98rem; }
 #note-title { overflow:hidden; color:var(--muted); font-size:.78rem; font-weight:400; line-height:1.5; text-overflow:ellipsis; white-space:nowrap; }
+.header-link {
+  display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:0 .9rem;
+  border:1px solid var(--border); border-radius:10px; background:var(--raised); color:var(--text);
+  text-decoration:none; font-size:.85rem; font-weight:700; transition:.18s ease;
+}
+.header-link:hover { background:var(--hover); border-color:var(--blue); color:var(--sky); }
 .icon-button {
   flex:0 0 auto; width:42px; height:42px; border:1px solid transparent; border-radius:10px;
   background:var(--raised); cursor:pointer; font-size:1.25rem; transition:.18s ease;
