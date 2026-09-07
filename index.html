@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>My Notes</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <header>
-            <div id="toc-toggle">&#9776;</div>
-            <div id="back">←</div>
-            <div id="head-text">
-                <h1>My Notes Viewer<br><span id="note-title">(loading...)</span></h1>
-            </div>
-        </header>
-        <div id="layout">
-            <nav id="toc-panel">
-                <ul id="toc-list"></ul>
-            </nav>
-
-            <div id="note-container">
-                <iframe id="note-frame"></iframe>
-            </div>
-            <div id="dirlist" style="display: none;"></div>
-        </div>
-
-        <script src="script.js"></script>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Warwick Computer Science revision notes">
+  <title>Warwick Revision Notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <button id="toc-toggle" class="icon-button" type="button" aria-label="Toggle table of contents" hidden>☰</button>
+    <button id="back" class="icon-button" type="button" aria-label="Go back" hidden>←</button>
+    <a id="brand" href="./" aria-label="Warwick Revision Notes home">
+      <strong>Warwick Revision Notes</strong>
+      <span id="note-title">Home</span>
+    </a>
+  </header>
+  <main id="layout">
+    <section id="landing" class="page-view" hidden>
+      <div class="hero">
+        <p class="eyebrow">Computer Science study library</p>
+        <h1>Warwick Revision Notes</h1>
+        <p class="hero-copy">Browse revision notes by year and module, all in one focused study space.</p>
+        <button id="browse-notes" class="primary-button" type="button">Browse notes <span aria-hidden="true">→</span></button>
+      </div>
+      <div class="landing-section">
+        <p class="eyebrow">Jump straight in</p>
+        <h2>Browse by year</h2>
+        <div id="year-grid" class="entry-grid"></div>
+      </div>
+    </section>
+    <section id="directory-view" class="page-view" hidden>
+      <nav id="breadcrumbs" aria-label="Breadcrumb"></nav>
+      <div class="directory-heading">
+        <div><p class="eyebrow">Directory</p><h1 id="directory-title">Notes</h1></div>
+        <p id="directory-count"></p>
+      </div>
+      <div id="dirlist" class="entry-grid"></div>
+    </section>
+    <nav id="toc-panel" aria-label="Table of contents" hidden><div id="toc-list"></div></nav>
+    <div id="note-container" hidden><iframe id="note-frame" title="Selected revision note"></iframe></div>
+    <section id="status-view" class="page-view status-view" hidden aria-live="polite">
+      <div class="status-card">
+        <div class="status-icon" aria-hidden="true">!</div>
+        <h1 id="status-title">Something went wrong</h1>
+        <p id="status-message"></p>
+        <button id="status-action" class="primary-button" type="button">Return home</button>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
 </html>
