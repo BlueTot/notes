@@ -1,81 +1,96 @@
+# CS130 Revision Notes
 
-## Section 1 - Sets and Functions
-#### Introduction to Sets
+## 1. Sets and Functions
 
-- A set is an ***unordered collection** of mathematical objects that is *uniquely characterised by their elements*
-	- This means that order does not matter: $\{a, b\} = \{b, a\}$
-	- This means that duplicates do not count: $\{a, b\} = \{a, a, b\}$
+### Introduction to Sets
 
-* The ***cardinality*** of a set is the size of the set, i.e. the number of elements in the set
-* Common sets in maths are:
-	* Natural Numbers - $\mathbb{N}$ (includes 0)
-	* Integers - $\mathbb{Z}$
-	* Rational Numbers - $\mathbb{Q}$
-	* Real Numbers - $\mathbb{R}$
-	* Complex Numbers - $\mathbb{C}$
+**Def**. A set is an ***unordered collection** of mathematical objects that is *uniquely characterised by their elements*
+* This means that order does not matter: $\{a, b\} = \{b, a\}$
+* This means that duplicates do not count: $\{a, b\} = \{a, a, b\}$
+
+**Def**. The ***cardinality*** of a set is the size of the set, i.e. the number of elements in the set
+
+Common sets in maths are:
+* Natural Numbers - $\mathbb{N}$ (includes 0)
+* Integers - $\mathbb{Z}$
+* Rational Numbers - $\mathbb{Q}$
+* Real Numbers - $\mathbb{R}$
+* Complex Numbers - $\mathbb{C}$
 	
-* All of these sets are infinite sets, but not all infinities are the same. We can define a set to be countably infinite if there exists a one-to-one mapping between every natural number and every element in the set
+All of these sets are infinite sets, but not all infinities are the same. 
 
-* The cardinality of $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are the same, hence all of these sets are countably infinite.
-	* $\mathbb{Z}$ -- We can traverse 0, then -1 and 1, then -2 and 2, and so on and so forth.
-	* $\mathbb{Q}$ -- We can think of this a pair of integers such that the denominator is not 0, so it represents a 2D-coordinate plane. We can traverse this coordinate plane in a spiral formation, hitting every possible rational number.
-	* $\mathbb{R}$ - The cardinality of $\mathbb{R}$ is uncountably infinite, which is strictly greater than the cardinality of the other sets. This is proved using Cantor's Diagonalisation Argument
+We can define a set to be countably infinite if there exists a one-to-one mapping between every natural number and every element in the set
+
+The cardinality of $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are the same, hence all of these sets are countably infinite.
+* $\mathbb{Z}$ -- We can traverse 0, then -1 and 1, then -2 and 2, and so on and so forth.
+* $\mathbb{Q}$ -- We can think of this a pair of integers such that the denominator is not 0, so it represents a 2D-coordinate plane. We can traverse this coordinate plane in a spiral formation, hitting every possible rational number.
+* $\mathbb{R}$ - The cardinality of $\mathbb{R}$ is uncountably infinite, which is strictly greater than the cardinality of the other sets. This is proved using Cantor's Diagonalisation Argument
 
 #### Basic Set Operations
 
-- Elements can be part of a set. The statement $a \in A$ means that $a$ is an element of the set $A$.
-- Sets can be also a subset of another set. The statement $A \subseteq B$ means that $A$ is a subset of $B$.
-	- There is also the proper subset operation, $\subset$, which means that $A \subseteq B \land A \ne B$
-* The definition of a subset is: "Every element of A is an element of B", otherwise written as:
-	$$A\subseteq B \iff \forall x(x \in A \to x \in B)$$
+Elements can be part of a set. The statement $a \in A$ means that $a$ is an element of the set $A$.
+
+Sets can be also a subset of another set. The statement $A \subseteq B$ means that $A$ is a subset of $B$.
+* There is also the proper subset operation, $\subset$, which means that $A \subseteq B \land A \ne B$
+
+The definition of a subset is: "Every element of A is an element of B", otherwise written as:
+
+$$A\subseteq B \iff \forall x(x \in A \to x \in B)$$
+
 #### Empty Sets
 
-- The empty set is a set that contains no elements, written as $\emptyset$
-- Tip: The empty set is a subset of any set.
+The empty set is a set that contains no elements, written as $\emptyset$
+* Tip: The empty set is a subset of any set.
 * P.S. A set cannot be an element of itself (i.e. $X \notin X \space \forall X$)
 
 #### Set Builder Notation
 
-- One common way of representing sets is with Set-Roster Notation, which is listing out the elements in the set, e.g. $\mathbb{N} = \{0, 1, 2, ...\}$
-- The other way of representing sets is with set comprehension, or Set-Builder Notation. The general form of this is: $S = \{x \space |\space  ...\}$, where the $|$ is read as "such that"
-- E.g. $\{(-1)^n : n \in \mathbb{N}\} = \{-1, 1\}$
-- E.g. $\{k^2 : k \in \mathbb{Z}\} = \{k^2 : k \in \mathbb{N}\}$
-- E.g. $\{3a + 7b : a, b \in \mathbb{Z}\} = \mathbb{Z}$
+One common way of representing sets is with Set-Roster Notation, which is listing out the elements in the set, e.g. $\mathbb{N} = \{0, 1, 2, ...\}$
 
-#### Finite Sequences
+The other way of representing sets is with set comprehension, or Set-Builder Notation. The general form of this is: $S = \{x \space |\space  ...\}$, where the $|$ is read as "such that"
+* E.g. $\{(-1)^n : n \in \mathbb{N}\} = \{-1, 1\}$
+* E.g. $\{k^2 : k \in \mathbb{Z}\} = \{k^2 : k \in \mathbb{N}\}$
+* E.g. $\{3a + 7b : a, b \in \mathbb{Z}\} = \mathbb{Z}$
 
-* $X^n$ is the set of all ordered sequences of length $n$ elements in $X$
+### Finite Sequences
+
+**Def**. $X^n$ is the set of all ordered sequences of length $n$ elements in $X$
 * E.g. $X = \{a, b, c\}$, so $X^2 = \{aa, ab, ac, ba, bb, bc, ca, cb, cc\}$
 * Most of the time, the tuple brackets are included but sometimes it is possible to omit it.
 * The elements of $X^n$ are ordered sequences of elements in $X$, also known as a tuple.
-* For any set $X$, $|X^n| = |X|^n$
-- $X^n = \{(x_0, x_1, ..., x_n) : x_0, x_1, ..., x_n \in X\}$
-- Special Case: $X^0 = \{()\}$, which is a set containing an empty sequence
-	- This makes sense due to the law of cardinality: $|X^n|$ = $|X|^n$, so $|X^0| = |X|^0 = 1$
-	- Reason: 1 is the multiplicative identity so your base of multiplying is 1
-- Hence, $\mathbb{Z}^2$ is the set of all possible integer coordinates on a grid
-- $\mathbb{R}^2$ is the entire cartesian plane.
 
-#### Interval Notation
+For any set $X$, $|X^n| = |X|^n$
+* $X^n = \{(x_0, x_1, ..., x_n) : x_0, x_1, ..., x_n \in X\}$
 
-- The closed interval is defined as $[a;  b] = \{x : a \le x \le b\}$
-- Similarly, the open interval is defined as $(a;b) = \{x : a<x<b\}$
-- Closed and open interval notation can be combined, e.g. $[0, 3)$
+Special Case: $X^0 = \{()\}$, which is a set containing an empty sequence
+* This makes sense due to the law of cardinality: $|X^n|$ = $|X|^n$, so $|X^0| = |X|^0 = 1$
+* Reason: 1 is the multiplicative identity so your base of multiplying is 1
+
+Hence, $\mathbb{Z}^2$ is the set of all possible integer coordinates on a grid
+* $\mathbb{R}^2$ is the entire cartesian plane.
+
+### Interval Notation
+
+**Def**. The closed interval is defined as $[a;  b] = \{x : a \le x \le b\}$
+
+**Def**. Similarly, the open interval is defined as $(a;b) = \{x : a<x<b\}$
+* Closed and open interval notation can be combined, e.g. $[0, 3)$
 * Intervals can also be raised to a power: $[0, 1]^2 = \{(x, y) : x, y \in \mathbb{R}, 0 \le x \le 1, 0 \le y \le 1 \}$, which is the unit square
 
-#### Functions
+### Functions
 
-- A function is a **mapping** from a **domain** to a **codomain** satisfy the properties below:
-	- Every input in the domain must map to an output in the codomain
-	- Every input must map to exactly one output
+**Def**. A function is a **mapping** from a **domain** to a **codomain** satisfy the properties below:
+* Every input in the domain must map to an output in the codomain
+* Every input must map to exactly one output
 
-- Definitions:
-	- **DOMAIN**: The set of inputs to the function
-	- **CODOMAIN**: The set of possible outputs to the function that contains the range, can be thought of as the **type** of the output
-	- **RANGE**: The literal set of outputs
+Definitions:
+* **DOMAIN**: The set of inputs to the function
+* **CODOMAIN**: The set of possible outputs to the function that contains the range, can be thought of as the **type** of the output
+* **RANGE**: The literal set of outputs
 
-- For example, the function $f(x) = \pm\sqrt{1-x^2}$ is not a function because one $x$ value maps to multiple $y$ values, e.g. $f(0) = \pm 1$
-- However, the function $g(x) = \sqrt{1-x^2}$ is a function because one $x$ value maps to exactly one $y$ value, provided that we choose a suitable domain, e.g. $-1 \le x \le 1$. In this case, the range would be $0 \le x \le 1$, or the interval $[0;1]$
+For example, the function $f(x) = \pm\sqrt{1-x^2}$ is not a function because one $x$ value maps to multiple $y$ values, e.g. $f(0) = \pm 1$
+
+However, the function $g(x) = \sqrt{1-x^2}$ is a function because one $x$ value maps to exactly one $y$ value, provided that we choose a suitable domain, e.g. $-1 \le x \le 1$. In this case, the range would be $0 \le x \le 1$, or the interval $[0;1]$
 * E.g. if the domain was $(-1;1)$, the range would be $(0;1]$.
 * E.g. if the domain was $\{-1, 0, 1\}$, the range would be $\{0, 1\}$
 
@@ -86,32 +101,33 @@ If there is a rule that assigns to every $x \in X$ an unambiguously determined $
 **Notation:** $f : X \to Y$
 
 **Terminology:** 
-- $X$ is the domain, $Y$ is the codomain
-- Range = $\{f(x) : x \in X\} \subseteq Y$
+* $X$ is the domain, $Y$ is the codomain
+* Range = $\{f(x) : x \in X\} \subseteq Y$
 
 E.g. to make the unit circle a function:
-- $f(x) = \sqrt{1-x^2}$
-- $f : [-1;1] \to [0;1]$
-- Other possible codomains are $\mathbb{R}$, $\mathbb{R_+}$, $\mathbb{R_{\ge 0}}$ (the last one is more precise, use that)
-- It happens to be that $[0;1]$ is also the range
+* $f(x) = \sqrt{1-x^2}$
+* $f : [-1;1] \to [0;1]$
+* Other possible codomains are $\mathbb{R}$, $\mathbb{R_+}$, $\mathbb{R_{\ge 0}}$ (the last one is more precise, use that)
+* It happens to be that $[0;1]$ is also the range
 
 E.g.
-- $U$ : the set of all Warwick undergraduate students
-- $S$ : the set of all Warwick staff
-- $t(u)$ = the personal tutor of $u$, $t : U \to S$
+* $U$ : the set of all Warwick undergraduate students
+* $S$ : the set of all Warwick staff
+* $t(u)$ = the personal tutor of $u$, $t : U \to S$
 
 E.g. 
-- $D = \{0, 1\}$
-- $g(x) = \begin{cases} y & \exists y,x=y0 \\ y & \exists y,x=y1\end{cases}$
+* $D = \{0, 1\}$
+* $g(x) = \begin{cases} y & \exists y,x=y0 \\ y & \exists y,x=y1\end{cases}$
 * $g : D^n \to D^{n-1}, n \geq 2$
 * This function divides the binary number $x$ by 2 by removing the last digit (bitwise right shift)
-## Section 2 -  Logic of Propositions
 
-#### Introduction to Propositions
+## 2. Logic of Propositions
 
-- Propositions can be true or false
-- Atomic propositions are denoted by single lowercase letters $p$, $q$ 
-- Compound propositions:
+### Introduction to Propositions
+
+**Propositions can be true or false**
+* Atomic propositions are denoted by single lowercase letters $p$, $q$ 
+* Compound propositions:
 	- $\neg p$ (negation)
 	- $p \land q$ (conjunction)
 	- $p \lor q$ (disjunction)
@@ -138,7 +154,8 @@ E.g.
 | T   | F   | T          |
 | T   | T   | T          |
 **Truth table for implication**
-- Definition of implication: $p \implies q \iff \neg p \lor q$
+
+**Def**. Definition of implication: $p \implies q \iff \neg p \lor q$
 
 | $p$ | $q$ | $p \implies q$ |
 | --- | --- | -------------- |
@@ -147,11 +164,11 @@ E.g.
 | T   | F   | F              |
 | T   | T   | T              |
 
-#### Boolean Functions
+### Boolean Functions
 
-$\mathbb{B} = \{F, T\}$
-A boolean function is $f : \mathbb{B}^n \to \mathbb{B}$
-$n$ is the number of boolean variables
+**Def**. $\mathbb{B} = \{F, T\}$
+
+**Def**. A boolean function is $f : \mathbb{B}^n \to \mathbb{B}$, where $n$ is the number of boolean variables
 
 If a boolean function acts on an atomic proposition, there are four possible boolean functions:
 
@@ -161,7 +178,7 @@ If a boolean function acts on an atomic proposition, there are four possible boo
 | T   | F          | T          | F               | T          |
 
 If there are $n$ atomic propositions as inputs, there are $2^{2^n}$ possible boolean functions
-**Beware:** exponentiation is not associative!
+* **Beware:** exponentiation is not associative!
 
 | $p$ | $q$ | $r$ | $m(p,q,r)$ |
 | :-- | --- | --- | ---------- |
@@ -173,8 +190,9 @@ If there are $n$ atomic propositions as inputs, there are $2^{2^n}$ possible boo
 | T   | F   | T   | ***T***    |
 | T   | T   | F   | ***T***    |
 | T   | T   | T   | ***T***    |
-$m(p, q, r)$ is defined to be true when at least 2 inputs are true.
-Notice that 4 outputs are true and 4 outputs are false.
+
+**NOTE**. $m(p, q, r)$ is defined to be true when at least 2 inputs are true.
+* Notice that 4 outputs are true and 4 outputs are false.
 
 **Truth Table for Equivalence (If and Only If):**
 
@@ -191,16 +209,14 @@ Notice that 4 outputs are true and 4 outputs are false.
 | F   | T   | T        | T               | T                                     |
 | T   | F   | F        | F               | T                                     |
 | T   | T   | F        | T               | T                                     |
+
 $(\neg p \lor q) \iff (p \implies q)$ is always true (*tautology*)
 Hence the definition of implication $p \implies q$ is $\neg p \lor q$
 
-**Definition:**
-A proposition is a *tautology* if it is TRUE regardless of the values of atomic propositions.
+**Def.** A proposition is a *tautology* if it is TRUE regardless of the values of atomic propositions.
 
-**Definition:**
-Propositions $A$ and $B$ are *logically equivalent* if $A \iff B$ is a $tautology$
-
-**Notation of Logical Equivalence:** $A \equiv B$
+**Def.** Propositions $A$ and $B$ are *logically equivalent* if $A \iff B$ is a $tautology$
+* Notation of Logical Equivalence: $A \equiv B$
 
 #### Understanding Logical Implication
 
@@ -265,14 +281,16 @@ E.g. Card 1 has a triangle, Card 2 has stripes, Card 3 has a circle, Card 4 has 
 			$\equiv \neg A \lor B$ (commutativity)
 			$\equiv A \implies B$ (using the definition again)
 
-## Section 3 - Logic of Predicates
+## 3. Logic of Predicates
 
 #### Introduction to Predicates
+
 * $x < 0$ is a **predicate** as the value of this predicate depends on the value of $x$
 	* It is **not** a statement as it is not true or false at the moment
 	* One way of turning this into a statement is by specifying the value of $x$
 
 #### Quantifiers
+
 * **Quantifiers** can be used on a **predicate** to turn it into a statement.
 	* E.g. $\exists x \in \mathbb{Z}, x < 0 = T$
 	* E.g. $\exists x \in \mathbb{N}, x < 0 = F$
@@ -309,11 +327,22 @@ $P(x, y), \space x \in \{a, b, c, d\}, \space y \in \{1, 2, 3, 4, 5, 6\}$
 - The universal quantifier (for all) attempts to find a value that is false to disprove the statement.
 - The existential quantifier (there exists) attempts to find a value that is true to prove the statement.
 
-$\forall x \in \mathbb{Z} \space (Even(x) \lor Odd(x)) \equiv T$
-$\equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists y \in \mathbb{Z}, x = 2y + 1))$
-$\equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists u \in \mathbb{Z}, x = 2u + 1))$
+**For example**,
 
-This is because the values $u$ and $y$ only exist within the $\exists$ statement, so the two $y$'s are not related at all outside the $\exists$ statement.
+<div class="math-left">
+
+$$
+\begin{aligned}
+\forall x \in \mathbb{Z} \space (Even(x) \lor Odd(x))
+& \equiv T \\
+& \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists y \in \mathbb{Z}, x = 2y + 1)) \\
+& \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists u \in \mathbb{Z}, x = 2u + 1)) \\
+\end{aligned}
+$$
+
+</div>
+
+* This is because the values $u$ and $y$ only exist within the $\exists$ statement, so the two $y$'s are not related at all outside the $\exists$ statement.
 
 $\equiv \forall x \in \mathbb{Z} \space \exists y \in \mathbb{Z}, (x = 2y \lor x = 2y + 1) \equiv T$
 
@@ -361,7 +390,8 @@ $\neg (p \implies q) \equiv \neg (\neg p \lor q) \equiv p \land \neg q$
 $\neg \exists y \space (y \ne x \land P(y)) \equiv \forall y \space \neg (y \ne x \land P(y))$
 				$\equiv \forall y \space (\neg (y \ne x) \lor (\neg P(y)))$
 				$\equiv \forall y \space (y \ne x \implies \neg P(y))$
-## Section 4 - Introduction to Proofs
+
+## 4. Introduction to Proofs
 
 #### Theorem 1:
 
@@ -451,7 +481,7 @@ There exists irrational $a$ and $b$ such that $a^b$ is rational.
 
 - Note: we didn't have to find values $a$ and $b$ such that $a^b$ is irrational to prove the theorem
 
-## Section 5 - More on Sets
+## 5. More on Sets
 
 #### Set Operations
 - **Set Intersection** - $A \cap B \equiv \{x \space | \space x \in A \land x \in B\}$
@@ -589,7 +619,7 @@ e.g. the Big Union $\bigcup$
 $\bigcup{\{\emptyset, \{1, 2\}, \{\emptyset\}, \{1, \{2\}\}\}}$ = $\{1, 2, \emptyset, \{2\}\}$
 - contains 4 elements
 
-## Section 6 - Relations
+## 6. Relations
 
 #### Introduction to Relations
 
@@ -771,7 +801,7 @@ is $\{[x]_E : x \in S\}$, the set of all equivalence classes with respect to $E$
 | $\mathbb{Z}^2$                       | $\{\mathbb{Z}\}$                                                             |
 | $x \equiv y \pmod 3$                 | $\{\{..., -3, 0, 3, ...\}, \{..., -2, 1, 4, ...\}, \{..., -1, 2, 5, ...\}\}$ |
 
-## Section 7 - Functions
+## 7. Functions
 
 #### Introduction to Functions
 
@@ -860,7 +890,7 @@ $\emptyset \cong \emptyset$, $\emptyset \centernot\cong \{a, b\}$, $\{a\} \cong 
 
 $(2^{\{a, b, c\}} \setminus \cong) \space = \{\{\emptyset\}, \{\{a\}, \{b\}, \{c\}\}, \{\{a, b\}, \{b, c\}, \{a, b\}\}, \{\{a, b, c\}\}\}$.
 
-## Section 8 - Cardinality of Sets
+## 8. Cardinality of Sets
 
 **Definition:** A set $X$ is:
 	- *finite* if $X \cong F_n$ for some $n \in \mathbb{N}$ where $F_n := \{0, 1, 2, ..., n-1\}$.
@@ -927,7 +957,7 @@ $\mathbb{N} \centernot\cong \mathbb{R}$ ($\mathbb{R}$ is uncountable)
 **Cantor-Schroeder-Bernstein Theorem**
 	- If there exist an injection from $A \to B$, and if there exist an injection from $B \to A$, then there exists a bijection $A \leftrightarrow B$.
 	
-## Section 9 - Mathematical Induction
+## 9. Mathematical Induction
 
 $s(0) = 0$
 $s(n+1) = s(n) + (n+1)$
@@ -965,7 +995,7 @@ Every non-empty $X \in \mathbb{N}$ has a smallest element.
 **Principle of Induction 2:**
 If $(\forall m < n : P(m)) \implies P(n) \implies P(n)$ for all $n \in \mathbb{N}$, then $P(n)$ for all $n \in \mathbb{N}$.
 
-## Section 10 - Graphs
+## 10. Graphs
 
 #### Introduction to Graphs
 
@@ -1106,7 +1136,7 @@ where $|F|$ is the number of faces
 - For forests, $|F| = 1$ (obviously forests are planar) so:
 $$|V| - |E| = 1$$
 
-## Section 11 - Partial Orders
+## 11. Partial Orders
 
 #### Introduction to Posets
 
@@ -1164,7 +1194,7 @@ $$(p_1, p_2) \preccurlyeq_{lex}(p_1',p_2') \iff p_1\preccurlyeq_1p_1'\lor(p_1=p_
 - A relation is a **total order** if it is a partial order and there are no incomparable elements
 	- For all $a, b \in X$, either $a \preccurlyeq b$ or $b \preccurlyeq a$.
 
-## Section 12 - Trees
+## 12. Trees
 
 **In this section, we work with undirected simple graphs**
 
@@ -1241,7 +1271,7 @@ $(5) \implies (1)$:
 	This contradicts the second part of $(5)$
 	So $G$ is connected, thus a tree.
 
-## Section 13 - Probability
+## 13. Probability
 	
 #### Introduction to Probability
 
