@@ -4,11 +4,11 @@
 
 ### Introduction to Sets
 
-**Def**. A set is an ***unordered collection** of mathematical objects that is *uniquely characterised by their elements*
+**Def**. A set is an **unordered collection** of mathematical objects that is *uniquely characterised by their elements*
 * This means that order does not matter: $\{a, b\} = \{b, a\}$
 * This means that duplicates do not count: $\{a, b\} = \{a, a, b\}$
 
-**Def**. The ***cardinality*** of a set is the size of the set, i.e. the number of elements in the set
+**Def**. The *cardinality* of a set is the size of the set, i.e. the number of elements in the set
 
 Common sets in maths are:
 * Natural Numbers - $\mathbb{N}$ (includes 0)
@@ -22,8 +22,8 @@ All of these sets are infinite sets, but not all infinities are the same.
 We can define a set to be countably infinite if there exists a one-to-one mapping between every natural number and every element in the set
 
 The cardinality of $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are the same, hence all of these sets are countably infinite.
-* $\mathbb{Z}$ -- We can traverse 0, then -1 and 1, then -2 and 2, and so on and so forth.
-* $\mathbb{Q}$ -- We can think of this a pair of integers such that the denominator is not 0, so it represents a 2D-coordinate plane. We can traverse this coordinate plane in a spiral formation, hitting every possible rational number.
+* $\mathbb{Z}$ - We can traverse 0, then -1 and 1, then -2 and 2, and so on and so forth.
+* $\mathbb{Q}$ - We can think of this a pair of integers such that the denominator is not 0, so it represents a 2D-coordinate plane. We can traverse this coordinate plane in a spiral formation, hitting every possible rational number.
 * $\mathbb{R}$ - The cardinality of $\mathbb{R}$ is uncountably infinite, which is strictly greater than the cardinality of the other sets. This is proved using Cantor's Diagonalisation Argument
 
 #### Basic Set Operations
@@ -33,21 +33,26 @@ Elements can be part of a set. The statement $a \in A$ means that $a$ is an elem
 Sets can be also a subset of another set. The statement $A \subseteq B$ means that $A$ is a subset of $B$.
 * There is also the proper subset operation, $\subset$, which means that $A \subseteq B \land A \ne B$
 
-The definition of a subset is: "Every element of A is an element of B", otherwise written as:
+**Def**. We say $A \subseteq B$, where every element of A is an element of B. This is written as
 
 $$A\subseteq B \iff \forall x(x \in A \to x \in B)$$
 
 #### Empty Sets
 
 The empty set is a set that contains no elements, written as $\emptyset$
-* Tip: The empty set is a subset of any set.
-* P.S. A set cannot be an element of itself (i.e. $X \notin X \space \forall X$)
+* tip: The empty set is a subset of any set.
+* p.s. A set cannot be an element of itself (i.e. $X \notin X \space \forall X$)
 
 #### Set Builder Notation
 
-One common way of representing sets is with Set-Roster Notation, which is listing out the elements in the set, e.g. $\mathbb{N} = \{0, 1, 2, ...\}$
+**Set-Roster** notation is a common way of representing sets, by listing out the elements in the set.
+* E.g. $\mathbb{N} = \{0, 1, 2, ...\}$
 
-The other way of representing sets is with set comprehension, or Set-Builder Notation. The general form of this is: $S = \{x \space |\space  ...\}$, where the $|$ is read as "such that"
+**Set-Builder** (set compression) notation is another way of representing sets. The general form of this is:
+
+$$S = \{x \space |\space  ...\}$$
+
+where the $|$ is read as "such that". Below are some examples:
 * E.g. $\{(-1)^n : n \in \mathbb{N}\} = \{-1, 1\}$
 * E.g. $\{k^2 : k \in \mathbb{Z}\} = \{k^2 : k \in \mathbb{N}\}$
 * E.g. $\{3a + 7b : a, b \in \mathbb{Z}\} = \mathbb{Z}$
@@ -83,10 +88,10 @@ Hence, $\mathbb{Z}^2$ is the set of all possible integer coordinates on a grid
 * Every input in the domain must map to an output in the codomain
 * Every input must map to exactly one output
 
-Definitions:
-* **DOMAIN**: The set of inputs to the function
-* **CODOMAIN**: The set of possible outputs to the function that contains the range, can be thought of as the **type** of the output
-* **RANGE**: The literal set of outputs
+Some key definitions are:
+* **Domain**: The set of inputs to the function
+* **Codomain**: The set of possible outputs to the function that contains the range, can be thought of as the **type** of the output
+* **Range**: The literal set of outputs
 
 For example, the function $f(x) = \pm\sqrt{1-x^2}$ is not a function because one $x$ value maps to multiple $y$ values, e.g. $f(0) = \pm 1$
 
@@ -96,11 +101,9 @@ However, the function $g(x) = \sqrt{1-x^2}$ is a function because one $x$ value 
 
 #### Definition of a Function
 
-If there is a rule that assigns to every $x \in X$ an unambiguously determined $y \in Y$, then we say there is a function from $X$ to $Y$
+If there is a rule that assigns to every $x \in X$ an unambiguously determined $y \in Y$, then we say there is a function from $X$ to $Y$. The notation is: $f: X \to Y$
 
-**Notation:** $f : X \to Y$
-
-**Terminology:** 
+Some key terminology:
 * $X$ is the domain, $Y$ is the codomain
 * Range = $\{f(x) : x \in X\} \subseteq Y$
 
@@ -125,16 +128,18 @@ E.g.
 
 ### Introduction to Propositions
 
-**Propositions can be true or false**
-* Atomic propositions are denoted by single lowercase letters $p$, $q$ 
-* Compound propositions:
-	- $\neg p$ (negation)
-	- $p \land q$ (conjunction)
-	- $p \lor q$ (disjunction)
-	- $p \implies q$ (implication)
-	- $p \iff q$ (if and only if, equivalence)
-	- $p \oplus q$ (exclusive or - XOR)
-	- $m(p, q, r)$ (majority, which is true iff at least two inputs are true)
+**Def**. A *proposition* is something that can be either true, or false.
+
+**Def**. *Atomic* propositions are denoted by single lowercase letters $p$, $q$ 
+
+**Def**. *Compound propositions* are propositions that contain an operation. Some common operations include:
+* $\neg p$ (negation)
+* $p \land q$ (conjunction)
+* $p \lor q$ (disjunction)
+* $p \implies q$ (implication)
+* $p \iff q$ (if and only if, equivalence)
+* $p \oplus q$ (exclusive or - XOR)
+* $m(p, q, r)$ (majority, which is true iff at least two inputs are true)
 
 **Truth table for conjunction**
 
@@ -166,9 +171,8 @@ E.g.
 
 ### Boolean Functions
 
-**Def**. $\mathbb{B} = \{F, T\}$
-
-**Def**. A boolean function is $f : \mathbb{B}^n \to \mathbb{B}$, where $n$ is the number of boolean variables
+**Def**. A boolean function is a function $f : \mathbb{B}^n \to \mathbb{B}$, where $n$ is the number of boolean variables.
+* We define $\mathbb{B} = \{F, T\}$, the set of boolean values.
 
 If a boolean function acts on an atomic proposition, there are four possible boolean functions:
 
@@ -196,26 +200,26 @@ If there are $n$ atomic propositions as inputs, there are $2^{2^n}$ possible boo
 
 **Truth Table for Equivalence (If and Only If):**
 
-| $p$ | $q$ | $p \iff q$ |
+| $p$ | $q$ | $p \leftrightarrow q$ |
 | --- | --- | ---------- |
 | F   | F   | T          |
 | F   | T   | T          |
 | T   | F   | T          |
 | T   | T   | T          
 
-| $p$ | $q$ | $\neg p$ | $\neg p \lor q$ | $(\neg p \lor q) \iff (p \implies q)$ |
+| $p$ | $q$ | $\neg p$ | $\neg p \lor q$ | $(\neg p \lor q) \leftrightarrow (p \to q)$ |
 | :-- | --- | -------- | --------------- | ------------------------------------- |
 | F   | F   | T        | T               | T                                     |
 | F   | T   | T        | T               | T                                     |
 | T   | F   | F        | F               | T                                     |
 | T   | T   | F        | T               | T                                     |
 
-$(\neg p \lor q) \iff (p \implies q)$ is always true (*tautology*)
-Hence the definition of implication $p \implies q$ is $\neg p \lor q$
+$(\neg p \lor q) \leftrightarrow (p \to q)$ is always true (*tautology*)
+Hence the definition of implication $p \to q$ is $\neg p \lor q$
 
 **Def.** A proposition is a *tautology* if it is TRUE regardless of the values of atomic propositions.
 
-**Def.** Propositions $A$ and $B$ are *logically equivalent* if $A \iff B$ is a $tautology$
+**Def.** Propositions $A$ and $B$ are *logically equivalent* if $A \leftrightarrow B$ is a *tautology*
 * Notation of Logical Equivalence: $A \equiv B$
 
 #### Understanding Logical Implication
@@ -223,31 +227,39 @@ Hence the definition of implication $p \implies q$ is $\neg p \lor q$
 **Promise:** Every card has a shape on one side and a pattern on the other side
 **Check:** For every card if it has a triangle on one side, then it has stripes on the other side.
 
-E.g. Card 1 has a triangle, Card 2 has stripes, Card 3 has a circle, Card 4 has zigzags
+* E.g. Card 1 has a triangle, Card 2 has stripes, Card 3 has a circle, Card 4 has zigzags
 
-- Card 1 must be checked to see if there are stripes on the other side.
+	* Card 1 must be checked to see if there are stripes on the other side.
 
-- Card 2 doesn't have to be checked because there are already stripes we can see, so it doesn't matter what shape is on the other side.
-	- If the shape revealed is a triangle, the check is successful.
-	- If the shape revealed is not a triangle, we don't care.
+	* Card 2 doesn't have to be checked because there are already stripes we can see, so it doesn't matter what shape is on the other side.
+		* If the shape revealed is a triangle, the check is successful.
+		* If the shape revealed is not a triangle, we don't care.
 	
-* Card 3 doesn't have to be checked because a circle is not a triangle so we don't care.
+	* Card 3 doesn't have to be checked because a circle is not a triangle so we don't care.
 
-* Card 4 has to be checked to see if there is a triangle on the other side to disprove the claim.
-	- $p \implies q$ is the same as $\neg q \implies \neg p$ so we need to check if there is NO triangle.
+	* Card 4 has to be checked to see if there is a triangle on the other side to disprove the claim.
+		* $p \to q$ is the same as $\neg q \to \neg p$ so we need to check if there is NO triangle.
 
 #### Laws of Propositional Logic
 
-**Associativity** $(x \lor y) \lor z \equiv x \lor (y \lor z)$, $(x \land y) \land z \equiv x \land (y \land z)$
-- This also applies to XOR, as it is addition modulo 2
+**Associativity**
+* $(x \lor y) \lor z \equiv x \lor (y \lor z)$
+* $(x \land y) \land z \equiv x \land (y \land z)$
+* This also applies to XOR, as it is addition modulo 2
 
-**Commutativity** $x \lor y \equiv y \lor x$, $x \land y \equiv y \land x$
+**Commutativity**
+* $x \lor y \equiv y \lor x$,
+* $x \land y \equiv y \land x$
 
-**De Morgan's Laws** $\neg(x \lor y) \equiv \neg x \land \neg y$, $\neg(x \land y) \equiv \neg x \lor \neg y$
+**De Morgan's Laws**
+* $\neg(x \lor y) \equiv \neg x \land \neg y$
+* $\neg(x \land y) \equiv \neg x \lor \neg y$
 
-**Double Negation** $\neg \neg x \equiv x$
+**Double Negation**
+*  $\neg \neg x \equiv x$
 
-**Excluded Middle Law**  $x \lor \neg x \equiv T$, $x \land \neg x \equiv F$
+**Excluded Middle Law**
+*  $x \lor \neg x \equiv T$, $x \land \neg x \equiv F$
 
 **Distributivity** (two laws)
 * $x \lor (y \land z) \equiv (x \lor y) \land  (x \lor z)$
@@ -271,15 +283,24 @@ E.g. Card 1 has a triangle, Card 2 has stripes, Card 3 has a circle, Card 4 has 
 
 #### Contrapositive of an Implication
 
-***Theorem***:
-* $A \implies B \equiv \neg B \implies \neg A$
+**Theorem**. For any two propositions $A$ and $B$, $A \to B \equiv \neg B \to \neg A$
 * Sometimes it is easier to prove the contrapositive than the original statement
 
-***Proof:***
-	$\neg B \implies \neg A \equiv \neg(\neg B) \lor \neg A$ (using the definition of implication)
-			$\equiv B \lor \neg A$ (double negation)
-			$\equiv \neg A \lor B$ (commutativity)
-			$\equiv A \implies B$ (using the definition again)
+**Proof:**
+
+<div class="math-left">
+
+$$
+\begin{aligned}
+\neg B \to \neg A
+& \equiv \neg(\neg B) \lor \neg A & \text{using the definition of implication} \\
+& \equiv B \lor \neg A & \text{double negation} \\
+& \equiv \neg A \lor B & \text{commutativity} \\
+& \equiv A \to B & \text{using the definition again} \\
+\end{aligned}
+$$
+
+</div>
 
 ## 3. Logic of Predicates
 
