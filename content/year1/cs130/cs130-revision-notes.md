@@ -477,93 +477,167 @@ $$\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies 
 
 ## 4. Introduction to Proofs
 
-#### Theorem 1:
+### Examples of Proofs
 
-If $x \in \mathbb{Z}$ and $5x+3$ is odd, then $x$ is even
+#### Theorem 1
+
+**Theorem 1**. If $x \in \mathbb{Z}$ and $5x+3$ is odd, then $x$ is even
 
 **Proof 1:**
 
-Assume $5x+3$ is odd
-Then $5x = (5x + 3) - 3$ is even, because 3 is odd, and the difference between two odd numbers is even.
-So, $x = \frac{5x}{5}$ is even because even / odd is even if the result is an integer.
-**QED**
+<div class="math-left">
 
-**Proof 2:** (by Contrapositive)
+$$
+\text{Assume } 5x+3 \text{ is odd.} \\
+\text{Then, } 5x = (5x + 3) - 3 \text{ is even, because 3 is odd, and the difference between two odd numbers is even.} \\
+\text{So, } x = \frac{5x}{5} \text{ is even because even / odd is even if the result is an integer.} \\
+\text{QED.} \\
+$$
 
-We try to prove (x is odd $\implies$ $5x+3$ is even)
-Assume $x$ is odd
-Then $x = 2y + 1$ for some $y \in \mathbb{Z}$
-Then $5x + 3 = 5(2y+1) + 3 = 10y + 8 = 2(5y+4) = 2z$ for some $z \in \mathbb{Z}$
-Therefore $5x + 3$ is even
-**QED**
+</div>
 
-#### Theorem 2:
+<br/>
 
-$\forall n \in \mathbb{N}, 1 + (-1)^n(2n-1)$ is divisible by 4
-We could consider two cases, $n$ is even and $n$ is odd
+**Proof 2:** (by contrapositive)
 
-**Case 1:** $n$ is even $\iff n = 2k$ for some $k \in \mathbb{N}$
+By contrapositive, we try to prove $x$ is odd $\implies$ $5x+3$ is even
 
-$1 + (-1)^n(2n-1) = 1 + (-1)^{2k}(2(2k) - 1) = 1 + 4k - 1 = 4k$
-Therefore $1 + (-1)^n(2n-1)$ is a multiple of 4 if $n$ is even
+<div class="math-left">
 
-**Case 2:** $n$ is odd $\iff n = 2k + 1$ for some $k \in \mathbb{N}$
+$$
+\text{Assume } x \text{ is odd.} \\
+\text{Then, } x = 2y + 1 \text{ for some } y \in \mathbb{Z} \\
+\text{Then, } 5x + 3 = 5(2y+1) + 3 = 10y + 8 = 2(5y+4) = 2z \text{ for some } z \in \mathbb{Z} \\
+\text{Therefore } 5x + 3 \text{ is even.} \\
+\text{QED.} \\
+$$
 
-$1 + (-1)^n(2n-1) = 1 + (-1)^{2k+1}(2(2k+1)-1) = 1 -(4k + 1) = 1 - 4k - 1 = -4k$
-Therefore $1 + (-1)^n(2n-1)$ is a multiple of 4 if $n$ is odd
+</div>
 
-**QED**
+<br/>
 
-- Note: make sure that all of the cases cover all of the possibilities (cases do not have to be disjoint)
+#### Theorem 2
+
+**Theorem 2**. $\forall n \in \mathbb{N}, 1 + (-1)^n(2n-1)$ is divisible by 4
+
+**Proof**.
+
+<div class="math-left">
+
+$$
+\text{We could consider two cases, } n \text{ is even and } n \text{ is odd.} \\
+\quad \\
+\textbf{Case 1: } n \text{ is even } \iff n = 2k \text{ for some } k \in \mathbb{N} \\
+\quad \quad \begin{aligned}
+1 + (-1)^n(2n-1) 
+&= 1 + (-1)^{2k}(2(2k) - 1) \\
+&= 1 + 4k - 1  \\
+&= 4k \\
+\end{aligned} \\
+\quad \quad \text{Therefore } 1 + (-1)^n(2n-1) \text{ is a multiple of 4 if } n \text{ is even} \\
+\quad \\
+\textbf{Case 2: } n \text{ is odd } \iff n = 2k + 1 \text{ for some } k \in \mathbb{N} \\
+\quad \quad \begin{aligned}
+1 + (-1)^n(2n-1) 
+&= 1 + (-1)^{2k+1}(2(2k+1)-1)  \\
+&= 1 -(4k + 1)  \\
+&= 1 - 4k - 1  \\
+&= -4k \\
+\end{aligned} \\
+\quad \quad \text{Therefore } 1 + (-1)^n(2n-1) \text{ is a multiple of 4 if } n \text{ is odd} \\
+\quad \\
+\text{QED.}
+$$
+
+</div>
+
+**NOTE**: make sure that all of the cases cover all of the possibilities (cases do not have to be disjoint)
+
+<br/>
 
 #### Theorem 3:
 
-$\sqrt{2} \notin \mathbb{Q}$
+**Theorem 3**. $\sqrt{2} \notin \mathbb{Q}$
 
-**Proof:** (by Contradiction)
+**Proof:** (by contradiction)
 
-Assume $\sqrt{2} \in \mathbb{Q}$
-Then $\sqrt{2} = \frac{n}{m}, n \in \mathbb{N}, m \in \mathbb{N} \setminus \{0\}$
-Without loss of generality, $gcd(n, m) = 1$
-We have $2 = (\sqrt 2)^2 = \frac{n^2}{m^2}$, so $n^2 = 2m^2$, so $2|n$
-So $n = 2k$ for some $k \in \mathbb{Z}$
-But $m^2 = \frac{n^2}{2} = \frac{4k^2}{2} = 2k^2$, so $2|m$, so $gcd(n,m) > 1$
-This is a contradiction
-So $\sqrt 2 \notin \mathbb{Q}$
-**QED**
+<div class="math-left">
 
-#### Theorem 4:
+$$
+\text{Assume } \sqrt{2} \in \mathbb{Q} \\
+\text{Then, } \sqrt{2} = \frac{n}{m}, n \in \mathbb{N}, m \in \mathbb{N} \setminus \{0\} \\
+\text{ Without loss of generality, } \gcd(n, m) = 1 \\
+\text{We have } 2 = (\sqrt 2)^2 = \frac{n^2}{m^2} \text{ , so } n^2 = 2m^2 \text{ , so } 2|n \\
+\text{So } n = 2k \text{ for some } k \in \mathbb{Z} \\
+\text{But } m^2 = \frac{n^2}{2} = \frac{4k^2}{2} = 2k^2 \text{, so } 2|m \text{ , so } \gcd(n,m) > 1 \\
+\text{This is a contradiction!} \\
+\text{So } \sqrt 2 \notin \mathbb{Q} \\
+\text{QED.}
+$$
 
-$(\exists x \space P(x)) \lor (\exists x \space Q(x)) \equiv \exists x \space (P(x) \lor Q(x))$
-$(\forall x \space P(x)) \land (\forall x \space Q(x)) \equiv \forall x \space (P(x) \land Q(x))$
+</div>
+
+<br/>
+
+#### Theorem 4
+
+**Theorem 4a**. $(\exists x \space P(x)) \lor (\exists x \space Q(x)) \equiv \exists x \space (P(x) \lor Q(x))$
+
+**Theorem 4b**. $(\forall x \space P(x)) \land (\forall x \space Q(x)) \equiv \forall x \space (P(x) \land Q(x))$
 
 **Proof for second theorem:**
 
-RHS $\equiv \forall x \space (P(x) \land Q(x))$
-	$\equiv \neg \neg \forall x (P(x) \land Q(x))$ (double negation)
-	$\equiv \neg \exists x \space (\neg (P(x) \land Q(x)))$ (converting $\neg \forall \space P(x)$ into $\exists x \space \neg P(x)$)
-	$\equiv \neg \exists x \space (\neg P(x) \lor \neg Q(x))$ (De-Morgan's law)
-	$\equiv \neg(\exists x \space \neg P(x) \lor \exists x \space \neg Q(x))$ (distributing the $\lor$ via $\exists$ using first theorem)
-	$\equiv \neg \exists x \space \neg P(x) \land \neg \exists x \space \neg Q(x)$ (De-Morgan's law)
-	$\equiv \forall x \space P(x) \land \forall x \space Q(x)$ (converting $\neg \exists x \space P(x)$ into $\forall x \space \neg P(x)$)
-	$\equiv$ LHS
-**QED**
+<div class="math-left">
 
-#### Theorem 5: 
+$$
+\begin{aligned}
+\text{RHS} 
+& \equiv \forall x \space (P(x) \land Q(x)) \\
+& \equiv \neg \neg \forall x (P(x) \land Q(x)) & \text{double negation} \\
+& \equiv \neg \exists x \space (\neg (P(x) \land Q(x))) & \text{converting } \neg \forall x \space P(x) \text{ into } \exists x \space \neg P(x) \\
+& \equiv \neg \exists x \space (\neg P(x) \lor \neg Q(x)) & \text{De-Morgan's law} \\
+& \equiv \neg(\exists x \space \neg P(x) \lor \exists x \space \neg Q(x)) & \text{distributing the } \lor \text{ via } \exists \text{ using first theorem} \\
+& \equiv \neg \exists x \space \neg P(x) \land \neg \exists x \space \neg Q(x) & \text{De-Morgan's law} \\
+& \equiv \forall x \space P(x) \land \forall x \space Q(x) & \text{converting } \neg \exists x \space P(x) \text{ into } \forall x \space \neg P(x) \\
+& \equiv \text{LHS}
+\end{aligned}
+$$
 
-There exists irrational $a$ and $b$ such that $a^b$ is rational.
+$$
+\text{QED.}
+$$
+
+</div>
+
+<br/>
+
+#### Theorem 5
+
+**Theorem 5**. There exists irrational $a$ and $b$ such that $a^b$ is rational.
 
 **Proof:**
-	We have $(\sqrt{2} ^ \sqrt{2}) ^ \sqrt{2} = \sqrt{2} ^ {2} = 2$ which is rational
-	Case $\sqrt 2 ^ \sqrt 2$ is irrational:
-		- Then the proof is complete as $a = \sqrt 2 ^ \sqrt 2$, and $b = \sqrt 2$, and $a ^ b = 2$ which is rational
-		- $b$ is irrational by Theorem 3.
-	Case $\sqrt 2 ^ \sqrt 2$ is rational:
-	- The proof is also complete as $a = \sqrt 2$ and $b = \sqrt 2$, and $b$ is irrational by Theorem 3.
-	Hence the proof is complete for both disjoint cases, so the proof is complete.
-	**QED**
 
-- Note: we didn't have to find values $a$ and $b$ such that $a^b$ is irrational to prove the theorem
+<div class="math-left">
+
+$$
+\text{We have } (\sqrt{2} ^ {\sqrt{2}}) ^ {\sqrt{2}} = \sqrt{2}^2 = 2 \text{ which is rational.} \\
+\quad \\
+\textbf{Case } \sqrt{2} ^ {\sqrt{2}} \text{ is irrational:} \\
+\quad \quad \text{Then the proof is complete as } a = \sqrt{2} ^ {\sqrt{2}} \text{ , and } b = \sqrt{2} \text{, and } a ^ b = 2 \text{ which is rational} \\
+\quad \quad	b \text{ is irrational by Theorem 3} \\
+\quad \\
+\textbf{Case } \sqrt{2} ^ {\sqrt{2}} \text{ is rational:} \\
+\quad \quad \text{The proof is also complete as } a = \sqrt{2} \text{ and } b = \sqrt{2} \text{, and } b \text{ is irrational by Theorem 3.} \\
+\quad \\
+\text{Hence the proof is complete for both disjoint cases, so the proof is complete.} \\
+\text{QED.} \\
+$$
+
+</div>
+
+**NOTE**. We didn't have to find values $a$ and $b$ such that $a^b$ is irrational to prove the theorem
+
+<br/>
 
 ## 5. More on Sets
 
