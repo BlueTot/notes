@@ -28,14 +28,23 @@ The cardinality of $\mathbb{N}$, $\mathbb{Z}$ and $\mathbb{Q}$ are the same, hen
 
 #### Basic Set Operations
 
-Elements can be part of a set. The statement $a \in A$ means that $a$ is an element of the set $A$.
+**Def**. Elements can be part of a set. The statement $a \in A$ means that $a$ is an element of the set $A$.
 
-Sets can be also a subset of another set. The statement $A \subseteq B$ means that $A$ is a subset of $B$.
-* There is also the proper subset operation, $\subset$, which means that $A \subseteq B \land A \ne B$
+Examples:
+* We have $1 \in \{1, 2, 3\}$
+* But we do not have $2 \in \{4, 5\}$
 
-**Def**. We say $A \subseteq B$, where every element of A is an element of B. This is written as
+**Def**. Sets can be also a subset of another set. The statement $A \subseteq B$ means that $A$ is a subset of $B$, which is the same as "every element of $A$ is an element of $B$". Formally, this is written as
 
 $$A\subseteq B \iff \forall x(x \in A \to x \in B)$$
+
+**Def**. There is also the proper subset operation, $\subset$, which is equivalent to 
+
+$$A \subseteq B \land A \ne B$$
+
+* Only difference is, a set cannot be a proper subset of itself
+
+If a set $X$ has $n$ elements, there are $2^n$ subsets, and $2^n - 1$ proper subsets.
 
 #### Empty Sets
 
@@ -304,113 +313,167 @@ $$
 
 ## 3. Logic of Predicates
 
-#### Introduction to Predicates
+### Introduction to Predicates
 
-* $x < 0$ is a **predicate** as the value of this predicate depends on the value of $x$
-	* It is **not** a statement as it is not true or false at the moment
-	* One way of turning this into a statement is by specifying the value of $x$
+**Def**. A *predicate* a function that maps an input to a boolean value. It is basically an *incomplete* proposition that evalutes to a boolean once you substitute all the dependent values. It **does not** have a truth value.
 
-#### Quantifiers
+**Example**: $x < 0$ is a **predicate** as the value of this predicate depends on the value of $x$
+* It is **not** a statement as it is not true or false at the moment
+* One way of turning this into a statement is by specifying the value of $x$
 
-* **Quantifiers** can be used on a **predicate** to turn it into a statement.
-	* E.g. $\exists x \in \mathbb{Z}, x < 0 = T$
-	* E.g. $\exists x \in \mathbb{N}, x < 0 = F$
-	* E.g. $\forall x \in \mathbb{R}, x < 0 = F$
-	* E.g. $\forall x \in \mathbb{R_{<0}}, x < 0 = T$
+### Quantifiers
 
-- Two types of quantifiers:
-	- "For all": $\forall$
-	- "There exists": $\exists$
+**Quantifiers** can be used on a **predicate** to turn it into a statement. There are two types of quantifiers:
+* "For all": $\forall$ (aka. universal quantifier).
+	* $\forall x P(x)$ is true iff $P(x)$ is true for all $x$ in the domain.
+* "There exists": $\exists$ (aka. existential quantifier). 
+	* $\exists x P(x)$ is true iff there is some $x$ in the domain that makes $P(x)$ true.
 
-- E.g. $(\forall x \space \exists y, \space x = y) = T$ regardless of the set $x, y$ are from because we can select a value of $y$ that is equal to $x$. 
+**Analogy:**
+* The universal quantifier (for all) attempts to find a value that is false to disprove the statement.
+* The existential quantifier (there exists) attempts to find a value that is true to prove the statement.
 
-* E.g. $(\exists y \space \forall x, \space x = y) = F$, but only when the cardinality of the universe is at least 2, because there is only one value of $y$ but there are multiple values of $x$ that have to be equal to.
+#### Examples
+
+**Examples**
+* E.g. $\exists x \in \mathbb{Z}, x < 0 = T$
+* E.g. $\exists x \in \mathbb{N}, x < 0 = F$
+* E.g. $\forall x \in \mathbb{R}, x < 0 = F$
+* E.g. $\forall x \in \mathbb{R_{<0}}, x < 0 = T$
+
+**Examples**:
+
+* $(\forall x \space \exists y, \space x = y) = T$ regardless of the set $x, y$ are from because we can select a value of $y$ that is equal to $x$. 
+
+* $(\exists y \space \forall x, \space x = y) = F$, but only when the cardinality of the universe is at least 2, because there is only one value of $y$ but there are multiple values of $x$ that have to be equal to.
+
 * But if $(\exists y \in \{5\} \space \forall x \in \{5\}, \space x = y) = T$ as the universe is a singleton set
 
 * $\forall x \in \emptyset, \phi(x) = T$, because $\forall$ is closely related to $\land$, and the identity of $\land$ is $T$. 
+
 * Similarly, $\exists x \in \emptyset, \phi(x) = F$
 
-* From yesterday's lecture: $\forall i \in \{1, 2, 3, 4\}, t(i) \implies s(i) \equiv t(1) \implies s(1) \land t(2) \implies s(2) \land t(3) \implies s(3) \land t(4) \implies s(4)$
+* From yesterday's lecture: 
 
-$P(x, y), \space x \in \{a, b, c, d\}, \space y \in \{1, 2, 3, 4, 5, 6\}$
-- A predicate is a function that maps an input to a boolean value, True or False
-- e.g. $P(b, 2) \equiv T$
-* e.g. $\exists x P(x, 2) \equiv T$
-* e.g. $\exists x P(x, 6) \equiv F$
-* e.g. $\forall x \exists y P(x, y) \equiv T$ means that for every row, there exists a column that contains True. 
--  e.g. $\forall y \exists x P(x, y) \equiv F$ means that for every column, there exists a row that contains True.
-* e.g. $\exists x \exists y, \neg P(x, y) \equiv T$ means that there exists a cell in the table such that it contains a False.
-* e.g. $\forall x \forall y, \neg P(x, y) \equiv F$ means that all cells contain False.
-* e.g. $\exists y \forall x P(x, y) \equiv T$ means that there exists a column such that all rows contain True.
-* e.g. $\exists y \forall x, \neg P(x, y) \equiv T$ means that there exists a column such that all rows contain False.
+$$[\forall i \in \{1, 2, 3, 4\} \space t(i) \to s(i)] \equiv (t(1) \to s(1)) \land (t(2) \to s(2)) \land (t(3) \to s(3)) \land (t(4) \to s(4))$$
 
-**Analogy:**
-- The universal quantifier (for all) attempts to find a value that is false to disprove the statement.
-- The existential quantifier (there exists) attempts to find a value that is true to prove the statement.
+<br/>
 
-**For example**,
+**Tabular Example**. Let the rows be labelled $x \in \{a, b, c, d\}$ and the columns labelled $y \in \{1, \cdots, 6\}$. Define:
+
+$$P(x, y) = \text{the cell (x, y) is true}$$
+
+|   | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| a | T | F | T | F | T | F |
+| b | F | T | F | T | F | F |
+| c | T | T | F | F | T | F |
+| d | F | F | T | T | F | F |
+
+From above, we have
+* $P(b, 2) \equiv T$
+* $\exists x P(x, 2) \equiv T$
+* $\exists x P(x, 6) \equiv F$
+
+Some *queries* we could state are:
+* $\forall x \exists y, P(x, y) \equiv T$ - for every row, there exists a column that contains True. 
+* $\forall y \exists xy,  P(x, y) \equiv F$ - for every column, there exists a row that contains True.
+* $\exists x \exists y, \neg P(x, y) \equiv T$ - there exists a cell in the table such that it contains a False.
+* $\forall x \forall y, \neg P(x, y) \equiv F$ - all cells contain False.
+* $\exists y \forall x, P(x, y) \equiv T$ - there exists a column such that all rows contain True.
+* $\exists y \forall x, \neg P(x, y) \equiv T$ - there exists a column such that all rows contain False.
+
+<br/>
+
+**Another example**,
 
 <div class="math-left">
 
 $$
 \begin{aligned}
-\forall x \in \mathbb{Z} \space (Even(x) \lor Odd(x))
+\forall x \in \mathbb{Z} \space (\text{Even}(x) \lor \text{Odd}(x))
 & \equiv T \\
 & \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists y \in \mathbb{Z}, x = 2y + 1)) \\
 & \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists u \in \mathbb{Z}, x = 2u + 1)) \\
+& \equiv \forall x \in \mathbb{Z} \space \exists y \in \mathbb{Z}, (x = 2y \lor x = 2y + 1) \equiv T \\
 \end{aligned}
 $$
 
 </div>
 
-* This is because the values $u$ and $y$ only exist within the $\exists$ statement, so the two $y$'s are not related at all outside the $\exists$ statement.
+* Values $u$ and $y$ only exist within the $\exists$ statement, so the two $y$'s are not related at all outside the $\exists$ statement.
 
-$\equiv \forall x \in \mathbb{Z} \space \exists y \in \mathbb{Z}, (x = 2y \lor x = 2y + 1) \equiv T$
+* Either or statement will be true, so the disjunction of those statements would be true.
 
-This is because either or statement will be true, so the disjunction of those statements would be true.
+#### Predicate Laws
 
-**Law:**
-$\exists y \space (Q(y) \lor R(y)) \equiv (\exists y \space Q(y)) \lor (\exists y \space R(y))$
+**Distributive Law:**
+$$\exists y \space (Q(y) \lor R(y)) \equiv (\exists y \space Q(y)) \lor (\exists y \space R(y))$$
 * This is true because for the LHS to be true, there must be a value of $Q(y)$ or $R(y)$ is true, so either $\exists$ statement must contain the true value, and $T \lor x \equiv T$
 * Another explanation: $\exists$ is a multi-or operation, and OR is commutative.
 
 **Note:**
 $\forall y \space (Q(y) \lor R(y)) \ne ((\forall y \space Q(y)) \lor (\forall y \space R(y))$
 
-An example: 
-- For all y, it is either even or odd = true.
-- For all y it is even OR for all y it is odd = false or false = false.
+**Example for this**:
+* For all $y$, it is *either* even *or* odd, is true.
+* But, for all $y$ it is even **OR** for all $y$ it is odd = $F \lor F = F$.
 
-#### Unique Existential Operator
+**Negation Laws:**
+$$\neg \exists y \space Q(y) \equiv \forall y \space \neg Q(y)$$
+$$\neg \forall y \space Q(y) \equiv \exists y \space \neg Q(y)$$
 
-$\exists ! x : x^2 + 2x + 1 = 0 \equiv T$
-
-$\exists ! x, P(x)$ means that there exists only one value of $x$ such that $P(x)$ is true
-
-**Definition of Unique Existential Operator**
-$\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies \neg P(y))$
-
-
-$\exists ! x : x^2 + 2x+1 = 0 \equiv T$ (x = -1 is the only solution)
-$\exists! x : x^2 - 1 = 0 \equiv F$ (x = 1 or x = -1)
-
-- Note: "There exists unique" is not one of the two main quantifiers
-- $:\equiv$ is the definition operator (also $:=$)
-
-$\exists! x \space P(x) :\equiv \exists x \space:P(x) \land \forall y \space (y \ne x \implies \neg P(y))$
-$\equiv \exists x : P(x) \land \neg \exists y (y \ne x \land P(y))$
-
-**Law:**
-$\neg \exists y \space Q(y) \equiv \forall y \space \neg Q(y)$
-$\neg \forall y \space Q(y) \equiv \exists y \space \neg Q(y)$
-
-**Law:**
-$\neg (p \implies q) \equiv \neg (\neg p \lor q) \equiv p \land \neg q$
+**Negated Implication Law:**
+$$\neg (p \to q) \equiv p \land \neg q$$
 
 **Proof:**
-$\neg \exists y \space (y \ne x \land P(y)) \equiv \forall y \space \neg (y \ne x \land P(y))$
-				$\equiv \forall y \space (\neg (y \ne x) \lor (\neg P(y)))$
-				$\equiv \forall y \space (y \ne x \implies \neg P(y))$
+
+<div class="math-left">
+
+$$
+\begin{aligned}
+\neg (p \to q)
+& \equiv \neg (\neg p \lor q) & \text{by definition of implication} \\
+& \equiv p \land \neg q & \text{distributing the negation} \\
+\end{aligned}
+$$
+
+</div>
+
+**Example of this:**
+
+<div class="math-left">
+
+$$
+\begin{aligned}
+\neg \exists y \space (y \ne x \land P(y))
+& \equiv \forall y \space \neg (y \ne x \land P(y)) & \text{by negation law} \\
+& \equiv \forall y \space (\neg (y \ne x) \lor (\neg P(y))) & \text{by de morgans} \\
+& \equiv \forall y \space (y \ne x \to \neg P(y)) & \text{by definition of implication} \\
+\end{aligned}
+$$
+
+</div>
+
+### Unique Existential Quantifier 
+
+**Def**. $\exists! x, P(x)$ is true iff there is **exactly one** $x$ that makes $P(x)$ true. $\exists!$ is the *unique existential quantifier*. It is defined as follows:
+
+$$\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies \neg P(y))$$
+
+**NOTE**. "There exists unique" is not one of the two main quantifiers
+
+**Examples**:
+
+* $\exists ! x : x^2 + 2x + 1 = 0 \equiv T$
+
+* $\exists ! x, P(x)$ means that there exists only one value of $x$ such that $P(x)$ is true
+
+* $\exists ! x : x^2 + 2x+1 = 0 \equiv T$ (x = -1 is the only solution)
+* $\exists! x : x^2 - 1 = 0 \equiv F$ (x = 1 or x = -1)
+
+* $\exists! x \space P(x) :\equiv \exists x \space:P(x) \land \forall y \space (y \ne x \to \neg P(y)) \equiv \exists x : P(x) \land \neg \exists y (y \ne x \land P(y))$
+
 
 ## 4. Introduction to Proofs
 
