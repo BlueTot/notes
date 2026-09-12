@@ -523,66 +523,78 @@ $$
 
 #### Theorem 2
 
-**Theorem 2**. $\forall n \in \mathbb{N}, 1 + (-1)^n(2n-1)$ is divisible by 4
+**Theorem 2.** For every $n \in \mathbb{N}$, the integer $1 + (-1)^n(2n-1)$ is divisible by $4$.
 
-**Proof**.
+<div class="proof">
 
-<div class="math-left">
+**Proof.**
+
+<div class="proof-body">
+
+Every natural number is either even or odd, so we consider the two cases separately.
+
+**Case 1:** Suppose $n$ is even. Then $n = 2k$ for some $k \in \mathbb{N}$, and
 
 $$
-\text{We could consider two cases, } n \text{ is even and } n \text{ is odd.} \\
-\quad \\
-\textbf{Case 1: } n \text{ is even } \iff n = 2k \text{ for some } k \in \mathbb{N} \\
-\quad \quad \begin{aligned}
-1 + (-1)^n(2n-1) 
+\derivation{
+1 + (-1)^n(2n-1)
 &= 1 + (-1)^{2k}(2(2k) - 1) \\
-&= 1 + 4k - 1  \\
-&= 4k \\
-\end{aligned} \\
-\quad \quad \text{Therefore } 1 + (-1)^n(2n-1) \text{ is a multiple of 4 if } n \text{ is even} \\
-\quad \\
-\textbf{Case 2: } n \text{ is odd } \iff n = 2k + 1 \text{ for some } k \in \mathbb{N} \\
-\quad \quad \begin{aligned}
-1 + (-1)^n(2n-1) 
-&= 1 + (-1)^{2k+1}(2(2k+1)-1)  \\
-&= 1 -(4k + 1)  \\
-&= 1 - 4k - 1  \\
-&= -4k \\
-\end{aligned} \\
-\quad \quad \text{Therefore } 1 + (-1)^n(2n-1) \text{ is a multiple of 4 if } n \text{ is odd} \\
-\quad \\
-\text{QED.}
+&= 1 + 4k - 1 \\
+&= 4k.
+}
 $$
+
+Therefore the expression is divisible by $4$ when $n$ is even.
+
+**Case 2:** Suppose $n$ is odd. Then $n = 2k+1$ for some $k \in \mathbb{N}$, and
+
+$$
+\derivation{
+1 + (-1)^n(2n-1)
+&= 1 + (-1)^{2k+1}(2(2k+1)-1) \\
+&= 1 - (4k + 1) \\
+&= -4k.
+}
+$$
+
+Therefore the expression is divisible by $4$ when $n$ is odd. Since the two cases cover every $n \in \mathbb{N}$, the result follows. $\square$
 
 </div>
 
-**NOTE**: make sure that all of the cases cover all of the possibilities (cases do not have to be disjoint)
+</div>
 
-<br/>
+
+**NOTE**: make sure that all of the cases cover all of the possibilities (cases do not have to be disjoint)
 
 #### Theorem 3:
 
 **Theorem 3**. $\sqrt{2} \notin \mathbb{Q}$
 
+<div class="proof">
+
 **Proof:** (by contradiction)
 
-<div class="math-left">
+<div class="proof-body">
 
-$$
-\text{Assume } \sqrt{2} \in \mathbb{Q} \\
-\text{Then, } \sqrt{2} = \frac{n}{m}, n \in \mathbb{N}, m \in \mathbb{N} \setminus \{0\} \\
-\text{ Without loss of generality, } \gcd(n, m) = 1 \\
-\text{We have } 2 = (\sqrt 2)^2 = \frac{n^2}{m^2} \text{ , so } n^2 = 2m^2 \text{ , so } 2|n \\
-\text{So } n = 2k \text{ for some } k \in \mathbb{Z} \\
-\text{But } m^2 = \frac{n^2}{2} = \frac{4k^2}{2} = 2k^2 \text{, so } 2|m \text{ , so } \gcd(n,m) > 1 \\
-\text{This is a contradiction!} \\
-\text{So } \sqrt 2 \notin \mathbb{Q} \\
-\text{QED.}
-$$
+Assume $\sqrt{2} \in \mathbb{Q}$.
+
+Then, $\sqrt{2} = \frac{n}{m}$, $n \in \mathbb{N}$, $m \in \mathbb{N} \setminus \{0\}$.
+
+Without loss of generality, $\gcd(n, m) = 1$.
+
+We have $2 = (\sqrt 2)^2 = \frac{n^2}{m^2}$, so $n^2 = 2m^2$, so $2|n$
+
+So $n = 2k$ for some $k \in \mathbb{Z}$.
+
+But $m^2 = \frac{n^2}{2} = \frac{4k^2}{2} = 2k^2$, so $2|m$, so $\gcd(n,m) > 1$
+
+This is a contradiction!
+
+So $\sqrt{2} \notin \mathbb{Q}$. $\square$
 
 </div>
 
-<br/>
+</div>
 
 #### Theorem 4
 
@@ -664,44 +676,86 @@ $$A \triangle B = (A \setminus B) \cup (B \setminus A)$$
 
 #### Theorem regarding Symmetric Difference
 
-**Theorem**. $A \triangle B \equiv (A \cup B) \setminus (A \cap B)$
-* **Tip**. To prove a *set equality* theorem, we prove one is a subset of the other, and the other way around.
+**Theorem.** $A \triangle B = (A \cup B) \setminus (A \cap B)$.
+* **Tip.** To prove two sets are equal, prove that each is a subset of the other.
 
-**Proof:**
+<div class="proof">
 
-<div class="math-left">
+**Proof.**
+
+<div class="proof-body">
+
+**Forward inclusion $(\subseteq)$.**
+
+<div class="proof-body">
+
+Suppose $x \in A \triangle B$. By definition, $x \in (A \setminus B) \cup (B \setminus A)$, so there are two cases.
+
+**Case 1:** $x \in A \setminus B$.
+
+<div class="proof-body">
 
 $$
-\text{Recall } A = B \equiv \forall x, x \in A \iff x \in B \\
-\quad \\
-\textbf{Subset  } (\subseteq) \textbf{ direction} \\
-\quad \\
-\quad \text{Suppose } x \in A \triangle B \text{ (we need to show that } x \in (A \cup B) \setminus (A \cap B) \text{ )} \\
-\quad \text{Then, } x \in (A \setminus B) \cup (B \setminus A) \\
-\quad \\
-\quad \text{We now divide into two disjoint cases (check venn diagram)} \\
-\quad \\
-\quad \textbf{Case } x \in A \setminus B: \\
-\quad \quad \quad \implies x \in A \land x \notin B \\
-\quad \quad \quad \text{From } x \in A, x \in A \cup B \\
-\quad \quad \quad \text{From } x \notin B, x \notin A \cap B \\
-\quad \quad \quad \implies x \in (A \cup B) \setminus (A \cap B) \\
-\quad \\
-\quad \textbf{Case } x \in B \setminus A: \\
-\quad \quad \quad \implies x \in B \land x \notin A \\
-\quad \quad \quad \text{From } x \in B, x \in A \cup B \\
-\quad \quad \quad \text{From } x \notin A, x \notin A \cap B \\
-\quad \quad \quad \implies x \in (A \cup B) \setminus (A \cap B) \\
-\quad \\
-\textbf{Superset } (\supseteq) \textbf{ direction} \\
-\quad \\
-\quad \text{Proving the other direction: } x \in (A \cup B) \setminus (A \cap A) \implies x \in (A  \setminus B) \cup (B \setminus A) \\
-\quad \text{Left as an exercise :)} \\
+\derivation{
+x \in A \setminus B
+&\implies x \in A \land x \notin B \\
+&\implies x \in A \cup B \land x \notin A \cap B \\
+&\implies x \in (A \cup B) \setminus (A \cap B).
+}
 $$
 
 </div>
 
-<br/>
+**Case 2:** $x \in B \setminus A$.
+
+<div class="proof-body">
+
+$$
+\derivation{
+x \in B \setminus A
+&\implies x \in B \land x \notin A \\
+&\implies x \in A \cup B \land x \notin A \cap B \\
+&\implies x \in (A \cup B) \setminus (A \cap B).
+}
+$$
+
+</div>
+
+Thus, $A \triangle B \subseteq (A \cup B) \setminus (A \cap B)$.
+
+</div>
+
+**Reverse inclusion $(\supseteq)$.**
+
+<div class="proof-body">
+
+Suppose $x \in (A \cup B) \setminus (A \cap B)$. Then $x \in A \cup B$, but $x \notin A \cap B$. Again, there are two cases.
+
+**Case 1:** $x \in A$.
+
+<div class="proof-body">
+
+Since $x \notin A \cap B$, we must have $x \notin B$. Therefore $x \in A \setminus B$, and hence $x \in A \triangle B$.
+
+</div>
+
+**Case 2:** $x \in B$.
+
+<div class="proof-body">
+
+Since $x \notin A \cap B$, we must have $x \notin A$. Therefore $x \in B \setminus A$, and hence $x \in A \triangle B$.
+
+</div>
+
+Thus, $(A \cup B) \setminus (A \cap B) \subseteq A \triangle B$.
+
+</div>
+
+Both inclusions hold, so $A \triangle B = (A \cup B) \setminus (A \cap B)$. $\square$
+
+</div>
+
+</div>
 
 ### Laws of Set Operations
 
