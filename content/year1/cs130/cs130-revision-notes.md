@@ -299,21 +299,17 @@ Hence the definition of implication $p \to q$ is $\neg p \lor q$
 
 **Proof:**
 
-<div class="math-left">
-
 $$
-\begin{aligned}
+\derivation{
 \neg B \to \neg A
 & \equiv \neg(\neg B) \lor \neg A & \text{using the definition of implication} \\
 & \equiv B \lor \neg A & \text{double negation} \\
 & \equiv \neg A \lor B & \text{commutativity} \\
 & \equiv A \to B & \text{using the definition again} \\
-\end{aligned}
+}
 $$
 
 </div>
-
-<br/>
 
 ## 3. Logic of Predicates
 
@@ -391,19 +387,15 @@ Some *queries* we could state are:
 
 **Another example**,
 
-<div class="math-left">
-
 $$
-\begin{aligned}
+\derivation{
 \forall x \in \mathbb{Z} \space (\text{Even}(x) \lor \text{Odd}(x))
 & \equiv T \\
 & \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists y \in \mathbb{Z}, x = 2y + 1)) \\
 & \equiv \forall x \in \mathbb{Z} \space ((\exists y \in \mathbb{Z}, x = 2y) \lor (\exists u \in \mathbb{Z}, x = 2u + 1)) \\
 & \equiv \forall x \in \mathbb{Z} \space \exists y \in \mathbb{Z}, (x = 2y \lor x = 2y + 1) \equiv T \\
-\end{aligned}
+}
 $$
-
-</div>
 
 * Values $u$ and $y$ only exist within the $\exists$ statement, so the two $y$'s are not related at all outside the $\exists$ statement.
 
@@ -432,32 +424,24 @@ $$\neg (p \to q) \equiv p \land \neg q$$
 
 **Proof:**
 
-<div class="math-left">
-
 $$
-\begin{aligned}
+\derivation{
 \neg (p \to q)
 & \equiv \neg (\neg p \lor q) & \text{by definition of implication} \\
 & \equiv p \land \neg q & \text{distributing the negation} \\
-\end{aligned}
+}
 $$
-
-</div>
 
 **Example of this:**
 
-<div class="math-left">
-
 $$
-\begin{aligned}
+\derivation{
 \neg \exists y \space (y \ne x \land P(y))
 & \equiv \forall y \space \neg (y \ne x \land P(y)) & \text{by negation law} \\
 & \equiv \forall y \space (\neg (y \ne x) \lor (\neg P(y))) & \text{by de morgans} \\
 & \equiv \forall y \space (y \ne x \to \neg P(y)) & \text{by definition of implication} \\
-\end{aligned}
+}
 $$
-
-</div>
 
 ### Unique Existential Quantifier 
 
@@ -488,38 +472,41 @@ $$\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies 
 
 **Theorem 1**. If $x \in \mathbb{Z}$ and $5x+3$ is odd, then $x$ is even
 
+<div class="proof">
+
 **Proof 1:**
 
-<div class="math-left">
+<div class= "proof-body">
 
-$$
-\text{Assume } 5x+3 \text{ is odd.} \\
-\text{Then, } 5x = (5x + 3) - 3 \text{ is even, because 3 is odd, and the difference between two odd numbers is even.} \\
-\text{So, } x = \frac{5x}{5} \text{ is even because even / odd is even if the result is an integer.} \\
-\text{QED.} \\
-$$
+Assume $5x+3$ is odd
+
+Then, $5x = (5x + 3) - 3$ is even, because 3 is odd, and the difference between two odd numbers is even.
+
+So, $x = \frac{5x}{5}$ is even because even / odd is even if the result is an integer. $\square$
 
 </div>
 
-<br/>
+</div>
+
+<div class="proof">
 
 **Proof 2:** (by contrapositive)
 
+<div class = "proof-body">
+
 By contrapositive, we try to prove $x$ is odd $\implies$ $5x+3$ is even
 
-<div class="math-left">
+Assume $x$ is odd.
 
-$$
-\text{Assume } x \text{ is odd.} \\
-\text{Then, } x = 2y + 1 \text{ for some } y \in \mathbb{Z} \\
-\text{Then, } 5x + 3 = 5(2y+1) + 3 = 10y + 8 = 2(5y+4) = 2z \text{ for some } z \in \mathbb{Z} \\
-\text{Therefore } 5x + 3 \text{ is even.} \\
-\text{QED.} \\
-$$
+Then, $x = 2y + 1$ for some $y \in \mathbb{Z}$
+
+Then, $5x + 3 = 5(2y+1) + 3 = 10y + 8 = 2(5y+4) = 2z$ for some $z \in \mathbb{Z}$
+
+Therefore $5x + 3$ is even. $\square$
 
 </div>
 
-<br/>
+</div>
 
 #### Theorem 2
 
