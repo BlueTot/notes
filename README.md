@@ -32,10 +32,10 @@ Markdown note files are located in the `content/` directory, separated by year a
 From the repository root, rebuild the complete website with:
 
 ```bash
-make build
+make clean && make build
 ```
 
-`make build` first removes the generated HTML files listed in `.tatum/render-list.json` and the generated `structure.json`. It then renders all notes with the `.tatum/bluetot` template and regenerates the directory structure. Cleaning first prevents Tatum from prompting before overwriting each existing page.
+`make clean` removes the generated HTML files listed in `.tatum/render-list.json` and the generated `structure.json`. `make build` then renders all notes with the `.tatum/bluetot` template and regenerates the directory structure. Cleaning first prevents Tatum from prompting before overwriting each existing page.
 
 To remove the generated files without rebuilding them, run:
 
@@ -56,6 +56,12 @@ node scripts/clean-generated.js
 tatum render-all --template .tatum/bluetot -p
 node scripts/update-dir-structure.js
 ```
+
+### GitHub Pages deployment
+
+Generated pages in `notes/` and the generated `structure.json` are ignored by Git. A push to `main` runs `.github/workflows/pages.yml`, which performs a clean build and deploys the resulting site as a GitHub Pages artifact. The workflow can also be started manually from the repository's **Actions** tab.
+
+In the GitHub repository settings, set **Pages > Build and deployment > Source** to **GitHub Actions**. Build and deployment results are shown in the repository's **Actions** tab.
 
 ### Adding a markdown file
 

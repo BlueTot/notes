@@ -4,7 +4,7 @@ TEMPLATE ?= .tatum/bluetot
 
 .PHONY: build clean
 
-build: clean
+build:
 	$(TATUM) render-all --template $(TEMPLATE) -p
 	$(NODE) scripts/update-dir-structure.js
 
