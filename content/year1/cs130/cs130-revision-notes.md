@@ -133,6 +133,8 @@ E.g.
 * $g : D^n \to D^{n-1}, n \geq 2$
 * This function divides the binary number $x$ by 2 by removing the last digit (bitwise right shift)
 
+<br/>
+
 ## 2. Logic of Propositions
 
 ### Introduction to Propositions
@@ -311,6 +313,8 @@ $$
 
 </div>
 
+<br/>
+
 ## 3. Logic of Predicates
 
 ### Introduction to Predicates
@@ -474,6 +478,7 @@ $$\exists! x, P(x) :\equiv (\exists x, P(x)) \land (\forall y, y \ne x \implies 
 
 * $\exists! x \space P(x) :\equiv \exists x \space:P(x) \land \forall y \space (y \ne x \to \neg P(y)) \equiv \exists x : P(x) \land \neg \exists y (y \ne x \land P(y))$
 
+<br/>
 
 ## 4. Introduction to Proofs
 
@@ -840,57 +845,65 @@ This set contains 4 elements
 
 ## 6. Relations
 
-#### Introduction to Relations
+### Introduction to Relations
 
-**Definition**: A relation between sets $A$ and $B$, 
-		i.e. $R : A \leftrightarrow B$, i.e. $A \underleftrightarrow{R} B$
-		is a set $R \subseteq A \times B$
-Alternative notation is $aRb \iff(a, b) \in R$
+**Def**. A *relation* between sets $A$ and $B$, is a set $R \subseteq A \times B$, denoted 
 
-Examples: 
-- Divisibility Relation: $\{(a, b) \in \mathbb{Z}^2 : a \space| \space b\}$
-- $\{(a, b) \in \{2, 3, 4\} \times \{5, 6, 7, 8\} : a \space | \space b\}$ = $\{(2, 6), (2, 8), (3, 6), (4, 8)\}$
+$$R : A \leftrightarrow B\text{ , i.e. } A \underleftrightarrow{R} B$$
+
+Alternatively, we write $aRb \iff(a, b) \in R$
+
+**Examples**: 
+* Divisibility Relation: $\{(a, b) \in \mathbb{Z}^2 : a \space| \space b\}$
+* $\{(a, b) \in \{2, 3, 4\} \times \{5, 6, 7, 8\} : a \space | \space b\}$ = $\{(2, 6), (2, 8), (3, 6), (4, 8)\}$
 
 Relations can be depicted as a **bipartite graph** between two sets of nodes, elements in A and elements in B, and by drawing edges where $(a, b) \in R \subseteq A \times B$
 
 E.g. $A = B$ = set of all people
-	$P = (a, b) :a$ is a parent of $b \}$
-
-$G = \{(a, b) : (a, c) \in P \land (c, b) \in P$ for some $c\}$
-$aGb \iff \exists c : aPc \land cPb$
+* Parent relation: $P = (a, b) :a$ is a parent of $b \}$
+* Grandparent relation: $G = \{(a, b) : (a, c) \in P \land (c, b) \in P$ for some $c\}$
+* $aGb \iff \exists c : aPc \land cPb$
 
 #### Relation Composition
 
-**Definition**: The composition of two relations $R : A \leftrightarrow B$ and $S : B \leftrightarrow C$ is the relation
-		$R \circ S \equiv \{(a, c) : aRb \land bRc$ for some $b \in B\}$, $(a, b) \in R, (b, c) \in S$
+**Def**: The composition of two relations $R : A \leftrightarrow B$ and $S : B \leftrightarrow C$ is the relation
 
-E.g.
-$R = \{(n, m) \in \{2, 3, ..., 9\}^2 : n = m^2\} = \{(4, 2), (9, 3)\}$
+$$R \circ S \equiv \{(a, c) : aRb \land bRc \text{ for some } b \in B\}, \quad \quad (a, b) \in R, (b, c) \in S$$
 
-E.g.
-$S = \{(m, k) \in \{2, 3, ..., 9\}^2 : m \space | \space k\}$
-$=\{(2, 2), (2, 4), (2, 6), (2, 8), (3, 3), (3, 6), (3, 9), (4, 4), (4, 8), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9)\}$
-
-A relation is said to be **ON** a set if the relation spans between the same set on both sides.
+**Def**. A relation is said to be **ON** a set if the relation spans between the same set on both sides.
 - One copy of the set can be drawn instead of two copies if the relation is **ON** the set.
 - If $(a, a) \in R : A \leftrightarrow A, a \in A$, then a "self-loop" can be drawn going from the number to itself.
 
-$R \circ S = \{(4, 2), (4, 4), (4, 6), (4, 8), (9, 3), (9, 6), (9, 9)\}$
-- Composition of relations is following arrows from the first set in the first relation to the second set in the last relation
+**Analogy**. Composition of relations is following arrows from the first set in the first relation to the second set in the last relation
 
-$S \circ R = \{(2, 2), (4, 2), (3, 3), (9, 3)\}$
+**NOTE**. In general, $R \circ S \ne S \circ R$ (except $R = R, \space R : A \leftrightarrow A$)
 
-Hence in general, $R \circ S \ne S \circ R$ (except $R = R, \space R : A \leftrightarrow A$)
+**Examples**
 
-$< : \mathbb{N} \leftrightarrow \mathbb{N}$
-$> : \mathbb{N} \leftrightarrow \mathbb{N}$
+* Let $R = \{(n, m) \in \{2, 3, ..., 9\}^2 : n = m^2\} = \{(4, 2), (9, 3)\}$
 
-$< \circ >$ relates every natural number to every natural number (e.g. 0 -> 10 and 10  -> 5 so 0 -> 5)
-$< \circ > \space \ne \space > \circ <$ because 0 is not greater than any natural number, so there is no edge coming from 0, but 0 is less than every natural number (exclude 0)
+* Let $S = \{(m, k) \in \{2, 3, ..., 9\}^2 : m \space | \space k\} = \{(2, 2), (2, 4), (2, 6), (2, 8), (3, 3), (3, 6), (3, 9), (4, 4), (4, 8), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9)\}$
+
+* Then, $R \circ S = \{(4, 2), (4, 4), (4, 6), (4, 8), (9, 3), (9, 6), (9, 9)\}$
+
+* $S \circ R = \{(2, 2), (4, 2), (3, 3), (9, 3)\}$
+	* observe that $R \circ S \ne S \circ R$
+
+
+Another example is the **less than relation**, which is defined as
+$$< : \mathbb{N} \leftrightarrow \mathbb{N}$$
+
+and the **greater than relation**:
+
+$$> : \mathbb{N} \leftrightarrow \mathbb{N}$$
+
+The composition of them, $< \circ >$, relates every natural number to every natural number (e.g. 0 -> 10 and 10  -> 5 so 0 -> 5).
+
+But $< \circ > \space \ne \space > \circ <$, because 0 is not greater than any natural number, so there is no edge coming from 0, but 0 is less than every natural number (exclude 0)
 
 #### Inverse of a Relation
 
-**Definition:** The inverse of a relation $R : A \leftrightarrow B$ is the relation $R^{-1} = \{(b, a) : aRb\}$
+**Def**. The inverse of a relation $R : A \leftrightarrow B$ is the relation $R^{-1} = \{(b, a) : aRb\}$
 - e.g. $> = <^{-1}$, $< = >^{-1}$
 
 The empty set is its own inverse: $\emptyset ^{-1} = \emptyset$
@@ -906,11 +919,23 @@ $S^{-1} \circ R^{-1} \equiv (R \circ S) ^{-1}$
 
 Consider a relation $R$ **on** a set $S$, defined as $R : S \leftrightarrow S$
 
-**Reflexive:** $\forall x \in S : \space xRx$ -> every element is related to itself
-**Symmetric:** $\forall x, y \in S : \space xRy \implies yRx$
-- $\forall x, y \in S \equiv \forall x \in S, \forall y \in S$
-**Anti-symmetric:** $\forall x, y \in S : (xRy \land yRx) \implies x = y$
-**Transitive:** $\forall x, y, z \in S : (xRy \land yRz) \implies xRz$
+**Def**. A relation $R$ is *reflexive* if every element is related to itself, i.e. 
+
+$$\forall x \in S : \space xRx$$
+
+**Def**. A relation $R$ is *symmetric* if $aRb$, then $bRa$, i.e.
+
+$$\forall x, y \in S : \space xRy \to yRx$$
+
+* note. $\forall x, y \in S \equiv \forall x \in S, \forall y \in S$
+
+**Def**. A relation $R$ is *anti-symmetric* if we have $aRb$ and $bRa$, then $a = b$, i.e.
+
+$$\forall x, y \in S : (xRy \land yRx) \to x = y$$
+
+**Def**. A relation $R$ is *transitive* if $aRb$ and $bRc$, then $aRc$, i.e.
+
+$$\forall x, y, z \in S : (xRy \land yRz) \to xRz$$
 
 #### Examples (on $\mathbb{Z}$)
 
@@ -953,15 +978,21 @@ Consider the relation $\subseteq$
 - It is anti-symmetric, as if $X \subseteq Y \land Y \subseteq X \equiv X = Y$
 - It is transitive, as if $X \subseteq Y$ and $Y \subseteq Z$, every element of $X$ is in $Y$, and every element of $Y$ is in $Z$, so every element of $X$ is in $Z$
 
-#### Equivalence and Partial Order Relations
+### Equivalence and Partial Order Relations
 
-**Definition:** A relation $R$ on a set $S$ is an **equivalence** relation if it is *reflexive, symmetric and transitive*
+**Def**. A relation $R$ on a set $S$ is an **equivalence** relation if it is
+* reflexive, 
+* symmetric,
+* and transitive.
 
-**Definition:** A relation $R$ on a set $S$ is a **partial order** if it is *reflexive, anti-symmetric and transitive*
+**Def**. A relation $R$ on a set $S$ is a **partial order** if it is 
+* reflexive, 
+* **anti-symmetric**,
+* and transitive.
 
-**Definition:** A total relation is a partial-order relation if also $\forall x, y \in S, xRy \lor yRx$
+**Def**. A total relation is a partial-order relation if also $\forall x, y \in S, xRy \lor yRx$
 
-**Note:** An equivalence relation can be depicted as diving a set into partitions, were each partition has an **equivalence class*
+**Analogy**. An equivalence relation can be depicted as diving a set into partitions, were each partition has an *equivalence class*
 
 #### Equivalence Relations
 
