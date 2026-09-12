@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <title>{{ title }}</title>
 
-        <!-- Simplecss stylesheet -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <!-- KaTeX stylesheet -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css"
+            integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous">
 
         <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js"
+        integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj"
         crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
@@ -52,14 +52,43 @@
                         element.classList.contains("display") ||
                         element.classList.contains("math-display");
 
-                katex.render(content, element, {
-                    throwOnError: false,
-                    macros,
-                    displayMode: isDisplayMath
-                });
+                // \derivation expands to an aligned environment and is left-aligned
+                // automatically, so Markdown does not need a math-left HTML wrapper.
+                const isDerivation =
+                    isDisplayMath && /^\\derivation\s*\{/.test(content);
 
                 if (isDisplayMath) {
                     element.classList.add("math-display");
+                }
+
+                if (isDerivation) {
+                    element.classList.add("math-left", "math-derivation");
+                }
+
+                const renderOptions = {
+                    throwOnError: true,
+                    macros,
+                    displayMode: isDisplayMath,
+                    strict: "warn"
+                };
+
+                try {
+                    katex.render(content, element, renderOptions);
+                } catch (error) {
+                    const message = error instanceof Error
+                        ? error.message
+                        : String(error);
+
+                    console.error("KaTeX render error:", content, error);
+                    element.classList.add("math-error");
+                    element.title = message;
+
+                    // Preserve KaTeX's readable red-source fallback while also
+                    // surfacing the error in the console and element tooltip.
+                    katex.render(content, element, {
+                        ...renderOptions,
+                        throwOnError: false
+                    });
                 }
             }
 

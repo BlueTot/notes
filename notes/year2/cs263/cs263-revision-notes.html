@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <title>revision-notes.md</title>
 
-        <!-- Simplecss stylesheet -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-            integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+        <!-- KaTeX stylesheet -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css"
+            integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous">
 
         <!-- Default katex stylesheets & scripts -->
         <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-        integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js"
+        integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj"
         crossorigin="anonymous"></script>
 
         <!-- Highlight.js setup - simplified and corrected -->
@@ -157,6 +157,58 @@ th {
     color: var(--fg);
 }
 
+.proof {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--purple);
+    background-color: var(--surface);
+    color: var(--fg);
+    font-family: "KaTeX_Main", "Times New Roman", serif;
+    font-style: normal;
+    line-height: 1.45;
+}
+
+.proof p {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.proof > :first-child {
+    margin-top: 0;
+}
+
+.proof > :last-child {
+    margin-bottom: 0;
+}
+
+.proof-body {
+    margin-top: 0.15rem;
+    margin-left: 1.5rem;
+}
+
+.proof-body > :first-child {
+    margin-top: 0;
+}
+
+.proof-body > :last-child {
+    margin-bottom: 0;
+}
+
+.proof-body .katex-display {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.proof .math-inline .katex {
+    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+    .proof-body {
+        margin-left: 1rem;
+    }
+}
+
 .math-left .katex-display {
     text-align: left !important;
     margin-left: 0 !important;
@@ -165,6 +217,16 @@ th {
 
 .math-left .katex-display > .katex {
     text-align: left !important;
+}
+
+.math-derivation {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.math-error {
+    border-left: 3px solid #cc0000;
+    padding-left: 0.75rem;
 }
 
 
@@ -177,7 +239,8 @@ th {
     "\\Z": "\\mathbb{Z}",
     "\\N": "\\mathbb{N}",
     "\\vv": ["\\vec{#1}", 1],
-    "\\bb": ["\\textbf{#1}", 1]
+    "\\bb": ["\\textbf{#1}", 1],
+    "\\derivation": ["\\begin{aligned}#1\\end{aligned}", 1]
 };
 ;
         </script>
@@ -207,14 +270,43 @@ th {
                         element.classList.contains("display") ||
                         element.classList.contains("math-display");
 
-                katex.render(content, element, {
-                    throwOnError: false,
-                    macros,
-                    displayMode: isDisplayMath
-                });
+                // \derivation expands to an aligned environment and is left-aligned
+                // automatically, so Markdown does not need a math-left HTML wrapper.
+                const isDerivation =
+                    isDisplayMath && /^\\derivation\s*\{/.test(content);
 
                 if (isDisplayMath) {
                     element.classList.add("math-display");
+                }
+
+                if (isDerivation) {
+                    element.classList.add("math-left", "math-derivation");
+                }
+
+                const renderOptions = {
+                    throwOnError: true,
+                    macros,
+                    displayMode: isDisplayMath,
+                    strict: "warn"
+                };
+
+                try {
+                    katex.render(content, element, renderOptions);
+                } catch (error) {
+                    const message = error instanceof Error
+                        ? error.message
+                        : String(error);
+
+                    console.error("KaTeX render error:", content, error);
+                    element.classList.add("math-error");
+                    element.title = message;
+
+                    // Preserve KaTeX's readable red-source fallback while also
+                    // surfacing the error in the console and element tooltip.
+                    katex.render(content, element, {
+                        ...renderOptions,
+                        throwOnError: false
+                    });
                 }
             }
 
