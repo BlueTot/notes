@@ -27,21 +27,41 @@ A github pages hosted website for Warwick Computer Science revision notes. Visit
 
 ### Rerendering Notes
 
-Markdown note files are located in the `content/` directory, separated by year and module. The HTML rendered notes are located in the `notes/` directory. To re-render notes, the `tatum` tool is required. You can find it on my github [here](https://github.com/BlueTot/tatum). To rerender notes, do the following:
+Markdown note files are located in the `content/` directory, separated by year and module. The rendered HTML notes are located in the `notes/` directory. Building requires [Tatum](https://github.com/BlueTot/tatum), Node.js, and GNU Make.
 
-1. Render all notes to HTML using `tatum`. From the repo root, run
+From the repository root, rebuild the complete website with:
 
-    ```bash
-    tatum render-all --template .tatum/bluetot -p
-    ```
+```bash
+make clean && make build
+```
 
-    (or choose any template as you wish)
+`make clean` removes the generated HTML files listed in `.tatum/render-list.json` and the generated `structure.json`. `make build` then renders all notes with the `.tatum/bluetot` template and regenerates the directory structure. Cleaning first prevents Tatum from prompting before overwriting each existing page.
 
-2. Update the directory structure
+To remove the generated files without rebuilding them, run:
 
-    ```bash
-    node scripts/update-dir-structure.js
-    ```
+```bash
+make clean
+```
+
+The cleanup script validates that every render target is an HTML file under `notes/`; it does not delete unlisted files. To inspect what it would remove without changing anything, run:
+
+```bash
+node scripts/clean-generated.js --dry-run
+```
+
+Without Make, the equivalent manual workflow is:
+
+```bash
+node scripts/clean-generated.js
+tatum render-all --template .tatum/bluetot -p
+node scripts/update-dir-structure.js
+```
+
+### GitHub Pages deployment
+
+Generated pages in `notes/` and the generated `structure.json` are ignored by Git. A push to `main` runs `.github/workflows/pages.yml`, which performs a clean build and deploys the resulting site as a GitHub Pages artifact. The workflow can also be started manually from the repository's **Actions** tab.
+
+In the GitHub repository settings, set **Pages > Build and deployment > Source** to **GitHub Actions**. Build and deployment results are shown in the repository's **Actions** tab.
 
 ### Adding a markdown file
 
