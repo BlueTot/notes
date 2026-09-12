@@ -5,5 +5,6 @@ window.katexMacros = {
     "\\Z": "\\mathbb{Z}",
     "\\N": "\\mathbb{N}",
     "\\vv": ["\\vec{#1}", 1],
-    "\\bb": ["\\textbf{#1}", 1]
+    "\\bb": ["\\textbf{#1}", 1],
+    "\\derivation": ["\\begin{aligned}#1\\end{aligned}", 1]
 };

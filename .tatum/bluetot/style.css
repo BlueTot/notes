@@ -134,6 +134,25 @@ th {
     color: var(--fg);
 }
 
+.proof {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--purple);
+    background-color: var(--surface);
+    color: var(--fg);
+    font-family: "KaTeX_Main", "Times New Roman", serif;
+    font-style: normal;
+    line-height: 1.65;
+}
+
+.proof > :first-child {
+    margin-top: 0;
+}
+
+.proof > :last-child {
+    margin-bottom: 0;
+}
+
 .math-left .katex-display {
     text-align: left !important;
     margin-left: 0 !important;
@@ -142,5 +161,15 @@ th {
 
 .math-left .katex-display > .katex {
     text-align: left !important;
+}
+
+.math-derivation {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.math-error {
+    border-left: 3px solid #cc0000;
+    padding-left: 0.75rem;
 }
 
