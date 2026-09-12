@@ -165,7 +165,12 @@ th {
     color: var(--fg);
     font-family: "KaTeX_Main", "Times New Roman", serif;
     font-style: normal;
-    line-height: 1.65;
+    line-height: 1.45;
+}
+
+.proof p {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }
 
 .proof > :first-child {
@@ -174,6 +179,34 @@ th {
 
 .proof > :last-child {
     margin-bottom: 0;
+}
+
+.proof-body {
+    margin-top: 0.15rem;
+    margin-left: 1.5rem;
+}
+
+.proof-body > :first-child {
+    margin-top: 0;
+}
+
+.proof-body > :last-child {
+    margin-bottom: 0;
+}
+
+.proof-body .katex-display {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.proof .math-inline .katex {
+    font-size: 1em;
+}
+
+@media (max-width: 600px) {
+    .proof-body {
+        margin-left: 1rem;
+    }
 }
 
 .math-left .katex-display {
