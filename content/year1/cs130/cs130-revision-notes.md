@@ -641,141 +641,202 @@ $$
 
 ## 5. More on Sets
 
-#### Set Operations
-- **Set Intersection** - $A \cap B \equiv \{x \space | \space x \in A \land x \in B\}$
-- **Set Difference** - $A \setminus B \equiv \{x \space | \space x \in A \land \neg x \in B\}$
-	- $\neg x \in B \equiv x \notin B$
-- **Symmetric Difference** - $A \triangle B = (A \setminus B) \cup (B \setminus A)$
-	- Analogous to the XOR operation in propositional logic
+### Set Operations
+
+**Def**. *Set Intersection* takes items that are in both sets. It is formally defined as
+
+$$A \cap B \equiv \{x \space | \space x \in A \land x \in B\}$$
+
+**Def**. *Set Difference* takes items that are in $A$ but not in $B$. It is formally defined as 
+
+$$A \setminus B \equiv \{x \space | \space x \in A \land \neg x \in B\}$$
+
+where $\neg x \in B \equiv x \notin B$. Note that it is not symmetrical, so $A \setminus B \ne B \setminus A$.
+
+**Def**. *Symmetric difference* is the union of the two set differences, which is analogous to the XOR operation in propositional logic. It is defined as
+
+$$A \triangle B = (A \setminus B) \cup (B \setminus A)$$
 
 #### Theorem regarding Symmetric Difference
 
-$A \triangle B \equiv (A \cup B) \setminus (A \cap B)$
+**Theorem**. $A \triangle B \equiv (A \cup B) \setminus (A \cap B)$
+* **Tip**. To prove a *set equality* theorem, we prove one is a subset of the other, and the other way around.
 
 **Proof:**
 
-Recall $A = B \equiv \forall x, x \in A \iff x \in B$
+<div class="math-left">
 
-**SUBSET direction**
-Suppose $x \in A \triangle B$ (we need to show that $x \in (A \cup B) \setminus (A \cap B)$)
-$\implies x \in (A \setminus B) \cup (B \setminus A)$
+$$
+\text{Recall } A = B \equiv \forall x, x \in A \iff x \in B \\
+\quad \\
+\textbf{Subset  } (\subseteq) \textbf{ direction} \\
+\quad \\
+\quad \text{Suppose } x \in A \triangle B \text{ (we need to show that } x \in (A \cup B) \setminus (A \cap B) \text{ )} \\
+\quad \text{Then, } x \in (A \setminus B) \cup (B \setminus A) \\
+\quad \\
+\quad \text{We now divide into two disjoint cases (check venn diagram)} \\
+\quad \\
+\quad \textbf{Case } x \in A \setminus B: \\
+\quad \quad \quad \implies x \in A \land x \notin B \\
+\quad \quad \quad \text{From } x \in A, x \in A \cup B \\
+\quad \quad \quad \text{From } x \notin B, x \notin A \cap B \\
+\quad \quad \quad \implies x \in (A \cup B) \setminus (A \cap B) \\
+\quad \\
+\quad \textbf{Case } x \in B \setminus A: \\
+\quad \quad \quad \implies x \in B \land x \notin A \\
+\quad \quad \quad \text{From } x \in B, x \in A \cup B \\
+\quad \quad \quad \text{From } x \notin A, x \notin A \cap B \\
+\quad \quad \quad \implies x \in (A \cup B) \setminus (A \cap B) \\
+\quad \\
+\textbf{Superset } (\supseteq) \textbf{ direction} \\
+\quad \\
+\quad \text{Proving the other direction: } x \in (A \cup B) \setminus (A \cap A) \implies x \in (A  \setminus B) \cup (B \setminus A) \\
+\quad \text{Left as an exercise :)} \\
+$$
 
-Divide into two disjoint cases (check venn diagram)
-**Case** $x \in $A \setminus B$:
-	$\implies x \in A \land x \notin B$
-	From $x \in A, x \in A \cup B$
-	From $x \notin B, x \notin A \cap B$
-	$\implies x \in (A \cup B) \setminus (A \cap B)$
-Case $x \in B \setminus A$:
-	$\implies x \in B \land x \notin A$
-	From $x \in B, x \in A \cup B$ 
-	From $x \notin A, x \notin A \cap B$
-	$\implies x \in (A \cup B) \setminus (A \cap B)$
+</div>
 
-**SUPERSET direction**
-Proving the other direction: $x \in (A \cup B) \setminus (A \cap A) \implies x \in (A  \setminus B) \cup (B \setminus A)$
+<br/>
 
-#### Laws of Set Operations
+### Laws of Set Operations
 
 **Associativity**
-$(A \cup B) \cup C \equiv A \cup (B \cup C)$
-$(A \cap B) \cap C \equiv A \cap (B \cap C)$
+* $(A \cup B) \cup C \equiv A \cup (B \cup C)$
+* $(A \cap B) \cap C \equiv A \cap (B \cap C)$
 
 **Commutativity**
-$A \cup B \equiv B \cup A$
-$A \cap B \equiv B \cap A$
+* $A \cup B \equiv B \cup A$
+* $A \cap B \equiv B \cap A$
 
 **Distributivity**
-$A \cup (B \cap C) \equiv (A \cup B) \cap (A \cup C)$
-$A \cap (B \cup C) \equiv (A \cap B) \cup (A \cap C)$
+* $A \cup (B \cap C) \equiv (A \cup B) \cap (A \cup C)$
+* $A \cap (B \cup C) \equiv (A \cap B) \cup (A \cap C)$
 
 **Idempotence**
-$A \cup A \equiv A$
-$A \cap A \equiv A$
+* $A \cup A \equiv A$
+* $A \cap A \equiv A$
 
-If $A \subseteq U$, where $U$ is the universal set, then:
+Now, if $A \subseteq U$, where $U$ is the universal set, then:
 
 **Annihilation**
-$A \cap \emptyset \equiv \emptyset$
-$A \cup U \equiv U$
+* $A \cap \emptyset \equiv \emptyset$
+* $A \cup U \equiv U$
 
 **Identity**
-$A \cup \emptyset \equiv A$
-$A \cap U \equiv A$
+* $A \cup \emptyset \equiv A$
+* $A \cap U \equiv A$
 
-- $U$ plays the role of $T$ in propositional logic
-- $\emptyset$ plays the role of $F$ in propositional logic
+**Analogy**
+* $U$ plays the role of $T$ in propositional logic
+* $\emptyset$ plays the role of $F$ in propositional logic
 
 From there, we can define the equivalent of "negation" in propositional logic:
 
 **Complement**
-$\bar{A}^U$ = $U \setminus A$
+* $\bar{A}^U$ = $U \setminus A$
 
-#### Cartesian Product
+<br/>
 
-**Definition**: The cartesian product of sets $A$ and $B$ is:
-$A \times B \equiv \{(a, b) : a \in A$ and $b \in B\}$
+### Cartesian Product
 
-In general, $(a, b) \ne (b, a)$ (except $a = b$), as this is an ordered pair
-$\{a, b\} \equiv \{b, a\}$ because sets are unordered
+**Def**: The cartesian product of sets $A$ and $B$, $A \times B$, is defined as
 
-$A \times B \times C$ = $\{(a, b, c) : a \in A, b \in B,  c \in C\}$
-- defined as the set of ordered triplets from $A, B, C$
+$$A \times B \equiv \{(a, b) : a \in A \text{ and } b \in B\}$$
 
-$(A \times B) \times C$ is generally not the same as $A \times (B \times C)$
-The first one contains elements $((a, b), c)$, and the second one contains elements $(a, (b, c))$
+**NOTE**. In general, $(a, b) \ne (b, a)$ (except $a = b$), as this is an ordered pair
+* $\{a, b\} \equiv \{b, a\}$ because sets are unordered
+
+The set $A \times B \times C$  is defined as the set of ordered triplets from $A, B, C$. It is defined as
+
+$$A \times B \times C = \{(a, b, c) : a \in A, b \in B, c \in C\}$$
+
+* We define it this way, because $(A \times B) \times C$ is generally not the same as $A \times (B \times C)$
+* The first one contains elements $((a, b), c)$, and the second one contains elements $(a, (b, c))$
 
 The Cartesian Product is **NOT** commutative
 $A \times B \ne B \times A$ in general
 
-#### Power Set
+<br/>
 
-**Power Set**: The power set of a set $A$ is:
-$2^A = \{X : X \subseteq A\}$ = The set of all subsets of $A$
+### Power Set
 
-$2^{\{a, b, c\}} \equiv \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}$
+**Def**. The *power set* of a set $A$ is the **set of all subsets** of $A$. It is defined as
+
+$$2^A = \{X : X \subseteq A\}$$
+
+**Example**. $2^{\{a, b, c\}} \equiv \{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\}, \{a, c\}, \{b, c\}, \{a, b, c\}\}$
 
 The motivation for this notation is that the number of subsets of a set $A$ is $2^{|A|}$
+
 So for finite sets $A$, $|2^A| = 2^{|A|}$
-- This is because there is a binary choice for whether an element is IN, or OUT.
-- So the cardinality of the power set is $2$ multiplied $n$ times, where $n$ is the cardinality of the set.
+* This is because there is a binary choice for whether an element is IN, or OUT.
+* So the cardinality of the power set is $2$ multiplied $n$ times, where $n$ is the cardinality of the set.
 
 For finite sets $A$ and $B$, we have $|A \times B| = |A| \times |B|$
 
-Note: $2^{\emptyset} = \{\emptyset\}$
-Note: $2^{2^{\emptyset}} = 2^{\{\emptyset\}} = \{\emptyset, \{\emptyset\}\}$, so $|2^{2^{\emptyset}}| = 2^{2^0} = 2^1 = 2$
+**NOTE**. $2^{\emptyset} = \{\emptyset\}$
 
-#### Big Intersection and Big Union Operators
+**NOTE**. $2^{2^{\emptyset}} = 2^{\{\emptyset\}} = \{\emptyset, \{\emptyset\}\}$, so $|2^{2^{\emptyset}}| = 2^{2^0} = 2^1 = 2$
 
-**Notation:**
-$a \space| \space b$ if and only if $\exists k \in \mathbb{Z}, b = ak$
-- read "a divides b"
-- equivalent to $b \bmod a = 0$
-- equivalent to $b \equiv 0 \pmod a$
+<br/>
 
-$\{k \in \mathbb{Z} : 2\space |\space b\}$ is the set of all even integers
+### Big Intersection and Big Union Operators
+
+**Def**. The **big union** $(\bigcup)$ of sets $X_1, \cdots, X_n$ is defined as
+
+$$\bigcup_{i=1}^n X_i = X_1 \cup X_2 \cup \cdots \cup X_n$$
+
+**Def**. The **big intersection** $(\bigcap)$ of sets $X_1, \cdots, X_n$ is defined as
+
+$$\bigcap_{i=1}^n X_i = X_1 \cap X_2 \cap \cdots \cap X_n$$
+
+This is similar to $\sum$ being the big summation symbol, $1+2+...+n = \sum_{i=1}^n{i}$
+
+
+#### Example
+
+**Def**. We say $a$ divides $b$, or $a \space| \space b$, if and only if $\exists k \in \mathbb{Z}, b = ak$
+* this is equivalent to $b \bmod a = 0$
+* also equivalent to $b \equiv 0 \pmod a$
+
+So, $\{k \in \mathbb{Z} : 2\space |\space b\}$ is the set of all even integers
 
 Lets define some new notation:
 	$D_a = \{k \in \mathbb{Z} : a \space | \space b\}$
-- Using this notation, the above set is $D_2$
+* Using this notation, the above set is $D_2$
 
-$\{b \in \mathbb{Z} : \forall \space prime \space a < 7, a | b\}$  = all the multiples of 30
-= $\{k \in \mathbb{Z} : 2 \space | \space b \land 3 \space | \space b \land 5 \space | \space b\}$ 
-= $\{k \in \mathbb{Z} : b \in D_2 \land b \in D_3 \land b \in D_5\}$
-= $D_2 \cap D_3 \cap D_5$
-= $\bigcap_{a \in \{2, 3, 5\}}{D_a}$
-- where the $\bigcap$ symbol is the big intersection symbol
-- Similar to $\sum$ being the big summation symbol, $1+2+...+n = \sum_{i=1}^n{i}$
-- Can also write like $\bigcap{\{D_2, D_3, D_5\}}$
+Now we have
 
-Let $P = \{a \in \mathbb{N} : a \space is \space prime\}$
+<div class="math-left">
 
-$\bigcup_{a \in P}{D_a}$ = $\mathbb{Z} \setminus \{1, -1\}$
-$\bigcap_{a \in P}{D_a} = \{0\}$
+$$
+\begin{aligned}
+\{b \in \mathbb{Z} : \forall \text{ prime } a < 7, a | b\}
+&= \text{all the multiples of 30} \\
+&= \{k \in \mathbb{Z} : 2 \space | \space b \land 3 \space | \space b \land 5 \space | \space b\} \\
+&= \{k \in \mathbb{Z} : b \in D_2 \land b \in D_3 \land b \in D_5\} \\
+&= D_2 \cap D_3 \cap D_5 \\
+&= \bigcap_{a \in \{2, 3, 5\}}{D_a} \\
+&= \bigcap{\{D_2, D_3, D_5\}} \\
+\end{aligned}
+$$
 
-e.g. the Big Union $\bigcup$
-$\bigcup{\{\emptyset, \{1, 2\}, \{\emptyset\}, \{1, \{2\}\}\}}$ = $\{1, 2, \emptyset, \{2\}\}$
-- contains 4 elements
+</div>
+
+
+Now, let $P = \{a \in \mathbb{N} : a \text{ is prime} \}$
+
+$$\bigcup_{a \in P}{D_a} = \mathbb{Z} \setminus \{1, -1\}$$
+
+$$\bigcap_{a \in P}{D_a} = \{0\}$$
+
+**Another example**:
+
+$$\bigcup{\{\emptyset, \{1, 2\}, \{\emptyset\}, \{1, \{2\}\}\}} = \{1, 2, \emptyset, \{2\}\}$$
+
+This set contains 4 elements
+
+<br/>
 
 ## 6. Relations
 
